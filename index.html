@@ -44,7 +44,7 @@
         <a class="icon-btn" href="https://x.com/use_vector" target="_blank" rel="noopener" aria-label="Follow us on X">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l7.5 9.6L3.3 21h2.4l6-6.9 4.7 6.9H21l-7.8-10L20.4 3h-2.4l-5.5 6.4L7.4 3H3z"/></svg>
         </a>
-        <button class="btn btn-white" type="button">Open terminal</button>
+        <a class="btn btn-white" href="https://x.com/use_vector" target="_blank" rel="noopener">Open terminal</a>
         <button class="menu-toggle" type="button" aria-label="Menu" aria-expanded="false">
           <svg viewBox="0 0 20 16" aria-hidden="true"><path d="M0 1h20M0 8h20M0 15h20"/></svg>
         </button>
@@ -69,7 +69,7 @@
         <p class="hero-sub">Stop juggling five trades to play one idea. Vector bundles a handful of assets into a single trade — one margin, one exit, one price to watch.</p>
 
         <div class="hero-actions">
-          <button class="btn btn-white btn-lg" type="button">Open terminal</button>
+          <a class="btn btn-white btn-lg" href="https://x.com/use_vector" target="_blank" rel="noopener">Open terminal</a>
           <a class="btn-link" href="https://x.com/use_vector" target="_blank" rel="noopener">Book a walkthrough <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1l6 4-6 4"/></svg></a>
         </div>
 
@@ -128,21 +128,52 @@
     <!-- ============ STATS STRIP ============ -->
     <section class="stats" id="markets">
       <div class="stats-inner">
-        <div class="stat reveal">
+        <div class="stat">
           <div class="stat-label">▸ OPEN INTEREST</div>
           <div class="stat-value">$184.2M</div>
         </div>
-        <div class="stat reveal">
+        <div class="stat">
           <div class="stat-label">▸ ACTIVE INDICES</div>
           <div class="stat-value">6</div>
         </div>
-        <div class="stat reveal">
+        <div class="stat">
           <div class="stat-label">▸ UNDERLYING ASSETS</div>
           <div class="stat-value">25</div>
         </div>
-        <div class="stat reveal">
+        <div class="stat">
           <div class="stat-label">▸ FUNDING (8H)</div>
           <div class="stat-value accent">+0.014%</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FEATURES ============ -->
+    <section class="features">
+      <div class="features-inner">
+        <h2 class="section-title">Built for <em>one thing.</em></h2>
+        <p class="features-sub">No lending, no yield farms, no ten-tab dashboard. Just a clean way to take one view on a basket of assets.</p>
+
+        <div class="features-grid">
+          <div class="feature">
+            <div class="feature-label">▸ FIXED WEIGHTS</div>
+            <div class="feature-title">Set once, never drift</div>
+            <div class="feature-sub">Weights are locked in when an index is created. Want a different mix? Create a new index — the old one never quietly rebalances under you.</div>
+          </div>
+          <div class="feature">
+            <div class="feature-label">▸ PERMISSIONLESS POOLS</div>
+            <div class="feature-title">Anyone can list an index</div>
+            <div class="feature-sub">Seed a pool for the basket you believe in. The pool's own liquidity is what prices the index — no order book, no market maker required.</div>
+          </div>
+          <div class="feature">
+            <div class="feature-label">▸ ONE MARGIN ACCOUNT</div>
+            <div class="feature-title">A single number to manage</div>
+            <div class="feature-sub">Margin, funding, and liquidation all apply to the position as a whole, not to each leg — so there's one health number to watch, not five.</div>
+          </div>
+          <div class="feature">
+            <div class="feature-label">▸ BROWSE WITHOUT A WALLET</div>
+            <div class="feature-title">Look before you connect</div>
+            <div class="feature-sub">Markets, indices, and pool depth are all visible without connecting anything. You only need a wallet the moment you open a position.</div>
+          </div>
         </div>
       </div>
     </section>
@@ -154,7 +185,7 @@
         <a class="btn-link center" href="https://x.com/use_vector" target="_blank" rel="noopener">Book a walkthrough <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1l6 4-6 4"/></svg></a>
 
         <div class="how-grid">
-          <div class="step-card reveal">
+          <div class="step-card">
             <div class="step-head"><span class="step-num">01</span><span class="step-word">Discover</span></div>
             <div class="step-media">
               <div class="step-media-inner">▸ INDEX REGISTRY</div>
@@ -162,7 +193,7 @@
             <div class="step-title">Pick a thesis</div>
             <div class="step-sub">Browse ready-made baskets of assets with weights that never quietly change — no rebalancing, no surprises.</div>
           </div>
-          <div class="step-card reveal">
+          <div class="step-card">
             <div class="step-head"><span class="step-num">02</span><span class="step-word">Create</span></div>
             <div class="step-media">
               <div class="step-media-inner">▸ WEIGHT EDITOR</div>
@@ -170,7 +201,7 @@
             <div class="step-title">Build your own</div>
             <div class="step-sub">Pick your own mix of assets and weights — the price is drawn straight from the pool, no middleman.</div>
           </div>
-          <div class="step-card reveal">
+          <div class="step-card">
             <div class="step-head"><span class="step-num">03</span><span class="step-word">Position</span></div>
             <div class="step-media">
               <div class="step-media-inner">▸ ONE LIQUIDATION</div>
@@ -182,13 +213,43 @@
       </div>
     </section>
 
+    <!-- ============ FAQ ============ -->
+    <section class="faq">
+      <div class="faq-inner">
+        <h2 class="section-title">Questions, <em>answered.</em></h2>
+
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary>What is an index perpetual?</summary>
+            <p>A single derivative contract that tracks a basket of assets at fixed weights. Instead of opening five separate trades to express one view, you open one — with one margin, one exit, and one liquidation level covering the whole basket.</p>
+          </details>
+          <details class="faq-item">
+            <summary>How are the weights decided?</summary>
+            <p>Weights are set once, when the index is created, and don't rebalance on their own. If the mix stops matching your thesis, you close the position or move to a different index — the weights themselves never silently drift.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Where does the price come from?</summary>
+            <p>Directly from the pool backing that index, priced against its constituent assets — there's no order book or market maker standing in between you and the basket.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Do I need a wallet to look around?</summary>
+            <p>No. Markets, indices, and pool depth are all public and browsable without connecting anything. A wallet is only needed once you're ready to open a position.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Can anyone create an index?</summary>
+            <p>Yes. Anyone can define a basket, set its fixed weights, and seed the pool that prices it — that pool's liquidity is what makes the index tradeable for everyone else.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ CTA ============ -->
     <section class="cta" id="create">
-      <div class="cta-inner reveal">
+      <div class="cta-inner">
         <h2 class="cta-title">A new kind of position needs <em>a new kind of terminal.</em></h2>
         <div class="cta-actions">
           <a class="btn-link" href="https://x.com/use_vector" target="_blank" rel="noopener">Book a walkthrough <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1l6 4-6 4"/></svg></a>
-          <button class="btn btn-white btn-lg" type="button">Open terminal</button>
+          <a class="btn btn-white btn-lg" href="https://x.com/use_vector" target="_blank" rel="noopener">Open terminal</a>
         </div>
       </div>
     </section>
@@ -223,7 +284,6 @@
   </footer>
 
   <script src="src/sphere.js"></script>
-  <script src="src/reveal.js"></script>
   <script src="src/nav.js"></script>
 </body>
 </html>
