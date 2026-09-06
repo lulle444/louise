@@ -54,7 +54,7 @@
       const a = pts[i - 1], b = pts[i];
       const depth = (a.z + b.z) / 2; // -R..R
       const alpha = baseAlpha * (0.35 + 0.65 * ((depth / R) * 0.5 + 0.5));
-      ctx.strokeStyle = `rgba(60, 74, 22, ${alpha.toFixed(3)})`;
+      ctx.strokeStyle = `rgba(255, 255, 255, ${alpha.toFixed(3)})`;
       ctx.lineWidth = 1;
       ctx.beginPath();
       ctx.moveTo(a.x, a.y);
