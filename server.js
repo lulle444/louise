@@ -1,4 +1,4 @@
-// Static file server for Gloamfang + a tiny dependency-free multiplayer
+// Static file server for Terratamers + a tiny dependency-free multiplayer
 // presence layer (Server-Sent Events). Players who hit the same server
 // (e.g. two browser tabs) appear in each other's world.
 // Run: node server.js   ->   http://localhost:5173
@@ -66,6 +66,15 @@ async function handleMp(req, res, url) {
     if (b && b.room && rooms.get(b.room)) rooms.get(b.room).delete(String(b.id));
     return sendJson(res, { ok: true });
   }
+  if (url.pathname === '/mp/room' && req.method === 'GET') {
+    const room = q.get('room') || 'public';
+    return sendJson(res, { count: roster(room).length });
+  }
+  if (url.pathname === '/mp/online' && req.method === 'GET') {
+    let online = 0;
+    for (const room of rooms.keys()) online += roster(room).length;
+    return sendJson(res, { online });
+  }
   res.writeHead(404); res.end('not found');
 }
 
@@ -83,4 +92,4 @@ http.createServer((req, res) => {
     res.writeHead(200, { 'Content-Type': type, 'Cache-Control': 'no-cache' });
     res.end(data);
   });
-}).listen(PORT, () => console.log('Gloamfang server (with multiplayer presence) on http://localhost:' + PORT));
+}).listen(PORT, () => console.log('Terratamers server (with multiplayer presence) on http://localhost:' + PORT));

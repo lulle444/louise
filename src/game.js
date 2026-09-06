@@ -121,7 +121,7 @@ function rareBonusAt(x, y) { return 1 + dangerLevel(x, y) * RARE_PER_TIER; }
 // Legendary catch log. Kept in localStorage so a claim can be checked against
 // the player's own device rather than a screenshot alone, and stamped in UTC
 // so entries from different timezones sort against each other correctly.
-const LEGEND_LOG_KEY = 'mythica_legend_log';
+const LEGEND_LOG_KEY = 'terratamers_legend_log';
 function readLegendLog() {
   try { const a = JSON.parse(localStorage.getItem(LEGEND_LOG_KEY) || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; }
 }
@@ -175,7 +175,7 @@ export function startGame(options = {}) {
   if (MODE === 'multiplayer') SEED = strSeed(ROOM);
   else {
     // offline: pin a stable per-player world seed so a persisted base lines up
-    try { let s = +localStorage.getItem('gloamfang_seed'); if (!s) { s = (Math.random() * 1e9) | 0; localStorage.setItem('gloamfang_seed', String(s)); } SEED = s; } catch (e) {}
+    try { let s = +localStorage.getItem('terratamers_seed'); if (!s) { s = (Math.random() * 1e9) | 0; localStorage.setItem('terratamers_seed', String(s)); } SEED = s; } catch (e) {}
   }
 
   const inv = new Inventory();
@@ -341,7 +341,7 @@ export function startGame(options = {}) {
       net: null, roster: [], remotes: new Map(), netSend: 0, piles: [], dead: false,
       boss: null, bossTimer: BOSS.firstDelayMin * 60, metaTouch: 15, stepBuf: 0 };
 
-    ui.chat('Welcome to Mythica — catch creatures, survive, and build with friends.', 'sys');
+    ui.chat('Welcome to Terratamers — catch creatures, survive, and build with friends.', 'sys');
     ui.chat('Chop with Space. Weaken creatures, then throw a ball (F). Press H for help.');
 
     function refreshQuest() {

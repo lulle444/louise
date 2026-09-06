@@ -170,12 +170,12 @@ export class UI {
   _loadHotbar() {
     const def = ['ball', 'greatball', 'ultraball', 'berry', 'potion', 'superpotion'];
     try {
-      const a = JSON.parse(localStorage.getItem('gloamfang_hotbar') || 'null');
+      const a = JSON.parse(localStorage.getItem('terratamers_hotbar') || 'null');
       if (Array.isArray(a)) { const h = a.slice(0, 6).map((k) => (k && ITEMS[k]) ? k : null); while (h.length < 6) h.push(null); return h; }
     } catch (e) {}
     return def;
   }
-  _saveHotbar() { try { localStorage.setItem('gloamfang_hotbar', JSON.stringify(this.hotbar)); } catch (e) {} }
+  _saveHotbar() { try { localStorage.setItem('terratamers_hotbar', JSON.stringify(this.hotbar)); } catch (e) {} }
   toggleHotbar(item) {
     const i = this.hotbar.indexOf(item);
     if (i >= 0) { this.hotbar[i] = null; }                       // already on the bar → remove

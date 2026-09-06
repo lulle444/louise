@@ -315,7 +315,7 @@ body.touch .ptitle .pclose { font-size: 14px; padding: 7px 13px; }   /* bigger t
 #start-screen { position: absolute; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center;
   background:
     radial-gradient(120% 95% at 50% 45%, rgba(6,11,8,.35) 0%, rgba(6,11,8,.68) 70%, rgba(4,8,6,.86) 100%),
-    url('assets/mythica_bg1.webp?v=51');
+    url('assets/terratamers_bg1.webp?v=51');
   background-size: cover; background-position: center; background-repeat: no-repeat;
   padding: 20px; overflow-y: auto; }
 .start-card { width: min(720px, 96vw); background: linear-gradient(155deg, rgba(26,38,30,.55), rgba(9,16,11,.75));
@@ -521,25 +521,6 @@ body.touch #chatlog { max-height: 56px; }
 body.touch #toasts { bottom: 132px; }
 
 /* audio mute toggle (top-right, above the day box) */
-.ca-chip { display: flex; align-items: center; gap: 8px; width: max-content; max-width: 94%; margin: -6px auto 6px;
-  font-family: inherit; cursor: pointer; padding: 6px 10px 6px 8px; border-radius: 20px;
-  border: 1px solid var(--border); background: rgba(13,22,15,.5); color: var(--text); }
-.ca-chip:hover { border-color: var(--lime); }
-.ca-chip .ca-label { font-size: 10px; font-weight: 800; letter-spacing: 1px; color: #ffd24a;
-  background: rgba(255,210,74,.12); border: 1px solid rgba(255,210,74,.3); border-radius: 5px; padding: 1px 6px; flex: 0 0 auto; }
-.ca-chip .ca-addr { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; letter-spacing: .2px;
-  color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 330px; }
-.ca-chip .ca-copy { width: 13px; height: 13px; color: var(--muted); flex: 0 0 auto; }
-.ca-chip:hover .ca-addr, .ca-chip:hover .ca-copy { color: var(--text); }
-.ca-chip.copied { border-color: var(--lime); }
-.ca-chip.copied .ca-addr { color: var(--lime); }
-.ca-chain { text-align: center; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
-  color: var(--muted); margin: 0 auto 16px; }
-.x-follow { display: flex; align-items: center; gap: 8px; width: max-content; margin: 2px auto 12px;
-  font-size: 12px; font-weight: 600; color: var(--muted); text-decoration: none;
-  padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border); background: rgba(13,22,15,.4); }
-.x-follow:hover { color: var(--text); border-color: var(--lime); }
-.x-follow .x-ico { width: 15px; height: 15px; }
 #biome .rarebonus { color: #ffd24a; font-weight: 700; text-shadow: 0 0 10px rgba(255,210,74,.45); }
 #mute-btn { align-self: flex-end; width: 30px; height: 30px; border-radius: 8px; cursor: pointer;
   font-size: 15px; line-height: 1; color: var(--lime); background: var(--bg);
@@ -547,15 +528,7 @@ body.touch #toasts { bottom: 132px; }
 #mute-btn:hover { border-color: var(--lime); }
 #mute-btn.muted { color: #ff8787; border-color: rgba(255,135,135,.4); }
 
-/* X (Twitter) links — in-game icon (next to mute) + start-screen follow button */
 .top-btns { display: flex; gap: 6px; align-self: flex-end; align-items: center; }
-#x-link { width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center;
-  color: var(--text); background: var(--bg); border: 1px solid rgba(184,242,95,.25);
-  box-shadow: 0 6px 16px rgba(0,0,0,.35); backdrop-filter: blur(10px); }
-#x-link svg { width: 15px; height: 15px; }
-#x-link:hover { border-color: var(--lime); color: var(--lime); }
-
-/* contract-address (CA) chip — click to copy */
 
 /* live "playing now" counter on the start screen */
 .online-count { display: flex; align-items: center; justify-content: center; gap: 7px; font-size: 12px;

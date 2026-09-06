@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mythica — a pixel creature-survival MMO</title>
+  <title>Terratamers — a pixel creature-survival MMO</title>
   <link rel="icon" type="image/png" href="assets/favicon.png?v=51" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=51" />
   <link rel="stylesheet" href="style.css?v=51" />
@@ -13,19 +13,9 @@
   <!-- start screen (shown before the game boots) -->
   <div id="start-screen">
     <div class="start-card">
-      <img class="start-logo" src="assets/logo256.png?v=51" alt="Mythica logo" width="108" height="108" />
-      <div class="start-title">MYTHICA</div>
+      <img class="start-logo" src="assets/logo256.png?v=51" alt="Terratamers logo" width="108" height="108" />
+      <div class="start-title">TERRATAMERS</div>
       <div class="start-tag">Catch creatures · survive · build — together</div>
-      <a class="x-follow" href="https://x.com/TryMythica" target="_blank" rel="noopener">
-        <svg class="x-ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        Follow @TryMythica on X
-      </a>
-      <button class="ca-chip" id="ca-chip" data-ca="0x9178d9a72aaf1bb9ef824a31ecc9243ae6426b7d" title="Copy contract address">
-        <span class="ca-label">CA</span>
-        <span class="ca-addr">0x9178d9a72aaf1bb9ef824a31ecc9243ae6426b7d</span>
-        <svg class="ca-copy" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z"/></svg>
-      </button>
-      <div class="ca-chain">Robinhood Chain</div>
       <div class="start-cols">
         <div class="start-avatar">
           <canvas id="avatar-preview" width="96" height="144"></canvas>
@@ -80,7 +70,7 @@
   </div>
 
   <!-- top-center title -->
-  <div id="title">MYTHICA</div>
+  <div id="title">TERRATAMERS</div>
 
   <!-- world-boss health bar (top centre, shown only during a Gloamfang fight) -->
   <div id="boss-bar" class="hidden"></div>
@@ -91,9 +81,6 @@
   <!-- top-right: day/biome + quest + minimap -->
   <div id="topright">
     <div class="top-btns">
-      <a id="x-link" href="https://x.com/TryMythica" target="_blank" rel="noopener" title="Follow @TryMythica on X">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-      </a>
       <button id="mute-btn" title="Mute audio (M)">♪</button>
     </div>
     <div id="daybox"><span id="clock">Day 1</span><span id="biome">· Meadowlands</span><div id="netline">○ OFFLINE</div></div>

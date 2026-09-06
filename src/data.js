@@ -1,5 +1,5 @@
 // ============================================================
-// MYTHICA — game data: creature species, items, recipes,
+// TERRATAMERS — game data: creature species, items, recipes,
 // buildings, economy, achievements & player perks. Creature art
 // streams from the PokeAPI sprite archive at runtime.
 // ============================================================
@@ -374,7 +374,7 @@ export const PERKS = {
 export { TYPE_CHART };
 
 // ============================================================
-// MYTHICA depth & retention systems
+// TERRATAMERS depth & retention systems
 // ============================================================
 
 // ---- permanent upgrades bought with gold (the gold sink) ----

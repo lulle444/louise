@@ -6,7 +6,7 @@
 
 import { ITEMS, RECIPES, SPECIES, ACHIEVEMENTS, PERKS, ivHpMult } from './data.js?v=51';
 
-const SAVE_KEY = 'gloamfang_save';
+const SAVE_KEY = 'terratamers_save';
 const OLD_KEY = 'mythara3d_save';   // migrate older saves transparently
 // species that are themselves an evolution of something → "stage 2+".
 // First evolution requires Lv 10; a second evolution requires Lv 20.

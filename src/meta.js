@@ -11,7 +11,7 @@
 
 import { UPGRADES, ASCENSION, DAILY_POOL, STREAK_REWARDS, EGG } from './data.js?v=51';
 
-const KEY = 'gloamfang_meta';
+const KEY = 'terratamers_meta';
 const UP = Object.fromEntries(UPGRADES.map((u) => [u.id, u]));
 
 // tiny seeded RNG so "today's" dailies are identical all day, every device

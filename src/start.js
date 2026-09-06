@@ -24,7 +24,7 @@ let avatar = loadAvatar();
 let launched = false;
 
 function loadAvatar() {
-  try { const a = JSON.parse(localStorage.getItem('gloamfang_avatar') || 'null'); if (a) return { ...DEFAULT, ...a }; } catch (e) {}
+  try { const a = JSON.parse(localStorage.getItem('terratamers_avatar') || 'null'); if (a) return { ...DEFAULT, ...a }; } catch (e) {}
   return { ...DEFAULT };
 }
 
@@ -65,8 +65,8 @@ function currentName() { return ($('avatar-name').value || '').trim().slice(0, 1
 function launch(mode, identity, room) {
   if (launched) return; launched = true;
   avatar.name = currentName();
-  try { localStorage.setItem('gloamfang_avatar', JSON.stringify(avatar)); } catch (e) {}
-  try { localStorage.setItem('gloamfang_identity', JSON.stringify(identity || { type: 'guest', value: avatar.name })); } catch (e) {}
+  try { localStorage.setItem('terratamers_avatar', JSON.stringify(avatar)); } catch (e) {}
+  try { localStorage.setItem('terratamers_identity', JSON.stringify(identity || { type: 'guest', value: avatar.name })); } catch (e) {}
   const ss = $('start-screen'); if (ss) ss.classList.add('hidden');
   startGame({ mode, avatar, name: avatar.name, identity: identity || { type: 'guest', value: avatar.name }, room });
 }
@@ -95,22 +95,6 @@ export function initStart() {
   buildSwatches('sw-shirt', SHIRTS, 'shirt');
   buildSwatches('sw-pants', PANTSC, 'pants');
   drawAvatar();
-
-  // contract-address chip → copy to clipboard with feedback
-  const caChip = $('ca-chip');
-  if (caChip) {
-    const ADDR = caChip.querySelector('.ca-addr');
-    const copyCA = async (ca) => {
-      try { if (navigator.clipboard && navigator.clipboard.writeText) { await navigator.clipboard.writeText(ca); return; } } catch (e) {}
-      try { const ta = document.createElement('textarea'); ta.value = ca; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); } catch (e) {}
-    };
-    caChip.onclick = () => {
-      copyCA(caChip.dataset.ca || '').then(() => {
-        caChip.classList.add('copied'); ADDR.textContent = 'Copied!';
-        setTimeout(() => { caChip.classList.remove('copied'); ADDR.textContent = caChip.dataset.ca; }, 1200);
-      });
-    };
-  }
 
   $('play-offline').onclick = () => launch('offline', { type: 'guest', value: currentName() });
   // Multiplayer → open the lobby (create a private room or join a friend's code)
