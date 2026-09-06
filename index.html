@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="da">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sælger — Din tese, ét intelligent instrument</title>
-  <meta name="description" content="Sælger er en indeks-perpetuals-terminal. Handl en hel tese som én position, med faste vægte og gennemsigtig opgørelse." />
+  <title>Vector — Your thesis, one intelligent instrument</title>
+  <meta name="description" content="Vector is an index perpetuals terminal. Trade a whole thesis as one position, with fixed weights and transparent settlement." />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="apple-touch-icon" href="assets/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -23,22 +23,22 @@
           <polygon points="14,24 18,24 18,9 14,13"/>
           <polygon points="21,24 25,24 25,4 21,9"/>
         </svg>
-        <span class="brand-name">Sælger</span>
+        <span class="brand-name">Vector</span>
       </a>
 
-      <nav class="nav-links" aria-label="Hovednavigation">
-        <a href="#markeder">Markeder</a>
-        <a href="#opdag">Opdag</a>
-        <a href="#opret">Opret</a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#markets">Markets</a>
+        <a href="#discover">Discover</a>
+        <a href="#create">Create</a>
         <a href="#pool">Pool</a>
-        <a href="#positioner">Positioner</a>
+        <a href="#positions">Positions</a>
       </nav>
 
       <div class="nav-actions">
-        <a class="icon-btn" href="https://x.com" target="_blank" rel="noopener" aria-label="Følg os på X">
+        <a class="icon-btn" href="https://x.com" target="_blank" rel="noopener" aria-label="Follow us on X">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l7.5 9.6L3.3 21h2.4l6-6.9 4.7 6.9H21l-7.8-10L20.4 3h-2.4l-5.5 6.4L7.4 3H3z"/></svg>
         </a>
-        <button class="btn btn-white" type="button">Åbn terminal</button>
+        <button class="btn btn-white" type="button">Open terminal</button>
       </div>
     </div>
   </header>
@@ -47,66 +47,66 @@
   <main id="top">
     <section class="hero">
       <div class="hero-inner">
-        <a class="announce" href="#opdag">
+        <a class="announce" href="#discover">
           <i class="dot"></i>
-          <span>Sælger lancerer Indeks v2 og team-workspaces</span>
+          <span>Vector launches Index v2 and team workspaces</span>
           <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1l6 4-6 4"/></svg>
         </a>
 
         <h1 class="headline">
-          Din tese, <em>ét intelligent</em><br />instrument.
+          One position for <em>the whole thesis.</em>
         </h1>
 
-        <p class="hero-sub">Hver indeks-perpetual samler flere aktiver med faste vægte i én position — én margin, én exit, ét likvidationsniveau.</p>
+        <p class="hero-sub">Every index perpetual bundles multiple assets at fixed weights into one position — one margin, one exit, one liquidation level.</p>
 
         <div class="hero-actions">
-          <button class="btn btn-white btn-lg" type="button">Åbn terminal</button>
-          <a class="btn-link" href="#opdag">Book en gennemgang <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1l6 4-6 4"/></svg></a>
+          <button class="btn btn-white btn-lg" type="button">Open terminal</button>
+          <a class="btn-link" href="#discover">Book a walkthrough <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1l6 4-6 4"/></svg></a>
         </div>
 
         <div class="trusted">
-          <span>Brugt af desks hos</span>
+          <span>Used by desks at</span>
           <div class="trusted-logos">
             <span>NORDIC ALPHA</span>
             <span>KAPITAL ONE FUND</span>
             <span>ATLAS DESK</span>
             <span>HELIX CAPITAL</span>
-            <span>VÆRDI PARTNERS</span>
+            <span>ORBIT PARTNERS</span>
           </div>
         </div>
 
         <div class="preview-frame">
           <div class="preview-bar">
             <span class="preview-dot"></span><span class="preview-dot"></span><span class="preview-dot"></span>
-            <span class="preview-title">terminal.sælger.dk</span>
+            <span class="preview-title">terminal.vector.xyz</span>
           </div>
           <div class="preview-body">
             <div class="ticker">
               <div class="ticker-inner">
-                <span class="tk"><i class="dot small"></i>SÆLGER CHAIN</span>
+                <span class="tk"><i class="dot small"></i>VECTOR CHAIN</span>
                 <span class="tk-sep">·</span>
-                <span class="tk">BLOK <b>56.093.680</b></span>
+                <span class="tk">BLOCK <b>56,093,680</b></span>
                 <span class="tk-sep">·</span>
-                <span class="tk">ETH <b>$2.480,00</b></span>
+                <span class="tk">ETH <b>$2,480.00</b></span>
                 <span class="tk-sep">·</span>
-                <span class="tk">POOL <b>0 DKK</b></span>
+                <span class="tk">POOL <b>$0</b></span>
                 <span class="tk-sep">·</span>
-                <span class="tk">PERP KONTRAKT</span>
+                <span class="tk">PERP CONTRACT</span>
               </div>
             </div>
             <div class="preview-grid">
               <div class="corner-block">
-                <div class="corner-label">▸ INDEKS</div>
+                <div class="corner-label">▸ INDEX</div>
                 <div class="corner-title">Magnificent Five</div>
-                <div class="corner-sub">5 ben · faste vægte</div>
+                <div class="corner-sub">5 legs · fixed weights</div>
               </div>
               <div class="preview-sphere">
                 <canvas id="sphere" width="700" height="500"></canvas>
               </div>
               <div class="corner-block corner-right">
-                <div class="corner-label">▸ NIVEAU, LIVE</div>
+                <div class="corner-label">▸ LEVEL, LIVE</div>
                 <div class="corner-title">99.67</div>
-                <div class="corner-sub">basis 100 ved notering</div>
+                <div class="corner-sub">base 100 at listing</div>
               </div>
             </div>
           </div>
@@ -115,69 +115,69 @@
     </section>
 
     <!-- ============ STATS STRIP ============ -->
-    <section class="stats" id="markeder">
+    <section class="stats" id="markets">
       <div class="stats-inner">
         <div class="stat">
-          <div class="stat-label">▸ ÅBEN INTERESSE</div>
-          <div class="stat-value">184,2M DKK</div>
+          <div class="stat-label">▸ OPEN INTEREST</div>
+          <div class="stat-value">$184.2M</div>
         </div>
         <div class="stat">
-          <div class="stat-label">▸ AKTIVE INDEKS</div>
+          <div class="stat-label">▸ ACTIVE INDICES</div>
           <div class="stat-value">6</div>
         </div>
         <div class="stat">
-          <div class="stat-label">▸ UNDERLIGGENDE AKTIVER</div>
+          <div class="stat-label">▸ UNDERLYING ASSETS</div>
           <div class="stat-value">25</div>
         </div>
         <div class="stat">
-          <div class="stat-label">▸ FUNDING (8T)</div>
-          <div class="stat-value accent">+0,014%</div>
+          <div class="stat-label">▸ FUNDING (8H)</div>
+          <div class="stat-value accent">+0.014%</div>
         </div>
       </div>
     </section>
 
     <!-- ============ HOW IT WORKS ============ -->
-    <section class="how" id="opdag">
+    <section class="how" id="discover">
       <div class="how-inner">
-        <h2 class="section-title">Fra tese til position <em>på tre trin.</em></h2>
-        <a class="btn-link center" href="#opret">Book en gennemgang <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1l6 4-6 4"/></svg></a>
+        <h2 class="section-title">From thesis to position <em>in three steps.</em></h2>
+        <a class="btn-link center" href="#create">Book a walkthrough <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1l6 4-6 4"/></svg></a>
 
         <div class="how-grid">
           <div class="step-card">
-            <div class="step-head"><span class="step-num">01</span><span class="step-word">Opdag</span></div>
+            <div class="step-head"><span class="step-num">01</span><span class="step-word">Discover</span></div>
             <div class="step-media">
-              <div class="step-media-inner">▸ INDEKS REGISTER</div>
+              <div class="step-media-inner">▸ INDEX REGISTRY</div>
             </div>
-            <div class="step-title">Vælg en tese</div>
-            <div class="step-sub">Gennemse kuraterede indeks bygget af flere aktiver med faste vægte — ingen rebalancering, ingen overraskelser.</div>
+            <div class="step-title">Pick a thesis</div>
+            <div class="step-sub">Browse curated indices built from multiple assets at fixed weights — no rebalancing, no surprises.</div>
           </div>
           <div class="step-card">
-            <div class="step-head"><span class="step-num">02</span><span class="step-word">Opret</span></div>
+            <div class="step-head"><span class="step-num">02</span><span class="step-word">Create</span></div>
             <div class="step-media">
-              <div class="step-media-inner">▸ VÆGT EDITOR</div>
+              <div class="step-media-inner">▸ WEIGHT EDITOR</div>
             </div>
-            <div class="step-title">Byg dit eget</div>
-            <div class="step-sub">Sæt vægtene selv, og lad kontrakten prise kurven direkte fra pool-likviditeten.</div>
+            <div class="step-title">Build your own</div>
+            <div class="step-sub">Set the weights yourself, and let the contract price the curve directly from pool liquidity.</div>
           </div>
           <div class="step-card">
-            <div class="step-head"><span class="step-num">03</span><span class="step-word">Positioner</span></div>
+            <div class="step-head"><span class="step-num">03</span><span class="step-word">Position</span></div>
             <div class="step-media">
-              <div class="step-media-inner">▸ ÉN LIKVIDATION</div>
+              <div class="step-media-inner">▸ ONE LIQUIDATION</div>
             </div>
-            <div class="step-title">Én indgang, én likvidation</div>
-            <div class="step-sub">Hele kurven handles som ét instrument — én margin, én exit, ét likvidationsniveau.</div>
+            <div class="step-title">One entry, one liquidation</div>
+            <div class="step-sub">The whole curve trades as a single instrument — one margin, one exit, one liquidation level.</div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ============ CTA ============ -->
-    <section class="cta" id="opret">
+    <section class="cta" id="create">
       <div class="cta-inner">
-        <h2 class="cta-title">En ny slags position kræver <em>en ny slags terminal.</em></h2>
+        <h2 class="cta-title">A new kind of position needs <em>a new kind of terminal.</em></h2>
         <div class="cta-actions">
-          <a class="btn-link" href="#pool">Book en gennemgang <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1l6 4-6 4"/></svg></a>
-          <button class="btn btn-white btn-lg" type="button">Åbn terminal</button>
+          <a class="btn-link" href="#pool">Book a walkthrough <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1l6 4-6 4"/></svg></a>
+          <button class="btn btn-white btn-lg" type="button">Open terminal</button>
         </div>
       </div>
     </section>
@@ -193,40 +193,40 @@
             <polygon points="14,24 18,24 18,9 14,13"/>
             <polygon points="21,24 25,24 25,4 21,9"/>
           </svg>
-          <span class="brand-name">Sælger</span>
+          <span class="brand-name">Vector</span>
         </div>
 
-        <div class="footer-col" id="positioner">
-          <div class="footer-col-title">Produkt</div>
-          <a href="#markeder">Markeder</a>
-          <a href="#opdag">Opdag</a>
-          <a href="#opret">Opret</a>
+        <div class="footer-col" id="positions">
+          <div class="footer-col-title">Product</div>
+          <a href="#markets">Markets</a>
+          <a href="#discover">Discover</a>
+          <a href="#create">Create</a>
           <a href="#pool">Pool</a>
-          <a href="#positioner">Positioner</a>
+          <a href="#positions">Positions</a>
         </div>
 
         <div class="footer-col">
-          <div class="footer-col-title">Selskab</div>
-          <a href="#top">Om os</a>
-          <a href="#top">Manifest</a>
-          <a href="#top">Karriere</a>
+          <div class="footer-col-title">Company</div>
+          <a href="#top">About</a>
+          <a href="#top">Manifesto</a>
+          <a href="#top">Careers</a>
         </div>
 
         <div class="footer-col">
-          <div class="footer-col-title">Ressourcer</div>
-          <a href="#top">Dokumentation</a>
-          <a href="#top">Sikkerhed</a>
+          <div class="footer-col-title">Resources</div>
+          <a href="#top">Docs</a>
+          <a href="#top">Security</a>
           <a href="#top">Support</a>
         </div>
 
         <div class="footer-col">
-          <div class="footer-col-title">Socialt</div>
+          <div class="footer-col-title">Social</div>
           <a href="https://x.com" target="_blank" rel="noopener">X (Twitter)</a>
           <a href="#top">Discord</a>
           <a href="#top">GitHub</a>
         </div>
       </div>
-      <div class="footer-meta">© 2026 Sælger · Indeks perpetuals på Sælger Chain</div>
+      <div class="footer-meta">© 2026 Vector · Index perpetuals on Vector Chain</div>
     </div>
   </footer>
 
