@@ -1,14 +1,15 @@
 // ---------- ambient network background ----------
-// A slow-drifting field of dots, faintly linked when close together —
-// pure decoration behind the content, tinted from the same gold/teal/ink
-// tokens the rest of the page uses, so it re-themes with dark mode for free.
+// A visibly drifting, gently pulsing field of dots, linked by faint lines
+// when close together — decoration behind the content, tinted from the
+// same gold/teal/ink tokens the rest of the page uses, so it re-themes
+// with dark mode for free.
 (() => {
   const canvas = document.getElementById('bgCanvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  let W = 0, H = 0, dpr = 1, nodes = [], raf = null;
+  let W = 0, H = 0, dpr = 1, nodes = [], raf = null, t = 0;
   const palette = { gold: '#9C7A17', teal: '#0E8F74', ink: '#1C1F26' };
 
   function readPalette() {
@@ -19,14 +20,16 @@
   }
 
   function makeNodes() {
-    const count = Math.min(55, Math.max(20, Math.round((W * H) / 40000)));
+    const count = Math.min(65, Math.max(26, Math.round((W * H) / 32000)));
     const colors = [palette.gold, palette.teal, palette.ink];
     nodes = Array.from({ length: count }, () => ({
       x: Math.random() * W,
       y: Math.random() * H,
-      vx: (Math.random() - 0.5) * 0.1,
-      vy: (Math.random() - 0.5) * 0.1,
-      r: 1.1 + Math.random() * 1.5,
+      vx: (Math.random() - 0.5) * 0.5,
+      vy: (Math.random() - 0.5) * 0.5,
+      r: 1.6 + Math.random() * 2.2,
+      phase: Math.random() * Math.PI * 2,
+      speed: 0.015 + Math.random() * 0.02,
       c: colors[(Math.random() * colors.length) | 0],
     }));
   }
@@ -45,7 +48,7 @@
 
   function draw() {
     ctx.clearRect(0, 0, W, H);
-    const linkDist = 130;
+    const linkDist = 140;
 
     for (let i = 0; i < nodes.length; i++) {
       for (let j = i + 1; j < nodes.length; j++) {
@@ -53,7 +56,7 @@
         const dx = a.x - b.x, dy = a.y - b.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < linkDist) {
-          ctx.globalAlpha = (1 - dist / linkDist) * 0.1;
+          ctx.globalAlpha = (1 - dist / linkDist) * 0.22;
           ctx.strokeStyle = palette.ink;
           ctx.lineWidth = 1;
           ctx.beginPath();
@@ -65,16 +68,18 @@
     }
 
     for (const n of nodes) {
-      ctx.globalAlpha = 0.42;
+      const pulse = Math.sin(t * n.speed * 20 + n.phase);
+      ctx.globalAlpha = 0.55 + pulse * 0.3;
       ctx.fillStyle = n.c;
       ctx.beginPath();
-      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.arc(n.x, n.y, n.r + pulse * 0.8, 0, Math.PI * 2);
       ctx.fill();
     }
     ctx.globalAlpha = 1;
   }
 
   function tick() {
+    t += 1;
     for (const n of nodes) {
       n.x += n.vx; n.y += n.vy;
       if (n.x < -10) n.x = W + 10; else if (n.x > W + 10) n.x = -10;
