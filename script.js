@@ -1,3 +1,18 @@
+// ---------- dark mode toggle ----------
+(() => {
+  const root = document.documentElement;
+  const toggle = document.getElementById('themeToggle');
+  if (!toggle) return;
+  const sync = () => { toggle.textContent = root.getAttribute('data-theme') === 'dark' ? '☀' : '◐'; };
+  sync();
+  toggle.addEventListener('click', () => {
+    const isDark = root.getAttribute('data-theme') === 'dark';
+    if (isDark) root.removeAttribute('data-theme'); else root.setAttribute('data-theme', 'dark');
+    try { localStorage.setItem('tally-theme', isDark ? 'light' : 'dark'); } catch (e) {}
+    sync();
+  });
+})();
+
 // ---------- nav: mobile toggle, active link, sticky shadow, back-to-top ----------
 (() => {
   const header = document.querySelector('header.top');

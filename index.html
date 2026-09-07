@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tally — built for Robinhood Chain</title>
 <meta name="description" content="Tally: a savings vault for tokenized stocks whose own management fee funds the gas its keepers need — a self-sustaining loop on Robinhood Chain.">
+<script>
+  try {
+    if (localStorage.getItem('tally-theme') === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  } catch (e) {}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -41,17 +48,21 @@
   <div class="wrap nav-wrap">
     <a class="brand" href="#top">Tally <em>/ Robinhood Chain</em></a>
 
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navPanel">
-      <span></span><span></span><span></span>
-    </button>
-
     <div class="nav-panel" id="navPanel">
       <nav class="nav">
         <a href="#vault" class="nav-link">Vault</a>
         <a href="#flywheel" class="nav-link">Flywheel</a>
         <a href="#gas" class="nav-link">Gas Sponsor</a>
+        <a href="#activity" class="nav-link">Activity</a>
       </nav>
       <a class="nav-cta" href="https://github.com/lulle444/louise/tree/claude/tally-website-m6sr5p/contracts" target="_blank" rel="noopener">View contracts ↗</a>
+    </div>
+
+    <div class="nav-actions">
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navPanel">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
 </header>
@@ -354,6 +365,54 @@
   </div>
 </section>
 
+<section class="product" id="activity">
+  <div class="wrap">
+    <span class="tag">04 — RECENT ACTIVITY</span>
+    <h2>What accrueAndFundKeeperGas() looks like, running.</h2>
+    <p class="desc">Illustrative feed — deposits into the vault, fee sweeps into the gas policy, and the sponsored rebalances they pay for, in the order they'd emit on-chain.</p>
+
+    <div class="preset-table">
+      <div class="preset-head">
+        <span>EVENT LOG</span>
+        <span class="preset-sub"><span class="live-dot" aria-hidden="true"></span> LIVE</span>
+      </div>
+      <div class="activity-head-row">
+        <span>EVENT</span><span>DETAIL</span><span>AMOUNT</span><span>TIME</span>
+      </div>
+      <div class="activity-row">
+        <span class="ev-tag rebalance">rebalance</span>
+        <span class="ev-detail">keeper <code>0x9F1c…4Ad2</code> — sponsored, 0 ETH paid</span>
+        <span class="ev-amount">—</span>
+        <span class="ev-time">2m ago</span>
+      </div>
+      <div class="activity-row">
+        <span class="ev-tag sweep">fee swept</span>
+        <span class="ev-detail"><code>accrueAndFundKeeperGas()</code> → policy balance</span>
+        <span class="ev-amount up">+0.014 ETH</span>
+        <span class="ev-time">14m ago</span>
+      </div>
+      <div class="activity-row">
+        <span class="ev-tag deposit">deposit</span>
+        <span class="ev-detail"><code>0x7Ae2…11Fb</code> → 2,391.02 TALLY minted</span>
+        <span class="ev-amount">2,400 USDG</span>
+        <span class="ev-time">41m ago</span>
+      </div>
+      <div class="activity-row">
+        <span class="ev-tag rebalance">rebalance</span>
+        <span class="ev-detail">keeper <code>0x4C0a…9E71</code> — sponsored, 0 ETH paid</span>
+        <span class="ev-amount">—</span>
+        <span class="ev-time">1h ago</span>
+      </div>
+      <div class="activity-row">
+        <span class="ev-tag withdraw">withdraw</span>
+        <span class="ev-detail"><code>0x1Bd4…77Ac</code> → pro-rata basket assets</span>
+        <span class="ev-amount">610.00 TALLY</span>
+        <span class="ev-time">3h ago</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="wrap footer-grid">
     <div class="footer-brand-col">
@@ -365,6 +424,7 @@
       <a href="#vault">Tally Vault</a>
       <a href="#flywheel">The Flywheel</a>
       <a href="#gas">Gas Sponsor</a>
+      <a href="#activity">Activity</a>
     </div>
     <div class="footer-col">
       <div class="footer-col-title">Resources</div>

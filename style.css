@@ -11,6 +11,16 @@
   --sans:'Inter', -apple-system, sans-serif;
   --mono:'IBM Plex Mono', 'SF Mono', monospace;
 }
+:root[data-theme="dark"]{
+  --bg:#101317;
+  --panel:#171B21;
+  --panel-alt:#1D222A;
+  --border:#2B313B;
+  --ink:#EDEAE0;
+  --muted:#8B9099;
+  --gold:#D9B34A;
+  --teal:#4FD1AE;
+}
 *{box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{
@@ -20,6 +30,7 @@ body{
   font-family:var(--sans);
   line-height:1.6;
   -webkit-font-smoothing:antialiased;
+  transition:background .2s, color .2s;
 }
 a{color:inherit;}
 ::selection{background:var(--gold);color:#FFF8E8;}
@@ -142,6 +153,24 @@ header.top.scrolled{box-shadow:0 1px 3px rgba(28,31,38,0.06), 0 2px 8px rgba(28,
   transition:background .15s, border-color .15s;
 }
 .nav-cta:hover{background:var(--border);}
+
+.nav-actions{display:flex;align-items:center;gap:10px;}
+.icon-btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  background:var(--panel-alt);
+  border:1px solid var(--border);
+  color:var(--ink);
+  font-size:14px;
+  line-height:1;
+  cursor:pointer;
+  transition:background .15s, border-color .15s;
+}
+.icon-btn:hover{border-color:var(--gold);}
 
 .nav-toggle{
   display:none;
@@ -322,6 +351,53 @@ header.top.scrolled{box-shadow:0 1px 3px rgba(28,31,38,0.06), 0 2px 8px rgba(28,
 @media (max-width:600px){
   .preset-row{grid-template-columns:1fr;gap:10px;}
   .preset-level{text-align:left;}
+}
+
+.preset-head .live-dot{display:inline-block;vertical-align:middle;margin-right:6px;}
+
+/* ---------- activity / event log table ---------- */
+.activity-head-row{
+  display:grid;
+  grid-template-columns:110px 1fr 130px 70px;
+  gap:16px;
+  padding:10px 18px;
+  border-bottom:1px solid var(--border);
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:0.04em;
+  color:var(--muted);
+}
+.activity-row{
+  display:grid;
+  grid-template-columns:110px 1fr 130px 70px;
+  gap:16px;
+  align-items:center;
+  padding:13px 18px;
+  border-bottom:1px solid var(--border);
+}
+.activity-row:last-child{border-bottom:none;}
+.ev-tag{
+  font-family:var(--mono);
+  font-size:10.5px;
+  letter-spacing:0.02em;
+  text-transform:uppercase;
+  padding:3px 9px;
+  border-radius:99px;
+  width:fit-content;
+}
+.ev-tag.deposit{background:rgba(14,143,116,0.12);color:var(--teal);}
+.ev-tag.sweep{background:rgba(14,143,116,0.12);color:var(--teal);}
+.ev-tag.withdraw{background:rgba(107,103,89,0.14);color:var(--muted);}
+.ev-tag.rebalance{background:rgba(156,122,23,0.14);color:var(--gold);}
+.ev-detail{font-family:var(--mono);font-size:12.5px;color:var(--ink);}
+.ev-amount{font-family:var(--mono);font-size:12.5px;color:var(--ink);text-align:right;white-space:nowrap;}
+.ev-amount.up{color:var(--teal);}
+.ev-time{font-family:var(--mono);font-size:11px;color:var(--muted);text-align:right;white-space:nowrap;}
+
+@media (max-width:700px){
+  .activity-head-row{display:none;}
+  .activity-row{grid-template-columns:1fr;gap:6px;}
+  .ev-amount,.ev-time{text-align:left;}
 }
 
 /* ---------- demo panels (vault / flywheel / gas sponsor) ---------- */
