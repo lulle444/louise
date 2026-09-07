@@ -1,210 +1,317 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="da">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Terratamers — a pixel creature-survival MMO</title>
-  <link rel="icon" type="image/png" href="assets/favicon.png?v=51" />
-  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=51" />
-  <link rel="stylesheet" href="style.css?v=51" />
-  <script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
+  <title>Second Opinion — Uvildig rådgivning om erhvervslejemål i Storkøbenhavn</title>
+  <meta name="description" content="Second Opinion yder uvildig rådgivning om erhvervslejekontrakter og hjælper virksomheder med at finde nyt erhvervslejemål i Storkøbenhavn. Grundlagt af erhvervsmægler Jesper Norgart." />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- start screen (shown before the game boots) -->
-  <div id="start-screen">
-    <div class="start-card">
-      <img class="start-logo" src="assets/logo256.png?v=51" alt="Terratamers logo" width="108" height="108" />
-      <div class="start-title">TERRATAMERS</div>
-      <div class="start-tag">Catch creatures · survive · build — together</div>
-      <div class="start-cols">
-        <div class="start-avatar">
-          <canvas id="avatar-preview" width="96" height="144"></canvas>
-          <input id="avatar-name" maxlength="16" placeholder="Avatar name" autocomplete="off" />
-          <div class="sw-row"><span>Skin</span><div class="swatches" id="sw-skin"></div></div>
-          <div class="sw-row"><span>Hair</span><div class="swatches" id="sw-hair"></div></div>
-          <div class="sw-row"><span>Shirt</span><div class="swatches" id="sw-shirt"></div></div>
-          <div class="sw-row"><span>Pants</span><div class="swatches" id="sw-pants"></div></div>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a href="#top" class="brand">
+        <span class="brand-mark">SO</span>
+        <span class="brand-name">Second<em>Opinion</em></span>
+      </a>
+      <nav class="main-nav" id="main-nav">
+        <a href="#ydelser">Ydelser</a>
+        <a href="#om">Om Jesper</a>
+        <a href="#proces">Proces</a>
+        <a href="#omraade">Område</a>
+        <a href="#kontakt" class="nav-cta">Kontakt</a>
+      </nav>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Åbn menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap hero-inner">
+        <p class="eyebrow">Uvildig erhvervsmægler-rådgivning · Storkøbenhavn</p>
+        <h1>Skal du underskrive et erhvervslejemål?<br>Få en second opinion, før du gør.</h1>
+        <p class="hero-lead">
+          Second Opinion hjælper virksomheder med at gennemskue lejekontrakter og finde det
+          rette erhvervslejemål i Storkøbenhavn. Grundlagt af erhvervsmægler Jesper Norgart —
+          som udelukkende rådgiver på lejers side af bordet.
+        </p>
+        <div class="hero-actions">
+          <a href="#kontakt" class="btn btn-primary">Book en uforpligtende samtale</a>
+          <a href="#ydelser" class="btn btn-ghost">Se ydelser</a>
         </div>
-        <div class="start-right">
-          <div class="mode-row">
-            <button id="play-offline" class="modebtn">▶ Play Offline</button>
-            <button id="play-mp" class="modebtn mp">⚇ Play Multiplayer</button>
-          </div>
-          <div id="online-count" class="online-count"><span class="oc-dot off"></span> connecting…</div>
-          <div id="lobby-box" class="hidden">
-            <div class="login-title">⚇ Multiplayer lobby</div>
-            <button id="create-room" class="wbtn">＋ Create private room</button>
-            <div class="or">— or join a friend —</div>
-            <div class="join-row">
-              <input id="join-code" maxlength="8" placeholder="ROOM CODE" autocomplete="off" autocapitalize="characters" spellcheck="false" />
-              <button id="join-room" class="wbtn small">Join</button>
-            </div>
-            <button id="join-public" class="wbtn small ghost">Or join the open public world</button>
-          </div>
-          <div id="login-box" class="hidden">
-            <div class="login-title">Multiplayer — log in</div>
-            <input id="login-email" type="email" placeholder="you@email.com" autocomplete="off" />
-            <button id="login-email-btn" class="wbtn small">Continue with Email</button>
-          </div>
-          <div class="start-note">Offline needs no login. In Multiplayer, friends who enter the same room code share one world — you won't see anyone outside your room.</div>
+        <ul class="hero-points">
+          <li>Uvildig rådgivning — ingen bindinger til udlejer</li>
+          <li>Indgående kendskab til erhvervslejemarkedet</li>
+          <li>Fokus udelukkende på Storkøbenhavn</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- YDELSER -->
+    <section class="section" id="ydelser">
+      <div class="wrap">
+        <p class="eyebrow center">Ydelser</p>
+        <h2 class="center">Rådgivning, du kan læne dig op ad</h2>
+        <p class="section-lead center">
+          To kerneydelser, én ambition: at du som lejer aldrig står alene i et erhvervslejemål.
+        </p>
+
+        <div class="cards">
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">📄</div>
+            <h3>Second opinion på lejekontrakt</h3>
+            <p>
+              Få din nuværende eller kommende lejekontrakt gennemgået af en uvildig ekspert,
+              inden du skriver under — eller inden du accepterer en genforhandling.
+            </p>
+            <ul>
+              <li>Gennemgang af lejevilkår og klausuler</li>
+              <li>Vurdering af, om leje og vilkår afspejler markedet</li>
+              <li>Konkrete forslag til forhandlingspunkter</li>
+              <li>Klar, skriftlig tilbagemelding du kan handle på</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">🏢</div>
+            <h3>Find nyt erhvervslejemål</h3>
+            <p>
+              Vi finder og forhandler det rette lejemål til kontor, lager, produktion eller
+              butik i Storkøbenhavn — fra behovsafklaring til underskrevet kontrakt.
+            </p>
+            <ul>
+              <li>Afklaring af behov, beliggenhed og budget</li>
+              <li>Screening af relevante lejemål i markedet</li>
+              <li>Fremvisninger og vurdering af lokalerne</li>
+              <li>Forhandling af leje og vilkår på dine vegne</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">🔄</div>
+            <h3>Genforhandling &amp; fornyelse</h3>
+            <p>
+              Står du over for en regulering, en forlængelse eller en opsigelse? Vi rådgiver
+              undervejs, så du forhandler fra et oplyst grundlag.
+            </p>
+            <ul>
+              <li>Vurdering af reguleringsklausuler og markedsleje</li>
+              <li>Rådgivning ved forlængelse eller opsigelse</li>
+              <li>Sparring før og under forhandling med udlejer</li>
+            </ul>
+          </article>
         </div>
       </div>
-      <div id="start-msg" class="start-msg"></div>
+    </section>
+
+    <!-- OM -->
+    <section class="section section-alt" id="om">
+      <div class="wrap about-grid">
+        <div class="about-media" aria-hidden="true">
+          <div class="about-avatar">JN</div>
+        </div>
+        <div class="about-text">
+          <p class="eyebrow">Om Jesper</p>
+          <h2>En uvildig stemme i en branche fyldt med interesser</h2>
+          <p>
+            Second Opinion er stiftet af <strong>Jesper Norgart</strong>, erhvervsmægler med
+            solid erfaring fra erhvervsejendomsmarkedet i Storkøbenhavn. Efter mange år i
+            branchen så Jesper et klart behov: virksomheder, der skal leje erhvervslokaler,
+            står ofte alene over for udlejers mægler, jurister og standardkontrakter.
+          </p>
+          <p>
+            Derfor arbejder Second Opinion udelukkende for lejer — aldrig for udlejer i samme
+            sag. Det betyder, at rådgivningen altid tager udgangspunkt i dine interesser, ikke
+            i en provision fra den anden side af bordet.
+          </p>
+          <ul class="check-list">
+            <li>Erhvervsmægler med fokus på lejerrådgivning</li>
+            <li>Arbejder kun for lejer — aldrig for udlejer i samme sag</li>
+            <li>Dybt kendskab til erhvervslejemarkedet i Storkøbenhavn</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- HVORFOR -->
+    <section class="section" id="hvorfor">
+      <div class="wrap">
+        <p class="eyebrow center">Hvorfor Second Opinion</p>
+        <h2 class="center">Tryghed, før du forpligter din virksomhed</h2>
+        <div class="why-grid">
+          <div class="why-item">
+            <h3>Uvildig rådgivning</h3>
+            <p>Vi repræsenterer kun dig som lejer — ingen skjulte interesser eller bindinger til udlejersiden.</p>
+          </div>
+          <div class="why-item">
+            <h3>Branchekendskab</h3>
+            <p>Vi ved, hvad der er standardvilkår, og hvad der bør forhandles — før du skriver under.</p>
+          </div>
+          <div class="why-item">
+            <h3>Lokalt fokus</h3>
+            <p>Indgående kendskab til erhvervslejemarkedet på tværs af hele Storkøbenhavn.</p>
+          </div>
+          <div class="why-item">
+            <h3>Klart beslutningsgrundlag</h3>
+            <p>Du får en tydelig, skriftlig vurdering — ikke bare en mundtlig fornemmelse.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCES -->
+    <section class="section section-alt" id="proces">
+      <div class="wrap">
+        <p class="eyebrow center">Proces</p>
+        <h2 class="center">Sådan foregår det</h2>
+        <ol class="steps">
+          <li>
+            <span class="step-num">1</span>
+            <div>
+              <h3>Uforpligtende samtale</h3>
+              <p>Vi afdækker, om du har brug for en second opinion på en kontrakt, eller hjælp til at finde et nyt lejemål.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num">2</span>
+            <div>
+              <h3>Analyse eller søgning</h3>
+              <p>Vi gennemgår din kontrakt i detaljer — eller screener markedet for lejemål, der matcher dit behov.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num">3</span>
+            <div>
+              <h3>Rådgivning og forhandling</h3>
+              <p>Du får konkrete anbefalinger, og vi rådgiver om — eller forhandler direkte — de vilkår, der betyder mest.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num">4</span>
+            <div>
+              <h3>Et trygt beslutningsgrundlag</h3>
+              <p>Du står tilbage med et lejemål eller en kontrakt, der er vurderet af en uvildig ekspert.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- OMRÅDE -->
+    <section class="section" id="omraade">
+      <div class="wrap">
+        <p class="eyebrow center">Dækningsområde</p>
+        <h2 class="center">Fokuseret på Storkøbenhavn</h2>
+        <p class="section-lead center">
+          Second Opinion arbejder udelukkende med erhvervslejemål i og omkring København —
+          det giver et lokalkendskab, som generalister sjældent kan matche.
+        </p>
+        <ul class="area-tags">
+          <li>København</li>
+          <li>Frederiksberg</li>
+          <li>Gentofte</li>
+          <li>Gladsaxe</li>
+          <li>Lyngby-Taarbæk</li>
+          <li>Herlev</li>
+          <li>Ballerup</li>
+          <li>Rødovre</li>
+          <li>Glostrup</li>
+          <li>Albertslund</li>
+          <li>Hvidovre</li>
+          <li>Brøndby</li>
+          <li>Vallensbæk</li>
+          <li>Ishøj</li>
+          <li>Tårnby</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- KONTAKT -->
+    <section class="section section-dark" id="kontakt">
+      <div class="wrap kontakt-grid">
+        <div class="kontakt-info">
+          <p class="eyebrow">Kontakt</p>
+          <h2>Lad os tage en uforpligtende snak</h2>
+          <p>
+            Fortæl kort om dit lejemål eller behov, så vender Jesper tilbage hurtigst muligt.
+          </p>
+          <dl class="kontakt-details">
+            <div>
+              <dt>Kontaktperson</dt>
+              <dd>Jesper Norgart, erhvervsmægler</dd>
+            </div>
+            <div>
+              <dt>Telefon</dt>
+              <dd><a href="tel:+45XXXXXXXX">+45 XX XX XX XX</a></dd>
+            </div>
+            <div>
+              <dt>E-mail</dt>
+              <dd><a href="mailto:jesper@secondopinion.dk">jesper@secondopinion.dk</a></dd>
+            </div>
+            <div>
+              <dt>Område</dt>
+              <dd>Storkøbenhavn</dd>
+            </div>
+          </dl>
+          <p class="kontakt-note">
+            * Telefonnummer og e-mail er placeholders — indsæt de rigtige kontaktoplysninger, før siden går i luften.
+          </p>
+        </div>
+
+        <form class="kontakt-form" id="kontakt-form">
+          <label>
+            Navn
+            <input type="text" name="navn" required autocomplete="name" />
+          </label>
+          <label>
+            Virksomhed
+            <input type="text" name="virksomhed" autocomplete="organization" />
+          </label>
+          <label>
+            E-mail
+            <input type="email" name="email" required autocomplete="email" />
+          </label>
+          <label>
+            Telefon
+            <input type="tel" name="telefon" autocomplete="tel" />
+          </label>
+          <label>
+            Hvad drejer det sig om?
+            <select name="emne">
+              <option>Second opinion på lejekontrakt</option>
+              <option>Find nyt erhvervslejemål</option>
+              <option>Genforhandling / fornyelse</option>
+              <option>Andet</option>
+            </select>
+          </label>
+          <label>
+            Besked
+            <textarea name="besked" rows="4" placeholder="Kort om dit lejemål eller behov..."></textarea>
+          </label>
+          <button type="submit" class="btn btn-primary btn-block">Send henvendelse</button>
+          <p class="form-note">Åbner din e-mail-klient med udfyldte oplysninger.</p>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <span>© <span id="year"></span> Second Opinion — Jesper Norgart, erhvervsmægler</span>
+      <span>Uvildig rådgivning om erhvervslejemål i Storkøbenhavn</span>
     </div>
-  </div>
+  </footer>
 
-  <div id="game-root"></div>
-
-  <!-- low-hp / starving red vignette -->
-  <div id="vignette"></div>
-
-  <!-- top-left: survival bars + resources -->
-  <div id="topleft">
-    <div class="bar"><span class="blabel">HP</span><div class="track"><div id="hp-fill" class="fill hp"></div></div></div>
-    <div class="bar"><span class="blabel">FOOD</span><div class="track"><div id="hunger-fill" class="fill food"></div></div></div>
-    <div class="bar"><span class="blabel">STAM</span><div class="track"><div id="stam-fill" class="fill stam"></div></div></div>
-    <div id="plevel"></div>
-    <div id="resources"></div>
-    <div id="buffs"></div>
-    <div id="egg" title="Walk to fill the incubator — it hatches a free creature!"><span class="egglabel">EGG</span><div class="eggtrack"><div id="egg-fill"></div></div></div>
-  </div>
-
-  <!-- top-center title -->
-  <div id="title">TERRATAMERS</div>
-
-  <!-- world-boss health bar (top centre, shown only during a Gloamfang fight) -->
-  <div id="boss-bar" class="hidden"></div>
-
-  <!-- catch-combo meter -->
-  <div id="combo-meter" class="hidden"></div>
-
-  <!-- top-right: day/biome + quest + minimap -->
-  <div id="topright">
-    <div class="top-btns">
-      <button id="mute-btn" title="Mute audio (M)">♪</button>
-    </div>
-    <div id="daybox"><span id="clock">Day 1</span><span id="biome">· Meadowlands</span><div id="netline">○ OFFLINE</div></div>
-    <div id="quest">
-      <div class="qhead">QUEST <span id="qnum">1/?</span></div>
-      <div id="qtitle">—</div>
-      <div class="qtrack"><div id="qfill"></div></div>
-    </div>
-    <canvas id="minimap" width="180" height="150"></canvas>
-  </div>
-
-  <!-- left: party dock -->
-  <div id="party-dock"><div class="dockhead">PARTY</div><div id="dock-list"></div></div>
-
-  <!-- creature nameplate -->
-  <div id="target" class="hidden"></div>
-
-  <!-- bottom: chat feed + hotbar + controls -->
-  <div id="chat"><div id="chatlog"></div><div id="chatbar">explore · catch · survive</div></div>
-  <div id="hotbar"></div>
-  <div id="controls">
-    WASD move · Shift sprint · Space/Click act · F ball · E interact/eat/heal · B build · C craft ·
-    Tab bag · P dex · T party · U upgrades · G daily · J goals · M mute · H help
-  </div>
-  <div id="toasts"></div>
-
-  <!-- on-screen touch controls (shown only on touch devices) -->
-  <div id="touch-controls" class="hidden">
-    <div id="joystick"><div id="stick"></div></div>
-    <div id="touch-actions">
-      <button class="tbtn act" data-act="act" title="Act">✦</button>
-      <button class="tbtn ball" data-act="ball" title="Throw ball">◓</button>
-      <button class="tbtn intr" data-act="interact" title="Interact / eat">E</button>
-      <button class="tbtn bld" data-act="build" title="Build">⌂</button>
-    </div>
-    <div id="touch-menu">
-      <button class="tmbtn" data-panel="inventory">Bag</button>
-      <button class="tmbtn" data-panel="craft">Craft</button>
-      <button class="tmbtn" data-panel="party">Party</button>
-      <button class="tmbtn" data-panel="dex">Dex</button>
-      <button class="tmbtn" data-panel="upgrades">Up</button>
-      <button class="tmbtn" data-panel="daily">Daily</button>
-    </div>
-  </div>
-
-  <!-- overlay panels -->
-  <div id="overlay" class="hidden"></div>
-  <div id="inventory-panel" class="panel hidden">
-    <div class="ptitle">INVENTORY <span class="pclose">(Tab / Esc)</span></div>
-    <div class="psub">Click an item to add or remove it from your 6 hotbar slots (★ = on the bar).</div>
-    <div id="inv-grid" class="grid"></div>
-  </div>
-  <div id="craft-panel" class="panel hidden">
-    <div class="ptitle">CRAFTING <span class="pclose">(C / Esc)</span></div>
-    <div id="craft-list"></div>
-  </div>
-  <div id="shop-panel" class="panel hidden">
-    <div class="ptitle">TRADER <span class="pclose">(E / Esc)</span></div>
-    <div class="psub">Barter resources, buy with gold, or sell your surplus.</div>
-    <div id="shop-list"></div>
-  </div>
-  <div id="party-panel" class="panel hidden">
-    <div class="ptitle">YOUR CREATURES <span class="pclose">(T / Esc)</span></div>
-    <div id="party-grid" class="grid"></div>
-  </div>
-  <div id="dex-panel" class="panel hidden">
-    <div class="ptitle">DEX <span id="dex-count"></span> <span class="pclose">(P / Esc)</span></div>
-    <div id="dex-grid" class="grid"></div>
-  </div>
-  <div id="ach-panel" class="panel hidden">
-    <div class="ptitle">ACHIEVEMENTS <span id="ach-count"></span> <span class="pclose">(J / Esc)</span></div>
-    <div id="ach-grid" class="grid"></div>
-  </div>
-  <div id="upgrades-panel" class="panel hidden">
-    <div class="ptitle">UPGRADES <span class="pclose">(U / Esc)</span></div>
-    <div class="psub">Spend gold on permanent boosts — then Ascend for stacking prestige power.</div>
-    <div id="upgrades-list"></div>
-  </div>
-  <div id="daily-panel" class="panel hidden">
-    <div class="ptitle">DAILY QUESTS <span class="pclose">(G / Esc)</span></div>
-    <div class="psub">A fresh set every day. Keep your login streak alive for bigger rewards.</div>
-    <div id="daily-list"></div>
-  </div>
-  <div id="howto-panel" class="panel hidden">
-    <div class="ptitle">HOW TO PLAY <span class="pclose">(H / Esc)</span></div>
-    <div id="howto-body">
-      <p><b>Move</b> with WASD or arrows. <b>Shift</b> to sprint (drains stamina).</p>
-      <p><b>Click</b> or <b>Space</b> to act: chop trees, mine rock, or weaken a nearby creature.</p>
-      <p><b>Weaken</b> a wild creature, then press <b>F</b> (or right-click) to throw a ball and catch it.</p>
-      <p><b>E</b> — interact with the Trader / eat food. <b>B</b> — build. <b>C</b> — craft.</p>
-      <p>Craft an <b>Axe</b>/<b>Pickaxe</b> to gather faster, a <b>Fishing Rod</b> to fish the lake, and a <b>Lantern</b> to see at night.</p>
-      <p><b>Cook</b> at a Campfire (build one!) for meals that grant <b>buffs</b> — Well Fed, Energized, Lucky, Rested.</p>
-      <p>Your lead creature gains <b>XP</b>, <b>levels up</b> and can <b>evolve</b>. <b>You</b> level up too, unlocking perks.</p>
-      <p><b>Aggressive</b> creatures &amp; rare glowing <b>Alphas</b> fight back — your lead defends you. Beat them for <b>gold &amp; loot</b>, or catch them.</p>
-      <p>Spend <b>gold</b> at the Trader (buy / sell). Chase <b>Achievements</b> (J) and the long <b>quest</b> chain.</p>
-      <p>Explore <b>Emberwastes</b> (desert) &amp; <b>Mirewood</b> (swamp) for new species. Watch for <b>meteor showers</b> &amp; <b>swarms</b>!</p>
-      <p>Eat before <b>FOOD</b> hits zero — you lose health while starving. Survive the <b>night</b> and shifting <b>weather</b>.</p>
-      <p>Catch the <b>same species in a row</b> to build a <b>catch chain</b> — it boosts shiny odds &amp; XP. <b>Walking fills an egg</b> that hatches a free creature; every catch has a hidden <b>power %</b> (IV) worth re-rolling.</p>
-      <p>The further you roam from home, the <b>higher-level &amp; richer</b> the wilds (⚔ tier, top-right). Spend gold in <b>Upgrades</b> (U), clear <b>Daily quests</b> (G), keep your <b>login streak</b>, and hunt the world boss <b>Gloamfang</b>. <b>Ascend</b> for permanent prestige power.</p>
-    </div>
-  </div>
-
-  <!-- first-time starter selection -->
-  <div id="starter-panel" class="panel hidden">
-    <div class="ptitle">CHOOSE YOUR PARTNER</div>
-    <div class="psub">Your first creature will fight beside you and grow as you explore.</div>
-    <div id="starter-grid"></div>
-  </div>
-
-  <div id="dead" class="hidden">
-    <div>YOU COLLAPSED</div>
-    <div class="deadsub">Your progress is safe. Your loot dropped where you fell — reclaim it (★ on the minimap).</div>
-    <button id="respawn-btn">Respawn at camp</button>
-  </div>
-
-  <!-- celebration banner (shiny / perfect / boss / egg / ascend) -->
-  <div id="big-banner" class="hidden"></div>
-
-  <!-- welcome-back modal (login streak + idle production) -->
-  <div id="meta-modal" class="hidden"></div>
-
-  <script type="module">
-    import { initStart } from './src/start.js?v=51';
-    initStart();
-  </script>
+  <script src="src/main.js"></script>
 </body>
 </html>
