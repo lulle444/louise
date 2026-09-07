@@ -1,3 +1,46 @@
+// ---------- nav: mobile toggle, active link, sticky shadow, back-to-top ----------
+(() => {
+  const header = document.querySelector('header.top');
+  const navToggle = document.getElementById('navToggle');
+  const navPanel = document.getElementById('navPanel');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const backToTop = document.getElementById('backToTop');
+
+  if (navToggle && navPanel) {
+    navToggle.addEventListener('click', () => {
+      const isOpen = navPanel.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+    navPanel.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      navPanel.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }));
+  }
+
+  if ('IntersectionObserver' in window && navLinks.length) {
+    const sections = Array.from(navLinks)
+      .map(l => document.querySelector(l.getAttribute('href')))
+      .filter(Boolean);
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + entry.target.id));
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    sections.forEach(s => observer.observe(s));
+  }
+
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY > 4;
+    if (header) header.classList.toggle('scrolled', scrolled);
+    if (backToTop) backToTop.classList.toggle('visible', window.scrollY > 700);
+  }, { passive: true });
+
+  if (backToTop) {
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  }
+})();
+
 // animate basket bars once, on load
 window.addEventListener('load', () => {
   document.querySelectorAll('.bar-fill[data-target]').forEach(el => {

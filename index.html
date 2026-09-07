@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body id="top">
 
 <div class="ticker-bar">
   <div class="ticker-track" id="ticker">
@@ -32,8 +32,21 @@
 </div>
 
 <header class="top">
-  <div class="wrap">
-    <div class="brand">Tally <em>/ Robinhood Chain</em></div>
+  <div class="wrap nav-wrap">
+    <a class="brand" href="#top">Tally <em>/ Robinhood Chain</em></a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navPanel">
+      <span></span><span></span><span></span>
+    </button>
+
+    <div class="nav-panel" id="navPanel">
+      <nav class="nav">
+        <a href="#vault" class="nav-link">Vault</a>
+        <a href="#flywheel" class="nav-link">Flywheel</a>
+        <a href="#gas" class="nav-link">Gas Sponsor</a>
+      </nav>
+      <a class="nav-cta" href="https://github.com/lulle444/louise/tree/claude/tally-website-m6sr5p/contracts" target="_blank" rel="noopener">View contracts ↗</a>
+    </div>
   </div>
 </header>
 
@@ -262,12 +275,30 @@
 </section>
 
 <footer>
-  <div class="wrap">
-    <div class="foot-brand">Tally</div>
+  <div class="wrap footer-grid">
+    <div class="footer-brand-col">
+      <div class="foot-brand">Tally</div>
+      <p class="footer-desc">Reference DeFi infrastructure for Robinhood Chain: a stock-basket savings vault that funds its own keeper gas through a paired ERC-4337 sponsor policy.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Product</div>
+      <a href="#vault">Tally Vault</a>
+      <a href="#flywheel">The Flywheel</a>
+      <a href="#gas">Gas Sponsor</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Resources</div>
+      <a href="https://github.com/lulle444/louise/tree/claude/tally-website-m6sr5p/contracts" target="_blank" rel="noopener">Contracts ↗</a>
+      <a href="https://github.com/lulle444/louise" target="_blank" rel="noopener">Repository ↗</a>
+    </div>
+  </div>
+
+  <div class="wrap footer-bottom">
     <p>Both contracts are reference implementations for Robinhood Chain (chain ID 4663) — a starting point for further development, not audited or production-ready code. <code>TallyVault.bootstrapGasSponsor()</code> registers the vault's own keeper policy on <code>TallyGasSponsor</code>, and <code>accrueAndFundKeeperGas()</code> is the open call anyone can run to sweep fee into it. Built on standard EVM tooling: viem, ethers, Hardhat, and Foundry all work unmodified.</p>
-    <p style="margin-top:18px;">Full .sol files are shared alongside this page, in <a class="link" href="https://github.com/lulle444/louise/tree/claude/tally-website-m6sr5p/contracts">/contracts</a>.</p>
   </div>
 </footer>
+
+<button id="backToTop" class="back-to-top" aria-label="Back to top">↑</button>
 
 <script src="script.js"></script>
 
