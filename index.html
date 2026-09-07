@@ -13,21 +13,27 @@
 <body id="top">
 
 <div class="ticker-bar">
-  <div class="ticker-track" id="ticker">
-    <span>ROBINHOOD CHAIN · DEX VOLUME <span class="up">$34.6B</span></span>
-    <span>PROTOCOL TVL <span class="up">$1.27B</span></span>
-    <span>ADDRESSES <span class="flat">12.3M</span></span>
-    <span>STOCK TOKENS LIVE <span class="flat">190+</span></span>
-    <span>RWA SHARE OF VOLUME <span class="up">~4%</span></span>
-    <span>KEEPER GAS <span class="up">SELF-FUNDED</span></span>
-    <span>GAS SUBSIDY ENDS <span class="flat">SEP 29, 2026</span></span>
-    <span>ROBINHOOD CHAIN · DEX VOLUME <span class="up">$34.6B</span></span>
-    <span>PROTOCOL TVL <span class="up">$1.27B</span></span>
-    <span>ADDRESSES <span class="flat">12.3M</span></span>
-    <span>STOCK TOKENS LIVE <span class="flat">190+</span></span>
-    <span>RWA SHARE OF VOLUME <span class="up">~4%</span></span>
-    <span>KEEPER GAS <span class="up">SELF-FUNDED</span></span>
-    <span>GAS SUBSIDY ENDS <span class="flat">SEP 29, 2026</span></span>
+  <div class="wrap ticker-inner">
+    <span class="live-dot" aria-hidden="true"></span>
+    <span class="live-label">ROBINHOOD CHAIN · 4663</span>
+    <div class="ticker-scroll">
+      <div class="ticker-track" id="ticker">
+        <span>DEX VOLUME <span class="up">$34.6B</span></span>
+        <span>PROTOCOL TVL <span class="up">$1.27B</span></span>
+        <span>ADDRESSES <span class="flat">12.3M</span></span>
+        <span>STOCK TOKENS LIVE <span class="flat">190+</span></span>
+        <span>RWA SHARE OF VOLUME <span class="up">~4%</span></span>
+        <span>KEEPER GAS <span class="up">SELF-FUNDED</span></span>
+        <span>GAS SUBSIDY ENDS <span class="flat">SEP 29, 2026</span></span>
+        <span>DEX VOLUME <span class="up">$34.6B</span></span>
+        <span>PROTOCOL TVL <span class="up">$1.27B</span></span>
+        <span>ADDRESSES <span class="flat">12.3M</span></span>
+        <span>STOCK TOKENS LIVE <span class="flat">190+</span></span>
+        <span>RWA SHARE OF VOLUME <span class="up">~4%</span></span>
+        <span>KEEPER GAS <span class="up">SELF-FUNDED</span></span>
+        <span>GAS SUBSIDY ENDS <span class="flat">SEP 29, 2026</span></span>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -51,13 +57,47 @@
 </header>
 
 <section class="hero">
-  <div class="wrap">
-    <h1>The chain is built for Wall Street. Almost nobody builds the Wall Street part.</h1>
-    <p class="lede">One product, not two: a savings vault for tokenized stocks whose own management fee pays for the keeper gas that keeps it rebalanced. Robinhood's subsidy ends September 29 — this loop doesn't need it to keep running.</p>
-    <div class="stat-row">
-      <div class="stat gap"><span class="num">100%</span><span class="lbl">of the management fee routes straight to keeper gas</span></div>
-      <div class="stat"><span class="num">4%</span><span class="lbl">of on-chain volume is RWA — the rest is memecoins</span></div>
-      <div class="stat"><span class="num">95</span><span class="lbl">stocks with a Chainlink price feed ready to use</span></div>
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <h1>The chain is built for Wall Street. Almost nobody builds the Wall Street part.</h1>
+      <p class="lede">One product, not two: a savings vault for tokenized stocks whose own management fee pays for the keeper gas that keeps it rebalanced. Robinhood's subsidy ends September 29 — this loop doesn't need it to keep running.</p>
+      <div class="stat-row">
+        <div class="stat gap"><span class="num">100%</span><span class="lbl">of the management fee routes straight to keeper gas</span></div>
+        <div class="stat"><span class="num">4%</span><span class="lbl">of on-chain volume is RWA — the rest is memecoins</span></div>
+        <div class="stat"><span class="num">95</span><span class="lbl">stocks with a Chainlink price feed ready to use</span></div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <svg class="orbit-art" viewBox="0 0 320 320" role="img" aria-label="Three overlapping rings representing the vault, the flywheel, and the gas sponsor">
+        <circle cx="118" cy="150" r="108" class="orbit-c gold" opacity="0.10"/>
+        <circle cx="118" cy="150" r="94"  class="orbit-c gold" opacity="0.18"/>
+        <circle cx="118" cy="150" r="80"  class="orbit-c gold" opacity="0.28"/>
+        <circle cx="118" cy="150" r="66"  class="orbit-c gold" opacity="0.42"/>
+        <circle cx="118" cy="150" r="52"  class="orbit-c gold" opacity="0.60"/>
+        <circle cx="118" cy="150" r="38"  class="orbit-c gold" opacity="0.85"/>
+
+        <circle cx="205" cy="140" r="108" class="orbit-c teal" opacity="0.10"/>
+        <circle cx="205" cy="140" r="94"  class="orbit-c teal" opacity="0.18"/>
+        <circle cx="205" cy="140" r="80"  class="orbit-c teal" opacity="0.28"/>
+        <circle cx="205" cy="140" r="66"  class="orbit-c teal" opacity="0.42"/>
+        <circle cx="205" cy="140" r="52"  class="orbit-c teal" opacity="0.60"/>
+        <circle cx="205" cy="140" r="38"  class="orbit-c teal" opacity="0.85"/>
+
+        <circle cx="163" cy="212" r="108" class="orbit-c ink" opacity="0.06"/>
+        <circle cx="163" cy="212" r="94"  class="orbit-c ink" opacity="0.10"/>
+        <circle cx="163" cy="212" r="80"  class="orbit-c ink" opacity="0.14"/>
+        <circle cx="163" cy="212" r="66"  class="orbit-c ink" opacity="0.20"/>
+        <circle cx="163" cy="212" r="52"  class="orbit-c ink" opacity="0.28"/>
+        <circle cx="163" cy="212" r="38"  class="orbit-c ink" opacity="0.40"/>
+      </svg>
+
+      <div class="hero-callout">
+        <span class="hc-corner tl"></span><span class="hc-corner tr"></span>
+        <span class="hc-corner bl"></span><span class="hc-corner br"></span>
+        <div class="hc-label">→ KEEPER GAS POLICY</div>
+        <div class="hc-value">Last sweep <span class="up">+0.014 ETH</span></div>
+      </div>
     </div>
   </div>
 </section>
@@ -103,6 +143,40 @@
           </div>
           <div class="yield-note">Shares issued: <span class="num" id="sharesOut">1000.00</span> TALLY</div>
         </div>
+      </div>
+    </div>
+
+    <div class="preset-table">
+      <div class="preset-head">
+        <span>OTHER BASKET PRESETS</span>
+        <span class="preset-sub">Same vault contract — different weights via setWeights()</span>
+      </div>
+      <div class="preset-row">
+        <div class="preset-name">Semiconductor Core<span class="preset-tag">Chips first, everything else after.</span></div>
+        <div class="preset-bar">
+          <span style="width:45%;background:var(--gold)"></span>
+          <span style="width:30%;background:var(--teal)"></span>
+          <span style="width:25%;background:#B0492E"></span>
+        </div>
+        <div class="preset-level">100.42<span class="preset-chg up">+0.42%</span></div>
+      </div>
+      <div class="preset-row">
+        <div class="preset-name">Blue Chip Five<span class="preset-tag">Five names, one line, no guessing.</span></div>
+        <div class="preset-bar">
+          <span style="width:35%;background:var(--gold)"></span>
+          <span style="width:33%;background:var(--teal)"></span>
+          <span style="width:32%;background:#B0492E"></span>
+        </div>
+        <div class="preset-level">99.88<span class="preset-chg down">-0.12%</span></div>
+      </div>
+      <div class="preset-row">
+        <div class="preset-name">Retail Momentum<span class="preset-tag">What's trending on Robinhood, not what's stable.</span></div>
+        <div class="preset-bar">
+          <span style="width:40%;background:var(--gold)"></span>
+          <span style="width:35%;background:var(--teal)"></span>
+          <span style="width:25%;background:#B0492E"></span>
+        </div>
+        <div class="preset-level">101.15<span class="preset-chg up">+1.15%</span></div>
       </div>
     </div>
 
@@ -233,7 +307,13 @@
       <div class="panel">
         <div class="panel-title"><span>SPONSOR POLICIES</span><span>LIVE</span></div>
 
-        <div class="policy-card">
+        <div class="filter-pills" id="policyFilters">
+          <button class="pill active" data-filter="all">ALL</button>
+          <button class="pill" data-filter="active">ACTIVE</button>
+          <button class="pill" data-filter="inactive">INACTIVE</button>
+        </div>
+
+        <div class="policy-card" data-status="active">
           <div class="row-top"><span class="name">tally-basket-app <span class="badge">self-funded</span></span><span class="status">active</span></div>
           <div class="slider-row">
             <label><span>Daily gas cap</span><span id="capLabel">0.40 ETH</span></label>
@@ -243,7 +323,7 @@
           <div class="yield-note">Spent today: <span class="num" id="spentLabel">0.22 ETH</span> of <span id="capLabel2">0.40 ETH</span></div>
         </div>
 
-        <div class="policy-card">
+        <div class="policy-card" data-status="inactive">
           <div class="row-top"><span class="name">tally-rebalance-keeper</span><span class="status off">inactive</span></div>
           <div class="yield-note">Paused — waiting on new funding for the pool.</div>
         </div>

@@ -41,6 +41,23 @@
   }
 })();
 
+// ---------- policy filter pills ----------
+(() => {
+  const group = document.getElementById('policyFilters');
+  if (!group) return;
+  const cards = document.querySelectorAll('.policy-card');
+  group.addEventListener('click', (e) => {
+    const btn = e.target.closest('.pill');
+    if (!btn) return;
+    group.querySelectorAll('.pill').forEach(p => p.classList.toggle('active', p === btn));
+    const filter = btn.getAttribute('data-filter');
+    cards.forEach(card => {
+      const show = filter === 'all' || card.getAttribute('data-status') === filter;
+      card.hidden = !show;
+    });
+  });
+})();
+
 // animate basket bars once, on load
 window.addEventListener('load', () => {
   document.querySelectorAll('.bar-fill[data-target]').forEach(el => {
