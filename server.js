@@ -27,4 +27,4 @@ http.createServer((req, res) => {
     res.writeHead(200, { 'Content-Type': type, 'Cache-Control': 'no-cache' });
     res.end(data);
   });
-}).listen(PORT, () => console.log('Tally site on http://localhost:' + PORT));
+}).listen(PORT, () => console.log('Dynamo site on http://localhost:' + PORT));

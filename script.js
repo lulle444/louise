@@ -8,7 +8,7 @@
   toggle.addEventListener('click', () => {
     const isDark = root.getAttribute('data-theme') === 'dark';
     if (isDark) root.removeAttribute('data-theme'); else root.setAttribute('data-theme', 'dark');
-    try { localStorage.setItem('tally-theme', isDark ? 'light' : 'dark'); } catch (e) {}
+    try { localStorage.setItem('dynamo-theme', isDark ? 'light' : 'dark'); } catch (e) {}
     sync();
   });
 })();

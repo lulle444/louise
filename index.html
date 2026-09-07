@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tally — built for Robinhood Chain</title>
-<meta name="description" content="Tally: a savings vault for tokenized stocks whose own management fee funds the gas its keepers need — a self-sustaining loop on Robinhood Chain.">
+<title>Dynamo — built for Robinhood Chain</title>
+<meta name="description" content="Dynamo: a savings vault for tokenized stocks whose own management fee funds the gas its keepers need — a self-sustaining loop on Robinhood Chain.">
 <script>
   try {
-    if (localStorage.getItem('tally-theme') === 'dark') {
+    if (localStorage.getItem('dynamo-theme') === 'dark') {
       document.documentElement.setAttribute('data-theme', 'dark');
     }
   } catch (e) {}
@@ -46,7 +46,7 @@
 
 <header class="top">
   <div class="wrap nav-wrap">
-    <a class="brand" href="#top">Tally <em>/ Robinhood Chain</em></a>
+    <a class="brand" href="#top">Dynamo <em>/ Robinhood Chain</em></a>
 
     <div class="nav-panel" id="navPanel">
       <nav class="nav">
@@ -117,7 +117,7 @@
   <div class="wrap">
     <div class="product-head">
       <div>
-        <span class="tag">01 — TALLY VAULT</span>
+        <span class="tag">01 — DYNAMO VAULT</span>
         <h2>One deposit. A fixed basket of tokenized stocks.</h2>
         <p class="desc">A user deposits USDG. The contract automatically splits it across Stock Tokens at fixed weights, and anyone can trigger a rebalance once the basket drifts too far from target — without the user ever bridging, swapping, or timing the market themselves.</p>
         <ul class="spec-list">
@@ -152,7 +152,7 @@
             <input type="number" id="depositInput" placeholder="1000" value="1000">
             <button class="btn" onclick="simulateDeposit()">Deposit</button>
           </div>
-          <div class="yield-note">Shares issued: <span class="num" id="sharesOut">1000.00</span> TALLY</div>
+          <div class="yield-note">Shares issued: <span class="num" id="sharesOut">1000.00</span> DYNAMO</div>
         </div>
       </div>
     </div>
@@ -192,7 +192,7 @@
     </div>
 
     <details class="code-block">
-      <summary>TallyVault.sol — deposit()</summary>
+      <summary>DynamoVault.sol — deposit()</summary>
       <pre><span class="kw">function</span> deposit(<span class="ty">uint256</span> usdgAmount, <span class="ty">uint256</span>[] calldata minOuts)
     <span class="kw">external</span> nonReentrant <span class="kw">returns</span> (<span class="ty">uint256</span> sharesOut)
 {
@@ -236,7 +236,7 @@
           </div>
           <div class="flow-step">
             <span class="fs-num">3</span>
-            <span class="fs-label">Funds keeper policy<span class="fs-sub">TallyGasSponsor</span></span>
+            <span class="fs-label">Funds keeper policy<span class="fs-sub">DynamoGasSponsor</span></span>
           </div>
           <div class="flow-step">
             <span class="fs-num">4</span>
@@ -258,7 +258,7 @@
       <div>
         <span class="tag">02 — THE FLYWHEEL</span>
         <h2>The vault pays for its own upkeep.</h2>
-        <p class="desc">Every deposit accrues a 0.50% annualized fee. Instead of sitting idle, that fee is swept, swapped to ETH, and dropped straight into the vault's own TallyGasSponsor policy — the same policy that sponsors the keepers who call <code>rebalance()</code>. A bigger basket means a bigger fee, which means more sponsored keeper calls, which means the basket stays closer to target, which is what makes the vault worth holding in the first place.</p>
+        <p class="desc">Every deposit accrues a 0.50% annualized fee. Instead of sitting idle, that fee is swept, swapped to ETH, and dropped straight into the vault's own DynamoGasSponsor policy — the same policy that sponsors the keepers who call <code>rebalance()</code>. A bigger basket means a bigger fee, which means more sponsored keeper calls, which means the basket stays closer to target, which is what makes the vault worth holding in the first place.</p>
         <ul class="spec-list">
           <li><span class="k">Fee source</span><span class="v">0.50% annualized on TVL, pro-rated per sweep</span></li>
           <li><span class="k">Fee routing</span><span class="v">100% → USDG→ETH swap → policy balance</span></li>
@@ -270,7 +270,7 @@
     </div>
 
     <details class="code-block">
-      <summary>TallyVault.sol — accrueAndFundKeeperGas()</summary>
+      <summary>DynamoVault.sol — accrueAndFundKeeperGas()</summary>
       <pre><span class="kw">function</span> accrueAndFundKeeperGas(<span class="ty">uint256</span> minEthOut)
     <span class="kw">external</span> nonReentrant <span class="kw">returns</span> (<span class="ty">uint256</span> ethFunded)
 {
@@ -303,9 +303,9 @@
   <div class="wrap">
     <div class="product-head">
       <div>
-        <span class="tag">03 — TALLY GAS SPONSOR</span>
+        <span class="tag">03 — DYNAMO GAS SPONSOR</span>
         <h2>One shared gas budget, instead of every project building its own.</h2>
-        <p class="desc">Robinhood's own gas subsidy ends September 29. This is the paymaster contract the vault funds itself against: a project registers a policy with a daily cap, funds it in ETH, and lets users and keepers transact without holding gas themselves. TallyVault is simply its first, self-funding tenant — any other project can register a policy the same way and fund it manually instead.</p>
+        <p class="desc">Robinhood's own gas subsidy ends September 29. This is the paymaster contract the vault funds itself against: a project registers a policy with a daily cap, funds it in ETH, and lets users and keepers transact without holding gas themselves. DynamoVault is simply its first, self-funding tenant — any other project can register a policy the same way and fund it manually instead.</p>
         <ul class="spec-list">
           <li><span class="k">Standard</span><span class="v">ERC-4337, EntryPoint v0.7</span></li>
           <li><span class="k">Isolation</span><span class="v">One contract, many independent policy IDs</span></li>
@@ -325,7 +325,7 @@
         </div>
 
         <div class="policy-card" data-status="active">
-          <div class="row-top"><span class="name">tally-basket-app <span class="badge">self-funded</span></span><span class="status">active</span></div>
+          <div class="row-top"><span class="name">dynamo-basket-app <span class="badge">self-funded</span></span><span class="status">active</span></div>
           <div class="slider-row">
             <label><span>Daily gas cap</span><span id="capLabel">0.40 ETH</span></label>
             <input type="range" id="capSlider" min="0.05" max="1" step="0.05" value="0.4" oninput="updateCap(this.value)">
@@ -335,14 +335,14 @@
         </div>
 
         <div class="policy-card" data-status="inactive">
-          <div class="row-top"><span class="name">tally-rebalance-keeper</span><span class="status off">inactive</span></div>
+          <div class="row-top"><span class="name">dynamo-rebalance-keeper</span><span class="status off">inactive</span></div>
           <div class="yield-note">Paused — waiting on new funding for the pool.</div>
         </div>
       </div>
     </div>
 
     <details class="code-block">
-      <summary>TallyGasSponsor.sol — validatePaymasterUserOp()</summary>
+      <summary>DynamoGasSponsor.sol — validatePaymasterUserOp()</summary>
       <pre><span class="kw">function</span> validatePaymasterUserOp(
     PackedUserOperation calldata userOp,
     <span class="ty">bytes32</span> userOpHash,
@@ -393,7 +393,7 @@
       </div>
       <div class="activity-row">
         <span class="ev-tag deposit">deposit</span>
-        <span class="ev-detail"><code>0x7Ae2…11Fb</code> → 2,391.02 TALLY minted</span>
+        <span class="ev-detail"><code>0x7Ae2…11Fb</code> → 2,391.02 DYNAMO minted</span>
         <span class="ev-amount">2,400 USDG</span>
         <span class="ev-time">41m ago</span>
       </div>
@@ -406,7 +406,7 @@
       <div class="activity-row">
         <span class="ev-tag withdraw">withdraw</span>
         <span class="ev-detail"><code>0x1Bd4…77Ac</code> → pro-rata basket assets</span>
-        <span class="ev-amount">610.00 TALLY</span>
+        <span class="ev-amount">610.00 DYNAMO</span>
         <span class="ev-time">3h ago</span>
       </div>
     </div>
@@ -416,12 +416,12 @@
 <footer>
   <div class="wrap footer-grid">
     <div class="footer-brand-col">
-      <div class="foot-brand">Tally</div>
+      <div class="foot-brand">Dynamo</div>
       <p class="footer-desc">Reference DeFi infrastructure for Robinhood Chain: a stock-basket savings vault that funds its own keeper gas through a paired ERC-4337 sponsor policy.</p>
     </div>
     <div class="footer-col">
       <div class="footer-col-title">Product</div>
-      <a href="#vault">Tally Vault</a>
+      <a href="#vault">Dynamo Vault</a>
       <a href="#flywheel">The Flywheel</a>
       <a href="#gas">Gas Sponsor</a>
       <a href="#activity">Activity</a>
@@ -434,7 +434,7 @@
   </div>
 
   <div class="wrap footer-bottom">
-    <p>Both contracts are reference implementations for Robinhood Chain (chain ID 4663) — a starting point for further development, not audited or production-ready code. <code>TallyVault.bootstrapGasSponsor()</code> registers the vault's own keeper policy on <code>TallyGasSponsor</code>, and <code>accrueAndFundKeeperGas()</code> is the open call anyone can run to sweep fee into it. Built on standard EVM tooling: viem, ethers, Hardhat, and Foundry all work unmodified.</p>
+    <p>Both contracts are reference implementations for Robinhood Chain (chain ID 4663) — a starting point for further development, not audited or production-ready code. <code>DynamoVault.bootstrapGasSponsor()</code> registers the vault's own keeper policy on <code>DynamoGasSponsor</code>, and <code>accrueAndFundKeeperGas()</code> is the open call anyone can run to sweep fee into it. Built on standard EVM tooling: viem, ethers, Hardhat, and Foundry all work unmodified.</p>
   </div>
 </footer>
 

@@ -34,30 +34,30 @@ interface IWETH is IERC20 {
     function withdraw(uint256 amount) external;
 }
 
-/// @notice The subset of TallyGasSponsor the vault talks to when it registers
+/// @notice The subset of DynamoGasSponsor the vault talks to when it registers
 /// and self-funds its own keeper policy.
-interface ITallyGasSponsor {
+interface IDynamoGasSponsor {
     function registerPolicy(bytes32 policyId, uint256 dailyCapWei, uint256 perOpCapWei) external;
     function fundPolicy(bytes32 policyId) external payable;
 }
 
-/// @title TallyVault
-/// @notice The Tally savings vault: users deposit USDG, the vault swaps into a
+/// @title DynamoVault
+/// @notice The Dynamo savings vault: users deposit USDG, the vault swaps into a
 /// fixed-weight basket of Robinhood Chain Stock Tokens (ERC-20s such as AAPL,
-/// NVDA, TSLA), and issues TALLY shares representing a proportional claim on
+/// NVDA, TSLA), and issues DYNAMO shares representing a proportional claim on
 /// the basket. Anyone can trigger rebalancing back to target weights.
 /// @dev This is a reference implementation for a Stock Token savings product —
 /// review, audit, and adapt before any mainnet use. Not audited.
 ///
 /// The flywheel: the vault's own management fee is the only thing that funds
-/// its paired TallyGasSponsor policy. Nobody has to seed keeper gas out of
+/// its paired DynamoGasSponsor policy. Nobody has to seed keeper gas out of
 /// pocket — `accrueAndFundKeeperGas` pulls the fee owed since the last call,
 /// swaps it to ETH, and tops up the policy that sponsors `rebalance()` calls.
 /// A bigger basket accrues a bigger fee, which funds more keeper gas, which
 /// keeps the basket on target, which is what makes the vault worth holding —
 /// the loop is self-sustaining once it's running, independent of Robinhood's
 /// own gas subsidy.
-contract TallyVault is ERC20, Ownable, ReentrancyGuard {
+contract DynamoVault is ERC20, Ownable, ReentrancyGuard {
     using SafeERC20 for IERC20;
 
     struct Asset {
@@ -70,7 +70,7 @@ contract TallyVault is ERC20, Ownable, ReentrancyGuard {
     IWETH public immutable weth;
     ISwapRouter public swapRouter;
 
-    ITallyGasSponsor public gasSponsor;
+    IDynamoGasSponsor public gasSponsor;
     bytes32 public keeperPolicyId;
     uint256 public lastFeeAccrual;
 
@@ -102,7 +102,7 @@ contract TallyVault is ERC20, Ownable, ReentrancyGuard {
         lastFeeAccrual = block.timestamp;
     }
 
-    /// @notice One-time setup: point the vault at a TallyGasSponsor deployment
+    /// @notice One-time setup: point the vault at a DynamoGasSponsor deployment
     /// and register a policy the vault itself owns, so only this vault's fee
     /// revenue can ever fund it.
     function bootstrapGasSponsor(
@@ -112,7 +112,7 @@ contract TallyVault is ERC20, Ownable, ReentrancyGuard {
         uint256 perOpCapWei
     ) external onlyOwner {
         require(address(gasSponsor) == address(0), "already configured");
-        gasSponsor = ITallyGasSponsor(_gasSponsor);
+        gasSponsor = IDynamoGasSponsor(_gasSponsor);
         keeperPolicyId = policyId;
         gasSponsor.registerPolicy(policyId, dailyCapWei, perOpCapWei);
         emit GasSponsorConfigured(_gasSponsor, policyId);
@@ -124,7 +124,7 @@ contract TallyVault is ERC20, Ownable, ReentrancyGuard {
 
     /// @notice Anyone can call this — it accrues the management fee owed
     /// since the last call, swaps it from USDG into ETH, and funds the
-    /// vault's own keeper policy on TallyGasSponsor. Calling this is itself
+    /// vault's own keeper policy on DynamoGasSponsor. Calling this is itself
     /// unsponsored (it has to be, to bootstrap the loop), but every
     /// `rebalance()` call it subsidizes afterward is free to the keeper.
     /// @param minEthOut minimum acceptable ETH out of the USDG->WETH swap
@@ -245,7 +245,7 @@ contract TallyVault is ERC20, Ownable, ReentrancyGuard {
 
     /// @notice Anyone can call this once drift exceeds `rebalanceThresholdBps`.
     /// The caller submits it as a sponsored UserOperation against the vault's
-    /// own TallyGasSponsor policy (funded by `accrueAndFundKeeperGas`), so a
+    /// own DynamoGasSponsor policy (funded by `accrueAndFundKeeperGas`), so a
     /// keeper with the right smart-account setup pays nothing to run it.
     function rebalance(uint256[] calldata minOuts) external nonReentrant {
         require(minOuts.length == assets.length, "length mismatch");

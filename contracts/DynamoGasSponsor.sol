@@ -6,7 +6,7 @@ import {IEntryPoint} from "@account-abstraction/contracts/interfaces/IEntryPoint
 import {PackedUserOperation} from "@account-abstraction/contracts/interfaces/PackedUserOperation.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
-/// @title TallyGasSponsor
+/// @title DynamoGasSponsor
 /// @notice An ERC-4337 paymaster that lets a project register a spending
 /// policy and sponsor gas for its users on Robinhood Chain, without every
 /// project having to build its own account-abstraction stack. Built against
@@ -16,7 +16,7 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 /// Not audited. In production, validate this against the specific EntryPoint
 /// version you target and add a real signature-based off-chain policy check
 /// if you need per-request approval instead of on-chain caps only.
-contract TallyGasSponsor is IPaymaster, Ownable {
+contract DynamoGasSponsor is IPaymaster, Ownable {
     IEntryPoint public immutable entryPoint;
 
     struct Policy {
@@ -30,7 +30,7 @@ contract TallyGasSponsor is IPaymaster, Ownable {
     }
 
     /// @dev A "policy" is identified by a bytes32 id chosen by the app, e.g.
-    /// keccak256("tally-basket-app"). This lets one paymaster contract serve
+    /// keccak256("dynamo-basket-app"). This lets one paymaster contract serve
     /// many unrelated projects with fully isolated budgets.
     mapping(bytes32 => Policy) public policies;
 
