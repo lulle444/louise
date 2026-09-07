@@ -161,7 +161,7 @@ header.top{
   transition:box-shadow .15s;
 }
 header.top.scrolled{box-shadow:0 1px 3px rgba(28,31,38,0.06), 0 2px 8px rgba(28,31,38,0.04);}
-.nav-wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;position:relative;}
+.nav-wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;position:relative;}
 .brand{
   font-family:var(--serif);
   font-weight:600;
@@ -170,13 +170,10 @@ header.top.scrolled{box-shadow:0 1px 3px rgba(28,31,38,0.06), 0 2px 8px rgba(28,
   text-decoration:none;
   color:var(--ink);
 }
-@media (min-width:761px){
-  .brand{white-space:nowrap;flex-shrink:0;}
-}
 .brand em{font-style:italic;color:var(--gold);}
 
-.nav-panel{display:flex;align-items:center;gap:20px;}
-.nav{display:flex;gap:20px;}
+.nav-panel{display:flex;align-items:center;gap:28px;}
+.nav{display:flex;gap:24px;}
 .nav-link{
   font-family:var(--mono);
   font-size:13px;
@@ -219,18 +216,6 @@ header.top.scrolled{box-shadow:0 1px 3px rgba(28,31,38,0.06), 0 2px 8px rgba(28,
   transition:background .15s, border-color .15s;
 }
 .icon-btn:hover{border-color:var(--gold);}
-
-.wallet-btn{
-  padding:7px 13px;
-  font-size:12px;
-  letter-spacing:.02em;
-  white-space:nowrap;
-}
-.wallet-btn.connected{
-  background:var(--panel-alt);
-  color:var(--ink);
-  border:1px solid var(--teal-faint);
-}
 
 .nav-toggle{
   display:none;

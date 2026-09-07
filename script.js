@@ -82,12 +82,8 @@ window.addEventListener('load', () => {
   document.getElementById('basketTotal').textContent = '$1,000';
 });
 
-async function simulateDeposit(){
+function simulateDeposit(){
   const amt = parseFloat(document.getElementById('depositInput').value) || 0;
-  if (window.DYNAMO_DEPLOYMENT && window.dynamoLiveDeposit) {
-    const ok = await window.dynamoLiveDeposit(amt).catch((e) => { console.warn('Dynamo: live deposit failed', e); return false; });
-    if (ok) { document.getElementById('sharesOut').textContent = amt.toFixed(2); return; }
-  }
   document.getElementById('basketTotal').textContent = '$' + amt.toLocaleString('en-US');
   document.getElementById('sharesOut').textContent = amt.toFixed(2);
 }
@@ -117,22 +113,14 @@ function tickFee(){
 }
 setInterval(tickFee, 250);
 
-async function sweepFee(){
-  if (window.DYNAMO_DEPLOYMENT && window.dynamoLiveSweep) {
-    const ok = await window.dynamoLiveSweep().catch((e) => { console.warn('Dynamo: live sweep failed', e); return false; });
-    if (ok) { flashLoopStatus(); return; }
-  }
-
+function sweepFee(){
   const ethOut = feeAccrued / ETH_PRICE_USD;
   poolBalanceEth += ethOut;
   feeAccrued = 0;
 
   document.getElementById('feeAccrued').textContent = '$0.00';
   document.getElementById('poolBalance').textContent = poolBalanceEth.toFixed(4) + ' ETH';
-  flashLoopStatus();
-}
 
-function flashLoopStatus(){
   const status = document.getElementById('loopStatus');
   if (status) {
     status.textContent = 'funded ✓';
