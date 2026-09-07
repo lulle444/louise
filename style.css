@@ -616,6 +616,29 @@ input[type=range]{
 .code-block .cm{color:#5C6B78;font-style:italic;}
 .code-block .st{color:#4FD1AE;}
 
+/* ---------- manifesto band ---------- */
+.manifesto-band{
+  padding:72px 0;
+  border-top:1px solid var(--border);
+  text-align:left;
+}
+.manifesto-lede{
+  color:var(--muted);
+  font-size:16px;
+  max-width:52ch;
+  margin:0 0 24px;
+}
+.manifesto-quote{
+  margin:0;
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:600;
+  font-size:clamp(1.5rem, 3vw, 2.1rem);
+  line-height:1.35;
+  max-width:18ch;
+  color:var(--gold);
+}
+
 /* ---------- footer (dark, for contrast against the light page) ---------- */
 footer{
   --f-bg:#14181D;

@@ -329,8 +329,8 @@
 <section class="hero">
   <div class="wrap hero-grid">
     <div class="hero-text">
-      <h1>The chain is built for Wall Street. Almost nobody builds the Wall Street part.</h1>
-      <p class="lede">One product, not two: a savings vault for tokenized stocks whose own management fee pays for the keeper gas that keeps it rebalanced. Robinhood's subsidy ends September 29 — this loop doesn't need it to keep running.</p>
+      <h1>Robinhood Chain doesn't need another token. It needs an engine.</h1>
+      <p class="lede">Dynamo is a savings vault for tokenized stocks, designed to fund its own upkeep — so the activity that keeps it alive doesn't depend on subsidies that eventually run out. Robinhood's own gas subsidy ends September 29; this loop doesn't need it to keep running.</p>
       <div class="stat-row">
         <div class="stat gap"><span class="num">100%</span><span class="lbl">of the management fee routes straight to keeper gas</span></div>
         <div class="stat"><span class="num">4%</span><span class="lbl">of on-chain volume is RWA — the rest is memecoins</span></div>
@@ -369,6 +369,20 @@
         <div class="hc-value">Last sweep <span class="up">+0.014 ETH</span></div>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="product">
+  <div class="wrap">
+    <span class="tag">WHY THIS MATTERS</span>
+    <h2>Every onchain financial product depends on continuous activity.</h2>
+    <p class="desc">Transactions need gas. Vaults need maintenance. Positions need rebalancing. Today, those costs are usually covered by temporary incentives or a centralized subsidy — which works during launch, and stops working the moment the subsidy does.</p>
+    <ul class="spec-list">
+      <li><span class="k">Transactions</span><span class="v">Every action onchain has a gas cost</span></li>
+      <li><span class="k">Vaults</span><span class="v">Require ongoing monitoring and rebalancing</span></li>
+      <li><span class="k">Positions</span><span class="v">Drift and need to be corrected over time</span></li>
+      <li><span class="k">Infrastructure</span><span class="v">Needs funding whether or not incentives are running</span></li>
+    </ul>
   </div>
 </section>
 
@@ -682,6 +696,13 @@
   </div>
 </section>
 
+<div class="manifesto-band">
+  <div class="wrap">
+    <p class="manifesto-lede">The next generation of onchain finance won't be judged only by how quickly it launches. It will be judged by whether it can keep operating once the incentives disappear.</p>
+    <blockquote class="manifesto-quote">That is the difference between an experiment and an economy.</blockquote>
+  </div>
+</div>
+
 <footer>
   <div class="wrap footer-grid">
     <div class="footer-brand-col">
@@ -703,7 +724,7 @@
   </div>
 
   <div class="wrap footer-bottom">
-    <p>Both contracts are reference implementations for Robinhood Chain (chain ID 4663) — a starting point for further development, not audited or production-ready code. <code>DynamoVault.bootstrapGasSponsor()</code> registers the vault's own keeper policy on <code>DynamoGasSponsor</code>, and <code>accrueAndFundKeeperGas()</code> is the open call anyone can run to sweep fee into it. Built on standard EVM tooling: viem, ethers, Hardhat, and Foundry all work unmodified.</p>
+    <p>Dynamo is in early development. This page describes the architecture and vision for the vault and its fee model — it is not yet live, does not currently accept deposits, and has not been audited. Both contracts are reference implementations for Robinhood Chain (chain ID 4663), a starting point for further development. <code>DynamoVault.bootstrapGasSponsor()</code> registers the vault's own keeper policy on <code>DynamoGasSponsor</code>, and <code>accrueAndFundKeeperGas()</code> is the open call anyone can run to sweep fee into it. Built on standard EVM tooling: viem, ethers, Hardhat, and Foundry all work unmodified. Nothing here is financial advice.</p>
   </div>
 </footer>
 
