@@ -1,1 +1,7 @@
 .vercel
+node_modules
+chain/artifacts
+chain/cache
+chain/deployed.hardhat.json
+chain/deployed.localhost.json
+.env

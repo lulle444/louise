@@ -135,8 +135,17 @@ contract DynamoVault is ERC20, Ownable, ReentrancyGuard {
         lastFeeAccrual = block.timestamp;
         if (elapsed == 0) return 0;
 
-        uint256 feeUsdg = (totalAssetsValueUsd() * managementFeeBps * elapsed) / (BPS_DENOMINATOR * 365 days);
+        uint256 feeUsdg = (totalAssetsValueUsd() * managementFeeBps * elapsed) / (uint256(BPS_DENOMINATOR) * 365 days);
+        if (feeUsdg == 0) return 0;
+
+        // deposit() sweeps 100% of every inflow into the basket, so idle
+        // USDG is normally zero — raise the fee by selling a pro-rata slice
+        // of the basket first (mirrors the sell-down half of rebalance()).
         uint256 available = depositAsset.balanceOf(address(this));
+        if (available < feeUsdg) {
+            _raiseUsdg(feeUsdg - available);
+            available = depositAsset.balanceOf(address(this));
+        }
         if (feeUsdg > available) feeUsdg = available;
         if (feeUsdg == 0) return 0;
 
@@ -150,6 +159,27 @@ contract DynamoVault is ERC20, Ownable, ReentrancyGuard {
         emit KeeperGasFunded(feeUsdg, wethOut);
     }
 
+    /// @dev Sells a pro-rata slice of every basket asset into USDG to raise
+    /// `usdShortfall`. Unlike `rebalance()`, callers can't pass per-asset
+    /// slippage bounds here — an audit item before mainnet use, alongside
+    /// the "not audited" note on the contract itself.
+    function _raiseUsdg(uint256 usdShortfall) internal {
+        uint256 totalUsd = totalAssetsValueUsd();
+        if (totalUsd == 0) return;
+        for (uint256 i = 0; i < assets.length; i++) {
+            uint256 assetUsd = _assetValueUsd(i);
+            if (assetUsd == 0) continue;
+            uint256 sellUsd = (usdShortfall * assetUsd) / totalUsd;
+            if (sellUsd == 0) continue;
+            uint256 sellAmount = _usdToTokenAmount(i, sellUsd);
+            uint256 bal = IERC20(assets[i].token).balanceOf(address(this));
+            if (sellAmount > bal) sellAmount = bal;
+            if (sellAmount == 0) continue;
+            IERC20(assets[i].token).forceApprove(address(swapRouter), sellAmount);
+            swapRouter.swapExactInput(assets[i].token, address(depositAsset), sellAmount, 0, address(this));
+        }
+    }
+
     /// @dev Only reachable via `weth.withdraw()` inside `accrueAndFundKeeperGas`.
     receive() external payable {
         require(msg.sender == address(weth), "unexpected sender");
@@ -160,10 +190,13 @@ contract DynamoVault is ERC20, Ownable, ReentrancyGuard {
     // timelocked multisig, not a single EOA)
     // ---------------------------------------------------------------------
 
+    /// @dev Weights aren't checked here — a basket only sums to 10_000 bps
+    /// once every asset has been added, so the invariant can't hold after
+    /// any single call. Call `setWeights` (or just verify off-chain) once
+    /// the full basket is assembled, before opening the vault to deposits.
     function addAsset(address token, address priceFeed, uint16 targetBps) external onlyOwner {
         assets.push(Asset(token, priceFeed, targetBps));
         emit AssetAdded(token, priceFeed, targetBps);
-        _checkWeights();
     }
 
     function setWeights(uint16[] calldata newTargetBps) external onlyOwner {
