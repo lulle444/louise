@@ -318,6 +318,7 @@
     </div>
 
     <div class="nav-actions">
+      <button class="btn wallet-btn" id="walletBtn">Connect</button>
       <button class="icon-btn" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navPanel">
         <span></span><span></span><span></span>
@@ -541,7 +542,17 @@
 
     <span class="cm">// 0.50%/yr on TVL, pro-rated by elapsed time since the last sweep</span>
     <span class="ty">uint256</span> feeUsdg = (totalAssetsValueUsd() * managementFeeBps * elapsed)
-        / (BPS_DENOMINATOR * 365 days);
+        / (<span class="ty">uint256</span>(BPS_DENOMINATOR) * 365 days);
+    <span class="kw">if</span> (feeUsdg == 0) <span class="kw">return</span> 0;
+
+    <span class="cm">// deposit() sweeps 100% of inflows into the basket, so idle USDG is
+    // normally zero — sell a pro-rata slice of the basket first</span>
+    <span class="ty">uint256</span> available = depositAsset.balanceOf(address(<span class="kw">this</span>));
+    <span class="kw">if</span> (available &lt; feeUsdg) {
+        _raiseUsdg(feeUsdg - available);
+        available = depositAsset.balanceOf(address(<span class="kw">this</span>));
+    }
+    <span class="kw">if</span> (feeUsdg > available) feeUsdg = available;
     <span class="kw">if</span> (feeUsdg == 0) <span class="kw">return</span> 0;
 
     depositAsset.forceApprove(address(swapRouter), feeUsdg);
@@ -699,6 +710,8 @@
 
 <button id="backToTop" class="back-to-top" aria-label="Back to top">↑</button>
 
+<script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script>
+<script src="web3.js"></script>
 <script src="script.js"></script>
 
 </body>
