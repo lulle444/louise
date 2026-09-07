@@ -8,9 +8,9 @@
   --gold:#9C7A17;
   --teal:#0E8F74;
   --gold-faint:rgba(156,122,23,0.12);
-  --teal-faint:rgba(14,143,116,0.12);
+  --teal-faint:rgba(14,143,116,0.16);
+  --down-faint:rgba(176,73,46,0.14);
   --ink-faint:rgba(28,31,38,0.07);
-  --sweep-tint:rgba(156,122,23,0.05);
   --serif:'Source Serif 4', Georgia, serif;
   --sans:'Inter', -apple-system, sans-serif;
   --mono:'IBM Plex Mono', 'SF Mono', monospace;
@@ -25,9 +25,9 @@
   --gold:#D9B34A;
   --teal:#4FD1AE;
   --gold-faint:rgba(217,179,74,0.14);
-  --teal-faint:rgba(79,209,174,0.14);
+  --teal-faint:rgba(79,209,174,0.18);
+  --down-faint:rgba(214,109,79,0.18);
   --ink-faint:rgba(237,234,224,0.08);
-  --sweep-tint:rgba(217,179,74,0.07);
 }
 *{box-sizing:border-box;}
 html{scroll-behavior:smooth;}
@@ -53,55 +53,41 @@ code{
 
 .wrap{max-width:960px;margin:0 auto;padding:0 24px;}
 
-/* ---------- ambient background: slow-spinning dynamo rings ---------- */
-.bg-orbits{
+/* ---------- ambient background: a rising price chart, scrolling ---------- */
+.bg-chart{
   position:fixed;
   inset:0;
   z-index:-1;
   overflow:hidden;
   pointer-events:none;
 }
-.bg-sweep{
-  position:absolute;
-  inset:-25%;
-  background:conic-gradient(from 0deg, transparent 0deg, var(--sweep-tint) 50deg, transparent 110deg, transparent 360deg);
-  animation:bgSweep 90s linear infinite;
-  transform-origin:center;
+.bg-chart-track{
+  display:flex;
+  width:200%;
+  height:100%;
+  animation:bgChartScroll 75s linear infinite;
 }
-.bg-ring{
-  position:absolute;
+.bg-chart-tile{
+  width:50%;
+  height:100%;
+  flex-shrink:0;
+  display:block;
+}
+.bg-chart-wicks line{stroke-width:1.6;vector-effect:non-scaling-stroke;}
+.bg-chart-bodies rect{stroke:none;}
+.cd-up{stroke:var(--teal-faint);fill:var(--teal-faint);}
+.cd-dn{stroke:var(--down-faint);fill:var(--down-faint);}
+.bg-chart-line{
   fill:none;
-  transform-origin:center;
+  stroke:var(--gold-faint);
+  stroke-width:2.5;
+  vector-effect:non-scaling-stroke;
 }
-.bg-ring circle{fill:none;stroke-width:1.4;}
-.ring-a{
-  width:64vmin;height:64vmin;
-  top:-16vmin;right:-16vmin;
-  animation:bgSpinCW 70s linear infinite;
-}
-.ring-a circle{stroke:var(--gold-faint);stroke-dasharray:1 15;}
-.ring-b{
-  width:80vmin;height:80vmin;
-  bottom:-20vmin;left:-20vmin;
-  animation:bgSpinCCW 100s linear infinite;
-}
-.ring-b circle{stroke:var(--teal-faint);stroke-dasharray:1 20;}
-.ring-c{
-  width:46vmin;height:46vmin;
-  top:38%;left:58%;
-  animation:bgSpinCW 55s linear infinite;
-}
-.ring-c circle{stroke:var(--ink-faint);stroke-dasharray:1 10;}
 
-@keyframes bgSpinCW{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
-@keyframes bgSpinCCW{from{transform:rotate(0deg);}to{transform:rotate(-360deg);}}
-@keyframes bgSweep{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+@keyframes bgChartScroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
 @media (prefers-reduced-motion: reduce){
-  .bg-sweep, .bg-ring{animation:none;}
-}
-@media (max-width:600px){
-  .ring-c{display:none;}
+  .bg-chart-track{animation:none;}
 }
 
 /* ---------- ticker ---------- */
