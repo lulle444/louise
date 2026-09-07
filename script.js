@@ -22,3 +22,34 @@ function updateCap(val){
   const pct = Math.min(100, (spent / cap) * 100);
   document.getElementById('spentBar').style.width = pct + '%';
 }
+
+// ---------- keeper gas flywheel demo ----------
+// Illustrative only: simulates management fee accruing on TVL, then
+// "sweeping" it into ETH and topping up the keeper gas policy balance —
+// mirrors what accrueAndFundKeeperGas() does on-chain.
+const ETH_PRICE_USD = 3200;
+let feeAccrued = 0;
+let poolBalanceEth = 0.22;
+
+function tickFee(){
+  feeAccrued += 0.014;
+  const el = document.getElementById('feeAccrued');
+  if (el) el.textContent = '$' + feeAccrued.toFixed(2);
+}
+setInterval(tickFee, 250);
+
+function sweepFee(){
+  const ethOut = feeAccrued / ETH_PRICE_USD;
+  poolBalanceEth += ethOut;
+  feeAccrued = 0;
+
+  document.getElementById('feeAccrued').textContent = '$0.00';
+  document.getElementById('poolBalance').textContent = poolBalanceEth.toFixed(4) + ' ETH';
+
+  const status = document.getElementById('loopStatus');
+  if (status) {
+    status.textContent = 'funded ✓';
+    status.classList.add('flash');
+    setTimeout(() => { status.textContent = 'idle'; status.classList.remove('flash'); }, 1200);
+  }
+}

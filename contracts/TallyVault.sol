@@ -27,6 +27,20 @@ interface ISwapRouter {
     ) external returns (uint256 amountOut);
 }
 
+/// @notice Wrapped ETH on Robinhood Chain — used only as the swap-out asset
+/// when converting accrued management fees into native ETH for the paired
+/// gas-sponsor policy.
+interface IWETH is IERC20 {
+    function withdraw(uint256 amount) external;
+}
+
+/// @notice The subset of TallyGasSponsor the vault talks to when it registers
+/// and self-funds its own keeper policy.
+interface ITallyGasSponsor {
+    function registerPolicy(bytes32 policyId, uint256 dailyCapWei, uint256 perOpCapWei) external;
+    function fundPolicy(bytes32 policyId) external payable;
+}
+
 /// @title TallyVault
 /// @notice The Tally savings vault: users deposit USDG, the vault swaps into a
 /// fixed-weight basket of Robinhood Chain Stock Tokens (ERC-20s such as AAPL,
@@ -34,6 +48,15 @@ interface ISwapRouter {
 /// the basket. Anyone can trigger rebalancing back to target weights.
 /// @dev This is a reference implementation for a Stock Token savings product —
 /// review, audit, and adapt before any mainnet use. Not audited.
+///
+/// The flywheel: the vault's own management fee is the only thing that funds
+/// its paired TallyGasSponsor policy. Nobody has to seed keeper gas out of
+/// pocket — `accrueAndFundKeeperGas` pulls the fee owed since the last call,
+/// swaps it to ETH, and tops up the policy that sponsors `rebalance()` calls.
+/// A bigger basket accrues a bigger fee, which funds more keeper gas, which
+/// keeps the basket on target, which is what makes the vault worth holding —
+/// the loop is self-sustaining once it's running, independent of Robinhood's
+/// own gas subsidy.
 contract TallyVault is ERC20, Ownable, ReentrancyGuard {
     using SafeERC20 for IERC20;
 
@@ -44,12 +67,18 @@ contract TallyVault is ERC20, Ownable, ReentrancyGuard {
     }
 
     IERC20 public immutable depositAsset; // USDG stablecoin
+    IWETH public immutable weth;
     ISwapRouter public swapRouter;
+
+    ITallyGasSponsor public gasSponsor;
+    bytes32 public keeperPolicyId;
+    uint256 public lastFeeAccrual;
 
     Asset[] public assets;
     uint16 public constant BPS_DENOMINATOR = 10_000;
     uint16 public rebalanceThresholdBps = 300; // drift tolerance before rebalance is allowed
-    uint16 public managementFeeBps = 50;       // 0.50% annualized, accrued on deposit/withdraw
+    uint16 public managementFeeBps = 50;       // 0.50% annualized — entirely routed to keeper gas, see below
+
     uint256 public lastRebalance;
 
     event Deposited(address indexed user, uint256 usdgIn, uint256 sharesOut);
@@ -57,15 +86,73 @@ contract TallyVault is ERC20, Ownable, ReentrancyGuard {
     event Rebalanced(uint256 timestamp);
     event AssetAdded(address token, address priceFeed, uint16 targetBps);
     event WeightsUpdated();
+    event GasSponsorConfigured(address indexed gasSponsor, bytes32 policyId);
+    event KeeperGasFunded(uint256 feeUsdg, uint256 ethFunded);
 
     constructor(
         address _depositAsset,
+        address _weth,
         address _swapRouter,
         string memory _name,
         string memory _symbol
     ) ERC20(_name, _symbol) Ownable(msg.sender) {
         depositAsset = IERC20(_depositAsset);
+        weth = IWETH(_weth);
         swapRouter = ISwapRouter(_swapRouter);
+        lastFeeAccrual = block.timestamp;
+    }
+
+    /// @notice One-time setup: point the vault at a TallyGasSponsor deployment
+    /// and register a policy the vault itself owns, so only this vault's fee
+    /// revenue can ever fund it.
+    function bootstrapGasSponsor(
+        address _gasSponsor,
+        bytes32 policyId,
+        uint256 dailyCapWei,
+        uint256 perOpCapWei
+    ) external onlyOwner {
+        require(address(gasSponsor) == address(0), "already configured");
+        gasSponsor = ITallyGasSponsor(_gasSponsor);
+        keeperPolicyId = policyId;
+        gasSponsor.registerPolicy(policyId, dailyCapWei, perOpCapWei);
+        emit GasSponsorConfigured(_gasSponsor, policyId);
+    }
+
+    // ---------------------------------------------------------------------
+    // The flywheel
+    // ---------------------------------------------------------------------
+
+    /// @notice Anyone can call this — it accrues the management fee owed
+    /// since the last call, swaps it from USDG into ETH, and funds the
+    /// vault's own keeper policy on TallyGasSponsor. Calling this is itself
+    /// unsponsored (it has to be, to bootstrap the loop), but every
+    /// `rebalance()` call it subsidizes afterward is free to the keeper.
+    /// @param minEthOut minimum acceptable ETH out of the USDG->WETH swap
+    function accrueAndFundKeeperGas(uint256 minEthOut) external nonReentrant returns (uint256 ethFunded) {
+        require(address(gasSponsor) != address(0), "gas sponsor not configured");
+
+        uint256 elapsed = block.timestamp - lastFeeAccrual;
+        lastFeeAccrual = block.timestamp;
+        if (elapsed == 0) return 0;
+
+        uint256 feeUsdg = (totalAssetsValueUsd() * managementFeeBps * elapsed) / (BPS_DENOMINATOR * 365 days);
+        uint256 available = depositAsset.balanceOf(address(this));
+        if (feeUsdg > available) feeUsdg = available;
+        if (feeUsdg == 0) return 0;
+
+        depositAsset.forceApprove(address(swapRouter), feeUsdg);
+        uint256 wethOut = swapRouter.swapExactInput(address(depositAsset), address(weth), feeUsdg, minEthOut, address(this));
+
+        weth.withdraw(wethOut);
+        gasSponsor.fundPolicy{value: wethOut}(keeperPolicyId);
+
+        ethFunded = wethOut;
+        emit KeeperGasFunded(feeUsdg, wethOut);
+    }
+
+    /// @dev Only reachable via `weth.withdraw()` inside `accrueAndFundKeeperGas`.
+    receive() external payable {
+        require(msg.sender == address(weth), "unexpected sender");
     }
 
     // ---------------------------------------------------------------------
@@ -156,9 +243,10 @@ contract TallyVault is ERC20, Ownable, ReentrancyGuard {
     // Rebalancing
     // ---------------------------------------------------------------------
 
-    /// @notice Anyone can call this once drift exceeds `rebalanceThresholdBps`;
-    /// the caller pays gas, which is the intended use case for a paired
-    /// gas-sponsorship policy so keepers aren't discouraged by cost.
+    /// @notice Anyone can call this once drift exceeds `rebalanceThresholdBps`.
+    /// The caller submits it as a sponsored UserOperation against the vault's
+    /// own TallyGasSponsor policy (funded by `accrueAndFundKeeperGas`), so a
+    /// keeper with the right smart-account setup pays nothing to run it.
     function rebalance(uint256[] calldata minOuts) external nonReentrant {
         require(minOuts.length == assets.length, "length mismatch");
         require(_maxDriftBps() >= rebalanceThresholdBps, "within tolerance");

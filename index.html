@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tally — built for Robinhood Chain</title>
-<meta name="description" content="Tally: a savings vault for tokenized stocks and a shared gas budget for Robinhood Chain builders.">
+<meta name="description" content="Tally: a savings vault for tokenized stocks whose own management fee funds the gas its keepers need — a self-sustaining loop on Robinhood Chain.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -19,12 +19,14 @@
     <span>ADDRESSES <span class="flat">12.3M</span></span>
     <span>STOCK TOKENS LIVE <span class="flat">190+</span></span>
     <span>RWA SHARE OF VOLUME <span class="up">~4%</span></span>
+    <span>KEEPER GAS <span class="up">SELF-FUNDED</span></span>
     <span>GAS SUBSIDY ENDS <span class="flat">SEP 29, 2026</span></span>
     <span>ROBINHOOD CHAIN · DEX VOLUME <span class="up">$34.6B</span></span>
     <span>PROTOCOL TVL <span class="up">$1.27B</span></span>
     <span>ADDRESSES <span class="flat">12.3M</span></span>
     <span>STOCK TOKENS LIVE <span class="flat">190+</span></span>
     <span>RWA SHARE OF VOLUME <span class="up">~4%</span></span>
+    <span>KEEPER GAS <span class="up">SELF-FUNDED</span></span>
     <span>GAS SUBSIDY ENDS <span class="flat">SEP 29, 2026</span></span>
   </div>
 </div>
@@ -38,11 +40,11 @@
 <section class="hero">
   <div class="wrap">
     <h1>The chain is built for Wall Street. Almost nobody builds the Wall Street part.</h1>
-    <p class="lede">Two reference products for that gap: a savings vault for tokenized stocks, and a shared gas budget projects can lean on once Robinhood's own subsidy runs out.</p>
+    <p class="lede">One product, not two: a savings vault for tokenized stocks whose own management fee pays for the keeper gas that keeps it rebalanced. Robinhood's subsidy ends September 29 — this loop doesn't need it to keep running.</p>
     <div class="stat-row">
-      <div class="stat gap"><span class="num">4%</span><span class="lbl">of on-chain volume is RWA — the rest is memecoins</span></div>
+      <div class="stat gap"><span class="num">100%</span><span class="lbl">of the management fee routes straight to keeper gas</span></div>
+      <div class="stat"><span class="num">4%</span><span class="lbl">of on-chain volume is RWA — the rest is memecoins</span></div>
       <div class="stat"><span class="num">95</span><span class="lbl">stocks with a Chainlink price feed ready to use</span></div>
-      <div class="stat"><span class="num">120+</span><span class="lbl">countries with access to Stock Tokens</span></div>
     </div>
   </div>
 </section>
@@ -59,6 +61,7 @@
           <li><span class="k">Pricing</span><span class="v">Chainlink feeds, 95 stocks covered</span></li>
           <li><span class="k">Deposits</span><span class="v">USDG → auto-swap via Uniswap v4</span></li>
           <li><span class="k">Rebalancing</span><span class="v">Open to anyone, triggers at 300 bps drift</span></li>
+          <li><span class="k">Keeper gas</span><span class="v">Self-funded — see the flywheel below</span></li>
           <li><span class="k">Finality</span><span class="v">~13 min to hard finality</span></li>
         </ul>
       </div>
@@ -118,14 +121,107 @@
   </div>
 </section>
 
-<section class="product reverse" id="gas">
+<section class="product reverse" id="flywheel">
   <div class="wrap">
     <div class="product-head">
+      <div class="panel">
+        <div class="panel-title"><span>KEEPER GAS FLYWHEEL</span><span id="loopStatus">idle</span></div>
+
+        <div class="flow-chain">
+          <div class="flow-step">
+            <span class="fs-num">1</span>
+            <span class="fs-label">Fee accrues<span class="fs-sub">0.50% / yr on TVL</span></span>
+          </div>
+          <div class="flow-step">
+            <span class="fs-num">2</span>
+            <span class="fs-label">Swapped to ETH<span class="fs-sub">via Uniswap v4</span></span>
+          </div>
+          <div class="flow-step">
+            <span class="fs-num">3</span>
+            <span class="fs-label">Funds keeper policy<span class="fs-sub">TallyGasSponsor</span></span>
+          </div>
+          <div class="flow-step">
+            <span class="fs-num">4</span>
+            <span class="fs-label">Free rebalances<span class="fs-sub">basket stays on target</span></span>
+          </div>
+        </div>
+        <div class="flow-loop">① → ② → ③ → ④ → back to ①, on every sweep</div>
+
+        <div class="deposit-box">
+          <label>ACCRUED FEE READY TO SWEEP</label>
+          <div class="deposit-row">
+            <div class="fee-readout"><span id="feeAccrued">$0.00</span><span class="fee-unit">USDG</span></div>
+            <button class="btn" onclick="sweepFee()">Accrue &amp; fund</button>
+          </div>
+          <div class="yield-note">Keeper policy balance: <span class="num" id="poolBalance">0.2200 ETH</span></div>
+        </div>
+      </div>
+
+      <div>
+        <span class="tag">02 — THE FLYWHEEL</span>
+        <h2>The vault pays for its own upkeep.</h2>
+        <p class="desc">Every deposit accrues a 0.50% annualized fee. Instead of sitting idle, that fee is swept, swapped to ETH, and dropped straight into the vault's own TallyGasSponsor policy — the same policy that sponsors the keepers who call <code>rebalance()</code>. A bigger basket means a bigger fee, which means more sponsored keeper calls, which means the basket stays closer to target, which is what makes the vault worth holding in the first place.</p>
+        <ul class="spec-list">
+          <li><span class="k">Fee source</span><span class="v">0.50% annualized on TVL, pro-rated per sweep</span></li>
+          <li><span class="k">Fee routing</span><span class="v">100% → USDG→ETH swap → policy balance</span></li>
+          <li><span class="k">Who can sweep</span><span class="v">Anyone — <code>accrueAndFundKeeperGas()</code> is open</span></li>
+          <li><span class="k">Who benefits</span><span class="v">Keepers calling <code>rebalance()</code> against the policy</span></li>
+          <li><span class="k">Bootstrap</span><span class="v">Vault registers &amp; owns its own policy ID</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <details class="code-block">
+      <summary>TallyVault.sol — accrueAndFundKeeperGas()</summary>
+      <pre><span class="kw">function</span> accrueAndFundKeeperGas(<span class="ty">uint256</span> minEthOut)
+    <span class="kw">external</span> nonReentrant <span class="kw">returns</span> (<span class="ty">uint256</span> ethFunded)
+{
+    <span class="kw">require</span>(address(gasSponsor) != address(0), <span class="st">"gas sponsor not configured"</span>);
+
+    <span class="ty">uint256</span> elapsed = block.timestamp - lastFeeAccrual;
+    lastFeeAccrual = block.timestamp;
+    <span class="kw">if</span> (elapsed == 0) <span class="kw">return</span> 0;
+
+    <span class="cm">// 0.50%/yr on TVL, pro-rated by elapsed time since the last sweep</span>
+    <span class="ty">uint256</span> feeUsdg = (totalAssetsValueUsd() * managementFeeBps * elapsed)
+        / (BPS_DENOMINATOR * 365 days);
+    <span class="kw">if</span> (feeUsdg == 0) <span class="kw">return</span> 0;
+
+    depositAsset.forceApprove(address(swapRouter), feeUsdg);
+    <span class="ty">uint256</span> wethOut = swapRouter.swapExactInput(
+        address(depositAsset), address(weth), feeUsdg, minEthOut, address(<span class="kw">this</span>)
+    );
+
+    weth.withdraw(wethOut);
+    gasSponsor.fundPolicy{value: wethOut}(keeperPolicyId);
+
+    emit KeeperGasFunded(feeUsdg, wethOut);
+}</pre>
+    </details>
+  </div>
+</section>
+
+<section class="product" id="gas">
+  <div class="wrap">
+    <div class="product-head">
+      <div>
+        <span class="tag">03 — TALLY GAS SPONSOR</span>
+        <h2>One shared gas budget, instead of every project building its own.</h2>
+        <p class="desc">Robinhood's own gas subsidy ends September 29. This is the paymaster contract the vault funds itself against: a project registers a policy with a daily cap, funds it in ETH, and lets users and keepers transact without holding gas themselves. TallyVault is simply its first, self-funding tenant — any other project can register a policy the same way and fund it manually instead.</p>
+        <ul class="spec-list">
+          <li><span class="k">Standard</span><span class="v">ERC-4337, EntryPoint v0.7</span></li>
+          <li><span class="k">Isolation</span><span class="v">One contract, many independent policy IDs</span></li>
+          <li><span class="k">Limits</span><span class="v">Daily cap + per-UserOperation cap</span></li>
+          <li><span class="k">Allow-list</span><span class="v">Per policy, which contracts get sponsored</span></li>
+          <li><span class="k">Funding</span><span class="v">ETH, deposited directly to the EntryPoint</span></li>
+        </ul>
+      </div>
+
       <div class="panel">
         <div class="panel-title"><span>SPONSOR POLICIES</span><span>LIVE</span></div>
 
         <div class="policy-card">
-          <div class="row-top"><span class="name">tally-basket-app</span><span class="status">active</span></div>
+          <div class="row-top"><span class="name">tally-basket-app <span class="badge">self-funded</span></span><span class="status">active</span></div>
           <div class="slider-row">
             <label><span>Daily gas cap</span><span id="capLabel">0.40 ETH</span></label>
             <input type="range" id="capSlider" min="0.05" max="1" step="0.05" value="0.4" oninput="updateCap(this.value)">
@@ -138,19 +234,6 @@
           <div class="row-top"><span class="name">tally-rebalance-keeper</span><span class="status off">inactive</span></div>
           <div class="yield-note">Paused — waiting on new funding for the pool.</div>
         </div>
-      </div>
-
-      <div>
-        <span class="tag">02 — TALLY GAS SPONSOR</span>
-        <h2>One shared gas budget, instead of every project building its own.</h2>
-        <p class="desc">Robinhood's own gas subsidy ends September 29. This is a paymaster contract where a project registers a policy with a daily cap, funds it in ETH, and lets users and keepers transact without holding gas themselves — managed through a dashboard-style interface instead of custom account-abstraction infrastructure.</p>
-        <ul class="spec-list">
-          <li><span class="k">Standard</span><span class="v">ERC-4337, EntryPoint v0.7</span></li>
-          <li><span class="k">Isolation</span><span class="v">One contract, many independent policy IDs</span></li>
-          <li><span class="k">Limits</span><span class="v">Daily cap + per-UserOperation cap</span></li>
-          <li><span class="k">Allow-list</span><span class="v">Per policy, which contracts get sponsored</span></li>
-          <li><span class="k">Funding</span><span class="v">ETH, deposited directly to the EntryPoint</span></li>
-        </ul>
       </div>
     </div>
 
@@ -181,7 +264,7 @@
 <footer>
   <div class="wrap">
     <div class="foot-brand">Tally</div>
-    <p>Both contracts are reference implementations for Robinhood Chain (chain ID 4663) — a starting point for further development, not audited or production-ready code. Built on standard EVM tooling: viem, ethers, Hardhat, and Foundry all work unmodified.</p>
+    <p>Both contracts are reference implementations for Robinhood Chain (chain ID 4663) — a starting point for further development, not audited or production-ready code. <code>TallyVault.bootstrapGasSponsor()</code> registers the vault's own keeper policy on <code>TallyGasSponsor</code>, and <code>accrueAndFundKeeperGas()</code> is the open call anyone can run to sweep fee into it. Built on standard EVM tooling: viem, ethers, Hardhat, and Foundry all work unmodified.</p>
     <p style="margin-top:18px;">Full .sol files are shared alongside this page, in <a class="link" href="https://github.com/lulle444/louise/tree/claude/tally-website-m6sr5p/contracts">/contracts</a>.</p>
   </div>
 </footer>
