@@ -1,210 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Terratamers — a pixel creature-survival MMO</title>
-  <link rel="icon" type="image/png" href="assets/favicon.png?v=51" />
-  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=51" />
-  <link rel="stylesheet" href="style.css?v=51" />
-  <script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tally — built for Robinhood Chain</title>
+<meta name="description" content="Tally: a savings vault for tokenized stocks and a shared gas budget for Robinhood Chain builders.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- start screen (shown before the game boots) -->
-  <div id="start-screen">
-    <div class="start-card">
-      <img class="start-logo" src="assets/logo256.png?v=51" alt="Terratamers logo" width="108" height="108" />
-      <div class="start-title">TERRATAMERS</div>
-      <div class="start-tag">Catch creatures · survive · build — together</div>
-      <div class="start-cols">
-        <div class="start-avatar">
-          <canvas id="avatar-preview" width="96" height="144"></canvas>
-          <input id="avatar-name" maxlength="16" placeholder="Avatar name" autocomplete="off" />
-          <div class="sw-row"><span>Skin</span><div class="swatches" id="sw-skin"></div></div>
-          <div class="sw-row"><span>Hair</span><div class="swatches" id="sw-hair"></div></div>
-          <div class="sw-row"><span>Shirt</span><div class="swatches" id="sw-shirt"></div></div>
-          <div class="sw-row"><span>Pants</span><div class="swatches" id="sw-pants"></div></div>
+
+<div class="ticker-bar">
+  <div class="ticker-track" id="ticker">
+    <span>ROBINHOOD CHAIN · DEX VOLUME <span class="up">$34.6B</span></span>
+    <span>PROTOCOL TVL <span class="up">$1.27B</span></span>
+    <span>ADDRESSES <span class="flat">12.3M</span></span>
+    <span>STOCK TOKENS LIVE <span class="flat">190+</span></span>
+    <span>RWA SHARE OF VOLUME <span class="up">~4%</span></span>
+    <span>GAS SUBSIDY ENDS <span class="flat">SEP 29, 2026</span></span>
+    <span>ROBINHOOD CHAIN · DEX VOLUME <span class="up">$34.6B</span></span>
+    <span>PROTOCOL TVL <span class="up">$1.27B</span></span>
+    <span>ADDRESSES <span class="flat">12.3M</span></span>
+    <span>STOCK TOKENS LIVE <span class="flat">190+</span></span>
+    <span>RWA SHARE OF VOLUME <span class="up">~4%</span></span>
+    <span>GAS SUBSIDY ENDS <span class="flat">SEP 29, 2026</span></span>
+  </div>
+</div>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">Tally <em>/ Robinhood Chain</em></div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <h1>The chain is built for Wall Street. Almost nobody builds the Wall Street part.</h1>
+    <p class="lede">Two reference products for that gap: a savings vault for tokenized stocks, and a shared gas budget projects can lean on once Robinhood's own subsidy runs out.</p>
+    <div class="stat-row">
+      <div class="stat gap"><span class="num">4%</span><span class="lbl">of on-chain volume is RWA — the rest is memecoins</span></div>
+      <div class="stat"><span class="num">95</span><span class="lbl">stocks with a Chainlink price feed ready to use</span></div>
+      <div class="stat"><span class="num">120+</span><span class="lbl">countries with access to Stock Tokens</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="product" id="vault">
+  <div class="wrap">
+    <div class="product-head">
+      <div>
+        <span class="tag">01 — TALLY VAULT</span>
+        <h2>One deposit. A fixed basket of tokenized stocks.</h2>
+        <p class="desc">A user deposits USDG. The contract automatically splits it across Stock Tokens at fixed weights, and anyone can trigger a rebalance once the basket drifts too far from target — without the user ever bridging, swapping, or timing the market themselves.</p>
+        <ul class="spec-list">
+          <li><span class="k">Assets</span><span class="v">ERC-20 Stock Tokens (AAPL, NVDA, TSLA …)</span></li>
+          <li><span class="k">Pricing</span><span class="v">Chainlink feeds, 95 stocks covered</span></li>
+          <li><span class="k">Deposits</span><span class="v">USDG → auto-swap via Uniswap v4</span></li>
+          <li><span class="k">Rebalancing</span><span class="v">Open to anyone, triggers at 300 bps drift</span></li>
+          <li><span class="k">Finality</span><span class="v">~13 min to hard finality</span></li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title"><span>BASKET ALLOCATION</span><span id="basketTotal">$0</span></div>
+
+        <div class="basket-row">
+          <div class="row-top"><span>AAPL</span><span>40%</span></div>
+          <div class="bar-track"><div class="bar-fill" data-target="40"></div></div>
         </div>
-        <div class="start-right">
-          <div class="mode-row">
-            <button id="play-offline" class="modebtn">▶ Play Offline</button>
-            <button id="play-mp" class="modebtn mp">⚇ Play Multiplayer</button>
+        <div class="basket-row">
+          <div class="row-top"><span>NVDA</span><span>35%</span></div>
+          <div class="bar-track"><div class="bar-fill" data-target="35"></div></div>
+        </div>
+        <div class="basket-row">
+          <div class="row-top"><span>TSLA</span><span>25%</span></div>
+          <div class="bar-track"><div class="bar-fill alt" data-target="25"></div></div>
+        </div>
+
+        <div class="deposit-box">
+          <label>DEPOSIT USDG</label>
+          <div class="deposit-row">
+            <input type="number" id="depositInput" placeholder="1000" value="1000">
+            <button class="btn" onclick="simulateDeposit()">Deposit</button>
           </div>
-          <div id="online-count" class="online-count"><span class="oc-dot off"></span> connecting…</div>
-          <div id="lobby-box" class="hidden">
-            <div class="login-title">⚇ Multiplayer lobby</div>
-            <button id="create-room" class="wbtn">＋ Create private room</button>
-            <div class="or">— or join a friend —</div>
-            <div class="join-row">
-              <input id="join-code" maxlength="8" placeholder="ROOM CODE" autocomplete="off" autocapitalize="characters" spellcheck="false" />
-              <button id="join-room" class="wbtn small">Join</button>
-            </div>
-            <button id="join-public" class="wbtn small ghost">Or join the open public world</button>
-          </div>
-          <div id="login-box" class="hidden">
-            <div class="login-title">Multiplayer — log in</div>
-            <input id="login-email" type="email" placeholder="you@email.com" autocomplete="off" />
-            <button id="login-email-btn" class="wbtn small">Continue with Email</button>
-          </div>
-          <div class="start-note">Offline needs no login. In Multiplayer, friends who enter the same room code share one world — you won't see anyone outside your room.</div>
+          <div class="yield-note">Shares issued: <span class="num" id="sharesOut">1000.00</span> TALLY</div>
         </div>
       </div>
-      <div id="start-msg" class="start-msg"></div>
     </div>
+
+    <details class="code-block">
+      <summary>TallyVault.sol — deposit()</summary>
+      <pre><span class="kw">function</span> deposit(<span class="ty">uint256</span> usdgAmount, <span class="ty">uint256</span>[] calldata minOuts)
+    <span class="kw">external</span> nonReentrant <span class="kw">returns</span> (<span class="ty">uint256</span> sharesOut)
+{
+    <span class="kw">require</span>(usdgAmount > 0, <span class="st">"zero deposit"</span>);
+    <span class="ty">uint256</span> totalValueBefore = totalAssetsValueUsd();
+    depositAsset.safeTransferFrom(msg.sender, address(<span class="kw">this</span>), usdgAmount);
+
+    <span class="cm">// split the deposit across the basket at target weights</span>
+    <span class="kw">for</span> (<span class="ty">uint256</span> i = 0; i < assets.length; i++) {
+        <span class="ty">uint256</span> portion = (usdgAmount * assets[i].targetBps) / BPS_DENOMINATOR;
+        <span class="kw">if</span> (portion == 0) <span class="kw">continue</span>;
+        depositAsset.forceApprove(address(swapRouter), portion);
+        swapRouter.swapExactInput(address(depositAsset), assets[i].token, portion, minOuts[i], address(<span class="kw">this</span>));
+    }
+
+    sharesOut = totalSupply() == 0
+        ? usdgAmount
+        : (usdgAmount * totalSupply()) / totalValueBefore;
+
+    _mint(msg.sender, sharesOut);
+    emit Deposited(msg.sender, usdgAmount, sharesOut);
+}</pre>
+    </details>
   </div>
+</section>
 
-  <div id="game-root"></div>
+<section class="product reverse" id="gas">
+  <div class="wrap">
+    <div class="product-head">
+      <div class="panel">
+        <div class="panel-title"><span>SPONSOR POLICIES</span><span>LIVE</span></div>
 
-  <!-- low-hp / starving red vignette -->
-  <div id="vignette"></div>
+        <div class="policy-card">
+          <div class="row-top"><span class="name">tally-basket-app</span><span class="status">active</span></div>
+          <div class="slider-row">
+            <label><span>Daily gas cap</span><span id="capLabel">0.40 ETH</span></label>
+            <input type="range" id="capSlider" min="0.05" max="1" step="0.05" value="0.4" oninput="updateCap(this.value)">
+          </div>
+          <div class="bar-track" style="margin-top:10px;"><div class="bar-fill" id="spentBar" data-target="55"></div></div>
+          <div class="yield-note">Spent today: <span class="num" id="spentLabel">0.22 ETH</span> of <span id="capLabel2">0.40 ETH</span></div>
+        </div>
 
-  <!-- top-left: survival bars + resources -->
-  <div id="topleft">
-    <div class="bar"><span class="blabel">HP</span><div class="track"><div id="hp-fill" class="fill hp"></div></div></div>
-    <div class="bar"><span class="blabel">FOOD</span><div class="track"><div id="hunger-fill" class="fill food"></div></div></div>
-    <div class="bar"><span class="blabel">STAM</span><div class="track"><div id="stam-fill" class="fill stam"></div></div></div>
-    <div id="plevel"></div>
-    <div id="resources"></div>
-    <div id="buffs"></div>
-    <div id="egg" title="Walk to fill the incubator — it hatches a free creature!"><span class="egglabel">EGG</span><div class="eggtrack"><div id="egg-fill"></div></div></div>
-  </div>
+        <div class="policy-card">
+          <div class="row-top"><span class="name">tally-rebalance-keeper</span><span class="status off">inactive</span></div>
+          <div class="yield-note">Paused — waiting on new funding for the pool.</div>
+        </div>
+      </div>
 
-  <!-- top-center title -->
-  <div id="title">TERRATAMERS</div>
-
-  <!-- world-boss health bar (top centre, shown only during a Gloamfang fight) -->
-  <div id="boss-bar" class="hidden"></div>
-
-  <!-- catch-combo meter -->
-  <div id="combo-meter" class="hidden"></div>
-
-  <!-- top-right: day/biome + quest + minimap -->
-  <div id="topright">
-    <div class="top-btns">
-      <button id="mute-btn" title="Mute audio (M)">♪</button>
+      <div>
+        <span class="tag">02 — TALLY GAS SPONSOR</span>
+        <h2>One shared gas budget, instead of every project building its own.</h2>
+        <p class="desc">Robinhood's own gas subsidy ends September 29. This is a paymaster contract where a project registers a policy with a daily cap, funds it in ETH, and lets users and keepers transact without holding gas themselves — managed through a dashboard-style interface instead of custom account-abstraction infrastructure.</p>
+        <ul class="spec-list">
+          <li><span class="k">Standard</span><span class="v">ERC-4337, EntryPoint v0.7</span></li>
+          <li><span class="k">Isolation</span><span class="v">One contract, many independent policy IDs</span></li>
+          <li><span class="k">Limits</span><span class="v">Daily cap + per-UserOperation cap</span></li>
+          <li><span class="k">Allow-list</span><span class="v">Per policy, which contracts get sponsored</span></li>
+          <li><span class="k">Funding</span><span class="v">ETH, deposited directly to the EntryPoint</span></li>
+        </ul>
+      </div>
     </div>
-    <div id="daybox"><span id="clock">Day 1</span><span id="biome">· Meadowlands</span><div id="netline">○ OFFLINE</div></div>
-    <div id="quest">
-      <div class="qhead">QUEST <span id="qnum">1/?</span></div>
-      <div id="qtitle">—</div>
-      <div class="qtrack"><div id="qfill"></div></div>
-    </div>
-    <canvas id="minimap" width="180" height="150"></canvas>
-  </div>
 
-  <!-- left: party dock -->
-  <div id="party-dock"><div class="dockhead">PARTY</div><div id="dock-list"></div></div>
+    <details class="code-block">
+      <summary>TallyGasSponsor.sol — validatePaymasterUserOp()</summary>
+      <pre><span class="kw">function</span> validatePaymasterUserOp(
+    PackedUserOperation calldata userOp,
+    <span class="ty">bytes32</span> userOpHash,
+    <span class="ty">uint256</span> maxCost
+) <span class="kw">external</span> <span class="kw">override</span> onlyEntryPoint <span class="kw">returns</span> (<span class="ty">bytes</span> memory context, <span class="ty">uint256</span> validationData) {
+    <span class="ty">bytes32</span> policyId = _extractPolicyId(userOp.paymasterAndData);
+    Policy storage policy = policies[policyId];
 
-  <!-- creature nameplate -->
-  <div id="target" class="hidden"></div>
+    <span class="kw">require</span>(policy.active, <span class="st">"policy inactive"</span>);
+    <span class="kw">require</span>(policy.perOpCapWei == 0 || maxCost <= policy.perOpCapWei, <span class="st">"exceeds per-op cap"</span>);
 
-  <!-- bottom: chat feed + hotbar + controls -->
-  <div id="chat"><div id="chatlog"></div><div id="chatbar">explore · catch · survive</div></div>
-  <div id="hotbar"></div>
-  <div id="controls">
-    WASD move · Shift sprint · Space/Click act · F ball · E interact/eat/heal · B build · C craft ·
-    Tab bag · P dex · T party · U upgrades · G daily · J goals · M mute · H help
-  </div>
-  <div id="toasts"></div>
+    <span class="ty">uint256</span> spendable = _spendableThisWindow(policy);
+    <span class="kw">require</span>(maxCost <= spendable, <span class="st">"exceeds daily cap"</span>);
+    <span class="kw">require</span>(policy.balance >= maxCost, <span class="st">"policy underfunded"</span>);
 
-  <!-- on-screen touch controls (shown only on touch devices) -->
-  <div id="touch-controls" class="hidden">
-    <div id="joystick"><div id="stick"></div></div>
-    <div id="touch-actions">
-      <button class="tbtn act" data-act="act" title="Act">✦</button>
-      <button class="tbtn ball" data-act="ball" title="Throw ball">◓</button>
-      <button class="tbtn intr" data-act="interact" title="Interact / eat">E</button>
-      <button class="tbtn bld" data-act="build" title="Build">⌂</button>
-    </div>
-    <div id="touch-menu">
-      <button class="tmbtn" data-panel="inventory">Bag</button>
-      <button class="tmbtn" data-panel="craft">Craft</button>
-      <button class="tmbtn" data-panel="party">Party</button>
-      <button class="tmbtn" data-panel="dex">Dex</button>
-      <button class="tmbtn" data-panel="upgrades">Up</button>
-      <button class="tmbtn" data-panel="daily">Daily</button>
-    </div>
+    context = abi.encode(policyId, userOp.sender);
+    validationData = 0;
+}</pre>
+    </details>
   </div>
+</section>
 
-  <!-- overlay panels -->
-  <div id="overlay" class="hidden"></div>
-  <div id="inventory-panel" class="panel hidden">
-    <div class="ptitle">INVENTORY <span class="pclose">(Tab / Esc)</span></div>
-    <div class="psub">Click an item to add or remove it from your 6 hotbar slots (★ = on the bar).</div>
-    <div id="inv-grid" class="grid"></div>
+<footer>
+  <div class="wrap">
+    <div class="foot-brand">Tally</div>
+    <p>Both contracts are reference implementations for Robinhood Chain (chain ID 4663) — a starting point for further development, not audited or production-ready code. Built on standard EVM tooling: viem, ethers, Hardhat, and Foundry all work unmodified.</p>
+    <p style="margin-top:18px;">Full .sol files are shared alongside this page, in <a class="link" href="https://github.com/lulle444/louise/tree/claude/tally-website-m6sr5p/contracts">/contracts</a>.</p>
   </div>
-  <div id="craft-panel" class="panel hidden">
-    <div class="ptitle">CRAFTING <span class="pclose">(C / Esc)</span></div>
-    <div id="craft-list"></div>
-  </div>
-  <div id="shop-panel" class="panel hidden">
-    <div class="ptitle">TRADER <span class="pclose">(E / Esc)</span></div>
-    <div class="psub">Barter resources, buy with gold, or sell your surplus.</div>
-    <div id="shop-list"></div>
-  </div>
-  <div id="party-panel" class="panel hidden">
-    <div class="ptitle">YOUR CREATURES <span class="pclose">(T / Esc)</span></div>
-    <div id="party-grid" class="grid"></div>
-  </div>
-  <div id="dex-panel" class="panel hidden">
-    <div class="ptitle">DEX <span id="dex-count"></span> <span class="pclose">(P / Esc)</span></div>
-    <div id="dex-grid" class="grid"></div>
-  </div>
-  <div id="ach-panel" class="panel hidden">
-    <div class="ptitle">ACHIEVEMENTS <span id="ach-count"></span> <span class="pclose">(J / Esc)</span></div>
-    <div id="ach-grid" class="grid"></div>
-  </div>
-  <div id="upgrades-panel" class="panel hidden">
-    <div class="ptitle">UPGRADES <span class="pclose">(U / Esc)</span></div>
-    <div class="psub">Spend gold on permanent boosts — then Ascend for stacking prestige power.</div>
-    <div id="upgrades-list"></div>
-  </div>
-  <div id="daily-panel" class="panel hidden">
-    <div class="ptitle">DAILY QUESTS <span class="pclose">(G / Esc)</span></div>
-    <div class="psub">A fresh set every day. Keep your login streak alive for bigger rewards.</div>
-    <div id="daily-list"></div>
-  </div>
-  <div id="howto-panel" class="panel hidden">
-    <div class="ptitle">HOW TO PLAY <span class="pclose">(H / Esc)</span></div>
-    <div id="howto-body">
-      <p><b>Move</b> with WASD or arrows. <b>Shift</b> to sprint (drains stamina).</p>
-      <p><b>Click</b> or <b>Space</b> to act: chop trees, mine rock, or weaken a nearby creature.</p>
-      <p><b>Weaken</b> a wild creature, then press <b>F</b> (or right-click) to throw a ball and catch it.</p>
-      <p><b>E</b> — interact with the Trader / eat food. <b>B</b> — build. <b>C</b> — craft.</p>
-      <p>Craft an <b>Axe</b>/<b>Pickaxe</b> to gather faster, a <b>Fishing Rod</b> to fish the lake, and a <b>Lantern</b> to see at night.</p>
-      <p><b>Cook</b> at a Campfire (build one!) for meals that grant <b>buffs</b> — Well Fed, Energized, Lucky, Rested.</p>
-      <p>Your lead creature gains <b>XP</b>, <b>levels up</b> and can <b>evolve</b>. <b>You</b> level up too, unlocking perks.</p>
-      <p><b>Aggressive</b> creatures &amp; rare glowing <b>Alphas</b> fight back — your lead defends you. Beat them for <b>gold &amp; loot</b>, or catch them.</p>
-      <p>Spend <b>gold</b> at the Trader (buy / sell). Chase <b>Achievements</b> (J) and the long <b>quest</b> chain.</p>
-      <p>Explore <b>Emberwastes</b> (desert) &amp; <b>Mirewood</b> (swamp) for new species. Watch for <b>meteor showers</b> &amp; <b>swarms</b>!</p>
-      <p>Eat before <b>FOOD</b> hits zero — you lose health while starving. Survive the <b>night</b> and shifting <b>weather</b>.</p>
-      <p>Catch the <b>same species in a row</b> to build a <b>catch chain</b> — it boosts shiny odds &amp; XP. <b>Walking fills an egg</b> that hatches a free creature; every catch has a hidden <b>power %</b> (IV) worth re-rolling.</p>
-      <p>The further you roam from home, the <b>higher-level &amp; richer</b> the wilds (⚔ tier, top-right). Spend gold in <b>Upgrades</b> (U), clear <b>Daily quests</b> (G), keep your <b>login streak</b>, and hunt the world boss <b>Gloamfang</b>. <b>Ascend</b> for permanent prestige power.</p>
-    </div>
-  </div>
+</footer>
 
-  <!-- first-time starter selection -->
-  <div id="starter-panel" class="panel hidden">
-    <div class="ptitle">CHOOSE YOUR PARTNER</div>
-    <div class="psub">Your first creature will fight beside you and grow as you explore.</div>
-    <div id="starter-grid"></div>
-  </div>
+<script src="script.js"></script>
 
-  <div id="dead" class="hidden">
-    <div>YOU COLLAPSED</div>
-    <div class="deadsub">Your progress is safe. Your loot dropped where you fell — reclaim it (★ on the minimap).</div>
-    <button id="respawn-btn">Respawn at camp</button>
-  </div>
-
-  <!-- celebration banner (shiny / perfect / boss / egg / ascend) -->
-  <div id="big-banner" class="hidden"></div>
-
-  <!-- welcome-back modal (login streak + idle production) -->
-  <div id="meta-modal" class="hidden"></div>
-
-  <script type="module">
-    import { initStart } from './src/start.js?v=51';
-    initStart();
-  </script>
 </body>
 </html>
