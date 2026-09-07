@@ -1,3 +1,125 @@
+// ---------- ambient network background ----------
+// A slow-drifting field of dots, faintly linked when close together —
+// pure decoration behind the content, tinted from the same gold/teal/ink
+// tokens the rest of the page uses, so it re-themes with dark mode for free.
+(() => {
+  const canvas = document.getElementById('bgCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let W = 0, H = 0, dpr = 1, nodes = [], raf = null;
+  const palette = { gold: '#9C7A17', teal: '#0E8F74', ink: '#1C1F26' };
+
+  function readPalette() {
+    const cs = getComputedStyle(document.documentElement);
+    palette.gold = cs.getPropertyValue('--gold').trim() || palette.gold;
+    palette.teal = cs.getPropertyValue('--teal').trim() || palette.teal;
+    palette.ink = cs.getPropertyValue('--ink').trim() || palette.ink;
+  }
+
+  function makeNodes() {
+    const count = Math.min(55, Math.max(20, Math.round((W * H) / 40000)));
+    const colors = [palette.gold, palette.teal, palette.ink];
+    nodes = Array.from({ length: count }, () => ({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.1,
+      vy: (Math.random() - 0.5) * 0.1,
+      r: 1.1 + Math.random() * 1.5,
+      c: colors[(Math.random() * colors.length) | 0],
+    }));
+  }
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    makeNodes();
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    const linkDist = 130;
+
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const a = nodes[i], b = nodes[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < linkDist) {
+          ctx.globalAlpha = (1 - dist / linkDist) * 0.1;
+          ctx.strokeStyle = palette.ink;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    for (const n of nodes) {
+      ctx.globalAlpha = 0.42;
+      ctx.fillStyle = n.c;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function tick() {
+    for (const n of nodes) {
+      n.x += n.vx; n.y += n.vy;
+      if (n.x < -10) n.x = W + 10; else if (n.x > W + 10) n.x = -10;
+      if (n.y < -10) n.y = H + 10; else if (n.y > H + 10) n.y = -10;
+    }
+    draw();
+    raf = requestAnimationFrame(tick);
+  }
+
+  function start() {
+    readPalette();
+    resize();
+    draw();
+    if (!reduceMotion) {
+      cancelAnimationFrame(raf);
+      tick();
+    }
+  }
+
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => { resize(); draw(); }, 200);
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) cancelAnimationFrame(raf);
+    else if (!reduceMotion) tick();
+  });
+
+  const themeToggle = document.getElementById('themeToggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      setTimeout(() => {
+        readPalette();
+        const colors = [palette.gold, palette.teal, palette.ink];
+        nodes.forEach(n => { n.c = colors[(Math.random() * colors.length) | 0]; });
+        draw();
+      }, 0);
+    });
+  }
+
+  start();
+})();
+
 // ---------- dark mode toggle ----------
 (() => {
   const root = document.documentElement;
