@@ -17,6 +17,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <link rel="icon" type="image/png" href="favicon.png">
+<meta property="og:title" content="Dynamo — built for Robinhood Chain">
+<meta property="og:description" content="A savings vault for tokenized stocks whose own management fee funds the gas its keepers need — a self-sustaining loop on Robinhood Chain.">
+<meta property="og:image" content="https://www.usedynamo.org/og-image.png">
+<meta property="og:url" content="https://www.usedynamo.org/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@use_dynamo">
+<meta name="twitter:title" content="Dynamo — built for Robinhood Chain">
+<meta name="twitter:description" content="A savings vault for tokenized stocks whose own management fee funds the gas its keepers need.">
+<meta name="twitter:image" content="https://www.usedynamo.org/og-image.png">
 </head>
 <body id="top">
 
@@ -314,6 +324,7 @@
         <a href="#flywheel" class="nav-link">Flywheel</a>
         <a href="#gas" class="nav-link">Gas Sponsor</a>
         <a href="#activity" class="nav-link">Activity</a>
+        <a href="https://x.com/use_dynamo" target="_blank" rel="noopener">X</a>
       </nav>
       <a class="nav-cta" href="https://github.com/lulle444/louise/tree/claude/tally-website-m6sr5p/contracts" target="_blank" rel="noopener">View contracts ↗</a>
     </div>
@@ -420,13 +431,17 @@
           <div class="bar-track"><div class="bar-fill alt" data-target="25"></div></div>
         </div>
 
+        <div style="font-size:11.5px;color:var(--muted);margin-top:14px;line-height:1.5;">
+          Contracts are unaudited. Review the code yourself before depositing once live — see below.
+        </div>
+
         <div class="deposit-box">
           <label>DEPOSIT USDG</label>
           <div class="deposit-row">
-            <input type="number" id="depositInput" placeholder="1000" value="1000">
-            <button class="btn" onclick="simulateDeposit()">Deposit</button>
+            <input type="number" id="depositInput" placeholder="1000" disabled>
+            <button class="btn" disabled style="opacity:0.5;cursor:not-allowed;">Coming soon</button>
           </div>
-          <div class="yield-note">Shares issued: <span class="num" id="sharesOut">1000.00</span> DYNAMO</div>
+          <div class="yield-note">Deposits open at launch — this preview isn't connected to a live contract yet.</div>
         </div>
       </div>
     </div>
@@ -435,6 +450,9 @@
       <div class="preset-head">
         <span>OTHER BASKET PRESETS</span>
         <span class="preset-sub">Same vault contract — different weights via setWeights()</span>
+      </div>
+      <div style="font-family:var(--mono);font-size:11.5px;color:var(--muted);padding:14px 18px 0;">
+        Sample weights for illustration — performance figures shown are not live.
       </div>
       <div class="preset-row">
         <div class="preset-name">Semiconductor Core<span class="preset-tag">Chips first, everything else after.</span></div>
@@ -654,6 +672,9 @@
     <span class="tag">04 — RECENT ACTIVITY</span>
     <h2>What accrueAndFundKeeperGas() looks like, running.</h2>
     <p class="desc">Illustrative feed — deposits into the vault, fee sweeps into the gas policy, and the sponsored rebalances they pay for, in the order they'd emit on-chain.</p>
+    <div style="background:var(--panel-alt);border:1px solid var(--border);border-radius:4px;padding:10px 14px;margin-bottom:18px;font-family:var(--mono);font-size:12px;color:var(--gold);">
+      EXAMPLE ONLY — this log shows what the event feed will look like once the vault is live. No deposits shown here have happened.
+    </div>
 
     <div class="preset-table">
       <div class="preset-head">
@@ -709,6 +730,7 @@
     <div class="footer-brand-col">
       <div class="foot-brand">Dynamo</div>
       <p class="footer-desc">Reference DeFi infrastructure for Robinhood Chain: a stock-basket savings vault that funds its own keeper gas through a paired ERC-4337 sponsor policy.</p>
+      <p class="footer-desc" style="margin-top:10px;">Dynamo's contracts have not been audited by a third party. This site and its contracts are provided as-is; use at your own risk.</p>
     </div>
     <div class="footer-col">
       <div class="footer-col-title">Product</div>

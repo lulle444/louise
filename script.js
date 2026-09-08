@@ -82,12 +82,6 @@ window.addEventListener('load', () => {
   document.getElementById('basketTotal').textContent = '$1,000';
 });
 
-function simulateDeposit(){
-  const amt = parseFloat(document.getElementById('depositInput').value) || 0;
-  document.getElementById('basketTotal').textContent = '$' + amt.toLocaleString('en-US');
-  document.getElementById('sharesOut').textContent = amt.toFixed(2);
-}
-
 function updateCap(val){
   const cap = parseFloat(val);
   document.getElementById('capLabel').textContent = cap.toFixed(2) + ' ETH';
