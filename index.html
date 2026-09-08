@@ -320,10 +320,10 @@
 
     <div class="nav-panel" id="navPanel">
       <nav class="nav">
-        <a href="#vault" class="nav-link">Vault</a>
-        <a href="#flywheel" class="nav-link">Flywheel</a>
-        <a href="#gas" class="nav-link">Gas Sponsor</a>
-        <a href="#activity" class="nav-link">Activity</a>
+        <a href="vault.html" class="nav-link">Vault</a>
+        <a href="flywheel.html" class="nav-link">Flywheel</a>
+        <a href="gas-sponsor.html" class="nav-link">Gas Sponsor</a>
+        <a href="activity.html" class="nav-link">Activity</a>
         <a href="https://x.com/use_dynamo" target="_blank" rel="noopener">X</a>
       </nav>
       <a class="nav-cta" href="https://github.com/lulle444/louise/tree/claude/tally-website-m6sr5p/contracts" target="_blank" rel="noopener">View contracts ↗</a>
@@ -398,323 +398,70 @@
   </div>
 </section>
 
-<section class="product" id="vault">
+<section class="product">
   <div class="wrap">
-    <div class="product-head">
+    <div class="teaser-row">
       <div>
         <span class="tag">01 — DYNAMO VAULT</span>
         <h2>One deposit. A fixed basket of tokenized stocks.</h2>
-        <p class="desc">A user deposits USDG. The contract automatically splits it across Stock Tokens at fixed weights, and anyone can trigger a rebalance once the basket drifts too far from target — without the user ever bridging, swapping, or timing the market themselves.</p>
-        <ul class="spec-list">
-          <li><span class="k">Assets</span><span class="v">ERC-20 Stock Tokens (AAPL, NVDA, TSLA …)</span></li>
-          <li><span class="k">Pricing</span><span class="v">Chainlink feeds, 95 stocks covered</span></li>
-          <li><span class="k">Deposits</span><span class="v">USDG → auto-swap via Uniswap v4</span></li>
-          <li><span class="k">Rebalancing</span><span class="v">Open to anyone, triggers at 300 bps drift</span></li>
-          <li><span class="k">Keeper gas</span><span class="v">Self-funded — see the flywheel below</span></li>
-          <li><span class="k">Finality</span><span class="v">~13 min to hard finality</span></li>
-        </ul>
-      </div>
-
-      <div class="panel">
-        <div class="panel-title"><span>BASKET ALLOCATION</span><span id="basketTotal">$0</span></div>
-
-        <div class="basket-row">
-          <div class="row-top"><span>AAPL</span><span>40%</span></div>
-          <div class="bar-track"><div class="bar-fill" data-target="40"></div></div>
-        </div>
-        <div class="basket-row">
-          <div class="row-top"><span>NVDA</span><span>35%</span></div>
-          <div class="bar-track"><div class="bar-fill" data-target="35"></div></div>
-        </div>
-        <div class="basket-row">
-          <div class="row-top"><span>TSLA</span><span>25%</span></div>
-          <div class="bar-track"><div class="bar-fill alt" data-target="25"></div></div>
-        </div>
-
-        <div style="font-size:11.5px;color:var(--muted);margin-top:14px;line-height:1.5;">
-          Contracts are unaudited. Review the code yourself before depositing once live — see below.
-        </div>
-
-        <div class="deposit-box">
-          <label>DEPOSIT USDG</label>
-          <div class="deposit-row">
-            <input type="number" id="depositInput" placeholder="1000" disabled>
-            <button class="btn" disabled style="opacity:0.5;cursor:not-allowed;">Coming soon</button>
-          </div>
-          <div class="yield-note">Deposits open at launch — this preview isn't connected to a live contract yet.</div>
-        </div>
       </div>
     </div>
-
-    <div class="preset-table">
-      <div class="preset-head">
-        <span>OTHER BASKET PRESETS</span>
-        <span class="preset-sub">Same vault contract — different weights via setWeights()</span>
-      </div>
-      <div style="font-family:var(--mono);font-size:11.5px;color:var(--muted);padding:14px 18px 0;">
-        Sample weights for illustration — performance figures shown are not live.
-      </div>
-      <div class="preset-row">
-        <div class="preset-name">Semiconductor Core<span class="preset-tag">Chips first, everything else after.</span></div>
-        <div class="preset-bar">
-          <span style="width:45%;background:var(--gold)"></span>
-          <span style="width:30%;background:var(--teal)"></span>
-          <span style="width:25%;background:#B0492E"></span>
-        </div>
-        <div class="preset-level">100.42<span class="preset-chg up">+0.42%</span></div>
-      </div>
-      <div class="preset-row">
-        <div class="preset-name">Blue Chip Five<span class="preset-tag">Five names, one line, no guessing.</span></div>
-        <div class="preset-bar">
-          <span style="width:35%;background:var(--gold)"></span>
-          <span style="width:33%;background:var(--teal)"></span>
-          <span style="width:32%;background:#B0492E"></span>
-        </div>
-        <div class="preset-level">99.88<span class="preset-chg down">-0.12%</span></div>
-      </div>
-      <div class="preset-row">
-        <div class="preset-name">Retail Momentum<span class="preset-tag">What's trending on Robinhood, not what's stable.</span></div>
-        <div class="preset-bar">
-          <span style="width:40%;background:var(--gold)"></span>
-          <span style="width:35%;background:var(--teal)"></span>
-          <span style="width:25%;background:#B0492E"></span>
-        </div>
-        <div class="preset-level">101.15<span class="preset-chg up">+1.15%</span></div>
-      </div>
-    </div>
-
-    <details class="code-block">
-      <summary>DynamoVault.sol — deposit()</summary>
-      <pre><span class="kw">function</span> deposit(<span class="ty">uint256</span> usdgAmount, <span class="ty">uint256</span>[] calldata minOuts)
-    <span class="kw">external</span> nonReentrant <span class="kw">returns</span> (<span class="ty">uint256</span> sharesOut)
-{
-    <span class="kw">require</span>(usdgAmount > 0, <span class="st">"zero deposit"</span>);
-    <span class="ty">uint256</span> totalValueBefore = totalAssetsValueUsd();
-    depositAsset.safeTransferFrom(msg.sender, address(<span class="kw">this</span>), usdgAmount);
-
-    <span class="cm">// split the deposit across the basket at target weights</span>
-    <span class="kw">for</span> (<span class="ty">uint256</span> i = 0; i < assets.length; i++) {
-        <span class="ty">uint256</span> portion = (usdgAmount * assets[i].targetBps) / BPS_DENOMINATOR;
-        <span class="kw">if</span> (portion == 0) <span class="kw">continue</span>;
-        depositAsset.forceApprove(address(swapRouter), portion);
-        swapRouter.swapExactInput(address(depositAsset), assets[i].token, portion, minOuts[i], address(<span class="kw">this</span>));
-    }
-
-    sharesOut = totalSupply() == 0
-        ? usdgAmount
-        : (usdgAmount * totalSupply()) / totalValueBefore;
-
-    _mint(msg.sender, sharesOut);
-    emit Deposited(msg.sender, usdgAmount, sharesOut);
-}</pre>
-    </details>
+    <p class="desc">A user deposits USDG. The contract automatically splits it across Stock Tokens at fixed weights, and anyone can trigger a rebalance once the basket drifts too far from target — without the user ever bridging, swapping, or timing the market themselves.</p>
+    <ul class="teaser-specs">
+      <li><span class="k">Assets</span><span class="v">ERC-20 Stock Tokens (AAPL, NVDA, TSLA …)</span></li>
+      <li><span class="k">Deposits</span><span class="v">USDG → auto-swap via Uniswap v4</span></li>
+      <li><span class="k">Rebalancing</span><span class="v">Open to anyone, triggers at 300 bps drift</span></li>
+    </ul>
+    <a class="teaser-cta" href="vault.html">Explore the vault ↗</a>
   </div>
 </section>
 
-<section class="product reverse" id="flywheel">
+<section class="product reverse">
   <div class="wrap">
-    <div class="product-head">
-      <div class="panel">
-        <div class="panel-title"><span>KEEPER GAS FLYWHEEL</span><span id="loopStatus">idle</span></div>
-
-        <div class="flow-chain">
-          <div class="flow-step">
-            <span class="fs-num">1</span>
-            <span class="fs-label">Fee accrues<span class="fs-sub">0.50% / yr on TVL</span></span>
-          </div>
-          <div class="flow-step">
-            <span class="fs-num">2</span>
-            <span class="fs-label">Swapped to ETH<span class="fs-sub">via Uniswap v4</span></span>
-          </div>
-          <div class="flow-step">
-            <span class="fs-num">3</span>
-            <span class="fs-label">Funds keeper policy<span class="fs-sub">DynamoGasSponsor</span></span>
-          </div>
-          <div class="flow-step">
-            <span class="fs-num">4</span>
-            <span class="fs-label">Free rebalances<span class="fs-sub">basket stays on target</span></span>
-          </div>
-        </div>
-        <div class="flow-loop">① → ② → ③ → ④ → back to ①, on every sweep</div>
-
-        <div class="deposit-box">
-          <label>ACCRUED FEE READY TO SWEEP</label>
-          <div class="deposit-row">
-            <div class="fee-readout"><span id="feeAccrued">$0.00</span><span class="fee-unit">USDG</span></div>
-            <button class="btn" onclick="sweepFee()">Accrue &amp; fund</button>
-          </div>
-          <div class="yield-note">Keeper policy balance: <span class="num" id="poolBalance">0.2200 ETH</span></div>
-        </div>
-      </div>
-
+    <div class="teaser-row">
       <div>
         <span class="tag">02 — THE FLYWHEEL</span>
         <h2>The vault pays for its own upkeep.</h2>
-        <p class="desc">Every deposit accrues a 0.50% annualized fee. Instead of sitting idle, that fee is swept, swapped to ETH, and dropped straight into the vault's own DynamoGasSponsor policy — the same policy that sponsors the keepers who call <code>rebalance()</code>. A bigger basket means a bigger fee, which means more sponsored keeper calls, which means the basket stays closer to target, which is what makes the vault worth holding in the first place.</p>
-        <ul class="spec-list">
-          <li><span class="k">Fee source</span><span class="v">0.50% annualized on TVL, pro-rated per sweep</span></li>
-          <li><span class="k">Fee routing</span><span class="v">100% → USDG→ETH swap → policy balance</span></li>
-          <li><span class="k">Who can sweep</span><span class="v">Anyone — <code>accrueAndFundKeeperGas()</code> is open</span></li>
-          <li><span class="k">Who benefits</span><span class="v">Keepers calling <code>rebalance()</code> against the policy</span></li>
-          <li><span class="k">Bootstrap</span><span class="v">Vault registers &amp; owns its own policy ID</span></li>
-        </ul>
       </div>
     </div>
-
-    <details class="code-block">
-      <summary>DynamoVault.sol — accrueAndFundKeeperGas()</summary>
-      <pre><span class="kw">function</span> accrueAndFundKeeperGas(<span class="ty">uint256</span> minEthOut)
-    <span class="kw">external</span> nonReentrant <span class="kw">returns</span> (<span class="ty">uint256</span> ethFunded)
-{
-    <span class="kw">require</span>(address(gasSponsor) != address(0), <span class="st">"gas sponsor not configured"</span>);
-
-    <span class="ty">uint256</span> elapsed = block.timestamp - lastFeeAccrual;
-    lastFeeAccrual = block.timestamp;
-    <span class="kw">if</span> (elapsed == 0) <span class="kw">return</span> 0;
-
-    <span class="cm">// 0.50%/yr on TVL, pro-rated by elapsed time since the last sweep</span>
-    <span class="ty">uint256</span> feeUsdg = (totalAssetsValueUsd() * managementFeeBps * elapsed)
-        / (<span class="ty">uint256</span>(BPS_DENOMINATOR) * 365 days);
-    <span class="kw">if</span> (feeUsdg == 0) <span class="kw">return</span> 0;
-
-    <span class="cm">// deposit() sweeps 100% of inflows into the basket, so idle USDG is
-    // normally zero — sell a pro-rata slice of the basket first</span>
-    <span class="ty">uint256</span> available = depositAsset.balanceOf(address(<span class="kw">this</span>));
-    <span class="kw">if</span> (available &lt; feeUsdg) {
-        _raiseUsdg(feeUsdg - available);
-        available = depositAsset.balanceOf(address(<span class="kw">this</span>));
-    }
-    <span class="kw">if</span> (feeUsdg > available) feeUsdg = available;
-    <span class="kw">if</span> (feeUsdg == 0) <span class="kw">return</span> 0;
-
-    depositAsset.forceApprove(address(swapRouter), feeUsdg);
-    <span class="ty">uint256</span> wethOut = swapRouter.swapExactInput(
-        address(depositAsset), address(weth), feeUsdg, minEthOut, address(<span class="kw">this</span>)
-    );
-
-    weth.withdraw(wethOut);
-    gasSponsor.fundPolicy{value: wethOut}(keeperPolicyId);
-
-    emit KeeperGasFunded(feeUsdg, wethOut);
-}</pre>
-    </details>
+    <p class="desc">Every deposit accrues a 0.50% annualized fee. Instead of sitting idle, that fee is swept, swapped to ETH, and dropped straight into the vault's own DynamoGasSponsor policy — the same policy that sponsors the keepers who call <code>rebalance()</code>.</p>
+    <ul class="teaser-specs">
+      <li><span class="k">Fee source</span><span class="v">0.50% annualized on TVL, pro-rated per sweep</span></li>
+      <li><span class="k">Fee routing</span><span class="v">100% → USDG→ETH swap → policy balance</span></li>
+      <li><span class="k">Who can sweep</span><span class="v">Anyone — <code>accrueAndFundKeeperGas()</code> is open</span></li>
+    </ul>
+    <a class="teaser-cta" href="flywheel.html">See the flywheel ↗</a>
   </div>
 </section>
 
-<section class="product" id="gas">
+<section class="product">
   <div class="wrap">
-    <div class="product-head">
+    <div class="teaser-row">
       <div>
         <span class="tag">03 — DYNAMO GAS SPONSOR</span>
         <h2>One shared gas budget, instead of every project building its own.</h2>
-        <p class="desc">Robinhood's own gas subsidy ends September 29. This is the paymaster contract the vault funds itself against: a project registers a policy with a daily cap, funds it in ETH, and lets users and keepers transact without holding gas themselves. DynamoVault is simply its first, self-funding tenant — any other project can register a policy the same way and fund it manually instead.</p>
-        <ul class="spec-list">
-          <li><span class="k">Standard</span><span class="v">ERC-4337, EntryPoint v0.7</span></li>
-          <li><span class="k">Isolation</span><span class="v">One contract, many independent policy IDs</span></li>
-          <li><span class="k">Limits</span><span class="v">Daily cap + per-UserOperation cap</span></li>
-          <li><span class="k">Allow-list</span><span class="v">Per policy, which contracts get sponsored</span></li>
-          <li><span class="k">Funding</span><span class="v">ETH, deposited directly to the EntryPoint</span></li>
-        </ul>
-      </div>
-
-      <div class="panel">
-        <div class="panel-title"><span>SPONSOR POLICIES</span><span>LIVE</span></div>
-
-        <div class="filter-pills" id="policyFilters">
-          <button class="pill active" data-filter="all">ALL</button>
-          <button class="pill" data-filter="active">ACTIVE</button>
-          <button class="pill" data-filter="inactive">INACTIVE</button>
-        </div>
-
-        <div class="policy-card" data-status="active">
-          <div class="row-top"><span class="name">dynamo-basket-app <span class="badge">self-funded</span></span><span class="status">active</span></div>
-          <div class="slider-row">
-            <label><span>Daily gas cap</span><span id="capLabel">0.40 ETH</span></label>
-            <input type="range" id="capSlider" min="0.05" max="1" step="0.05" value="0.4" oninput="updateCap(this.value)">
-          </div>
-          <div class="bar-track" style="margin-top:10px;"><div class="bar-fill" id="spentBar" data-target="55"></div></div>
-          <div class="yield-note">Spent today: <span class="num" id="spentLabel">0.22 ETH</span> of <span id="capLabel2">0.40 ETH</span></div>
-        </div>
-
-        <div class="policy-card" data-status="inactive">
-          <div class="row-top"><span class="name">dynamo-rebalance-keeper</span><span class="status off">inactive</span></div>
-          <div class="yield-note">Paused — waiting on new funding for the pool.</div>
-        </div>
       </div>
     </div>
-
-    <details class="code-block">
-      <summary>DynamoGasSponsor.sol — validatePaymasterUserOp()</summary>
-      <pre><span class="kw">function</span> validatePaymasterUserOp(
-    PackedUserOperation calldata userOp,
-    <span class="ty">bytes32</span> userOpHash,
-    <span class="ty">uint256</span> maxCost
-) <span class="kw">external</span> <span class="kw">override</span> onlyEntryPoint <span class="kw">returns</span> (<span class="ty">bytes</span> memory context, <span class="ty">uint256</span> validationData) {
-    <span class="ty">bytes32</span> policyId = _extractPolicyId(userOp.paymasterAndData);
-    Policy storage policy = policies[policyId];
-
-    <span class="kw">require</span>(policy.active, <span class="st">"policy inactive"</span>);
-    <span class="kw">require</span>(policy.perOpCapWei == 0 || maxCost <= policy.perOpCapWei, <span class="st">"exceeds per-op cap"</span>);
-
-    <span class="ty">uint256</span> spendable = _spendableThisWindow(policy);
-    <span class="kw">require</span>(maxCost <= spendable, <span class="st">"exceeds daily cap"</span>);
-    <span class="kw">require</span>(policy.balance >= maxCost, <span class="st">"policy underfunded"</span>);
-
-    context = abi.encode(policyId, userOp.sender);
-    validationData = 0;
-}</pre>
-    </details>
+    <p class="desc">Robinhood's own gas subsidy ends September 29. This is the paymaster contract the vault funds itself against: a project registers a policy with a daily cap, funds it in ETH, and lets users and keepers transact without holding gas themselves.</p>
+    <ul class="teaser-specs">
+      <li><span class="k">Standard</span><span class="v">ERC-4337, EntryPoint v0.7</span></li>
+      <li><span class="k">Limits</span><span class="v">Daily cap + per-UserOperation cap</span></li>
+      <li><span class="k">Funding</span><span class="v">ETH, deposited directly to the EntryPoint</span></li>
+    </ul>
+    <a class="teaser-cta" href="gas-sponsor.html">See the gas sponsor ↗</a>
   </div>
 </section>
 
-<section class="product" id="activity">
+<section class="product reverse">
   <div class="wrap">
-    <span class="tag">04 — RECENT ACTIVITY</span>
-    <h2>What accrueAndFundKeeperGas() looks like, running.</h2>
+    <div class="teaser-row">
+      <div>
+        <span class="tag">04 — RECENT ACTIVITY</span>
+        <h2>What accrueAndFundKeeperGas() looks like, running.</h2>
+      </div>
+    </div>
     <p class="desc">Illustrative feed — deposits into the vault, fee sweeps into the gas policy, and the sponsored rebalances they pay for, in the order they'd emit on-chain.</p>
-    <div style="background:var(--panel-alt);border:1px solid var(--border);border-radius:4px;padding:10px 14px;margin-bottom:18px;font-family:var(--mono);font-size:12px;color:var(--gold);">
-      EXAMPLE ONLY — this log shows what the event feed will look like once the vault is live. No deposits shown here have happened.
-    </div>
-
-    <div class="preset-table">
-      <div class="preset-head">
-        <span>EVENT LOG</span>
-        <span class="preset-sub"><span class="live-dot" aria-hidden="true"></span> LIVE</span>
-      </div>
-      <div class="activity-head-row">
-        <span>EVENT</span><span>DETAIL</span><span>AMOUNT</span><span>TIME</span>
-      </div>
-      <div class="activity-row">
-        <span class="ev-tag rebalance">rebalance</span>
-        <span class="ev-detail">keeper <code>0x9F1c…4Ad2</code> — sponsored, 0 ETH paid</span>
-        <span class="ev-amount">—</span>
-        <span class="ev-time">2m ago</span>
-      </div>
-      <div class="activity-row">
-        <span class="ev-tag sweep">fee swept</span>
-        <span class="ev-detail"><code>accrueAndFundKeeperGas()</code> → policy balance</span>
-        <span class="ev-amount up">+0.014 ETH</span>
-        <span class="ev-time">14m ago</span>
-      </div>
-      <div class="activity-row">
-        <span class="ev-tag deposit">deposit</span>
-        <span class="ev-detail"><code>0x7Ae2…11Fb</code> → 2,391.02 DYNAMO minted</span>
-        <span class="ev-amount">2,400 USDG</span>
-        <span class="ev-time">41m ago</span>
-      </div>
-      <div class="activity-row">
-        <span class="ev-tag rebalance">rebalance</span>
-        <span class="ev-detail">keeper <code>0x4C0a…9E71</code> — sponsored, 0 ETH paid</span>
-        <span class="ev-amount">—</span>
-        <span class="ev-time">1h ago</span>
-      </div>
-      <div class="activity-row">
-        <span class="ev-tag withdraw">withdraw</span>
-        <span class="ev-detail"><code>0x1Bd4…77Ac</code> → pro-rata basket assets</span>
-        <span class="ev-amount">610.00 DYNAMO</span>
-        <span class="ev-time">3h ago</span>
-      </div>
-    </div>
+    <a class="teaser-cta" href="activity.html">View the event log ↗</a>
   </div>
 </section>
 
@@ -734,10 +481,10 @@
     </div>
     <div class="footer-col">
       <div class="footer-col-title">Product</div>
-      <a href="#vault">Dynamo Vault</a>
-      <a href="#flywheel">The Flywheel</a>
-      <a href="#gas">Gas Sponsor</a>
-      <a href="#activity">Activity</a>
+      <a href="vault.html">Dynamo Vault</a>
+      <a href="flywheel.html">The Flywheel</a>
+      <a href="gas-sponsor.html">Gas Sponsor</a>
+      <a href="activity.html">Activity</a>
     </div>
     <div class="footer-col">
       <div class="footer-col-title">Resources</div>

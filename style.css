@@ -625,6 +625,92 @@ input[type=range]{
 .code-block .cm{color:#5C6B78;font-style:italic;}
 .code-block .st{color:#4FD1AE;}
 
+/* ---------- subpage teaser cards (homepage overview) ---------- */
+.teaser-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:16px;
+  margin-bottom:14px;
+}
+.teaser-link{
+  font-family:var(--mono);
+  font-size:13px;
+  color:var(--gold);
+  text-decoration:none;
+  white-space:nowrap;
+  border-bottom:1px solid transparent;
+  transition:border-color .15s;
+}
+.teaser-link:hover{border-bottom-color:var(--gold);}
+.teaser-specs{list-style:none;padding:0;margin:0 0 22px;border-top:1px solid var(--border);}
+.teaser-specs li{
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  padding:10px 0;
+  border-bottom:1px solid var(--border);
+  font-size:13.5px;
+}
+.teaser-specs .k{color:var(--muted);}
+.teaser-specs .v{font-family:var(--mono);text-align:right;color:var(--ink);}
+.teaser-cta{
+  display:inline-block;
+  font-family:var(--mono);
+  font-size:13px;
+  color:var(--ink);
+  background:var(--panel-alt);
+  border:1px solid var(--border);
+  border-radius:99px;
+  padding:8px 16px;
+  text-decoration:none;
+  transition:background .15s, border-color .15s;
+}
+.teaser-cta:hover{background:var(--border);}
+
+/* ---------- subpage breadcrumb / back link ---------- */
+.page-crumb{
+  font-family:var(--mono);
+  font-size:12.5px;
+  color:var(--muted);
+  text-decoration:none;
+  display:inline-block;
+  margin-bottom:18px;
+}
+.page-crumb:hover{color:var(--ink);}
+.page-hero{padding:48px 0 8px;}
+.page-hero .tag{margin-bottom:10px;}
+.page-hero h1{
+  font-family:var(--serif);
+  font-weight:600;
+  font-size:36px;
+  line-height:1.2;
+  max-width:20ch;
+  margin:0 0 16px;
+  color:var(--ink);
+}
+.page-hero p.lede{font-size:16.5px;color:var(--muted);max-width:56ch;margin:0;}
+
+.subnav{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  padding:18px 0 0;
+}
+.subnav a{
+  font-family:var(--mono);
+  font-size:12px;
+  color:var(--muted);
+  text-decoration:none;
+  background:var(--panel-alt);
+  border:1px solid var(--border);
+  border-radius:99px;
+  padding:6px 13px;
+  transition:background .15s, color .15s, border-color .15s;
+}
+.subnav a:hover{color:var(--ink);border-color:var(--gold);}
+.subnav a.current{background:var(--ink);color:var(--panel);border-color:var(--ink);}
+
 /* ---------- manifesto band ---------- */
 .manifesto-band{
   padding:72px 0;

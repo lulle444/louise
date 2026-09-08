@@ -32,17 +32,9 @@
     }));
   }
 
-  if ('IntersectionObserver' in window && navLinks.length) {
-    const sections = Array.from(navLinks)
-      .map(l => document.querySelector(l.getAttribute('href')))
-      .filter(Boolean);
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + entry.target.id));
-      });
-    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
-    sections.forEach(s => observer.observe(s));
+  const currentPage = document.body.getAttribute('data-page');
+  if (currentPage) {
+    navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('data-page') === currentPage));
   }
 
   window.addEventListener('scroll', () => {
@@ -79,7 +71,8 @@ window.addEventListener('load', () => {
     const target = el.getAttribute('data-target');
     requestAnimationFrame(() => { el.style.width = target + '%'; });
   });
-  document.getElementById('basketTotal').textContent = '$1,000';
+  const basketTotal = document.getElementById('basketTotal');
+  if (basketTotal) basketTotal.textContent = '$1,000';
 });
 
 function updateCap(val){
@@ -112,8 +105,10 @@ function sweepFee(){
   poolBalanceEth += ethOut;
   feeAccrued = 0;
 
-  document.getElementById('feeAccrued').textContent = '$0.00';
-  document.getElementById('poolBalance').textContent = poolBalanceEth.toFixed(4) + ' ETH';
+  const feeEl = document.getElementById('feeAccrued');
+  if (feeEl) feeEl.textContent = '$0.00';
+  const poolEl = document.getElementById('poolBalance');
+  if (poolEl) poolEl.textContent = poolBalanceEth.toFixed(4) + ' ETH';
 
   const status = document.getElementById('loopStatus');
   if (status) {
