@@ -2,6 +2,8 @@ import Link from "next/link";
 import { Radar } from "lucide-react";
 import type { Viewer } from "@/lib/domain/types";
 import { DemoModeBadge } from "@/components/ui/DemoModeBadge";
+import { XIcon } from "@/components/ui/XIcon";
+import { getXHandle, getXUrl } from "@/lib/config";
 import { MobileNavigation } from "./MobileNavigation";
 import { NavLinks } from "./NavLinks";
 import { UserMenu } from "./UserMenu";
@@ -28,9 +30,12 @@ export function AppHeader({ viewer, demo }: { viewer: Viewer | null; demo: boole
           <NavLinks items={NAV_ITEMS} />
         </nav>
         <div className="ml-auto hidden items-center gap-2 md:flex">
+          <a href={getXUrl()} target="_blank" rel="noopener noreferrer" className="grid size-9 place-items-center rounded-md text-muted transition hover:bg-surface-2 hover:text-text" aria-label={`SIGNAL ARENA on X (@${getXHandle()})`} title={`@${getXHandle()} on X`}>
+            <XIcon className="size-4" />
+          </a>
           <UserMenu viewer={viewer} />
         </div>
-        <MobileNavigation items={NAV_ITEMS} viewer={viewer} demo={demo} />
+        <MobileNavigation items={NAV_ITEMS} viewer={viewer} demo={demo} xUrl={getXUrl()} xHandle={getXHandle()} />
       </div>
     </header>
   );

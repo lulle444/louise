@@ -55,6 +55,16 @@ export function isDemoMode(): boolean {
   return !hasSupabaseCredentials();
 }
 
+/** X (Twitter) handle without the @; override with NEXT_PUBLIC_X_HANDLE. */
+export function getXHandle(): string {
+  const v = (process.env.NEXT_PUBLIC_X_HANDLE ?? "").trim().replace(/^@/, "");
+  return v || "signalarena";
+}
+
+export function getXUrl(): string {
+  return `https://x.com/${getXHandle()}`;
+}
+
 export function getAppUrl(): string {
   const v = process.env.NEXT_PUBLIC_APP_URL?.trim();
   if (v) return v.replace(/\/$/, "");

@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { Disclaimer } from "@/components/ui/Disclaimer";
 import { DemoModeBadge } from "@/components/ui/DemoModeBadge";
+import { XIcon } from "@/components/ui/XIcon";
+import { getXHandle, getXUrl } from "@/lib/config";
 
 export function SiteFooter({ demo }: { demo: boolean }) {
   return (
@@ -10,6 +12,9 @@ export function SiteFooter({ demo }: { demo: boolean }) {
           <div>
             <p className="font-mono text-sm font-semibold tracking-[0.2em]">SIGNAL ARENA</p>
             <p className="mt-2 max-w-md text-sm text-muted">The market has millions of opinions. SIGNAL ARENA keeps the score.</p>
+            <a href={getXUrl()} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-2 rounded-md border border-border px-3 py-2 text-sm text-text transition hover:border-border-strong hover:bg-surface-2">
+              <XIcon className="size-4" /> Follow @{getXHandle()} on X
+            </a>
             {demo ? <div className="mt-4"><DemoModeBadge /></div> : null}
           </div>
           <nav aria-label="Product" className="text-sm">
@@ -27,6 +32,7 @@ export function SiteFooter({ demo }: { demo: boolean }) {
               <li><Link href="/about" className="hover:text-text">About the Arena</Link></li>
               <li><Link href="/token" className="hover:text-text">Token (planned utility)</Link></li>
               <li><Link href="/login" className="hover:text-text">Sign in</Link></li>
+              <li><a href={getXUrl()} target="_blank" rel="noopener noreferrer" className="hover:text-text">X / Twitter</a></li>
             </ul>
           </nav>
         </div>

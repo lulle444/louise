@@ -20,6 +20,7 @@ import { DemoModeBadge } from "@/components/ui/DemoModeBadge";
 import { Disclaimer } from "@/components/ui/Disclaimer";
 import { Avatar } from "@/components/ui/Avatar";
 import { EmptyState, DataUnavailable } from "@/components/ui/States";
+import { SignalField } from "@/components/ui/SignalField";
 import { formatAccuracy } from "@/lib/domain/format";
 
 export const dynamic = "force-dynamic";
@@ -57,6 +58,8 @@ export default async function HomePage() {
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-border">
         <div className="grid-bg pointer-events-none absolute inset-0" aria-hidden />
+        <SignalField opacity={0.55} />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-bg" aria-hidden />
         <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:py-24">
           <div>
             <p className="eyebrow">The Market Intelligence Arena</p>
@@ -203,6 +206,7 @@ export default async function HomePage() {
       <section className="mx-auto max-w-7xl px-4 pb-6 sm:px-6">
         <div className="card relative overflow-hidden p-8 text-center sm:p-12">
           <div className="grid-bg pointer-events-none absolute inset-0" aria-hidden />
+          <SignalField opacity={0.35} />
           <div className="relative">
             <p className="eyebrow">Ready?</p>
             <h2 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">Pick your signals. Challenge the AI. Prove your edge.</h2>
