@@ -78,7 +78,13 @@ export default async function HomePage() {
                 View Live Arena
               </Link>
             </div>
-            <p className="mt-6 text-xs text-muted">Virtual XP only. No wallet, no deposits, no trades. {demo ? <DemoModeBadge className="ml-2 align-middle" /> : null}</p>
+            <p className="mt-6 text-xs text-muted">Virtual XP only. No wallet, no deposits, no trades.</p>
+            {demo ? (
+              <p className="mt-3 inline-flex flex-wrap items-center gap-2 text-xs text-muted">
+                <DemoModeBadge />
+                <span>Season 1 launches with live prices. <Link href="/season" className="text-cyan hover:underline">Preview season recap →</Link></span>
+              </p>
+            ) : null}
           </div>
 
           {/* Live battle card */}

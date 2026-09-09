@@ -1,4 +1,5 @@
 import { BADGE_CATALOGUE } from "../domain/badges";
+import { getSeason } from "../config";
 import { XP_RULES } from "../domain/scoring";
 import { isAcceptingPredictions } from "../domain/settlement";
 import { predictionInputSchema, validatePredictionDeadline, type PredictionInput } from "../domain/validation";
@@ -76,5 +77,10 @@ export async function lockPrediction(
   await repo.updatePredictionResults([{ id: prediction.id, result: "pending", battleScore: null, xpAwarded: XP_RULES.lock }]);
   const firstSignal = BADGE_CATALOGUE.find((b) => b.slug === "first-signal");
   if (firstSignal) await repo.awardBadge({ userId: viewer.id, badgeId: firstSignal.id, awardedAt: now.toISOString(), sourceBattleId: battle.id });
+  const season = getSeason(now);
+  if (now.getTime() >= Date.parse(season.startsAt) && now.getTime() < Date.parse(season.foundingWindowEndsAt)) {
+    const founding = BADGE_CATALOGUE.find((b) => b.slug === "founding-analyst");
+    if (founding) await repo.awardBadge({ userId: viewer.id, badgeId: founding.id, awardedAt: now.toISOString(), sourceBattleId: battle.id });
+  }
   return { ...prediction, xpAwarded: XP_RULES.lock };
 }

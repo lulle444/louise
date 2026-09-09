@@ -26,6 +26,36 @@ export const MIN_SIGNAL_USES = 3;
 /** Minimum battles on an asset before it can be named "best asset". */
 export const MIN_ASSET_BATTLES = 3;
 
+/**
+ * Season framing. Season 0 is the preview season (simulated market in Demo
+ * Mode). The founding window grants the "Founding Analyst" badge to anyone who
+ * locks a forecast within the first days of the season.
+ */
+export interface SeasonInfo {
+  number: number;
+  name: string;
+  startsAt: string;
+  endsAt: string;
+  foundingWindowEndsAt: string;
+  isPreview: boolean;
+}
+
+export function getSeason(now: Date = new Date()): SeasonInfo {
+  const start = process.env.NEXT_PUBLIC_SEASON_START?.trim();
+  const startsAt = start && !Number.isNaN(Date.parse(start)) ? new Date(start) : new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() - 2));
+  const number = Number(process.env.NEXT_PUBLIC_SEASON_NUMBER ?? (isDemoMode() ? 0 : 1));
+  const days = Number(process.env.NEXT_PUBLIC_SEASON_DAYS ?? 30);
+  const foundingDays = Number(process.env.NEXT_PUBLIC_SEASON_FOUNDING_DAYS ?? 7);
+  return {
+    number,
+    name: number === 0 ? "Preview Season" : `Season ${number}`,
+    startsAt: startsAt.toISOString(),
+    endsAt: new Date(startsAt.getTime() + days * 86_400_000).toISOString(),
+    foundingWindowEndsAt: new Date(startsAt.getTime() + foundingDays * 86_400_000).toISOString(),
+    isPreview: number === 0 || isDemoMode(),
+  };
+}
+
 export const THESIS_MAX_LENGTH = 240;
 export const SIGNALS_PER_PREDICTION = 3;
 export const DEFAULT_NEUTRAL_THRESHOLD_PERCENT = 0.5;

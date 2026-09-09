@@ -124,7 +124,7 @@ export function SignalCard({ data, preview = false, showLink = true, className =
         {data.thesis ? <p className="mt-4 border-l-2 border-border pl-3 text-sm text-text/90">“{data.thesis}”</p> : null}
 
         {settled ? (
-          <div className="mt-4 grid grid-cols-2 gap-2 text-xs sm:grid-cols-4">
+          <div className="mt-4 grid grid-cols-2 gap-x-3 gap-y-2 text-xs">
             <div><p className="text-muted">Outcome</p><p className="mt-0.5"><DirectionPill direction={data.battle.outcome} size="sm" /></p></div>
             <div><p className="text-muted">Battle Score</p><p className="num mt-0.5 font-semibold">{data.battleScore ?? 0}</p></div>
             {data.kind === "human" ? <div><p className="text-muted">XP earned</p><p className="num mt-0.5 font-semibold text-cyan">+{data.xpAwarded ?? 0}</p></div> : null}

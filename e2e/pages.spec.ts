@@ -5,7 +5,7 @@ test("homepage communicates Humans vs AI and links into the Arena", async ({ pag
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Humans vs AI");
   await expect(page.getByText("The Market Intelligence Arena")).toBeVisible();
   await expect(page.getByRole("link", { name: "Enter Today’s Battle" }).first()).toBeVisible();
-  await expect(page.getByText("Demo data").first()).toBeVisible();
+  await expect(page.getByText("Preview season").first()).toBeVisible();
   // Crowd preview is obscured for visitors.
   await expect(page.getByText(/Sign in and lock a forecast in today’s Battle/)).toBeVisible();
   await expect(page.getByRole("contentinfo").getByText("SIGNAL ARENA is an educational forecasting game")).toBeVisible();
@@ -34,6 +34,10 @@ test("humans vs ai, leaderboard, methodology and token pages render", async ({ p
   await expect(page.getByRole("heading", { name: "Leaderboard formula" })).toBeVisible();
   await page.goto("/token");
   await expect(page.getByText("No token is needed for the core forecasting experience.")).toBeVisible();
+  await page.goto("/season");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("This week in the Arena");
+  await expect(page.getByText("Founding Analyst badge").first()).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Top analysts this week" })).toBeVisible();
 });
 
 test("settled result renders on a seeded analyst's Battle and Signal Card", async ({ page }) => {

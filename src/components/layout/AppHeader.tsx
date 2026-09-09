@@ -12,6 +12,7 @@ export const NAV_ITEMS = [
   { href: "/arena", label: "Arena" },
   { href: "/humans-vs-ai", label: "Humans vs AI" },
   { href: "/leaderboard", label: "Leaderboard" },
+  { href: "/season", label: "Season" },
   { href: "/methodology", label: "Methodology" },
 ];
 
@@ -23,9 +24,9 @@ export function AppHeader({ viewer, demo }: { viewer: Viewer | null; demo: boole
           <span className="grid size-8 place-items-center rounded-lg border border-cyan/40 bg-cyan/10 text-cyan">
             <Radar className="size-4" aria-hidden />
           </span>
-          <span className="font-mono text-sm font-semibold tracking-[0.2em] text-text">SIGNAL ARENA</span>
+          <span className="whitespace-nowrap font-mono text-sm font-semibold tracking-[0.2em] text-text">SIGNAL ARENA</span>
         </Link>
-        {demo ? <span className="hidden sm:block"><DemoModeBadge /></span> : null}
+        {demo ? <span className="hidden lg:block"><DemoModeBadge short /></span> : null}
         <nav className="ml-6 hidden items-center gap-1 md:flex" aria-label="Primary">
           <NavLinks items={NAV_ITEMS} />
         </nav>

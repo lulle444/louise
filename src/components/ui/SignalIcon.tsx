@@ -1,5 +1,6 @@
 import {
   Activity,
+  Award,
   BarChart3,
   Bitcoin,
   Cpu,
@@ -22,7 +23,7 @@ import {
 import type { ComponentType } from "react";
 
 const ICONS: Record<string, ComponentType<LucideProps>> = {
-  Activity, BarChart3, Bitcoin, Cpu, Crown, Flame, Gauge, GitBranch, Hexagon, Layers, LineChart, MessageCircle, PieChart, Radio, Sun, TrendingUp, Users, Zap,
+  Activity, Award, BarChart3, Bitcoin, Cpu, Crown, Flame, Gauge, GitBranch, Hexagon, Layers, LineChart, MessageCircle, PieChart, Radio, Sun, TrendingUp, Users, Zap,
 };
 
 export function SignalIcon({ name, className = "size-4" }: { name: string; className?: string }) {

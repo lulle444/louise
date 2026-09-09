@@ -23,6 +23,7 @@ export function SiteFooter({ demo }: { demo: boolean }) {
               <li><Link href="/arena" className="hover:text-text">Arena</Link></li>
               <li><Link href="/humans-vs-ai" className="hover:text-text">Humans vs AI</Link></li>
               <li><Link href="/leaderboard" className="hover:text-text">Leaderboard</Link></li>
+              <li><Link href="/season" className="hover:text-text">Season recap</Link></li>
               <li><Link href="/methodology" className="hover:text-text">Methodology</Link></li>
             </ul>
           </nav>

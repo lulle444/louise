@@ -36,7 +36,8 @@ insert into public.badges (id, slug, name, description, icon) values
   ('badge-eth-specialist', 'eth-specialist', 'ETH Specialist', 'Five correct ETH Battles.', 'Hexagon'),
   ('badge-sol-specialist', 'sol-specialist', 'SOL Specialist', 'Five correct SOL Battles.', 'Sun'),
   ('badge-momentum-master', 'momentum-master', 'Momentum Master', 'Five correct forecasts citing Momentum.', 'TrendingUp'),
-  ('badge-contrarian-win', 'contrarian-win', 'Contrarian Win', 'Correct with a direction fewer than 25% of the crowd chose.', 'GitBranch')
+  ('badge-contrarian-win', 'contrarian-win', 'Contrarian Win', 'Correct with a direction fewer than 25% of the crowd chose.', 'GitBranch'),
+  ('badge-founding-analyst', 'founding-analyst', 'Founding Analyst', 'Locked a forecast in the first week of a season. Never awarded again.', 'Award')
 on conflict (id) do update set slug = excluded.slug, name = excluded.name, description = excluded.description, icon = excluded.icon;
 
 insert into public.levels (level, name, min_xp) values

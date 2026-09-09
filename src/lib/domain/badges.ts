@@ -12,6 +12,7 @@ export const BADGE_CATALOGUE: Badge[] = [
   { id: "badge-sol-specialist", slug: "sol-specialist", name: "SOL Specialist", description: "Five correct SOL Battles.", icon: "Sun" },
   { id: "badge-momentum-master", slug: "momentum-master", name: "Momentum Master", description: "Five correct forecasts citing Momentum.", icon: "TrendingUp" },
   { id: "badge-contrarian-win", slug: "contrarian-win", name: "Contrarian Win", description: "Correct with a direction fewer than 25% of the crowd chose.", icon: "GitBranch" },
+  { id: "badge-founding-analyst", slug: "founding-analyst", name: "Founding Analyst", description: "Locked a forecast in the first week of a season. Never awarded again.", icon: "Award" },
 ];
 
 export const badgeBySlug = (slug: string): Badge | undefined => BADGE_CATALOGUE.find((b) => b.slug === slug);
