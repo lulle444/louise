@@ -7,7 +7,7 @@ import { CrowdPicks } from "@/components/CrowdPicks";
 import { LineupBuilder } from "@/components/LineupBuilder";
 import { LineupPicks, ROLE_META } from "@/components/LineupPicks";
 import { MethodologyTooltip } from "@/components/MethodologyTooltip";
-import { NarrativeTrack, type TrackRow } from "@/components/NarrativeTrack";
+import { NarrativeReplay } from "@/components/NarrativeReplay";
 import { RaceHero } from "@/components/RaceHero";
 import { ScoreHistoryChart } from "@/components/ScoreHistoryChart";
 import { ShareOnX } from "@/components/ShareOnX";
@@ -27,22 +27,8 @@ export async function generateMetadata({ params }: { params: Promise<{ raceId: s
   return { title: race ? race.name : "Race" };
 }
 
-function trackRows(view: RaceView, highlights: Map<string, string> = new Map()): TrackRow[] {
-  return view.standings.map((s) => ({
-    narrativeId: s.narrative.id,
-    slug: s.narrative.slug,
-    name: s.narrative.name,
-    shortName: s.narrative.shortName,
-    icon: s.narrative.icon,
-    accentColor: s.narrative.accentColor,
-    rank: s.rank,
-    previousRank: s.startRank ?? s.previousRank,
-    startRank: s.startRank,
-    score: s.score,
-    delta: s.delta,
-    quality: s.snapshot?.quality ?? "unavailable",
-    highlight: highlights.get(s.narrative.id) ?? null,
-  }));
+function replayNarratives(view: RaceView, highlights: Map<string, string>) {
+  return view.narratives.map((n) => ({ id: n.id, slug: n.slug, name: n.name, shortName: n.shortName, icon: n.icon, accentColor: n.accentColor, highlight: highlights.get(n.id) ?? null }));
 }
 
 export default async function RacePage({ params }: { params: Promise<{ raceId: string }> }) {
@@ -55,7 +41,8 @@ export default async function RacePage({ params }: { params: Promise<{ raceId: s
 
   const highlights = new Map<string, string>();
   if (userLineup) for (const p of userLineup.picks) highlights.set(p.narrativeId, ROLE_META[p.role].label);
-  const rows = trackRows(view, highlights);
+  const replayRows = replayNarratives(view, highlights);
+  const frames = phase === "open" ? view.history.slice(0, 1) : view.history;
   const leading = view.standings[0] ? { name: view.standings[0].narrative.name, color: view.standings[0].narrative.accentColor } : null;
 
   const chartSeries = view.narratives.map((n) => ({ key: n.id, label: n.shortName, color: n.accentColor }));
@@ -91,7 +78,7 @@ export default async function RacePage({ params }: { params: Promise<{ raceId: s
 
       {/* ---------- USER LINEUP ---------- */}
       {userLineup ? (
-        <section aria-labelledby="mine-heading" className="card space-y-4 p-5" data-testid="user-lineup">
+        <section aria-labelledby="mine-heading" className={`card space-y-4 p-5 ${phase === "open" ? "lock-glow" : ""}`} data-testid="user-lineup">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <h2 id="mine-heading" className="text-lg font-semibold">Your locked lineup</h2>
             <span className="font-mono text-xs text-muted">Locked {formatDateTime(userLineup.lockedAt)} · immutable</span>
@@ -127,9 +114,9 @@ export default async function RacePage({ params }: { params: Promise<{ raceId: s
             <h2 id="result-heading" className="text-lg font-semibold">Your result</h2>
           </div>
           <div className="grid gap-3 sm:grid-cols-4">
-            <Stat label="Race score" value={userResult.raceScore.toFixed(0)} accent="#B6F36B" hint="max 360" />
+            <Stat label="Race score" animate={{ value: userResult.raceScore }} accent="#B6F36B" hint="max 360" />
             <Stat label="Placement" value={ordinal(userResult.rank)} hint={`of ${results.length} entrants (incl. AI)`} />
-            <Stat label="XP earned" value={`+${userResult.xpAwarded}`} accent="#22D3EE" />
+            <Stat label="XP earned" animate={{ value: userResult.xpAwarded, prefix: "+" }} accent="#22D3EE" />
             <Stat label="Helped most" value={userResult.bestRole ? ROLE_META[userResult.bestRole].label : "—"} hint={userResult.bestRole ? `${narrativeById.get(userLineup.picks.find((p) => p.role === userResult.bestRole)!.narrativeId)?.name}` : "No scoring picks"} />
           </div>
           <div className="grid gap-3 sm:grid-cols-3">
@@ -160,7 +147,7 @@ export default async function RacePage({ params }: { params: Promise<{ raceId: s
                 Score = price 40% + breadth 25% + volume 20% + momentum 15%, each normalized 0–100 from the constituent data.
               </MethodologyTooltip>
             </div>
-            <NarrativeTrack rows={rows} takenAt={view.latestTakenAt} />
+            <NarrativeReplay narratives={replayRows} frames={frames} />
           </div>
           <div className="card p-5">
             <h3 className="mb-3 text-sm font-semibold">Score movement</h3>

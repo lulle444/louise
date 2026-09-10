@@ -5,7 +5,8 @@ import { DemoBadge } from "@/components/DemoBadge";
 import { Leaderboard } from "@/components/Leaderboard";
 import { MetaDNAChart } from "@/components/MetaDNAChart";
 import { NarrativeCard } from "@/components/NarrativeCard";
-import { NarrativeTrack, type TrackRow } from "@/components/NarrativeTrack";
+import { NarrativeReplay } from "@/components/NarrativeReplay";
+import { AuroraBackdrop } from "@/components/AuroraBackdrop";
 import { RaceHero } from "@/components/RaceHero";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Stat } from "@/components/Stat";
@@ -38,20 +39,9 @@ export default async function HomePage() {
     viewer ? getProfileView(session, viewer.username) : null,
   ]);
 
-  const rows: TrackRow[] = (liveView?.standings ?? []).map((s) => ({
-    narrativeId: s.narrative.id,
-    slug: s.narrative.slug,
-    name: s.narrative.name,
-    shortName: s.narrative.shortName,
-    icon: s.narrative.icon,
-    accentColor: s.narrative.accentColor,
-    rank: s.rank,
-    previousRank: s.startRank ?? s.previousRank,
-    startRank: s.startRank,
-    score: s.score,
-    delta: s.delta,
-    quality: s.snapshot?.quality ?? "unavailable",
-  }));
+  const replayNarratives = (liveView?.narratives ?? []).map((n) => ({ id: n.id, slug: n.slug, name: n.name, shortName: n.shortName, icon: n.icon, accentColor: n.accentColor }));
+  const frames = liveView?.history ?? [];
+  const seriesFor = (id: string) => frames.map((f) => f.scores[id] ?? 0);
   const aiRows = aiVsCrowd.rows.filter((r) => r.kind === "ai");
   const crowdRow = aiVsCrowd.rows.find((r) => r.kind === "crowd");
   const trending = (liveView?.standings ?? []).slice(0, 3);
@@ -61,8 +51,9 @@ export default async function HomePage() {
   return (
     <div className="space-y-16 py-8 sm:py-12">
       {/* HERO */}
-      <section className="relative grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:items-center">
-        <div className="space-y-6 rise">
+      <section className="relative -mx-4 grid gap-8 px-4 py-6 sm:-mx-6 sm:px-6 lg:-mx-8 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:px-8">
+        <AuroraBackdrop />
+        <div className="relative space-y-6 stagger">
           <p className="eyebrow text-lime">The crypto narrative league</p>
           <h1 className="text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">Spot the next narrative before the crowd.</h1>
           <p className="max-w-xl text-lg text-muted">Draft three crypto narratives, allocate your conviction, and compete against AI and the market.</p>
@@ -76,12 +67,12 @@ export default async function HomePage() {
           </div>
           <p className="text-xs text-dim">Educational forecasting game. Virtual points only — nothing to deposit, stake or trade.</p>
         </div>
-        <div className="card p-5 rise" style={{ animationDelay: "120ms" }}>
+        <div className="card relative p-5 rise" style={{ animationDelay: "120ms" }}>
           <div className="mb-3 flex items-center justify-between">
             <p className="eyebrow">Live standings{live ? ` · ${live.name}` : ""}</p>
             {demo ? <DemoBadge /> : null}
           </div>
-          {rows.length ? <NarrativeTrack rows={rows} takenAt={liveView?.latestTakenAt ?? null} compact /> : <p className="text-sm text-muted">No live Race right now.</p>}
+          {frames.length ? <NarrativeReplay narratives={replayNarratives} frames={frames} compact /> : <p className="text-sm text-muted">No live Race right now.</p>}
         </div>
       </section>
 
@@ -107,16 +98,16 @@ export default async function HomePage() {
         <SectionHeading eyebrow="Scoreboard" title="AI vs Crowd" description="Average Race score over the last 90 days of settled Races." action={<Link href="/ai-vs-crowd" className="btn btn-ghost btn-sm">Full comparison</Link>} />
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {aiRows.map((r) => (
-            <Stat key={r.key} label={r.label} value={r.averageScore.toFixed(0)} hint={`${Math.round(r.leaderAccuracy * 100)}% leaders called`} accent={r.accent} />
+            <Stat key={r.key} label={r.label} animate={{ value: r.averageScore }} hint={`${Math.round(r.leaderAccuracy * 100)}% leaders called`} accent={r.accent} />
           ))}
-          {crowdRow ? <Stat label="Crowd consensus" value={crowdRow.averageScore.toFixed(0)} hint={`${Math.round(crowdRow.leaderAccuracy * 100)}% leaders called`} accent={crowdRow.accent} /> : null}
+          {crowdRow ? <Stat label="Crowd consensus" animate={{ value: crowdRow.averageScore }} hint={`${Math.round(crowdRow.leaderAccuracy * 100)}% leaders called`} accent={crowdRow.accent} /> : null}
         </div>
       </section>
 
       {/* HOW IT WORKS */}
       <section className="space-y-4">
         <SectionHeading eyebrow="How it works" title="One weekly loop" />
-        <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <ol className="stagger grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {STEPS.map((s, i) => (
             <li key={s.title} className="card p-4">
               <div className="flex items-center gap-3">
@@ -138,7 +129,7 @@ export default async function HomePage() {
           <SectionHeading eyebrow="Trending" title="Narratives on the move" action={<Link href="/narratives" className="btn btn-ghost btn-sm">All narratives</Link>} />
           <div className="grid gap-3 md:grid-cols-3">
             {trending.map((s) => (
-              <NarrativeCard key={s.narrative.id} narrative={s.narrative} snapshot={s.snapshot} previousRank={s.previousRank} href={`/narratives/${s.narrative.slug}`} />
+              <NarrativeCard key={s.narrative.id} narrative={s.narrative} snapshot={s.snapshot} previousRank={s.startRank ?? s.previousRank} href={`/narratives/${s.narrative.slug}`} series={seriesFor(s.narrative.id)} />
             ))}
           </div>
         </section>

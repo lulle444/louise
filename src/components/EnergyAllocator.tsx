@@ -3,6 +3,7 @@
 import type { PickRole } from "@/lib/types";
 import { ROLE_META } from "./LineupPicks";
 import { ENERGY_TOTAL } from "@/lib/scoring/validation";
+import { EnergyRing } from "./EnergyRing";
 
 export type EnergyMap = Record<PickRole, number>;
 
@@ -51,6 +52,11 @@ export function EnergyAllocator({
           {remaining !== 0 ? ` (${remaining > 0 ? `${remaining} left` : `${-remaining} over`})` : " ✓"}
         </span>
       </legend>
+      <div className="grid gap-4 sm:grid-cols-[auto_1fr] sm:items-center">
+        <div className="mx-auto sm:mx-0">
+          <EnergyRing energy={energy} size={112} />
+        </div>
+        <div className="space-y-3">
       {ROLES.map((role) => (
         <div key={role} className="grid grid-cols-[6rem_1fr_4.5rem] items-center gap-3">
           <label htmlFor={`energy-${role}`} className="text-xs">
@@ -85,6 +91,8 @@ export function EnergyAllocator({
           />
         </div>
       ))}
+        </div>
+      </div>
       <div className="flex flex-wrap gap-2 text-xs">
         <button type="button" className="btn btn-ghost btn-sm" onClick={() => preset([50, 30, 20])}>50 / 30 / 20</button>
         <button type="button" className="btn btn-ghost btn-sm" onClick={() => preset([34, 33, 33])}>Even</button>

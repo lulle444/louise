@@ -3,6 +3,7 @@ import type { Narrative, NarrativeSnapshot } from "@/lib/types";
 import { formatPct } from "@/lib/format";
 import { NarrativeIcon } from "./NarrativeIcon";
 import { RankMove } from "./RankMove";
+import { Sparkline } from "./Sparkline";
 
 export function NarrativeCard({
   narrative,
@@ -10,12 +11,15 @@ export function NarrativeCard({
   previousRank,
   href,
   footer,
+  series,
 }: {
   narrative: Narrative;
   snapshot: NarrativeSnapshot | null;
   previousRank?: number | null;
   href?: string;
   footer?: React.ReactNode;
+  /** Score history for a sparkline. */
+  series?: number[];
 }) {
   const body = (
     <>
@@ -35,7 +39,10 @@ export function NarrativeCard({
             )}
           </div>
         </div>
-        {snapshot && previousRank !== undefined ? <RankMove from={previousRank ?? null} to={snapshot.rank} /> : null}
+        <span className="flex items-center gap-2">
+          {series && series.length > 1 ? <Sparkline values={series} color={narrative.accentColor} /> : null}
+          {snapshot && previousRank !== undefined ? <RankMove from={previousRank ?? null} to={snapshot.rank} /> : null}
+        </span>
       </div>
       <p className="mt-3 line-clamp-2 text-xs text-muted">{narrative.description}</p>
       {snapshot ? (

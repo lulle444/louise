@@ -4,7 +4,7 @@ import { NarrativeCard } from "@/components/NarrativeCard";
 import { SectionHeading } from "@/components/SectionHeading";
 import { getSession } from "@/lib/auth/session";
 import { formatDateTime } from "@/lib/format";
-import { latestRaceSnapshot, snapshotOfKind } from "@/lib/services/snapshots";
+import { groupSnapshots, latestRaceSnapshot, snapshotOfKind } from "@/lib/services/snapshots";
 
 export const metadata: Metadata = { title: "Narratives" };
 
@@ -15,6 +15,8 @@ export default async function NarrativesPage() {
   const snapshots = live ? await store.listSnapshots(live.id) : [];
   const latest = live?.status === "published" ? snapshotOfKind(snapshots, "prelock") : latestRaceSnapshot(snapshots);
   const latestById = new Map(latest.map((s) => [s.narrativeId, s]));
+  const frames = groupSnapshots(snapshots).filter((g) => g.kind !== "reference");
+  const seriesFor = (id: string) => frames.map((g) => g.rows.find((r) => r.narrativeId === id)?.score ?? 0);
   const settled = races.filter((r) => r.status === "settled");
   const history = new Map<string, number[]>();
   for (const r of settled) {
@@ -43,6 +45,7 @@ export default async function NarrativesPage() {
                 narrative={n}
                 snapshot={latestById.get(n.id) ?? null}
                 href={`/narratives/${n.slug}`}
+                series={seriesFor(n.id)}
                 footer={
                   <div className="mt-3 space-y-1 text-xs text-muted">
                     <p className="truncate">

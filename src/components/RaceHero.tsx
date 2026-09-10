@@ -2,6 +2,8 @@ import Link from "next/link";
 import type { Race } from "@/lib/types";
 import { formatDate, formatDateTime } from "@/lib/format";
 import { DemoBadge } from "./DemoBadge";
+import { ProgressArc } from "./ProgressArc";
+import { requestNow } from "@/lib/time";
 import { RaceCountdown } from "./RaceCountdown";
 import { StatusPill } from "./StatusPill";
 
@@ -18,6 +20,16 @@ export function RaceHero({
   href?: string;
   children?: React.ReactNode;
 }) {
+  const now = requestNow();
+  const span = (a: string | null, b: string) => (a ? Math.max(0, Math.min(1, (now - Date.parse(a)) / Math.max(1, Date.parse(b) - Date.parse(a)))) : 0);
+  const arc =
+    race.status === "published"
+      ? { value: span(race.publishedAt, race.locksAt), label: "Entry window", sub: "elapsed before lock", color: "#B6F36B" }
+      : race.status === "live"
+        ? { value: span(race.startsAt, race.endsAt), label: "Race progress", sub: "of the scoring window", color: "#22D3EE" }
+        : race.status === "settled"
+          ? { value: 1, label: "Race complete", sub: "settled", color: "#8B5CF6" }
+          : null;
   const countdown =
     race.status === "published"
       ? { target: race.locksAt, label: "Lineups lock in" }
@@ -65,7 +77,10 @@ export function RaceHero({
           </dl>
           {children}
         </div>
-        {countdown ? <RaceCountdown target={countdown.target} label={countdown.label} /> : null}
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center lg:flex-col lg:items-end">
+          {arc ? <ProgressArc value={arc.value} label={arc.label} sublabel={arc.sub} color={arc.color} /> : null}
+          {countdown ? <RaceCountdown target={countdown.target} label={countdown.label} /> : null}
+        </div>
       </div>
     </section>
   );
