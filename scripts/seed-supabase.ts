@@ -3,7 +3,7 @@
  *
  *   SUPABASE_URL=... SUPABASE_SERVICE_ROLE_KEY=... npx tsx scripts/seed-supabase.ts
  *
- * Creates demo auth users (password: metarace-demo), profiles, narratives,
+ * Creates demo auth users (password: megasprint-demo), profiles, narratives,
  * assets, constituent versions, races, snapshots, lineups, results, XP and
  * badges. Safe to re-run: rows are upserted by id.
  */
@@ -37,12 +37,12 @@ async function main() {
   // 1. Auth users → profile ids must be real auth.users uuids.
   const idMap = new Map<string, string>();
   for (const u of DEMO_USERS) {
-    const email = `${u.username.replace(/[^a-z0-9]/g, "")}@demo.metarace.local`;
+    const email = `${u.username.replace(/[^a-z0-9]/g, "")}@demo.megasprint.local`;
     const { data: list } = await db.auth.admin.listUsers({ perPage: 1000 });
     const existing = list?.users.find((x) => x.email === email);
     let id = existing?.id;
     if (!id) {
-      const created = await db.auth.admin.createUser({ email, password: "metarace-demo", email_confirm: true, user_metadata: { username: u.username, display_name: u.displayName } });
+      const created = await db.auth.admin.createUser({ email, password: "megasprint-demo", email_confirm: true, user_metadata: { username: u.username, display_name: u.displayName } });
       if (created.error || !created.data.user) throw new Error(`create user ${email}: ${created.error?.message ?? "no user"}`);
       id = created.data.user.id;
     }

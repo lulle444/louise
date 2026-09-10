@@ -52,7 +52,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ userna
             {xp} XP{level.nextMinXp ? ` · ${level.nextMinXp - xp} to next` : ""}
           </p>
           <div className="lane mt-1 h-1.5 w-40">
-            <span className="lane-fill block bg-lime" style={{ width: `${Math.round(level.progress * 100)}%` }} aria-hidden="true" />
+            <span className="lane-fill bar-grow block bg-lime" style={{ width: `${Math.round(level.progress * 100)}%` }} aria-hidden="true" />
           </div>
         </div>
         {isMe ? (

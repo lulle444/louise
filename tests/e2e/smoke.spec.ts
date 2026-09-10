@@ -6,7 +6,7 @@ async function startGuest(page: Page, next = "/race") {
   await page.waitForURL(`**${next}`);
 }
 
-test.describe("META RACE smoke", () => {
+test.describe("MEGASPRINT smoke", () => {
   test("homepage communicates the product", async ({ page }) => {
     await page.goto("/");
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("Spot the next narrative before the crowd.");

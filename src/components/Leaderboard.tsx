@@ -7,6 +7,7 @@ export function Leaderboard({ rows, compact = false }: { rows: LeaderboardRow[];
   if (!rows.length) {
     return <p className="card p-6 text-center text-sm text-muted">No settled results in this window yet.</p>;
   }
+  const maxRating = Math.max(1, ...rows.map((r) => r.stats.metaRating));
   return (
     <div className="card overflow-x-auto">
       <table className="table" data-testid="leaderboard">
@@ -59,6 +60,9 @@ export function Leaderboard({ rows, compact = false }: { rows: LeaderboardRow[];
                 </td>
               ) : null}
               <td>
+                <span className="lane mb-1 block h-1 w-24" aria-hidden="true">
+                  <span className="lane-fill bar-grow block bg-lime" style={{ width: `${Math.round((r.stats.metaRating / maxRating) * 100)}%`, animationDelay: `${i * 60}ms` }} />
+                </span>
                 <span className="mono font-semibold">{r.stats.metaRating}</span>
                 {r.stats.provisional ? (
                   <span className="ml-2 rounded border border-border px-1.5 py-0.5 font-mono text-[0.55rem] uppercase tracking-wider text-muted" title="Fewer than three settled Races">

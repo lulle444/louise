@@ -91,12 +91,12 @@ export function LineupBuilder({
         <div className="flex gap-2" role="tablist" aria-label="Role to assign">
           {ROLES.map((r) => (
             <button
-              key={r}
+              key={`${r}-${selection[r] ?? "empty"}`}
               type="button"
               role="tab"
               aria-selected={activeRole === r}
               onClick={() => setActiveRole(r)}
-              className={`card-2 flex-1 px-3 py-2 text-left transition ${activeRole === r ? "ring-2 ring-offset-0" : "hover:border-cyan/40"}`}
+              className={`card-2 flex-1 px-3 py-2 text-left transition ${selection[r] ? "pop" : ""} ${activeRole === r ? "ring-2 ring-offset-0" : "hover:border-cyan/40"}`}
               style={activeRole === r ? { borderColor: ROLE_META[r].color, boxShadow: `0 0 0 1px ${ROLE_META[r].color}` } : undefined}
               data-testid={`slot-${r}`}
             >
@@ -118,7 +118,7 @@ export function LineupBuilder({
                   onClick={() => choose(n.id)}
                   aria-pressed={Boolean(role)}
                   data-testid={`narrative-${n.slug}`}
-                  className={`card-2 flex w-full items-center gap-3 px-3 py-2.5 text-left transition hover:border-cyan/50 ${role ? "bg-surface" : ""}`}
+                  className={`card-2 flex w-full items-center gap-3 px-3 py-2.5 text-left transition hover:border-cyan/50 ${role ? "bg-surface pop" : ""}`}
                   style={role ? { borderColor: ROLE_META[role].color } : undefined}
                 >
                   <span className="grid h-9 w-9 shrink-0 place-items-center rounded-md" style={{ background: `${n.accentColor}22`, color: n.accentColor }}>

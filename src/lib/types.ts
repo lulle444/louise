@@ -1,5 +1,5 @@
 /**
- * Core domain types for META RACE.
+ * Core domain types for MEGASPRINT.
  *
  * Everything here is deliberately plain data so that the same shapes can be
  * produced by the deterministic Demo store and by the Supabase store.

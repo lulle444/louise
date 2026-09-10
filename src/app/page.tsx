@@ -72,7 +72,7 @@ export default async function HomePage() {
             <p className="eyebrow">Live standings{live ? ` · ${live.name}` : ""}</p>
             {demo ? <DemoBadge /> : null}
           </div>
-          {frames.length ? <NarrativeReplay narratives={replayNarratives} frames={frames} compact /> : <p className="text-sm text-muted">No live Race right now.</p>}
+          {frames.length ? <NarrativeReplay narratives={replayNarratives} frames={frames} compact storageKey={`race:${live?.id}`} /> : <p className="text-sm text-muted">No live Race right now.</p>}
         </div>
       </section>
 

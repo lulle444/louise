@@ -42,7 +42,7 @@ export default function TokenPage() {
       </section>
       <p className="text-sm text-muted">
         <Users className="mr-1 inline h-4 w-4" aria-hidden="true" />
-        META RACE is an educational forecasting game using virtual points. Read the <Link href="/methodology" className="text-cyan hover:underline">methodology</Link> for how scoring works today.
+        MEGASPRINT is an educational forecasting game using virtual points. Read the <Link href="/methodology" className="text-cyan hover:underline">methodology</Link> for how scoring works today.
       </p>
     </div>
   );

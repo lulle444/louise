@@ -18,11 +18,11 @@ export async function AppHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-bg/85 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-2 font-bold tracking-tight" aria-label="META RACE home">
+        <Link href="/" className="flex items-center gap-2 font-bold tracking-tight" aria-label="MEGASPRINT home">
           <span className="grid h-8 w-8 place-items-center rounded-lg bg-lime text-bg">
             <Activity className="h-4 w-4" aria-hidden="true" />
           </span>
-          <span className="hidden sm:inline">META RACE</span>
+          <span className="hidden sm:inline">MEGASPRINT</span>
         </Link>
         {demo ? <DemoBadge label="Demo mode" className="hidden md:inline-flex" /> : null}
         <nav aria-label="Primary" className="ml-auto hidden items-center gap-1 md:flex">

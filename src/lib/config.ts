@@ -1,6 +1,6 @@
 /** Environment + runtime configuration. */
 
-export const APP_NAME = "META RACE";
+export const APP_NAME = "MEGASPRINT";
 export const APP_TAGLINE = "Predict the next crypto narrative before the crowd.";
 
 export function getAppUrl(): string {
@@ -39,4 +39,4 @@ export function getCronSecret(): string | null {
 }
 
 export const DISCLAIMER =
-  "META RACE is an educational forecasting game using virtual points. It does not execute trades or provide financial advice. Crypto markets are volatile, and past game performance does not predict future results.";
+  "MEGASPRINT is an educational forecasting game using virtual points. It does not execute trades or provide financial advice. Crypto markets are volatile, and past game performance does not predict future results.";

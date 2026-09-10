@@ -8,6 +8,7 @@ import { LineupBuilder } from "@/components/LineupBuilder";
 import { LineupPicks, ROLE_META } from "@/components/LineupPicks";
 import { MethodologyTooltip } from "@/components/MethodologyTooltip";
 import { NarrativeReplay } from "@/components/NarrativeReplay";
+import { PodiumReveal } from "@/components/PodiumReveal";
 import { RaceHero } from "@/components/RaceHero";
 import { ScoreHistoryChart } from "@/components/ScoreHistoryChart";
 import { ShareOnX } from "@/components/ShareOnX";
@@ -126,7 +127,7 @@ export default async function RacePage({ params }: { params: Promise<{ raceId: s
           </div>
           {shareUrl ? (
             <div className="flex flex-wrap gap-2">
-              <ShareOnX text={`I scored ${userResult.raceScore.toFixed(0)} in ${race.name} on META RACE — an educational crypto narrative forecasting game (virtual points only).`} url={shareUrl} />
+              <ShareOnX text={`I scored ${userResult.raceScore.toFixed(0)} in ${race.name} on MEGASPRINT — an educational crypto narrative forecasting game (virtual points only).`} url={shareUrl} />
               <Link href={`/lineup/${userLineup.id}`} className="btn btn-ghost">Race Card</Link>
               {viewer ? <Link href={`/profile/${viewer.username}`} className="btn btn-ghost">Profile & Meta DNA</Link> : null}
             </div>
@@ -134,6 +135,14 @@ export default async function RacePage({ params }: { params: Promise<{ raceId: s
         </section>
       ) : null}
       {phase === "settled" && viewer && !userLineup ? <p className="text-sm text-muted">You did not enter this Race. Results below are for the field.</p> : null}
+
+      {/* ---------- PODIUM ---------- */}
+      {phase === "settled" ? (
+        <section aria-labelledby="podium-heading" className="card p-5">
+          <h2 id="podium-heading" className="mb-4 text-lg font-semibold">Podium</h2>
+          <PodiumReveal rows={view.standings.map((s) => ({ narrative: s.narrative, score: s.score, rank: s.rank, startRank: s.startRank }))} />
+        </section>
+      ) : null}
 
       {/* ---------- STANDINGS ---------- */}
       {phase !== "open" || userLineup ? (
@@ -147,7 +156,7 @@ export default async function RacePage({ params }: { params: Promise<{ raceId: s
                 Score = price 40% + breadth 25% + volume 20% + momentum 15%, each normalized 0–100 from the constituent data.
               </MethodologyTooltip>
             </div>
-            <NarrativeReplay narratives={replayRows} frames={frames} />
+            <NarrativeReplay narratives={replayRows} frames={frames} storageKey={`race:${race.id}`} />
           </div>
           <div className="card p-5">
             <h3 className="mb-3 text-sm font-semibold">Score movement</h3>

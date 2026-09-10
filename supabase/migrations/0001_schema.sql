@@ -1,4 +1,4 @@
--- META RACE schema. Virtual points only: no balances, deposits, or payouts exist anywhere in this schema.
+-- MEGASPRINT schema. Virtual points only: no balances, deposits, or payouts exist anywhere in this schema.
 create extension if not exists "pgcrypto";
 
 -- ---------- enums ----------

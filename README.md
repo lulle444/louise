@@ -1,10 +1,10 @@
-# META RACE
+# MEGASPRINT
 
 **Predict the next crypto narrative before the crowd.**
 
-META RACE is an educational forecasting game using virtual points. Every week nine crypto narratives (AI, RWA, Gaming, DeFi, DePIN, Layer 2, Privacy, SocialFi, Memecoins) line up in a Race. Players draft a **Leader**, a **Challenger** and a **Wildcard**, allocate exactly **100 virtual Energy Points**, and lock before the deadline. Narrative Scores update from transparent market metrics; at settlement players earn XP, streaks, badges and an evolving **Meta DNA** profile while competing against three rule-based AI coaches and the crowd consensus.
+MEGASPRINT is an educational forecasting game using virtual points. Every week nine crypto narratives (AI, RWA, Gaming, DeFi, DePIN, Layer 2, Privacy, SocialFi, Memecoins) line up in a Race. Players draft a **Leader**, a **Challenger** and a **Wildcard**, allocate exactly **100 virtual Energy Points**, and lock before the deadline. Narrative Scores update from transparent market metrics; at settlement players earn XP, streaks, badges and an evolving **Meta DNA** profile while competing against three rule-based AI coaches and the crowd consensus.
 
-> META RACE is an educational forecasting game using virtual points. It does not execute trades or provide financial advice. Crypto markets are volatile, and past game performance does not predict future results.
+> MEGASPRINT is an educational forecasting game using virtual points. It does not execute trades or provide financial advice. Crypto markets are volatile, and past game performance does not predict future results.
 
 No deposits, wagers, prizes, token stakes, wallets, swaps or trade execution exist anywhere in the product.
 
@@ -133,7 +133,7 @@ legacy/terratamers/       Previous static game kept in the repository for refere
    supabase db push            # or paste supabase/migrations/0001_schema.sql then 0002_rls.sql
    psql "$DATABASE_URL" -f supabase/seed.sql
    ```
-3. Optionally seed the full demo world (creates 14 demo auth users with password `metarace-demo`):
+3. Optionally seed the full demo world (creates 14 demo auth users with password `megasprint-demo`):
    ```bash
    SUPABASE_URL=https://xxx.supabase.co SUPABASE_SERVICE_ROLE_KEY=... npm run seed:supabase
    ```

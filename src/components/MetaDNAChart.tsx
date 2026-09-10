@@ -2,8 +2,10 @@
 
 import { PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, ResponsiveContainer } from "recharts";
 import type { MetaDNA } from "@/lib/types";
+import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 
 export function MetaDNAChart({ dna, size = 220 }: { dna: MetaDNA; size?: number }) {
+  const reduced = useReducedMotion();
   if (!dna.ready) {
     return (
       <div className="flex items-center justify-center rounded-xl border border-dashed border-border text-center text-sm text-muted" style={{ height: size }} data-testid="dna-building">
@@ -21,7 +23,7 @@ export function MetaDNAChart({ dna, size = 220 }: { dna: MetaDNA; size?: number 
           <PolarGrid stroke="#1E293B" />
           <PolarAngleAxis dataKey="label" tick={{ fill: "#94A3B8", fontSize: 10 }} />
           <PolarRadiusAxis domain={[0, 100]} tick={false} axisLine={false} />
-          <Radar dataKey="value" stroke="#B6F36B" fill="#B6F36B" fillOpacity={0.25} isAnimationActive={false} />
+          <Radar dataKey="value" stroke="#B6F36B" fill="#B6F36B" fillOpacity={0.25} isAnimationActive={!reduced} animationDuration={900} />
         </RadarChart>
       </ResponsiveContainer>
     </div>

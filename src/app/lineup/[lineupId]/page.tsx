@@ -33,8 +33,8 @@ export default async function LineupPage({ params }: { params: Promise<{ lineupI
   const url = `${getAppUrl()}/lineup/${lineup.id}`;
   const who = profile ? profile.displayName : ai?.name ?? "AI";
   const text = result
-    ? `${who} scored ${result.raceScore.toFixed(0)} in ${race.name} on META RACE — the crypto narrative forecasting game (virtual points only).`
-    : `${who} locked a lineup for ${race.name} on META RACE — the crypto narrative forecasting game (virtual points only).`;
+    ? `${who} scored ${result.raceScore.toFixed(0)} in ${race.name} on MEGASPRINT — the crypto narrative forecasting game (virtual points only).`
+    : `${who} locked a lineup for ${race.name} on MEGASPRINT — the crypto narrative forecasting game (virtual points only).`;
 
   return (
     <div className="mx-auto max-w-2xl space-y-6 py-8">

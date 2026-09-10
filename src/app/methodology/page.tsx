@@ -94,7 +94,7 @@ race_score  = leader + challenger + wildcard   (max 360)`}</pre>
           <li>Demo Mode data is synthetic. It demonstrates the loop; it says nothing about real markets.</li>
           <li>Narrative membership is editorial. Reasonable people disagree about which assets belong where.</li>
           <li>Six-hour snapshots miss intra-interval moves; volume data from public APIs can be revised.</li>
-          <li>META RACE is educational. It does not execute trades, hold funds, or give financial advice.</li>
+          <li>MEGASPRINT is educational. It does not execute trades, hold funds, or give financial advice.</li>
         </ul>
       </div>
     </div>

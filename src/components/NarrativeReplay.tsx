@@ -7,6 +7,7 @@ import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 import { formatDateTime } from "@/lib/format";
 import { NarrativeIcon } from "./NarrativeIcon";
 import { RankMove } from "./RankMove";
+import { RelativeTime } from "./RelativeTime";
 
 export interface ReplayNarrative {
   id: string;
@@ -48,12 +49,15 @@ export function NarrativeReplay({
   compact = false,
   autoplay = true,
   title,
+  storageKey,
 }: {
   narratives: ReplayNarrative[];
   frames: ReplayFrame[];
   compact?: boolean;
   autoplay?: boolean;
   title?: string;
+  /** When set, lanes whose score changed since the viewer last saw this key are flagged. */
+  storageKey?: string;
 }) {
   const reduced = useReducedMotion();
   const ids = useMemo(() => narratives.map((n) => n.id), [narratives]);
@@ -64,6 +68,7 @@ export function NarrativeReplay({
   const [playing, setPlaying] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const started = useRef(false);
+  const [changed, setChanged] = useState<Set<string>>(() => new Set());
 
   const stepMs = Math.max(140, Math.min(420, 6000 / Math.max(1, frames.length)));
   const rowH = compact ? 40 : 52;
@@ -73,6 +78,26 @@ export function NarrativeReplay({
     setIndex(0);
     setPlaying(true);
   }, [frames.length]);
+
+  // Compare the latest scores with what this browser saw last time.
+  useEffect(() => {
+    if (!storageKey || !frames.length) return;
+    const key = `mr:seen:${storageKey}`;
+    const latest = frames[frames.length - 1].scores;
+    const raf = requestAnimationFrame(() => {
+      try {
+        const prev = JSON.parse(localStorage.getItem(key) ?? "null") as Record<string, number> | null;
+        if (prev) {
+          const diff = new Set(Object.keys(latest).filter((id) => Math.abs((prev[id] ?? latest[id]) - latest[id]) >= 0.5));
+          if (diff.size) setChanged(diff);
+        }
+        localStorage.setItem(key, JSON.stringify(latest));
+      } catch {
+        // storage unavailable — skip the flash
+      }
+    });
+    return () => cancelAnimationFrame(raf);
+  }, [storageKey, frames]);
 
   // Autoplay once the track scrolls into view.
   useEffect(() => {
@@ -138,7 +163,7 @@ export function NarrativeReplay({
           return (
             <li
               key={id}
-              className="lane replay-row"
+              className={`lane replay-row ${changed.has(id) && frameIdx === last ? "lane-flash" : ""}`}
               style={{ height: rowH - 6, transform: `translateY(${(row.rank - 1) * rowH}px)` }}
             >
               <div
@@ -156,6 +181,7 @@ export function NarrativeReplay({
                   <span className="hidden sm:inline">{n.name}</span>
                   {n.highlight ? <span className="ml-2 rounded bg-lime/15 px-1.5 py-0.5 font-mono text-[0.6rem] uppercase tracking-wider text-lime">{n.highlight}</span> : null}
                 </Link>
+                {changed.has(id) && frameIdx === last ? <span className="changed-dot" title="Changed since your last visit" aria-label="Changed since your last visit" /> : null}
                 <RankMove from={startRank.get(id) ?? null} to={row.rank} />
                 <span className="mono w-12 text-right text-sm font-semibold">{row.score.toFixed(1)}</span>
               </div>
@@ -165,7 +191,14 @@ export function NarrativeReplay({
       </ol>
       {takenAt ? (
         <p className="text-xs text-dim">
-          {frameIdx === last ? "Latest snapshot" : "Replaying"} · {formatDateTime(takenAt)} · movement vs starting rank
+          {frameIdx === last ? (
+            <>
+              Latest snapshot <RelativeTime iso={takenAt} fallback={formatDateTime(takenAt)} /> · {formatDateTime(takenAt)}
+            </>
+          ) : (
+            <>Replaying · {formatDateTime(takenAt)}</>
+          )}{" "}
+          · movement vs starting rank{changed.size && frameIdx === last ? ` · ${changed.size} changed since your last visit` : ""}
         </p>
       ) : null}
     </div>

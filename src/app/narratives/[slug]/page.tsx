@@ -7,9 +7,11 @@ import { NarrativeIcon } from "@/components/NarrativeIcon";
 import { RankMove } from "@/components/RankMove";
 import { ScoreHistoryChart } from "@/components/ScoreHistoryChart";
 import { Stat } from "@/components/Stat";
+import { ComponentGauges } from "@/components/ComponentGauges";
+import { RelativeTime } from "@/components/RelativeTime";
 import { StatusPill } from "@/components/StatusPill";
 import { getSession } from "@/lib/auth/session";
-import { formatDate, formatDateTime, formatPct } from "@/lib/format";
+import { formatDate, formatDateTime } from "@/lib/format";
 import { getNarrativeHistory } from "@/lib/services/views";
 import { groupSnapshots, latestRaceSnapshot, snapshotOfKind } from "@/lib/services/snapshots";
 
@@ -67,15 +69,12 @@ export default async function NarrativePage({ params }: { params: Promise<{ slug
             </h2>
             <MethodologyTooltip label="components" anchor="narrative-score">Each component is normalized 0–100 with documented bounds before weighting.</MethodologyTooltip>
           </div>
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="grid gap-3 lg:grid-cols-[14rem_1fr]">
             <Stat label="Rank" value={<span className="flex items-center gap-2">#{latest.rank} <RankMove from={previous?.rank ?? null} to={latest.rank} /></span>} hint={`score ${latest.score.toFixed(1)}`} accent={narrative.accentColor} />
-            <Stat label="Price (40%)" value={latest.normalized.price.toFixed(0)} hint={formatPct(latest.raw.priceChangePct)} />
-            <Stat label="Breadth (25%)" value={latest.normalized.breadth.toFixed(0)} hint={`${Math.round(latest.raw.breadthShare * 100)}% of assets up`} />
-            <Stat label="Volume (20%)" value={latest.normalized.volume.toFixed(0)} hint={`${formatPct(latest.raw.volumeChangePct, 0)} vs prior window`} />
-            <Stat label="Momentum (15%)" value={latest.normalized.momentum.toFixed(0)} hint={`${Math.round(latest.raw.momentumConsistency * 100)}% up-intervals`} />
+            <ComponentGauges snapshot={latest} />
           </div>
           <p className="text-xs text-dim">
-            Source: {latest.source} · taken {formatDateTime(latest.takenAt)} · constituents {version?.version ? `v${version.version}` : "—"} · formula {latest.formulaVersion}
+            Source: {latest.source} · taken <RelativeTime iso={latest.takenAt} fallback={formatDateTime(latest.takenAt)} /> ({formatDateTime(latest.takenAt)}) · constituents {version?.version ? `v${version.version}` : "—"} · formula {latest.formulaVersion}
             {latest.quality === "unavailable" ? " · data unavailable for this snapshot" : ""}
           </p>
         </section>

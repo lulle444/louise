@@ -8,7 +8,8 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { StatusPill } from "@/components/StatusPill";
 import { getSession } from "@/lib/auth/session";
 import { formatDate } from "@/lib/format";
-import { latestRaceSnapshot, snapshotOfKind } from "@/lib/services/snapshots";
+import { groupSnapshots, latestRaceSnapshot, snapshotOfKind } from "@/lib/services/snapshots";
+import { MiniMap } from "@/components/MiniMap";
 import type { Race } from "@/lib/types";
 
 export const metadata: Metadata = { title: "Races" };
@@ -26,7 +27,13 @@ export default async function RacesPage() {
       const latest = race.status === "settled" ? snapshotOfKind(snapshots, "final") : race.status === "published" ? snapshotOfKind(snapshots, "prelock") : latestRaceSnapshot(snapshots);
       const top = [...latest].sort((a, b) => a.rank - b.rank)[0];
       const mine = viewer ? lineups.find((l) => l.userId === viewer.id) : null;
-      return { race, entrants: lineups.filter((l) => l.kind === "human").length, leading: top ? byId.get(top.narrativeId) : null, mine };
+      const frames = groupSnapshots(snapshots).filter((g) => g.kind === "prelock" || g.kind === "interval" || g.kind === "final");
+      const topIds = [...latest].sort((a, b) => a.rank - b.rank).slice(0, 3).map((s) => s.narrativeId);
+      const map = race.status === "published" ? [] : topIds.map((id) => {
+        const n = byId.get(id);
+        return { id, label: n?.shortName ?? "?", color: n?.accentColor ?? "#94A3B8", values: frames.map((g) => g.rows.find((r) => r.narrativeId === id)?.score ?? 0) };
+      });
+      return { race, entrants: lineups.filter((l) => l.kind === "human").length, leading: top ? byId.get(top.narrativeId) : null, mine, map };
     }),
   );
 
@@ -47,7 +54,7 @@ export default async function RacesPage() {
             <h2 id={`group-${g.title}`} className="eyebrow">{g.title}</h2>
             {!items.length ? <p className="text-sm text-dim">{g.empty}</p> : null}
             <ul className="grid gap-3 md:grid-cols-2">
-              {items.map(({ race, entrants, leading, mine }) => (
+              {items.map(({ race, entrants, leading, mine, map }) => (
                 <li key={race.id}>
                   <Link href={`/race/${race.id}`} className="card block p-4 transition hover:border-cyan/50" data-testid="race-card-link">
                     <div className="flex flex-wrap items-center gap-2">
@@ -75,6 +82,11 @@ export default async function RacesPage() {
                         <dd>{race.status === "published" ? <RaceCountdown target={race.locksAt} label="Locks in" compact /> : race.status === "live" ? <RaceCountdown target={race.endsAt} label="Ends in" compact /> : <span className="text-muted">{race.status}</span>}</dd>
                       </div>
                     </dl>
+                    {map.length ? (
+                      <div className="mt-3">
+                        <MiniMap series={map} />
+                      </div>
+                    ) : null}
                     <p className="mt-3 flex items-center gap-1.5 text-xs">
                       {mine ? (
                         <>

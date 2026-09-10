@@ -1,8 +1,8 @@
 {
-  "name": "meta-race",
+  "name": "megasprint",
   "version": "0.1.0",
   "private": true,
-  "description": "META RACE \u2014 an educational crypto narrative forecasting game using virtual points.",
+  "description": "MEGASPRINT \u2014 an educational crypto narrative forecasting game using virtual points.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

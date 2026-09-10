@@ -32,7 +32,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
             <DemoBadge />
           </div>
           <p className="text-sm text-muted">
-            Supabase credentials are not configured, so META RACE is running on deterministic demo data. Guest sessions live in this browser only.
+            Supabase credentials are not configured, so MEGASPRINT is running on deterministic demo data. Guest sessions live in this browser only.
           </p>
           <form action={continueAsGuest}>
             <input type="hidden" name="next" value={next} />
