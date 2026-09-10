@@ -15,7 +15,7 @@ import { CreateBattleForm } from "./CreateBattleForm";
 import { BattleActions } from "./BattleActions";
 import { MaintenanceButton } from "./MaintenanceButton";
 import { getMaintenanceStatus } from "@/lib/services/maintenance";
-import { isAutoScheduleEnabled } from "@/lib/services/scheduler";
+import { dailyLockHourUtc, isAutoScheduleEnabled } from "@/lib/services/scheduler";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Admin", robots: { index: false } };
@@ -80,7 +80,7 @@ export default async function AdminPage() {
           <div>
             <h2 id="maint-heading" className="text-base font-semibold">Scheduler and settlement</h2>
             <p className="mt-1 text-xs text-muted">
-              Auto-schedule is {isAutoScheduleEnabled() ? "on" : "off"}: Daily Battles open 00:00 UTC, lock 12:00 UTC, settle 00:00 UTC (BTC → ETH → SOL). Runs from cron, on page views (throttled), or manually here.
+              Auto-schedule is {isAutoScheduleEnabled() ? "on" : "off"}: Daily Battles open 00:00 UTC, lock {String(dailyLockHourUtc()).padStart(2, "0")}:00 UTC, settle 00:00 UTC (BTC → ETH → SOL). Runs from cron, on page views (throttled), or manually here.
             </p>
             <p className="num mt-1 text-xs text-muted">
               Last run: {maintenance.lastRunAt ? <><LocalTime iso={maintenance.lastRunAt} /> via {maintenance.lastSource}{maintenance.lastReport ? ` · ${maintenance.lastReport.scheduled.length} scheduled, ${maintenance.lastReport.settled.length} settled${maintenance.lastReport.errors.length ? `, ${maintenance.lastReport.errors.length} error(s): ${maintenance.lastReport.errors.join(" | ")}` : ""}` : ""}{maintenance.lastError ? ` · failed: ${maintenance.lastError}` : ""}</> : "not yet on this server instance"}

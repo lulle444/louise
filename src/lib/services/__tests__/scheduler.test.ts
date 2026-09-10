@@ -13,7 +13,7 @@ describe("daily Battle scheduler", () => {
     const created = await ensureDailyBattles(repo, provider, now);
     expect(created).toHaveLength(2);
     expect(created[0].opensAt).toBe("2026-03-10T00:00:00.000Z");
-    expect(created[0].locksAt).toBe("2026-03-10T12:00:00.000Z");
+    expect(created[0].locksAt).toBe("2026-03-10T20:00:00.000Z");
     expect(created[0].endsAt).toBe("2026-03-11T00:00:00.000Z");
     expect(created[0].status).toBe("open");
     expect(created[0].startPrice).not.toBeNull();
@@ -28,7 +28,7 @@ describe("daily Battle scheduler", () => {
 
   it("skips today's Battle when it would already be locked", async () => {
     const repo = new DemoRepository(emptyState(new Date().toISOString()));
-    const now = new Date("2026-03-10T13:00:00Z");
+    const now = new Date("2026-03-10T21:00:00Z");
     const created = await ensureDailyBattles(repo, provider(now), now);
     expect(created).toHaveLength(1);
     expect(created[0].opensAt).toBe("2026-03-11T00:00:00.000Z");

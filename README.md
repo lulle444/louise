@@ -133,7 +133,7 @@ Copy `.env.example` to `.env.local`.
 
 ## Settlement and cron
 
-- `GET|POST /api/cron/settle` (header `Authorization: Bearer <CRON_SECRET>`) runs `runScheduledMaintenance`: captures start prices for Battles that have opened, locks AI forecasts before the deadline, and settles Battles past `ends_at`. `vercel.json` schedules it every 15 minutes.
+- `GET|POST /api/cron/settle` (header `Authorization: Bearer <CRON_SECRET>`) runs `runScheduledMaintenance`: auto-schedules today's and tomorrow's Daily Battle (open 00:00 UTC, lock `DAILY_LOCK_HOUR_UTC` (default 20:00), settle 00:00 UTC, rotating BTC → ETH → SOL; disable with `AUTO_SCHEDULE_BATTLES=false`), captures start prices for Battles that have opened, locks AI forecasts before the deadline, and settles Battles past `ends_at`. `vercel.json` schedules it daily at 00:05 UTC; the home and arena pages also run it opportunistically (throttled to once per five minutes) so settlement never depends on cron alone.
 - Manual settlement, voiding and an audited manual end-price override are available in `/admin`.
 - Settlement is idempotent: the `settling` transition is a lock, `settlement_runs` records every attempt, and the XP ledger's unique `(user, battle, reason)` key prevents double awards.
 

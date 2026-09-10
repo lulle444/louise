@@ -7,11 +7,17 @@ import { createBattle } from "./lifecycle";
 const DAY = 86_400_000;
 const ROTATION = ["BTC", "ETH", "SOL"] as const;
 
-/** Daily Battle window: opens 00:00 UTC, locks 12:00 UTC, settles 00:00 UTC next day. */
-export function dailyWindow(dayStartMs: number) {
+/** Hour (UTC) at which the Daily Battle stops accepting predictions. */
+export function dailyLockHourUtc(): number {
+  const v = Number(process.env.DAILY_LOCK_HOUR_UTC ?? 20);
+  return Number.isInteger(v) && v >= 1 && v <= 23 ? v : 20;
+}
+
+/** Daily Battle window: opens 00:00 UTC, locks at DAILY_LOCK_HOUR_UTC (default 20:00), settles 00:00 UTC next day. */
+export function dailyWindow(dayStartMs: number, lockHour = dailyLockHourUtc()) {
   return {
     opensAt: new Date(dayStartMs).toISOString(),
-    locksAt: new Date(dayStartMs + 12 * 3_600_000).toISOString(),
+    locksAt: new Date(dayStartMs + lockHour * 3_600_000).toISOString(),
     endsAt: new Date(dayStartMs + DAY).toISOString(),
   };
 }
