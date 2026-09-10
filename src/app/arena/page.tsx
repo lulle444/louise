@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getRepository } from "@/lib/data";
+import { maybeRunMaintenance } from "@/lib/services/maintenance";
 import { getViewer } from "@/lib/auth/session";
 import { listBattleSummaries } from "@/lib/services/battle-view";
 import { BattleCard } from "@/components/arena/BattleCard";
@@ -18,6 +19,7 @@ const TABS = [
 type Tab = (typeof TABS)[number]["key"];
 
 export default async function ArenaPage(props: PageProps<"/arena">) {
+  await maybeRunMaintenance();
   const sp = await props.searchParams;
   const raw = typeof sp.tab === "string" ? sp.tab : "live";
   const tab: Tab = TABS.some((t) => t.key === raw) ? (raw as Tab) : "live";

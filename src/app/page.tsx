@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Lock, Radar, ShieldCheck, Target } from "lucide-react";
 import { getRepository } from "@/lib/data";
+import { maybeRunMaintenance } from "@/lib/services/maintenance";
 import { getViewer } from "@/lib/auth/session";
 import { getMarketDataProvider } from "@/lib/market";
 import { isDemoMode } from "@/lib/config";
@@ -26,6 +27,7 @@ import { formatAccuracy } from "@/lib/domain/format";
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
+  await maybeRunMaintenance();
   const [repo, viewer] = await Promise.all([getRepository(), getViewer()]);
   const provider = getMarketDataProvider();
   const [summaries, ctx] = await Promise.all([listBattleSummaries(repo, viewer), loadArenaContext(repo)]);

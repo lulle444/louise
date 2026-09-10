@@ -2,8 +2,10 @@ import type { ArenaRepository } from "../data/repository";
 import type { MarketDataProvider } from "../market/provider";
 import { ensureBattleOpened } from "./lifecycle";
 import { settleBattle, type SettlementOutcome } from "./settlement";
+import { ensureDailyBattles, isAutoScheduleEnabled } from "./scheduler";
 
 export interface CronReport {
+  scheduled: string[];
   opened: string[];
   settled: Array<{ battleId: string; status: SettlementOutcome["status"]; message: string }>;
   errors: string[];
@@ -11,7 +13,15 @@ export interface CronReport {
 
 /** Bring every published Battle up to date: capture opens, lock AI, settle ended Battles. */
 export async function runScheduledMaintenance(repo: ArenaRepository, provider: MarketDataProvider, actorId: string | null, now = new Date()): Promise<CronReport> {
-  const report: CronReport = { opened: [], settled: [], errors: [] };
+  const report: CronReport = { scheduled: [], opened: [], settled: [], errors: [] };
+  if (isAutoScheduleEnabled()) {
+    try {
+      const created = await ensureDailyBattles(repo, provider, now, { createdBy: actorId });
+      report.scheduled = created.map((b) => b.id);
+    } catch (err) {
+      report.errors.push(`scheduler: ${err instanceof Error ? err.message : String(err)}`);
+    }
+  }
   const battles = await repo.listBattles({ includeUnpublished: true });
   const assets = await repo.listAssets();
   for (const battle of battles) {

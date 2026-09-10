@@ -29,6 +29,8 @@ export interface CreateBattleOptions {
   createdBy: string | null;
   title?: string;
   publish: boolean;
+  /** Clock to use for publishing (tests/schedulers). Defaults to now. */
+  now?: Date;
 }
 
 /** Create a Battle (draft or published). Publishing captures the start price snapshot. */
@@ -59,7 +61,7 @@ export async function createBattle(
   };
   const battle = await repo.createBattle(input);
   await repo.appendAudit({ actorId: opts.createdBy, action: "battle.create", targetType: "battle", targetId: battle.id, details: { slug: battle.slug, assetId: battle.assetId } });
-  if (opts.publish) return publishBattle(repo, provider, battle, opts.asset, opts.createdBy);
+  if (opts.publish) return publishBattle(repo, provider, battle, opts.asset, opts.createdBy, opts.now ?? new Date());
   return battle;
 }
 
