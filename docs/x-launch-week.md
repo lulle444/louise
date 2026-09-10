@@ -1,4 +1,4 @@
-# Callscore — launch week on X (@callscore)
+# Callscore — launch week on X (@Callscore_)
 
 Seven days of posts. Two daily rituals (Round open, Round settle) plus one feature post per day. Replace bracketed values with the day's real numbers from `/rounds` and `/weekly`. Keep the voice: intelligent, compact, no hype words (no moon, alpha, bet, wager, 100x).
 
