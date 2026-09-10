@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Disclaimer } from "./Disclaimer";
-import { APP_NAME } from "@/lib/config";
+import { APP_NAME, X_HANDLE, X_PROFILE_URL } from "@/lib/config";
+import { XLogo } from "./XLogo";
 
 export function AppFooter() {
   return (
@@ -17,6 +18,9 @@ export function AppFooter() {
           <Link href="/ai-vs-crowd" className="hover:text-ink">AI vs Crowd</Link>
           <Link href="/token" className="hover:text-ink">Future utility</Link>
           <Link href="/admin" className="hover:text-ink">Admin</Link>
+          <a href={X_PROFILE_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 hover:text-ink">
+            <XLogo className="h-3.5 w-3.5" /> @{X_HANDLE}
+          </a>
         </nav>
       </div>
     </footer>

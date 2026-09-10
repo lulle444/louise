@@ -2,12 +2,17 @@
 
 export const APP_NAME = "MEGASPRINT";
 export const APP_TAGLINE = "Predict the next crypto narrative before the crowd.";
+export const APP_SOCIAL_DESCRIPTION =
+  "The next crypto narrative rarely announces itself. MEGASPRINT turns market rotation into a competitive race between humans, AI and the crowd.";
+export const X_HANDLE = "Megasprint__";
+export const X_PROFILE_URL = `https://x.com/${X_HANDLE}`;
 
 export function getAppUrl(): string {
-  return (
-    process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ||
-    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000")
-  );
+  const explicit = process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "");
+  if (explicit && !explicit.includes("localhost")) return explicit;
+  const vercel = process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL;
+  if (vercel) return `https://${vercel}`;
+  return explicit || "http://localhost:3000";
 }
 
 export function hasSupabaseConfig(): boolean {

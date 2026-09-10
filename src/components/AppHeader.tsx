@@ -4,6 +4,8 @@ import { getSession } from "@/lib/auth/session";
 import { Avatar } from "./Avatar";
 import { DemoBadge } from "./DemoBadge";
 import { MobileNav } from "./MobileNav";
+import { XLogo } from "./XLogo";
+import { X_HANDLE, X_PROFILE_URL } from "@/lib/config";
 
 export const NAV = [
   { href: "/race", label: "Races" },
@@ -33,6 +35,9 @@ export async function AppHeader() {
           ))}
         </nav>
         <div className="ml-auto flex items-center gap-2 md:ml-0">
+          <a href={X_PROFILE_URL} target="_blank" rel="noopener noreferrer" aria-label={`Follow @${X_HANDLE} on X`} className="hidden h-9 w-9 place-items-center rounded-lg text-muted hover:bg-surface-2 hover:text-ink sm:grid">
+            <XLogo className="h-4 w-4" />
+          </a>
           {viewer ? (
             <Link href={`/profile/${viewer.username}`} className="flex items-center gap-2 rounded-lg px-2 py-1 hover:bg-surface-2" data-testid="viewer-link">
               <Avatar seed={viewer.id} name={viewer.displayName} size={30} />
