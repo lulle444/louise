@@ -61,7 +61,7 @@ export function Leaderboard({ rows, compact = false }: { rows: LeaderboardRow[];
               ) : null}
               <td>
                 <span className="lane mb-1 block h-1 w-24" aria-hidden="true">
-                  <span className="lane-fill bar-grow block bg-lime" style={{ width: `${Math.round((r.stats.metaRating / maxRating) * 100)}%`, animationDelay: `${i * 60}ms` }} />
+                  <span className="lane-fill bar-grow block bg-primary" style={{ width: `${Math.round((r.stats.metaRating / maxRating) * 100)}%`, animationDelay: `${i * 60}ms` }} />
                 </span>
                 <span className="mono font-semibold">{r.stats.metaRating}</span>
                 {r.stats.provisional ? (

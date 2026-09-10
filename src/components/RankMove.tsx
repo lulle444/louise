@@ -14,7 +14,7 @@ export function RankMove({ from, to, className = "" }: { from: number | null; to
   const up = diff > 0;
   return (
     <span
-      className={`inline-flex items-center gap-1 font-mono text-xs ${up ? "text-lime" : "text-coral"} ${className}`}
+      className={`inline-flex items-center gap-1 font-mono text-xs ${up ? "text-up" : "text-coral"} ${className}`}
       aria-label={`${up ? "Up" : "Down"} ${Math.abs(diff)} ${Math.abs(diff) === 1 ? "position" : "positions"}`}
     >
       {up ? <ArrowUp className="h-3 w-3" aria-hidden="true" /> : <ArrowDown className="h-3 w-3" aria-hidden="true" />}

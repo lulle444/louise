@@ -2,9 +2,9 @@ import type { LineupPick, Narrative, PickRole } from "@/lib/types";
 import { NarrativeIcon } from "./NarrativeIcon";
 
 export const ROLE_META: Record<PickRole, { label: string; hint: string; color: string }> = {
-  leader: { label: "Leader", hint: "Expected winner", color: "#B6F36B" },
-  challenger: { label: "Challenger", hint: "Expected runner-up", color: "#22D3EE" },
-  wildcard: { label: "Wildcard", hint: "Underestimated mover", color: "#8B5CF6" },
+  leader: { label: "Leader", hint: "Expected winner", color: "#22D3EE" },
+  challenger: { label: "Challenger", hint: "Expected runner-up", color: "#8B5CF6" },
+  wildcard: { label: "Wildcard", hint: "Underestimated mover", color: "#FBBF24" },
 };
 
 export function LineupPicks({

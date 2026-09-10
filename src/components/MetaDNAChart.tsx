@@ -32,10 +32,10 @@ export function MetaDNAChart({ dna, size = 220 }: { dna: MetaDNA; size?: number 
         const [x, y] = point(i, 1);
         return <line key={i} x1={cx} y1={cy} x2={x} y2={y} stroke="#1E293B" strokeWidth={1} />;
       })}
-      <polygon points={shape} fill="#B6F36B" fillOpacity={0.25} stroke="#B6F36B" strokeWidth={2} strokeLinejoin="round" className="radar-shape" style={{ transformOrigin: `${cx}px ${cy}px` }} />
+      <polygon points={shape} fill="#22D3EE" fillOpacity={0.25} stroke="#22D3EE" strokeWidth={2} strokeLinejoin="round" className="radar-shape" style={{ transformOrigin: `${cx}px ${cy}px` }} />
       {axes.map((a, i) => {
         const [x, y] = point(i, a.value / 100);
-        return <circle key={a.key} cx={x} cy={y} r={3} fill="#B6F36B" className="radar-shape" style={{ transformOrigin: `${cx}px ${cy}px` }} />;
+        return <circle key={a.key} cx={x} cy={y} r={3} fill="#22D3EE" className="radar-shape" style={{ transformOrigin: `${cx}px ${cy}px` }} />;
       })}
       {axes.map((a, i) => {
         const [x, y] = point(i, 1.22);

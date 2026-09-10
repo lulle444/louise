@@ -36,7 +36,7 @@ export function EnergyRing({ energy, size = 120 }: { energy: Record<PickRole, nu
             opacity={ok ? 1 : 0.55}
           />
       ))}
-      <text x="50%" y="46%" dominantBaseline="central" textAnchor="middle" fill={ok ? "#B6F36B" : "#FB7185"} fontSize={size * 0.2} fontWeight={700} fontFamily="ui-monospace, monospace">
+      <text x="50%" y="46%" dominantBaseline="central" textAnchor="middle" fill={ok ? "#22D3EE" : "#FB7185"} fontSize={size * 0.2} fontWeight={700} fontFamily="ui-monospace, monospace">
         {total}
       </text>
       <text x="50%" y="64%" dominantBaseline="central" textAnchor="middle" fill="#94A3B8" fontSize={size * 0.09} fontFamily="ui-monospace, monospace" letterSpacing="0.15em">

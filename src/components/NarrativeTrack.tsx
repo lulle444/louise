@@ -70,7 +70,7 @@ export function NarrativeTrack({
                 <span className="sm:hidden">{r.shortName}</span>
                 <span className="hidden sm:inline">{r.name}</span>
                 {r.highlight ? (
-                  <span className="ml-2 rounded bg-lime/15 px-1.5 py-0.5 font-mono text-[0.6rem] uppercase tracking-wider text-lime">{r.highlight}</span>
+                  <span className="ml-2 rounded bg-primary/15 px-1.5 py-0.5 font-mono text-[0.6rem] uppercase tracking-wider text-primary">{r.highlight}</span>
                 ) : null}
               </Link>
               {showStart && r.startRank !== null && !compact ? (
@@ -85,7 +85,7 @@ export function NarrativeTrack({
                 <span className="mono w-14 text-right text-sm font-semibold">
                   {r.score.toFixed(1)}
                   {r.delta !== 0 && !compact ? (
-                    <span className={`ml-1 text-[0.65rem] ${r.delta > 0 ? "text-lime" : "text-coral"}`}>
+                    <span className={`ml-1 text-[0.65rem] ${r.delta > 0 ? "text-up" : "text-coral"}`}>
                       {r.delta > 0 ? "+" : ""}
                       {r.delta.toFixed(1)}
                     </span>

@@ -47,7 +47,7 @@ export function EnergyAllocator({
     <fieldset className="space-y-3" disabled={disabled}>
       <legend className="flex w-full items-center justify-between">
         <span className="text-sm font-semibold">Energy allocation</span>
-        <span className={`mono text-sm ${remaining === 0 ? "text-lime" : "text-coral"}`} aria-live="polite" data-testid="energy-total">
+        <span className={`mono text-sm ${remaining === 0 ? "text-primary" : "text-coral"}`} aria-live="polite" data-testid="energy-total">
           {total} / {ENERGY_TOTAL}
           {remaining !== 0 ? ` (${remaining > 0 ? `${remaining} left` : `${-remaining} over`})` : " ✓"}
         </span>

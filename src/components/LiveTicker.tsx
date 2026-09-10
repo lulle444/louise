@@ -37,7 +37,7 @@ export async function LiveTicker() {
                   {it.name}
                 </Link>
                 <span className="text-ink">{it.score.toFixed(1)}</span>
-                <span className={`inline-flex items-center gap-0.5 ${it.move > 0 ? "text-lime" : it.move < 0 ? "text-coral" : "text-dim"}`}>
+                <span className={`inline-flex items-center gap-0.5 ${it.move > 0 ? "text-up" : it.move < 0 ? "text-coral" : "text-dim"}`}>
                   {it.move > 0 ? <ArrowUp className="h-3 w-3" aria-hidden="true" /> : it.move < 0 ? <ArrowDown className="h-3 w-3" aria-hidden="true" /> : <Minus className="h-3 w-3" aria-hidden="true" />}
                   {it.move > 0 ? `+${it.move}` : it.move}
                 </span>

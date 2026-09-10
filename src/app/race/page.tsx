@@ -90,8 +90,8 @@ export default async function RacesPage() {
                     <p className="mt-3 flex items-center gap-1.5 text-xs">
                       {mine ? (
                         <>
-                          <CheckCircle2 className="h-3.5 w-3.5 text-lime" aria-hidden="true" />
-                          <span className="text-lime">Your lineup is locked</span>
+                          <CheckCircle2 className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
+                          <span className="text-primary">Your lineup is locked</span>
                         </>
                       ) : race.status === "published" ? (
                         <span className="text-cyan">You haven&apos;t entered — build a lineup</span>

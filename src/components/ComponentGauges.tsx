@@ -4,7 +4,7 @@ import { formatPct } from "@/lib/format";
 import { AnimatedNumber } from "./AnimatedNumber";
 
 const GAUGES = [
-  { key: "price", label: "Price", weight: NARRATIVE_WEIGHTS.price, color: "#B6F36B" },
+  { key: "price", label: "Price", weight: NARRATIVE_WEIGHTS.price, color: "#22D3EE" },
   { key: "breadth", label: "Breadth", weight: NARRATIVE_WEIGHTS.breadth, color: "#22D3EE" },
   { key: "volume", label: "Volume", weight: NARRATIVE_WEIGHTS.volume, color: "#F59E0B" },
   { key: "momentum", label: "Momentum", weight: NARRATIVE_WEIGHTS.momentum, color: "#8B5CF6" },

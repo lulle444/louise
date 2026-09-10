@@ -39,7 +39,7 @@ export function CrowdPicks({
   return (
     <div className="card space-y-5 p-5" data-testid="crowd-revealed">
       <header className="flex items-center gap-2">
-        <Users className="h-4 w-4 text-lime" aria-hidden="true" />
+        <Users className="h-4 w-4 text-primary" aria-hidden="true" />
         <p className="font-semibold">Crowd Picks</p>
         <span className="ml-auto font-mono text-xs text-muted">{crowd.sampleSize} human lineups · AI excluded</span>
       </header>

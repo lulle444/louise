@@ -90,7 +90,7 @@ export default async function AiVsCrowdPage({ searchParams }: { searchParams: Pr
               yDomain={[0, 360]}
               yLabel="Race score"
               series={[
-                { key: "Crowd", label: "Crowd consensus", color: "#B6F36B" },
+                { key: "Crowd", label: "Crowd consensus", color: "#22D3EE" },
                 { key: "Humans", label: "Human average", color: "#E2E8F0" },
                 { key: "ROTATOR", label: "ROTATOR", color: "#22D3EE" },
                 { key: "ATLAS", label: "ATLAS", color: "#8B5CF6" },

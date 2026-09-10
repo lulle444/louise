@@ -52,7 +52,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ userna
             {xp} XP{level.nextMinXp ? ` · ${level.nextMinXp - xp} to next` : ""}
           </p>
           <div className="lane mt-1 h-1.5 w-40">
-            <span className="lane-fill bar-grow block bg-lime" style={{ width: `${Math.round(level.progress * 100)}%` }} aria-hidden="true" />
+            <span className="lane-fill bar-grow block bg-primary" style={{ width: `${Math.round(level.progress * 100)}%` }} aria-hidden="true" />
           </div>
         </div>
         {isMe ? (
@@ -63,7 +63,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ userna
       </header>
 
       <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <Stat label="Meta Rating" value={stats.metaRating} hint={stats.provisional ? `provisional · ${stats.settledRaces}/3 settled` : `${stats.settledRaces} settled Races`} accent="#B6F36B" />
+        <Stat label="Meta Rating" value={stats.metaRating} hint={stats.provisional ? `provisional · ${stats.settledRaces}/3 settled` : `${stats.settledRaces} settled Races`} accent="#22D3EE" />
         <Stat label="Hit rate" value={`${Math.round(stats.hitRate * 100)}%`} hint={`avg score ${stats.averageScore.toFixed(1)} · best ${stats.bestScore.toFixed(0)}`} />
         <Stat label="Accuracy L / C / W" value={`${Math.round(stats.leaderAccuracy * 100)} / ${Math.round(stats.challengerAccuracy * 100)} / ${Math.round(stats.wildcardAccuracy * 100)}%`} hint="Leader · Challenger · Wildcard" />
         <Stat label="Streak" value={stats.currentStreak} hint={`best Leader run ${stats.bestLeaderStreak}`} />
@@ -112,7 +112,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ userna
               const has = held.has(b.code);
               return (
                 <li key={b.code} className={`card-2 flex flex-col items-center gap-1 px-2 py-3 text-center ${has ? "" : "opacity-40"}`} title={b.description} aria-label={`${b.name}${has ? " (earned)" : " (locked)"}`}>
-                  <span className={`grid h-9 w-9 place-items-center rounded-full ${has ? "bg-lime/15 text-lime" : "bg-surface text-dim"}`}>
+                  <span className={`grid h-9 w-9 place-items-center rounded-full ${has ? "bg-primary/15 text-primary" : "bg-surface text-dim"}`}>
                     <BadgeIcon name={b.icon} className="h-4 w-4" />
                   </span>
                   <span className="text-xs font-medium">{b.name}</span>
@@ -151,7 +151,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ userna
                 <Link href={`/race/${r.raceId}`} className="font-semibold hover:underline">{r.race.name}</Link>
                 <span className="text-xs text-muted">{formatDate(r.race.endsAt)}</span>
                 <span className="ml-auto mono text-sm">
-                  <span className="text-lime">{r.raceScore.toFixed(0)}</span> pts · {ordinal(r.rank)} · +{r.xpAwarded} XP
+                  <span className="text-primary">{r.raceScore.toFixed(0)}</span> pts · {ordinal(r.rank)} · +{r.xpAwarded} XP
                 </span>
                 <Link href={`/lineup/${r.lineupId}`} className="text-xs text-cyan hover:underline">Race Card</Link>
               </div>

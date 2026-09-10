@@ -24,7 +24,7 @@ export function RaceHero({
   const span = (a: string | null, b: string) => (a ? Math.max(0, Math.min(1, (now - Date.parse(a)) / Math.max(1, Date.parse(b) - Date.parse(a)))) : 0);
   const arc =
     race.status === "published"
-      ? { value: span(race.publishedAt, race.locksAt), label: "Entry window", sub: "elapsed before lock", color: "#B6F36B" }
+      ? { value: span(race.publishedAt, race.locksAt), label: "Entry window", sub: "elapsed before lock", color: "#22D3EE" }
       : race.status === "live"
         ? { value: span(race.startsAt, race.endsAt), label: "Race progress", sub: "of the scoring window", color: "#22D3EE" }
         : race.status === "settled"

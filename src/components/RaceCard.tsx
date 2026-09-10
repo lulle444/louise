@@ -57,12 +57,12 @@ export function RaceCard({
           </p>
         </div>
         <LineupPicks picks={lineup.picks} narrativeById={narrativeById} finishes={finishes} />
-        {lineup.thesis ? <blockquote className="border-l-2 border-lime/60 pl-3 text-sm italic text-muted">“{lineup.thesis}”</blockquote> : null}
+        {lineup.thesis ? <blockquote className="border-l-2 border-primary/60 pl-3 text-sm italic text-muted">“{lineup.thesis}”</blockquote> : null}
         {result ? (
           <div className="grid grid-cols-3 gap-2">
             <div className="card-2 px-3 py-2 text-center">
               <p className="eyebrow">Race score</p>
-              <p className="mono text-2xl font-bold text-lime">{result.raceScore.toFixed(0)}</p>
+              <p className="mono text-2xl font-bold text-primary">{result.raceScore.toFixed(0)}</p>
             </div>
             <div className="card-2 px-3 py-2 text-center">
               <p className="eyebrow">Placed</p>

@@ -10,7 +10,7 @@ const LANES = [
   { name: "Privacy", color: "#A3E635", w: 78 },
   { name: "DeFi", color: "#8B5CF6", w: 71 },
   { name: "Gaming", color: "#FB7185", w: 64 },
-  { name: "AI", color: "#B6F36B", w: 58 },
+  { name: "AI", color: "#22D3EE", w: 58 },
   { name: "RWA", color: "#22D3EE", w: 44 },
 ];
 
@@ -30,14 +30,17 @@ export default function OpenGraphImage() {
       >
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", width: 640 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-            <div style={{ width: 44, height: 44, borderRadius: 12, background: "#B6F36B", display: "flex", alignItems: "center", justifyContent: "center", color: "#06080D", fontSize: 26, fontWeight: 700 }}>
+            <div style={{ width: 44, height: 44, borderRadius: 12, background: "#22D3EE", display: "flex", alignItems: "center", justifyContent: "center", color: "#06080D", fontSize: 26, fontWeight: 700 }}>
               ⚡
             </div>
             <div style={{ display: "flex", fontSize: 30, fontWeight: 800, letterSpacing: 2 }}>{APP_NAME}</div>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-            <div style={{ display: "flex", fontSize: 22, letterSpacing: 6, color: "#94A3B8" }}>THE CRYPTO NARRATIVE LEAGUE</div>
-            <div style={{ display: "flex", fontSize: 64, fontWeight: 800, lineHeight: 1.05 }}>Spot the next narrative before the crowd.</div>
+            <div style={{ display: "flex", fontSize: 22, letterSpacing: 6, color: "#22D3EE" }}>THE CRYPTO NARRATIVE LEAGUE</div>
+            <div style={{ display: "flex", flexDirection: "column", fontSize: 62, fontWeight: 800, lineHeight: 1.05 }}>
+              <span>Spot the next narrative</span>
+              <span style={{ background: "linear-gradient(90deg, #67E8F9, #8B5CF6)", backgroundClip: "text", color: "transparent" }}>before the crowd.</span>
+            </div>
             <div style={{ display: "flex", fontSize: 24, color: "#94A3B8", lineHeight: 1.4 }}>{APP_SOCIAL_DESCRIPTION}</div>
           </div>
           <div style={{ display: "flex", fontSize: 18, color: "#64748B" }}>Educational forecasting game · virtual points only</div>

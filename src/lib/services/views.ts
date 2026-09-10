@@ -336,7 +336,7 @@ export async function getAiVsCrowd(session: Session, windowDays: number): Promis
       const standings = finalStandings(snapshotOfKind(snaps, "prelock"), snapshotOfKind(snaps, "final"));
       const { scoreLineup } = await import("@/lib/scoring/race-score");
       const b = scoreLineup(crowd.consensus, standings);
-      const row = ensure("crowd", "Crowd consensus", "crowd", "#B6F36B", null);
+      const row = ensure("crowd", "Crowd consensus", "crowd", "#22D3EE", null);
       row.races++;
       row.averageScore += b.raceScore;
       row.leaderAccuracy += b.leaderHit ? 1 : 0;

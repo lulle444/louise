@@ -51,7 +51,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
     <div className="space-y-10 py-8" data-testid="admin-panel">
       <SectionHeading eyebrow="Control room" title="Admin" description={`Signed in as ${viewer.displayName}. Every action is written to the audit log.`} action={demo ? <DemoBadge label="Demo · in-memory" /> : null} />
       {demo ? <p className="rounded-md border border-amber/40 bg-amber/10 px-3 py-2 text-sm text-amber">Demo Mode keeps state in server memory. Changes persist until the process restarts (or the next UTC day rebuilds the demo timeline).</p> : null}
-      {sp.ok ? <p role="status" className="rounded-md border border-lime/40 bg-lime/10 px-3 py-2 text-sm text-lime">{sp.ok}</p> : null}
+      {sp.ok ? <p role="status" className="rounded-md border border-primary/40 bg-primary/10 px-3 py-2 text-sm text-primary">{sp.ok}</p> : null}
       {sp.error ? <p role="alert" className="rounded-md border border-coral/40 bg-coral/10 px-3 py-2 text-sm text-coral">{sp.error}</p> : null}
 
       {/* RACES */}
@@ -75,7 +75,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
                   <td className="mono">{r.number}</td>
                   <td>
                     <Link href={`/admin?race=${r.id}`} className="font-medium hover:underline">{r.name}</Link>
-                    {r.featured ? <span className="ml-2 rounded bg-lime/15 px-1.5 py-0.5 font-mono text-[0.55rem] uppercase text-lime">featured</span> : null}
+                    {r.featured ? <span className="ml-2 rounded bg-primary/15 px-1.5 py-0.5 font-mono text-[0.55rem] uppercase text-primary">featured</span> : null}
                     <span className="block text-xs text-dim"><Link href={`/race/${r.id}`} className="hover:underline">public page</Link></span>
                   </td>
                   <td><StatusPill status={r.status} /></td>

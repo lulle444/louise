@@ -65,7 +65,7 @@ export default async function RacePage({ params }: { params: Promise<{ raceId: s
 
       <RaceHero race={race} entrants={view.entrants} leading={phase === "open" ? null : leading}>
         {phase === "void" ? <p className="rounded-md border border-coral/40 bg-coral/10 px-3 py-2 text-sm text-coral">Race voided: {race.voidReason}. No XP or streak changes apply.</p> : null}
-        {phase === "open" && userLineup ? <p className="text-sm text-lime">Your lineup is locked. Crowd Picks are revealed below.</p> : null}
+        {phase === "open" && userLineup ? <p className="text-sm text-primary">Your lineup is locked. Crowd Picks are revealed below.</p> : null}
         {phase === "open" && !userLineup ? <p className="text-sm text-muted">Draft three narratives and allocate 100 Energy before the lock.</p> : null}
       </RaceHero>
 
@@ -109,13 +109,13 @@ export default async function RacePage({ params }: { params: Promise<{ raceId: s
 
       {/* ---------- SETTLED RESULT ---------- */}
       {phase === "settled" && userResult && userLineup ? (
-        <section aria-labelledby="result-heading" className="card space-y-5 border-lime/40 p-5" data-testid="user-result">
+        <section aria-labelledby="result-heading" className="card space-y-5 border-primary/40 p-5" data-testid="user-result">
           <div className="flex items-center gap-2">
-            <Trophy className="h-5 w-5 text-lime" aria-hidden="true" />
+            <Trophy className="h-5 w-5 text-primary" aria-hidden="true" />
             <h2 id="result-heading" className="text-lg font-semibold">Your result</h2>
           </div>
           <div className="grid gap-3 sm:grid-cols-4">
-            <Stat label="Race score" animate={{ value: userResult.raceScore }} accent="#B6F36B" hint="max 360" />
+            <Stat label="Race score" animate={{ value: userResult.raceScore }} accent="#22D3EE" hint="max 360" />
             <Stat label="Placement" value={ordinal(userResult.rank)} hint={`of ${results.length} entrants (incl. AI)`} />
             <Stat label="XP earned" animate={{ value: userResult.xpAwarded, prefix: "+" }} accent="#22D3EE" />
             <Stat label="Helped most" value={userResult.bestRole ? ROLE_META[userResult.bestRole].label : "—"} hint={userResult.bestRole ? `${narrativeById.get(userLineup.picks.find((p) => p.role === userResult.bestRole)!.narrativeId)?.name}` : "No scoring picks"} />
@@ -218,14 +218,14 @@ export default async function RacePage({ params }: { params: Promise<{ raceId: s
                   const ai = r.aiProfileId ? aiProfiles.find((p) => p.id === r.aiProfileId) : null;
                   const isMe = viewer && r.userId === viewer.id;
                   return (
-                    <tr key={r.id} className={isMe ? "bg-lime/5" : ""}>
+                    <tr key={r.id} className={isMe ? "bg-primary/5" : ""}>
                       <td className="mono text-muted">{r.rank}</td>
                       <td>
                         {profile ? (
                           <Link href={`/profile/${profile.username}`} className="flex items-center gap-2 hover:underline">
                             <Avatar seed={profile.id} name={profile.displayName} size={24} />
                             {profile.displayName}
-                            {isMe ? <span className="text-xs text-lime">(you)</span> : null}
+                            {isMe ? <span className="text-xs text-primary">(you)</span> : null}
                           </Link>
                         ) : (
                           <span className="font-mono text-xs font-bold tracking-widest" style={{ color: ai?.accentColor }}>{ai?.name ?? "AI"}</span>
@@ -236,7 +236,7 @@ export default async function RacePage({ params }: { params: Promise<{ raceId: s
                         const hit = role === "leader" ? r.leaderHit : role === "challenger" ? r.challengerHit : r.wildcardHit;
                         return (
                           <td key={role} className="text-xs">
-                            <span className={hit ? "text-lime" : "text-muted"}>{p ? narrativeById.get(p.narrativeId)?.shortName : "—"}</span>
+                            <span className={hit ? "text-up" : "text-muted"}>{p ? narrativeById.get(p.narrativeId)?.shortName : "—"}</span>
                             <span className="ml-1 text-dim">{p?.energy}E</span>
                           </td>
                         );

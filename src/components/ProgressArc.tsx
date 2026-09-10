@@ -3,7 +3,7 @@ export function ProgressArc({
   value,
   size = 84,
   stroke = 7,
-  color = "#B6F36B",
+  color = "#22D3EE",
   label,
   sublabel,
 }: {

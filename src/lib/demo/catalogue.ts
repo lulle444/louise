@@ -35,7 +35,7 @@ export const NARRATIVE_SEEDS: NarrativeSeed[] = [
     description:
       "Protocols tokenizing treasuries, credit, commodities and other off-chain assets for on-chain settlement.",
     icon: "Landmark",
-    accentColor: "#22D3EE",
+    accentColor: "#38BDF8",
     assets: [
       { symbol: "ONDO", name: "Ondo", basePrice: 0.95, baseVolume: 80e6, volatility: 0.016 },
       { symbol: "MKR", name: "Maker", basePrice: 1850, baseVolume: 70e6, volatility: 0.014 },
@@ -95,7 +95,7 @@ export const NARRATIVE_SEEDS: NarrativeSeed[] = [
     shortName: "L2",
     description: "Rollups and scaling networks settling to Ethereum and other base layers.",
     icon: "Layers",
-    accentColor: "#38BDF8",
+    accentColor: "#60A5FA",
     assets: [
       { symbol: "ARB", name: "Arbitrum", basePrice: 0.85, baseVolume: 200e6, volatility: 0.017 },
       { symbol: "OP", name: "Optimism", basePrice: 1.7, baseVolume: 150e6, volatility: 0.018 },

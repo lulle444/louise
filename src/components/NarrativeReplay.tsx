@@ -179,7 +179,7 @@ export function NarrativeReplay({
                 <Link href={`/narratives/${n.slug}`} className="min-w-0 flex-1 truncate text-sm font-medium hover:underline">
                   <span className="sm:hidden">{n.shortName}</span>
                   <span className="hidden sm:inline">{n.name}</span>
-                  {n.highlight ? <span className="ml-2 rounded bg-lime/15 px-1.5 py-0.5 font-mono text-[0.6rem] uppercase tracking-wider text-lime">{n.highlight}</span> : null}
+                  {n.highlight ? <span className="ml-2 rounded bg-primary/15 px-1.5 py-0.5 font-mono text-[0.6rem] uppercase tracking-wider text-primary">{n.highlight}</span> : null}
                 </Link>
                 {changed.has(id) && frameIdx === last ? <span className="changed-dot" title="Changed since your last visit" aria-label="Changed since your last visit" /> : null}
                 <RankMove from={startRank.get(id) ?? null} to={row.rank} />

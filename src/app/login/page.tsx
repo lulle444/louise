@@ -23,7 +23,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
           {error}
         </p>
       ) : null}
-      {message ? <p className="mt-4 rounded-md border border-lime/40 bg-lime/10 px-3 py-2 text-sm text-lime">{message}</p> : null}
+      {message ? <p className="mt-4 rounded-md border border-primary/40 bg-primary/10 px-3 py-2 text-sm text-primary">{message}</p> : null}
 
       {demo ? (
         <div className="card mt-6 space-y-4 p-5">
