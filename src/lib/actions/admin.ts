@@ -8,6 +8,7 @@ import { getViewer } from "../auth/session";
 import { aiToggleSchema, battleCreateSchema, battleTransitionSchema } from "../domain/validation";
 import { createBattle, publishBattle } from "../services/lifecycle";
 import { settleBattle, voidBattle, findAssetForBattle } from "../services/settlement";
+import { runMaintenanceNow } from "../services/maintenance";
 
 export interface AdminActionState {
   ok: boolean;
@@ -179,5 +180,27 @@ export async function settleWithOverrideAction(_prev: AdminActionState, formData
     return { ok: result.status === "settled", message: result.message };
   } catch (err) {
     return { ok: false, message: err instanceof Error ? err.message : "Action failed." };
+  }
+}
+
+export async function runMaintenanceAction(_prev: AdminActionState, _formData: FormData): Promise<AdminActionState> {
+  let viewer;
+  try {
+    viewer = await requireAdmin();
+  } catch (err) {
+    return { ok: false, message: (err as Error).message };
+  }
+  try {
+    const report = await runMaintenanceNow("admin", viewer.id);
+    revalidateAll();
+    const parts = [
+      `${report.scheduled.length} scheduled`,
+      `${report.opened.length} opened`,
+      `${report.settled.length} settled${report.settled.length ? ` (${report.settled.map((s) => s.status).join(", ")})` : ""}`,
+    ];
+    if (report.errors.length) parts.push(`errors: ${report.errors.join(" | ")}`);
+    return { ok: report.errors.length === 0, message: parts.join(" · ") };
+  } catch (err) {
+    return { ok: false, message: err instanceof Error ? err.message : "Maintenance failed." };
   }
 }

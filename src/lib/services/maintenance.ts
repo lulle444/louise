@@ -2,9 +2,35 @@ import "server-only";
 import { isDemoMode } from "../config";
 import { getRepository } from "../data";
 import { getMarketDataProvider } from "../market";
-import { runScheduledMaintenance } from "./cron";
+import { runScheduledMaintenance, type CronReport } from "./cron";
 
-const g = globalThis as unknown as { __signalArenaMaintenanceAt?: number; __signalArenaMaintenanceRunning?: boolean };
+export interface MaintenanceStatus {
+  lastRunAt: string | null;
+  lastSource: string | null;
+  lastReport: CronReport | null;
+  lastError: string | null;
+}
+
+const g = globalThis as unknown as { __signalArenaMaintenanceAt?: number; __signalArenaMaintenanceRunning?: boolean; __signalArenaMaintenanceStatus?: MaintenanceStatus };
+
+export function getMaintenanceStatus(): MaintenanceStatus {
+  return g.__signalArenaMaintenanceStatus ?? { lastRunAt: null, lastSource: null, lastReport: null, lastError: null };
+}
+
+/** Run maintenance immediately (admin/cron) and record the outcome. */
+export async function runMaintenanceNow(source: string, actorId: string | null = null): Promise<CronReport> {
+  const repo = await getRepository();
+  try {
+    const report = await runScheduledMaintenance(repo, getMarketDataProvider(), actorId ?? source);
+    g.__signalArenaMaintenanceStatus = { lastRunAt: new Date().toISOString(), lastSource: source, lastReport: report, lastError: null };
+    g.__signalArenaMaintenanceAt = Date.now();
+    return report;
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    g.__signalArenaMaintenanceStatus = { lastRunAt: new Date().toISOString(), lastSource: source, lastReport: null, lastError: message };
+    throw err;
+  }
+}
 const THROTTLE_MS = 5 * 60_000;
 
 /**
@@ -21,8 +47,7 @@ export async function maybeRunMaintenance(): Promise<void> {
   g.__signalArenaMaintenanceRunning = true;
   g.__signalArenaMaintenanceAt = now;
   try {
-    const repo = await getRepository();
-    await runScheduledMaintenance(repo, getMarketDataProvider(), "page-view");
+    await runMaintenanceNow("page-view");
   } catch (err) {
     console.error("[maintenance]", err instanceof Error ? err.message : err);
   } finally {

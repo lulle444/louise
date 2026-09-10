@@ -3,6 +3,9 @@ import { getSupabaseAnonKey, getSupabaseUrl, hasSupabaseCredentials, isDemoMode 
 import { createClient } from "@supabase/supabase-js";
 import { getMarketDataProvider } from "@/lib/market";
 import { createSupabaseAdminClient, hasServiceRoleKey } from "@/lib/supabase/server";
+import { getMaintenanceStatus } from "@/lib/services/maintenance";
+import { getRepository } from "@/lib/data";
+import { effectiveStatus } from "@/lib/domain/settlement";
 
 export const dynamic = "force-dynamic";
 
@@ -50,9 +53,24 @@ export async function GET() {
     }
   }
 
+  let battles: Record<string, number> | { error: string } = {};
+  try {
+    const repo = await getRepository();
+    const all = await repo.listBattles({ includeUnpublished: true });
+    const now = new Date();
+    for (const b of all) {
+      const st = effectiveStatus(b, now);
+      battles[st] = (battles[st] ?? 0) + 1;
+    }
+  } catch (err) {
+    battles = { error: err instanceof Error ? err.message : "unknown" };
+  }
+
   return NextResponse.json({
     ok: true,
     demoMode: isDemoMode(),
+    battles,
+    maintenance: getMaintenanceStatus(),
     supabaseConfigured: hasSupabaseCredentials(),
     database,
     marketData: { ...price, simulated: provider.isMock },

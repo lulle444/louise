@@ -22,6 +22,9 @@ import { Disclaimer } from "@/components/ui/Disclaimer";
 import { Avatar } from "@/components/ui/Avatar";
 import { EmptyState, DataUnavailable } from "@/components/ui/States";
 import { SignalField } from "@/components/ui/SignalField";
+import { MarketStrip } from "@/components/arena/MarketStrip";
+import { Suspense } from "react";
+import { getSeason } from "@/lib/config";
 import { formatAccuracy } from "@/lib/domain/format";
 
 export const dynamic = "force-dynamic";
@@ -131,6 +134,10 @@ export default async function HomePage() {
         </div>
       </section>
 
+      <Suspense fallback={<div className="mx-auto max-w-7xl px-4 pt-6 sm:px-6"><div className="grid gap-3 sm:grid-cols-3">{[0, 1, 2].map((i) => <div key={i} className="card h-24 animate-pulse" />)}</div></div>}>
+        <MarketStrip />
+      </Suspense>
+
       {/* Scoreboard + crowd preview */}
       <Section eyebrow="Scoreboard" title="Humans vs AI, under the same rules" description="Every analyst — human or simulated — faces the same market, timeframe and scoring. The Arena keeps the score." action={{ href: "/humans-vs-ai", label: "Full comparison" }}>
         <div className="grid gap-4 lg:grid-cols-[1.4fr_1fr]">
@@ -169,7 +176,17 @@ export default async function HomePage() {
         {settled.length ? (
           <div className="grid gap-4 md:grid-cols-3">{settled.map((s) => <BattleCard key={s.battle.id} summary={s} compact />)}</div>
         ) : (
-          <EmptyState title="Nothing settled yet" description="Results appear here once the first Battle reaches its end time." />
+          <div className="card relative overflow-hidden p-6">
+            <SignalField opacity={0.3} />
+            <div className="relative grid gap-4 sm:grid-cols-[1fr_auto] sm:items-center">
+              <div>
+                <p className="eyebrow">{getSeason().name} · first results</p>
+                <p className="mt-2 text-lg font-semibold">{live ? <>The first Battle settles in <span className="text-cyan"><BattleCountdown target={live.battle.endsAt} /></span></> : "The first Battle settles soon"}</p>
+                <p className="mt-1 text-sm text-muted">Every settled Battle appears here with its start and end price, the outcome, and how humans, the crowd and the AI analysts scored.</p>
+              </div>
+              <Link href={live ? `/arena/${live.battle.id}` : "/arena"} className="rounded-md bg-cyan px-4 py-2 text-center text-sm font-semibold text-bg hover:brightness-110">Lock a forecast</Link>
+            </div>
+          </div>
         )}
       </Section>
 
@@ -177,7 +194,23 @@ export default async function HomePage() {
       <Section eyebrow="Track records" title="Top analysts and Signal DNA" description="Ranked accounts need at least five settled Battles. Ratings reward accuracy, experience and consistency." action={{ href: "/leaderboard", label: "Leaderboard" }}>
         <div className="grid gap-4 lg:grid-cols-2">
           <div className="card divide-y divide-border">
-            {leaderboard.length === 0 ? <p className="p-5 text-sm text-muted">No ranked analysts yet.</p> : leaderboard.map((r) => (
+            {leaderboard.length === 0 ? (
+              <div className="p-5">
+                <p className="text-sm font-semibold">The leaderboard is open</p>
+                <p className="mt-1 text-sm text-muted">Nobody is ranked yet. Five settled Battles earn a rank; forecasts locked this week earn the permanent Founding Analyst badge.</p>
+                <ul className="mt-4 space-y-2">
+                  {[1, 2, 3].map((n) => (
+                    <li key={n} className="flex items-center gap-3 rounded-md border border-dashed border-border px-3 py-2 text-sm text-muted">
+                      <span className="num w-5">{n}</span>
+                      <span className="size-7 rounded-full border border-dashed border-border" aria-hidden />
+                      <span className="flex-1">{n === 1 ? "Your name here" : "Open"}</span>
+                      <span className="num text-xs">—</span>
+                    </li>
+                  ))}
+                </ul>
+                <Link href="/season" className="mt-4 inline-block text-sm text-cyan hover:underline">Founding Analyst details →</Link>
+              </div>
+            ) : leaderboard.map((r) => (
               <Link key={r.profile.id} href={`/profile/${r.profile.username}`} className="flex items-center gap-3 px-5 py-3 hover:bg-surface-2/50">
                 <span className="num w-5 text-sm text-muted">{r.rank}</span>
                 <Avatar name={r.profile.displayName} size="sm" />

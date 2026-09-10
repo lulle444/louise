@@ -13,6 +13,9 @@ import { LocalTime } from "@/components/ui/LocalTime";
 import { AssetMark } from "@/components/arena/AssetMark";
 import { CreateBattleForm } from "./CreateBattleForm";
 import { BattleActions } from "./BattleActions";
+import { MaintenanceButton } from "./MaintenanceButton";
+import { getMaintenanceStatus } from "@/lib/services/maintenance";
+import { isAutoScheduleEnabled } from "@/lib/services/scheduler";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Admin", robots: { index: false } };
@@ -42,6 +45,7 @@ export default async function AdminPage() {
     providerStatus = { ok: false, detail: err instanceof Error ? err.message : "Provider error" };
   }
   const lastRun = runs[0] ?? null;
+  const maintenance = getMaintenanceStatus();
   const assetById = new Map(assets.map((a) => [a.id, a]));
   const now = new Date();
   const ordered = [...battles].sort((a, b) => Date.parse(b.opensAt) - Date.parse(a.opensAt));
@@ -70,6 +74,19 @@ export default async function AdminPage() {
             <p className="num mt-1 font-semibold">{predictions.length} human · {aiPredictions.length} AI forecasts</p>
             <p className="mt-1 text-xs text-muted">{battles.filter((b) => b.status === "settled").length} settled · {battles.filter((b) => b.status === "void").length} void · {battles.filter((b) => b.status === "draft").length} draft</p>
           </div>
+        </section>
+
+        <section className="card flex flex-wrap items-center justify-between gap-4 p-5" aria-labelledby="maint-heading">
+          <div>
+            <h2 id="maint-heading" className="text-base font-semibold">Scheduler and settlement</h2>
+            <p className="mt-1 text-xs text-muted">
+              Auto-schedule is {isAutoScheduleEnabled() ? "on" : "off"}: Daily Battles open 00:00 UTC, lock 12:00 UTC, settle 00:00 UTC (BTC → ETH → SOL). Runs from cron, on page views (throttled), or manually here.
+            </p>
+            <p className="num mt-1 text-xs text-muted">
+              Last run: {maintenance.lastRunAt ? <><LocalTime iso={maintenance.lastRunAt} /> via {maintenance.lastSource}{maintenance.lastReport ? ` · ${maintenance.lastReport.scheduled.length} scheduled, ${maintenance.lastReport.settled.length} settled${maintenance.lastReport.errors.length ? `, ${maintenance.lastReport.errors.length} error(s): ${maintenance.lastReport.errors.join(" | ")}` : ""}` : ""}{maintenance.lastError ? ` · failed: ${maintenance.lastError}` : ""}</> : "not yet on this server instance"}
+            </p>
+          </div>
+          <MaintenanceButton />
         </section>
 
         <section className="card p-5" aria-labelledby="create-heading">
