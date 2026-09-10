@@ -16,6 +16,8 @@ export default async function LoginPage(props: PageProps<"/login">) {
   const viewer = await getViewer();
   if (viewer) redirect(next);
   const demo = isDemoMode();
+  // The demo admin identity is hidden on public previews unless explicitly enabled.
+  const demoAdminEnabled = (process.env.DEMO_ADMIN_LOGIN ?? "").trim().toLowerCase() === "true";
   return (
     <div className="mx-auto max-w-md px-4 py-12 sm:px-6">
       <p className="eyebrow">Sign in</p>
@@ -42,12 +44,14 @@ export default async function LoginPage(props: PageProps<"/login">) {
               <button type="submit" className="w-full rounded-md border border-border px-4 py-2.5 text-sm font-semibold hover:bg-surface-2" data-testid="demo-analyst">Sign in as Nova Reyes (analyst)</button>
               <p className="mt-1 text-[11px] text-muted">Seeded history, Call Profile, badges and settled results.</p>
             </form>
+{demoAdminEnabled ? (
             <form action={demoSignIn}>
               <input type="hidden" name="kind" value="admin" />
               <input type="hidden" name="next" value="/admin" />
               <button type="submit" className="w-full rounded-md border border-violet/40 px-4 py-2.5 text-sm font-semibold text-violet hover:bg-violet/10" data-testid="demo-admin">Sign in as Callscore Admin</button>
               <p className="mt-1 text-[11px] text-muted">Opens the protected /admin Round console.</p>
             </form>
+            ) : null}
           </div>
         </div>
       ) : (
