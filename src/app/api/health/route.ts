@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { getSupabaseUrl, hasSupabaseCredentials, isDemoMode } from "@/lib/config";
+import { getSupabaseAnonKey, getSupabaseUrl, hasSupabaseCredentials, isDemoMode } from "@/lib/config";
+import { createClient } from "@supabase/supabase-js";
 import { getMarketDataProvider } from "@/lib/market";
 import { createSupabaseAdminClient, hasServiceRoleKey } from "@/lib/supabase/server";
 
@@ -37,6 +38,15 @@ export async function GET() {
       };
     } catch (err) {
       database = { configured: true, host, serviceRoleKey: hasServiceRoleKey(), reachable: false, error: err instanceof Error ? err.message : "unknown" };
+    }
+    // Public (anon/publishable) key check: this is the key the sign-up form uses.
+    const anon = getSupabaseAnonKey() ?? "";
+    try {
+      const client = createClient(getSupabaseUrl() ?? "", anon, { auth: { persistSession: false, autoRefreshToken: false } });
+      const { error } = await client.from("assets").select("id").limit(1);
+      database = { ...database, publicKey: { prefix: `${anon.slice(0, 18)}…`, length: anon.length, ok: !error, error: error?.message } };
+    } catch (err) {
+      database = { ...database, publicKey: { prefix: `${anon.slice(0, 18)}…`, length: anon.length, ok: false, error: err instanceof Error ? err.message : "unknown" } };
     }
   }
 
