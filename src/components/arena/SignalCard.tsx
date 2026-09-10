@@ -115,7 +115,7 @@ export function SignalCard({ data, preview = false, showLink = true, className =
 
         <ul className="mt-4 flex flex-wrap gap-2" aria-label="Signals">
           {data.signals.map((s) => (
-            <li key={s.id} className="inline-flex items-center gap-1.5 rounded-md border border-border bg-surface-2 px-2.5 py-1 text-xs" style={{ color: s.accentColor }}>
+            <li key={s.id} className="inline-flex items-center gap-1.5 rounded-md border border-border bg-surface-2 px-2.5 py-1 text-xs text-muted">
               <SignalIcon name={s.icon} className="size-3.5" /> <span className="text-text">{s.name}</span>
             </li>
           ))}

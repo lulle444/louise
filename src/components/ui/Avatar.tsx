@@ -1,7 +1,7 @@
 import { initials } from "@/lib/domain/format";
 import { hashString } from "@/lib/domain/random";
 
-const PALETTE = ["#0E8F7E", "#C2410C", "#15803D", "#B45309", "#BE185D", "#2563EB", "#7C3AED"];
+const PALETTE = ["#0E8F7E", "#0F1A2B", "#0B6F62", "#334155", "#1E5F56", "#475569"];
 
 export function Avatar({ name, size = "md", color, className = "" }: { name: string; size?: "sm" | "md" | "lg" | "xl"; color?: string; className?: string }) {
   const accent = color ?? PALETTE[hashString(name) % PALETTE.length];

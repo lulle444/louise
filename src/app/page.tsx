@@ -82,8 +82,8 @@ export default async function HomePage() {
             <TallyMark size={44} />
           </div>
           <p className="eyebrow">The scoreboard for crypto calls</p>
-          <h1 className="mx-auto mt-4 max-w-4xl text-4xl font-extrabold leading-[1.02] tracking-tight sm:text-5xl lg:text-6xl">
-            Make the call. <span className="text-cyan">Keep</span> <span className="text-violet">the score.</span>
+          <h1 className="mx-auto mt-4 max-w-4xl text-5xl leading-[1.02] sm:text-6xl lg:text-7xl">
+            Make the call.<br /><span className="text-cyan italic">Keep the score.</span>
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-base text-muted sm:text-lg">
             One crypto call a day. Back it with three signals, lock it, and let the market grade you, the crowd and three AI analysts by the same rules.
@@ -249,7 +249,7 @@ export default async function HomePage() {
           <div className="card p-5">
             <div className="flex items-center justify-between">
               <p className="text-sm font-semibold">Call Profile {dnaProfile ? <span className="font-normal text-muted">· {viewer && dnaProfile.id === viewer.id ? "you" : dnaProfile.displayName}</span> : null}</p>
-              {dnaStats?.dna.style ? <span className="rounded-full border border-violet/40 bg-violet/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-violet">{dnaStats.dna.style}</span> : null}
+              {dnaStats?.dna.style ? <span className="rounded-full border border-border px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-text">{dnaStats.dna.style}</span> : null}
             </div>
             {dnaStats && dnaStats.dna.ready ? (
               <>
@@ -273,7 +273,7 @@ export default async function HomePage() {
           <SignalField opacity={0.35} />
           <div className="relative">
             <p className="eyebrow">Ready?</p>
-            <h2 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">Make the call. Beat the machines. Keep the score.</h2>
+            <h2 className="mt-3 text-3xl sm:text-4xl">Make the call. Beat the machines. <span className="italic text-cyan">Keep the score.</span></h2>
             <p className="mx-auto mt-2 max-w-xl text-sm text-muted">The market has millions of opinions. Callscore keeps the score.</p>
             <Link href={live ? `/rounds/${live.battle.id}` : "/rounds"} className="mt-6 inline-flex items-center gap-2 rounded-md bg-cyan px-5 py-3 text-sm font-semibold text-white shadow-glow-cyan hover:brightness-110">
               <Lock className="size-4" aria-hidden /> Make today’s call

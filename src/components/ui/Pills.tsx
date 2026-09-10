@@ -22,10 +22,10 @@ export function DirectionPill({ direction, size = "md", className = "" }: { dire
 
 const STATUS_META: Record<BattleStatus, { label: string; cls: string; dot: string }> = {
   draft: { label: "Draft", cls: "border-border text-muted", dot: "bg-dim" },
-  upcoming: { label: "Upcoming", cls: "border-violet/40 text-violet", dot: "bg-violet" },
+  upcoming: { label: "Upcoming", cls: "border-border-strong text-muted", dot: "bg-dim" },
   open: { label: "Live", cls: "border-cyan/40 text-cyan", dot: "bg-cyan signal-pulse" },
-  locked: { label: "Locked", cls: "border-neutral/40 text-neutral", dot: "bg-neutral" },
-  settling: { label: "Settling", cls: "border-neutral/40 text-neutral", dot: "bg-neutral signal-pulse" },
+  locked: { label: "Locked", cls: "border-border-strong text-text", dot: "bg-text" },
+  settling: { label: "Settling", cls: "border-border-strong text-text", dot: "bg-text signal-pulse" },
   settled: { label: "Settled", cls: "border-bull/40 text-bull", dot: "bg-bull" },
   void: { label: "Void", cls: "border-bear/40 text-bear", dot: "bg-bear" },
   archived: { label: "Archived", cls: "border-border text-muted", dot: "bg-dim" },
@@ -46,7 +46,7 @@ export function ResultPill({ result, className = "" }: { result: PredictionResul
     pending: { label: "Pending", cls: "border-border text-muted" },
     correct: { label: "Correct", cls: "border-bull/50 bg-bull/10 text-bull" },
     incorrect: { label: "Incorrect", cls: "border-bear/50 bg-bear/10 text-bear" },
-    void: { label: "Void", cls: "border-neutral/50 bg-neutral/10 text-neutral" },
+    void: { label: "Void", cls: "border-border-strong bg-surface-2 text-muted" },
   };
   const m = map[result];
   return <span className={`inline-flex items-center rounded-full border px-2.5 py-1 font-mono text-[11px] font-semibold uppercase tracking-wider ${m.cls} ${className}`}>{m.label}</span>;

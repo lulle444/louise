@@ -12,7 +12,7 @@ export function Scoreboard({ summary, compact = false }: { summary: HumansVsAiSu
       <div className="grid grid-cols-[1fr_auto_1fr] items-stretch">
         <div className={`p-5 ${lead === "humans" ? "bg-cyan/5" : ""}`}>
           <p className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider text-muted"><Users className="size-3.5 text-cyan" aria-hidden /> Humans</p>
-          <p className="num mt-2 text-4xl font-semibold text-cyan sm:text-5xl">{formatAccuracy(h.accuracy)}</p>
+          <p className="num mt-2 text-4xl font-semibold text-text sm:text-5xl">{formatAccuracy(h.accuracy)}</p>
           <p className="num mt-1 text-xs text-muted">{h.correct}/{h.valid} correct · {summary.battleWins.humans} Rounds won</p>
         </div>
         <div className="grid place-items-center border-x border-border px-3 font-mono text-xs uppercase tracking-[0.2em] text-dim sm:px-5">vs</div>

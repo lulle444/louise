@@ -14,7 +14,7 @@ export function MarketChart({ series, startPrice, decimals, simulated, height = 
   const pad = (max - min) * 0.15 || max * 0.01;
   const last = data[data.length - 1].price;
   const up = startPrice ? last >= startPrice : true;
-  const stroke = up ? "#15803D" : "#C2313F";
+  const stroke = up ? "#0E8F7E" : "#0F1A2B";
   return (
     <figure>
       <div style={{ height }} role="img" aria-label={`Price series from $${formatPrice(data[0].price, decimals)} to $${formatPrice(last, decimals)}${startPrice ? `, Battle start price $${formatPrice(startPrice, decimals)}` : ""}.`}>

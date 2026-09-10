@@ -7,7 +7,7 @@ export function Section({ eyebrow, title, description, action, children, classNa
       <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
         <div>
           {eyebrow ? <p className="eyebrow mb-2">{eyebrow}</p> : null}
-          <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">{title}</h2>
+          <h2 className="text-2xl sm:text-3xl">{title}</h2>
           {description ? <p className="mt-1 max-w-2xl text-sm text-muted">{description}</p> : null}
         </div>
         {action ? (
@@ -27,7 +27,7 @@ export function PageHeader({ eyebrow, title, description, children }: { eyebrow?
       <div className="mx-auto flex max-w-7xl flex-wrap items-end justify-between gap-4 px-4 py-8 sm:px-6 sm:py-10">
         <div className="max-w-2xl">
           {eyebrow ? <p className="eyebrow mb-2">{eyebrow}</p> : null}
-          <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">{title}</h1>
+          <h1 className="text-3xl sm:text-4xl">{title}</h1>
           {description ? <div className="mt-2 text-sm text-muted sm:text-base">{description}</div> : null}
         </div>
         {children}

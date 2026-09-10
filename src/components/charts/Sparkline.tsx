@@ -15,7 +15,7 @@ export function Sparkline({ series, width = 160, height = 44, positive = true, c
   });
   const d = pts.map(([x, y], i) => `${i === 0 ? "M" : "L"}${x.toFixed(1)} ${y.toFixed(1)}`).join(" ");
   const area = `${d} L${pts[pts.length - 1][0].toFixed(1)} ${height} L${pts[0][0].toFixed(1)} ${height} Z`;
-  const color = positive ? "#15803D" : "#C2313F";
+  const color = positive ? "#0E8F7E" : "#0F1A2B";
   const id = `sp-${Math.round(min)}-${prices.length}-${positive ? "u" : "d"}`;
   return (
     <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height} className={className} aria-hidden>

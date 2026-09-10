@@ -48,13 +48,13 @@ export default async function ProfilePage(props: PageProps<"/profile/[username]"
           <div className="flex items-center gap-4">
             <Avatar name={profile.displayName} size="xl" />
             <div>
-              <h1 className="text-2xl font-semibold">{profile.displayName}</h1>
+              <h1 className="text-3xl">{profile.displayName}</h1>
               <p className="font-mono text-sm text-muted">@{profile.username} · joined <LocalTime iso={profile.createdAt} /></p>
               {profile.bio ? <p className="mt-2 max-w-lg text-sm text-muted">{profile.bio}</p> : null}
             </div>
           </div>
           <div className="flex items-center gap-2">
-            {dna.style ? <span className="rounded-full border border-violet/40 bg-violet/10 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-violet">{dna.style}</span> : null}
+            {dna.style ? <span className="rounded-full border border-border px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-text">{dna.style}</span> : null}
             {isOwner ? <Link href="/settings" className="inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-2 text-sm hover:bg-surface-2"><Settings className="size-4" aria-hidden /> Edit profile</Link> : null}
           </div>
         </div>
@@ -64,7 +64,7 @@ export default async function ProfilePage(props: PageProps<"/profile/[username]"
             <span className="num">{profile.xp} XP</span>
           </div>
           <div className="mt-1 h-2 overflow-hidden rounded-full bg-border/60" role="progressbar" aria-valuenow={Math.round(stats.level.progress * 100)} aria-valuemin={0} aria-valuemax={100} aria-label="Level progress">
-            <div className="fill-bar h-full rounded-full bg-gradient-to-r from-cyan to-violet" style={{ width: `${Math.max(2, stats.level.progress * 100)}%` }} />
+            <div className="fill-bar h-full rounded-full bg-cyan" style={{ width: `${Math.max(2, stats.level.progress * 100)}%` }} />
           </div>
           <p className="mt-1 text-sm font-semibold">{stats.level.level.name}</p>
         </div>
@@ -86,7 +86,7 @@ export default async function ProfilePage(props: PageProps<"/profile/[username]"
             <>
               <SignalDNAChart data={dna.radar} />
               <dl className="grid grid-cols-2 gap-3 text-sm">
-                <div><dt className="text-[11px] uppercase tracking-wider text-muted">Style</dt><dd className="mt-0.5 text-violet">{dna.style}</dd><dd className="text-xs text-muted">{dna.styleReason}</dd></div>
+                <div><dt className="text-[11px] uppercase tracking-wider text-muted">Style</dt><dd className="mt-0.5 font-semibold">{dna.style}</dd><dd className="text-xs text-muted">{dna.styleReason}</dd></div>
                 <div><dt className="text-[11px] uppercase tracking-wider text-muted">Most used signal</dt><dd className="mt-0.5">{dna.mostUsedSignal?.name ?? "—"} <span className="num text-xs text-muted">({dna.mostUsedSignal?.uses ?? 0} uses)</span></dd></div>
                 <div><dt className="text-[11px] uppercase tracking-wider text-muted">Best timeframe</dt><dd className="mt-0.5">{dna.bestTimeframe}</dd></div>
                 <div><dt className="text-[11px] uppercase tracking-wider text-muted">Against the crowd</dt><dd className="mt-0.5 num">{dna.contrarianRate !== null ? `${Math.round(dna.contrarianRate * 100)}%` : "—"}</dd></div>

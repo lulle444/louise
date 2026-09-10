@@ -75,7 +75,7 @@ export function SignalSelector({ signals, value, onChange }: { signals: Signal[]
               title={s.description}
               className={`flex items-start gap-2 rounded-lg border p-2.5 text-left transition ${selected ? "border-cyan/60 bg-cyan/10" : disabled ? "cursor-not-allowed border-border/60 opacity-50" : "border-border bg-surface-2/40 hover:border-border-strong"}`}
             >
-              <span className="mt-0.5 shrink-0" style={{ color: s.accentColor }}><SignalIcon name={s.icon} className="size-4" /></span>
+              <span className={`mt-0.5 shrink-0 ${selected ? "text-cyan" : "text-muted"}`}><SignalIcon name={s.icon} className="size-4" /></span>
               <span>
                 <span className="block text-xs font-semibold">{s.name}</span>
                 <span className="mt-0.5 hidden text-[11px] leading-snug text-muted sm:block">{s.description}</span>

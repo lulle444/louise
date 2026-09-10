@@ -18,8 +18,8 @@ export function SignalField({ className = "", opacity = 1 }: { className?: strin
     if (!ctx) return;
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const colors = ["#0E8F7E", "#C2410C", "#15803D", "#BE185D"];
-    const traces = Array.from({ length: 5 }, (_, i) => ({
+    const colors = ["#0E8F7E", "#0F1A2B", "#0E8F7E", "#5B6B7F"];
+    const traces = Array.from({ length: 3 }, (_, i) => ({
       color: colors[i % colors.length],
       seed: Math.random() * 1000,
       speed: 0.12 + Math.random() * 0.1,
@@ -27,7 +27,7 @@ export function SignalField({ className = "", opacity = 1 }: { className?: strin
       base: 0.3 + (i / 5) * 0.5,
       phase: Math.random() * Math.PI * 2,
     }));
-    const pulses = Array.from({ length: 14 }, () => ({ x: Math.random(), y: Math.random(), t: Math.random() * 6, life: 5 + Math.random() * 4 }));
+    const pulses = Array.from({ length: 6 }, () => ({ x: Math.random(), y: Math.random(), t: Math.random() * 6, life: 5 + Math.random() * 4 }));
 
     let width = 0;
     let height = 0;
