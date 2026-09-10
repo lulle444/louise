@@ -109,10 +109,14 @@ Copy `.env.example` to `.env.local`.
 2. Apply the schema and seed:
    ```bash
    # with the Supabase CLI linked to your project
-   supabase db push                       # applies supabase/migrations/0001_init.sql
+   supabase db push                       # applies supabase/migrations/*.sql
    psql "$DATABASE_URL" -f supabase/seed.sql
    # or paste both files into the SQL editor, migration first
    ```
+   To grant yourself admin from the dashboard, run in the SQL Editor:
+   `update public.profiles set is_admin = true where username = 'you';`
+   (migration 0002 allows dashboard edits; on a fresh 0001-only database,
+   wrap it in `alter table public.profiles disable trigger profiles_guard_update;` / `enable trigger`).
 3. Fill `.env.local` with the project URL, anon key and service-role key, set `NEXT_PUBLIC_DEMO_MODE=false`, and set `ADMIN_EMAILS` (or flip `profiles.is_admin` for your user).
 4. `npm run dev`, sign up at `/signup` (a `profiles` row is created by trigger), then create and publish the first Battle from `/admin`.
 
