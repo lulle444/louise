@@ -25,7 +25,7 @@ export function CredentialsForm({ mode, next }: { mode: "login" | "signup"; next
       </div>
       {state.error ? <p className="text-sm text-bear" role="alert">{state.error}</p> : null}
       {state.message ? <p className="text-sm text-bull" role="status">{state.message}</p> : null}
-      <button type="submit" disabled={pending} className="w-full rounded-md bg-cyan px-4 py-2.5 text-sm font-semibold text-bg hover:brightness-110 disabled:opacity-60">
+      <button type="submit" disabled={pending} className="w-full rounded-md bg-cyan px-4 py-2.5 text-sm font-semibold text-white hover:brightness-110 disabled:opacity-60">
         {pending ? "Working…" : mode === "login" ? "Sign in" : "Create account"}
       </button>
     </form>

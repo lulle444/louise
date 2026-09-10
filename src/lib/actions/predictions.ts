@@ -28,12 +28,12 @@ export async function lockPredictionAction(input: {
     const provider = getMarketDataProvider();
     const prediction = await lockPrediction(repo, provider, viewer, input);
     if (isDemoMode()) await syncDemoOverlay(viewer.id);
-    revalidatePath(`/arena/${input.battleId}`);
-    revalidatePath("/arena");
+    revalidatePath(`/rounds/${input.battleId}`);
+    revalidatePath("/rounds");
     revalidatePath("/");
     return { ok: true, predictionId: prediction.id };
   } catch (err) {
     if (err instanceof DuplicatePredictionError || err instanceof PredictionError) return { ok: false, error: err.message };
-    return { ok: false, error: err instanceof Error ? err.message : "Could not lock the prediction." };
+    return { ok: false, error: err instanceof Error ? err.message : "Could not lock the call." };
   }
 }

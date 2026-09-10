@@ -180,7 +180,7 @@ export function PredictionComposer({ battle, asset, signals, viewerProfile, sign
     startTransition(async () => {
       const res = await lockPredictionAction({ battleId: battle.id, direction, signalIds, confidence, thesis: thesis.trim() });
       if (!res.ok) {
-        setError(res.error ?? "Could not lock the prediction.");
+        setError(res.error ?? "Could not lock the call.");
         setConfirming(false);
         return;
       }
@@ -192,9 +192,9 @@ export function PredictionComposer({ battle, asset, signals, viewerProfile, sign
   if (!signedIn) {
     return (
       <div className="card p-5">
-        <h2 className="text-base font-semibold">Build your signal</h2>
-        <p className="mt-1 text-sm text-muted">Sign in to lock a forecast for this Battle. Predictions are timestamped, immutable and scored when the Battle settles.</p>
-        <a href={`/login?next=/arena/${battle.id}`} className="mt-4 inline-flex rounded-md bg-cyan px-4 py-2 text-sm font-semibold text-bg hover:brightness-110">Sign in to enter</a>
+        <h2 className="text-base font-semibold">Make your call</h2>
+        <p className="mt-1 text-sm text-muted">Sign in to lock a forecast for this Round. Calls are timestamped, immutable and scored when the Round settles.</p>
+        <a href={`/login?next=/rounds/${battle.id}`} className="mt-4 inline-flex rounded-md bg-cyan px-4 py-2 text-sm font-semibold text-white hover:brightness-110">Sign in to enter</a>
       </div>
     );
   }
@@ -202,7 +202,7 @@ export function PredictionComposer({ battle, asset, signals, viewerProfile, sign
   return (
     <div className="card p-5" data-testid="composer">
       <div className="flex items-center justify-between">
-        <h2 className="text-base font-semibold">Build your signal</h2>
+        <h2 className="text-base font-semibold">Make your call</h2>
         <span className="font-mono text-[10px] uppercase tracking-wider text-muted">{asset.symbol} · 24H</span>
       </div>
       <div className="mt-5 space-y-6">
@@ -214,7 +214,7 @@ export function PredictionComposer({ battle, asset, signals, viewerProfile, sign
 
       {preview ? (
         <div className="mt-6">
-          <p className="mb-2 text-sm font-semibold">5. Preview your Signal Card</p>
+          <p className="mb-2 text-sm font-semibold">5. Preview your Call Card</p>
           <SignalCard data={preview} preview showLink={false} />
         </div>
       ) : null}
@@ -224,15 +224,15 @@ export function PredictionComposer({ battle, asset, signals, viewerProfile, sign
       ) : null}
 
       <div className="mt-6 flex flex-col gap-3 border-t border-border pt-5 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-xs text-muted">Locked predictions cannot be edited or deleted after submission.</p>
+        <p className="text-xs text-muted">Locked calls cannot be edited or deleted after submission.</p>
         <button
           type="button"
           disabled={!valid || pending}
           onClick={() => setConfirming(true)}
-          className="inline-flex items-center justify-center gap-2 rounded-md bg-cyan px-5 py-2.5 text-sm font-semibold text-bg shadow-glow-cyan transition enabled:hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none"
+          className="inline-flex items-center justify-center gap-2 rounded-md bg-cyan px-5 py-2.5 text-sm font-semibold text-white shadow-glow-cyan transition enabled:hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none"
           data-testid="lock-button"
         >
-          <Lock className="size-4" aria-hidden /> Lock prediction
+          <Lock className="size-4" aria-hidden /> Lock your call
         </button>
       </div>
 
@@ -242,7 +242,7 @@ export function PredictionComposer({ battle, asset, signals, viewerProfile, sign
             <div className="flex items-start justify-between gap-3">
               <div>
                 <h3 id="confirm-title" className="text-base font-semibold">Confirm and lock</h3>
-                <p className="mt-1 text-sm text-muted">Locked predictions cannot be edited or deleted after submission. Your Signal Card becomes public and timestamped immediately.</p>
+                <p className="mt-1 text-sm text-muted">Locked calls cannot be edited or deleted after submission. Your Call Card becomes public and timestamped immediately.</p>
               </div>
               <button type="button" onClick={() => setConfirming(false)} className="rounded-md p-1 text-muted hover:text-text" aria-label="Cancel"><X className="size-5" aria-hidden /></button>
             </div>
@@ -253,7 +253,7 @@ export function PredictionComposer({ battle, asset, signals, viewerProfile, sign
             </div>
             <div className="mt-5 flex justify-end gap-2">
               <button type="button" onClick={() => setConfirming(false)} disabled={pending} className="rounded-md border border-border px-4 py-2 text-sm hover:bg-surface-2">Go back</button>
-              <button type="button" data-primary onClick={submit} disabled={pending} className="inline-flex items-center gap-2 rounded-md bg-cyan px-4 py-2 text-sm font-semibold text-bg hover:brightness-110 disabled:opacity-60" data-testid="confirm-lock">
+              <button type="button" data-primary onClick={submit} disabled={pending} className="inline-flex items-center gap-2 rounded-md bg-cyan px-4 py-2 text-sm font-semibold text-white hover:brightness-110 disabled:opacity-60" data-testid="confirm-lock">
                 <Lock className="size-4" aria-hidden /> {pending ? "Locking…" : "Lock it"}
               </button>
             </div>

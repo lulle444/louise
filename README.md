@@ -1,27 +1,27 @@
-# SIGNAL ARENA
+# Callscore
 
-**Pick your signals. Challenge the AI. Prove your edge.**
-Humans vs AI. Who reads crypto markets best?
+**Make the call. Beat the machines. Keep the score.**
+Who reads crypto best: you, the crowd, or the machines?
 
-SIGNAL ARENA is a competitive crypto-intelligence platform where humans, three fictional AI analyst profiles, and the aggregated crowd face the same daily market forecasting challenges ("Market Battles"). Pick a direction, cite exactly three signals, set your confidence, lock your forecast, and build a transparent, timestamped track record using **virtual points only**.
+Callscore is a competitive crypto-intelligence platform where humans, three fictional AI analyst profiles, and the aggregated crowd face the same daily market forecasting challenges ("Rounds"). Pick a direction, cite exactly three signals, set your confidence, lock your forecast, and build a transparent, timestamped track record using **virtual points only**.
 
-> SIGNAL ARENA is an educational forecasting game using virtual points. It does not execute trades or provide financial advice. Crypto markets are volatile, and past forecasting performance does not predict future results.
+> CALLSCORE is an educational forecasting game using virtual points. It does not execute trades or provide financial advice. Crypto markets are volatile, and past forecasting performance does not predict future results.
 
 ---
 
 ## Features
 
-- **Daily Market Battles** on BTC, ETH and SOL with explicit lifecycle states (`draft → upcoming → open → locked → settling → settled | void | archived`).
-- **Prediction composer**: Bullish / Neutral / Bearish, exactly three unique signals, confidence 1–5, optional 240-character thesis, Signal Card preview, confirmation dialog, immutable lock.
-- **Crowd Signal** hidden until the viewer locks (or the Battle closes); AI positions revealed under the same rule. AI forecasts are never counted in the crowd.
-- **Three rule-based AI analysts** (ORACLE, VECTOR, ECHO) that lock forecasts before the deadline with a stored strategy version and input snapshot. They are deterministic simulations, not commercial AI models.
+- **Daily Rounds** on BTC, ETH and SOL with explicit lifecycle states (`draft → upcoming → open → locked → settling → settled | void | archived`).
+- **Call composer**: Bullish / Neutral / Bearish, exactly three unique signals, confidence 1–5, optional 240-character thesis, Call Card preview, confirmation dialog, immutable lock.
+- **Crowd call** hidden until the viewer locks (or the Round closes); AI positions revealed under the same rule. AI forecasts are never counted in the crowd.
+- **Three rule-based AI analysts** (ATLAS, PULSE, DRIFT) that lock forecasts before the deadline with a stored strategy version and input snapshot. They are deterministic simulations, not commercial AI models.
 - **Automatic, idempotent settlement** from an authoritative end-price snapshot with configurable neutral threshold, XP ledger, streaks, levels and badges.
-- **Humans vs AI** scoreboard, 7/30-day accuracy, per-Battle trend chart, biggest disagreement, best-performing signal.
-- **Leaderboard** with week/month/all-time and per-asset filters, transparent Arena rating, minimum-sample ranking rule.
-- **Public profiles** with Signal DNA (radar + text), performance by asset/signal, badges and historical Signal Cards.
-- **Shareable Signal Cards** (`/signal/[id]`) with copy-link, share-on-X and a dynamic Open Graph image.
-- **Admin console** (`/admin`, server-authorized): create/publish/lock/settle/void/archive Battles, inspect price snapshots and settlement errors, toggle AI profiles, manual audited price override, health view and audit log.
-- **Demo Mode** with deterministic seeded data (23 settled Battles, 1 live, 2 upcoming, 1 void, 15 analysts) that exercises the exact same services as production.
+- **Humans vs AI** scoreboard, 7/30-day accuracy, per-Round trend chart, biggest disagreement, best-performing signal.
+- **Leaderboard** with week/month/all-time and per-asset filters, transparent Callscore rating, minimum-sample ranking rule.
+- **Public profiles** with Call Profile (radar + text), performance by asset/signal, badges and historical Call Cards.
+- **Shareable Call Cards** (`/signal/[id]`) with copy-link, share-on-X and a dynamic Open Graph image.
+- **Admin console** (`/admin`, server-authorized): create/publish/lock/settle/void/archive Rounds, inspect price snapshots and settlement errors, toggle AI profiles, manual audited price override, health view and audit log.
+- **Demo Mode** with deterministic seeded data (23 settled Rounds, 1 live, 2 upcoming, 1 void, 15 analysts) that exercises the exact same services as production.
 - Loading, empty, error, void and "data unavailable" states; keyboard/screen-reader support; `prefers-reduced-motion` respected; mobile-first layout.
 
 Explicitly **not** included (by design): wallets, deposits, stakes, prizes, token sales, trading, leverage, portfolio linking, copy trading, on-chain writes.
@@ -55,9 +55,9 @@ Go to **/login** and choose one of:
 
 | Identity | What you get |
 |---|---|
-| **Continue as guest** | Fresh account. Enter the live Battle, lock a forecast, watch the crowd and AI positions reveal, view your public Signal Card. |
-| **Nova Reyes (analyst)** | Seeded history: settled results, XP/level, streaks, badges, Signal DNA, leaderboard placement. |
-| **Arena Admin** | Opens the protected `/admin` console. |
+| **Continue as guest** | Fresh account. Enter the live Round, lock a forecast, watch the crowd and AI positions reveal, view your public Call Card. |
+| **Nova Reyes (analyst)** | Seeded history: settled results, XP/level, streaks, badges, Call Profile, leaderboard placement. |
+| **Callscore Admin** | Opens the protected `/admin` console. |
 
 Guest/analyst forecasts locked in Demo Mode are kept in server memory and mirrored into an httpOnly cookie so the locked state survives serverless cold starts. Admin changes in Demo Mode live in server memory and reset on restart.
 
@@ -66,23 +66,23 @@ Guest/analyst forecasts locked in Demo Mode are kept in server memory and mirror
 ```
 src/
   app/                    routes (App Router)
-    arena/[battleId]      Battle detail: composer, lock flow, crowd, AI, settlement result
-    signal/[predictionId] public Signal Card + opengraph-image
-    admin                 protected Battle console
+    arena/[battleId]      Round detail: composer, lock flow, crowd, AI, settlement result
+    signal/[predictionId] public Call Card + opengraph-image
+    admin                 protected Round console
     api/cron/settle       scheduled settlement (CRON_SECRET)
     api/health            provider / mode status
   components/             UI: layout, arena, charts, profile, ui primitives
   lib/
     config.ts             env + demo-mode detection, thresholds, disclaimer
     domain/               pure logic: settlement, scoring, crowd, DNA, badges, AI strategies, validation
-    services/             lifecycle, predictions, settlement, AI generation, stats, cron
+    services/             lifecycle, calls, settlement, AI generation, stats, cron
     data/                 ArenaRepository interface; demo (seed + in-memory) and supabase implementations
     market/               MarketDataProvider: mock + CoinGecko
     auth/                 viewer resolution (Supabase session or demo cookie)
-    actions/              Server Actions (predictions, admin, auth, profile)
+    actions/              Server Actions (calls, admin, auth, profile)
   proxy.ts                Supabase session refresh (no-op in Demo Mode)
 supabase/
-  migrations/0001_init.sql  schema, triggers, RLS policies, lock_prediction RPC
+  migrations/               0001 schema + RLS, 0002 dashboard edits, 0003 Callscore identities
   seed.sql                  catalogue seed (assets, signals, AI profiles, badges, levels)
 e2e/                      Playwright smoke suite
 legacy/terratamers/       unrelated static game that previously lived in this repo (preserved, not built)
@@ -118,13 +118,13 @@ Copy `.env.example` to `.env.local`.
    (migration 0002 allows dashboard edits; on a fresh 0001-only database,
    wrap it in `alter table public.profiles disable trigger profiles_guard_update;` / `enable trigger`).
 3. Fill `.env.local` with the project URL, anon key and service-role key, set `NEXT_PUBLIC_DEMO_MODE=false`, and set `ADMIN_EMAILS` (or flip `profiles.is_admin` for your user).
-4. `npm run dev`, sign up at `/signup` (a `profiles` row is created by trigger), then create and publish the first Battle from `/admin`.
+4. `npm run dev`, sign up at `/signup` (a `profiles` row is created by trigger), then create and publish the first Round from `/admin`.
 
 ### Security model
 
-- RLS is enabled on every table. The public can read published Battles, profiles, badges and settled results. Other analysts' predictions and AI forecasts in an *open* Battle are readable only once the viewer has locked their own (`can_view_battle_positions`).
-- Users lock predictions through the `lock_prediction` RPC (validates the open window, exactly three unique active signals, confidence 1–5, thesis length, one per user per Battle) or the guarded insert policy. Triggers make locked forecasts immutable and enforce the three-signal count at commit.
-- Scoring writes (battles, ai_predictions, xp_ledger, user_badges, settlement_runs, price_snapshots, audit log) are only possible with the service role, which the app uses exclusively on the server.
+- RLS is enabled on every table. The public can read published Rounds, profiles, badges and settled results. Other analysts' calls and AI forecasts in an *open* Round are readable only once the viewer has locked their own (`can_view_battle_positions`).
+- Users lock calls through the `lock_prediction` RPC (validates the open window, exactly three unique active signals, confidence 1–5, thesis length, one per user per Round) or the guarded insert policy. Triggers make locked forecasts immutable and enforce the three-signal count at commit.
+- Scoring writes (rounds, ai_predictions, xp_ledger, user_badges, settlement_runs, price_snapshots, audit log) are only possible with the service role, which the app uses exclusively on the server.
 - `/admin` and every admin Server Action check the viewer server-side (`profiles.is_admin` or `ADMIN_EMAILS`); hidden UI is never the authorization boundary.
 
 ## Market data provider
@@ -133,16 +133,16 @@ Copy `.env.example` to `.env.local`.
 
 ## Settlement and cron
 
-- `GET|POST /api/cron/settle` (header `Authorization: Bearer <CRON_SECRET>`) runs `runScheduledMaintenance`: auto-schedules today's and tomorrow's Daily Battle (open 00:00 UTC, lock `DAILY_LOCK_HOUR_UTC` (default 20:00), settle 00:00 UTC, rotating BTC → ETH → SOL; disable with `AUTO_SCHEDULE_BATTLES=false`), captures start prices for Battles that have opened, locks AI forecasts before the deadline, and settles Battles past `ends_at`. `vercel.json` schedules it daily at 00:05 UTC; the home and arena pages also run it opportunistically (throttled to once per five minutes) so settlement never depends on cron alone.
+- `GET|POST /api/cron/settle` (header `Authorization: Bearer <CRON_SECRET>`) runs `runScheduledMaintenance`: auto-schedules today's and tomorrow's Daily Round (open 00:00 UTC, lock `DAILY_LOCK_HOUR_UTC` (default 20:00), settle 00:00 UTC, rotating BTC → ETH → SOL; disable with `AUTO_SCHEDULE_BATTLES=false`), captures start prices for Rounds that have opened, locks AI forecasts before the deadline, and settles Rounds past `ends_at`. `vercel.json` schedules it daily at 00:05 UTC; the home and arena pages also run it opportunistically (throttled to once per five minutes) so settlement never depends on cron alone.
 - Manual settlement, voiding and an audited manual end-price override are available in `/admin`.
-- Settlement is idempotent: the `settling` transition is a lock, `settlement_runs` records every attempt, and the XP ledger's unique `(user, battle, reason)` key prevents double awards.
+- Settlement is idempotent: the `settling` transition is a lock, `settlement_runs` records every attempt, and the XP ledger's unique `(user, round, reason)` key prevents double awards.
 
 ## Scoring summary
 
 - Outcome: `change = (end − start) / start × 100`; Bullish if `change > threshold`, Bearish if `change < −threshold`, otherwise Neutral (boundaries are Neutral).
-- Battle Score: 100 correct / 0 incorrect; void excluded from accuracy.
-- XP: +10 lock, +100 correct, +25 at a 3-streak, +50 at a 5-streak, +50 once for seven valid Battles.
-- Arena rating: `accuracy% × 0.6 + min(settled/30,1) × 25 + min(streak/10,1) × 15`; ranked at ≥ 5 valid settled Battles.
+- Round Score: 100 correct / 0 incorrect; void excluded from accuracy.
+- XP: +10 lock, +100 correct, +25 at a 3-streak, +50 at a 5-streak, +50 once for seven valid Rounds.
+- Callscore rating: `accuracy% × 0.6 + min(settled/30,1) × 25 + min(streak/10,1) × 15`; ranked at ≥ 5 valid settled Rounds.
 - Full detail on `/methodology`.
 
 ## Scripts

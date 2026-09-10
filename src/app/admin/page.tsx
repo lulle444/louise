@@ -24,7 +24,7 @@ export default async function AdminPage() {
   const viewer = await getViewer();
   // Server-side authorization: ordinary users and visitors never reach admin data.
   if (!viewer) redirect("/login?next=/admin");
-  if (!viewer.isAdmin) redirect("/arena?denied=admin");
+  if (!viewer.isAdmin) redirect("/rounds?denied=admin");
 
   const repo = await getRepository();
   const provider = getMarketDataProvider();
@@ -52,7 +52,7 @@ export default async function AdminPage() {
 
   return (
     <>
-      <PageHeader eyebrow="Admin" title="Battle console" description={<>Signed in as <span className="text-text">{viewer.displayName}</span>. Every action is validated server-side and written to the audit log.{isDemoMode() ? " Demo Mode: changes live in server memory and reset on restart." : ""}</>} />
+      <PageHeader eyebrow="Admin" title="Round console" description={<>Signed in as <span className="text-text">{viewer.displayName}</span>. Every action is validated server-side and written to the audit log.{isDemoMode() ? " Demo Mode: changes live in server memory and reset on restart." : ""}</>} />
       <div className="mx-auto max-w-7xl space-y-8 px-4 py-8 sm:px-6">
         <section className="grid gap-4 sm:grid-cols-3" aria-label="Health">
           <div className={`card p-4 ${providerStatus.ok ? "" : "border-bear/40"}`}>
@@ -80,7 +80,7 @@ export default async function AdminPage() {
           <div>
             <h2 id="maint-heading" className="text-base font-semibold">Scheduler and settlement</h2>
             <p className="mt-1 text-xs text-muted">
-              Auto-schedule is {isAutoScheduleEnabled() ? "on" : "off"}: Daily Battles open 00:00 UTC, lock {String(dailyLockHourUtc()).padStart(2, "0")}:00 UTC, settle 00:00 UTC (BTC → ETH → SOL). Runs from cron, on page views (throttled), or manually here.
+              Auto-schedule is {isAutoScheduleEnabled() ? "on" : "off"}: Daily Rounds open 00:00 UTC, lock {String(dailyLockHourUtc()).padStart(2, "0")}:00 UTC, settle 00:00 UTC (BTC → ETH → SOL). Runs from cron, on page views (throttled), or manually here.
             </p>
             <p className="num mt-1 text-xs text-muted">
               Last run: {maintenance.lastRunAt ? <><LocalTime iso={maintenance.lastRunAt} /> via {maintenance.lastSource}{maintenance.lastReport ? ` · ${maintenance.lastReport.scheduled.length} scheduled, ${maintenance.lastReport.settled.length} settled${maintenance.lastReport.errors.length ? `, ${maintenance.lastReport.errors.length} error(s): ${maintenance.lastReport.errors.join(" | ")}` : ""}` : ""}{maintenance.lastError ? ` · failed: ${maintenance.lastError}` : ""}</> : "not yet on this server instance"}
@@ -90,13 +90,13 @@ export default async function AdminPage() {
         </section>
 
         <section className="card p-5" aria-labelledby="create-heading">
-          <h2 id="create-heading" className="text-base font-semibold">Create a Battle</h2>
+          <h2 id="create-heading" className="text-base font-semibold">Create a Round</h2>
           <p className="mb-4 text-xs text-muted">Times are entered in UTC. Publishing captures the start-price snapshot at open time and locks AI forecasts.</p>
           <CreateBattleForm assets={assets} aiProfiles={aiProfiles} defaultOpensAt={new Date(Math.ceil(now.getTime() / 86_400_000) * 86_400_000).toISOString()} />
         </section>
 
-        <section aria-labelledby="battles-heading">
-          <h2 id="battles-heading" className="mb-3 text-base font-semibold">Battles <span className="num text-sm font-normal text-muted">({battles.length})</span></h2>
+        <section aria-labelledby="rounds-heading">
+          <h2 id="rounds-heading" className="mb-3 text-base font-semibold">Rounds <span className="num text-sm font-normal text-muted">({battles.length})</span></h2>
           <div className="space-y-3">
             {ordered.map((b) => {
               const asset = assetById.get(b.assetId);
@@ -129,7 +129,7 @@ export default async function AdminPage() {
                       <BattleActions battle={b} status={status} aiProfiles={aiProfiles} lockedAiIds={ai.map((p) => p.aiProfileId)} ended={now.getTime() >= Date.parse(b.endsAt)} />
                     </div>
                     <div className="mt-3 flex gap-3 text-xs">
-                      <Link href={`/arena/${b.id}`} className="text-cyan hover:underline">Public page →</Link>
+                      <Link href={`/rounds/${b.id}`} className="text-cyan hover:underline">Public page →</Link>
                       <span className="text-muted">Runs: {runs.filter((r) => r.battleId === b.id).map((r) => `${r.status} (${r.source})`).join(", ") || "none"}</span>
                     </div>
                   </div>

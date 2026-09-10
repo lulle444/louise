@@ -188,39 +188,39 @@ export class SupabaseRepository implements ArenaRepository {
   }
 
   async listBattles(opts?: { includeUnpublished?: boolean }) {
-    let q = this.admin.from("battles").select("*").order("ends_at", { ascending: false });
+    let q = this.admin.from("rounds").select("*").order("ends_at", { ascending: false });
     if (!opts?.includeUnpublished) q = q.not("status", "in", "(draft,archived)");
     return this.rows(q, mapBattle);
   }
 
   async getBattle(idOrSlug: string) {
-    const q = isUuid(idOrSlug) ? this.admin.from("battles").select("*").eq("id", idOrSlug) : this.admin.from("battles").select("*").eq("slug", idOrSlug);
+    const q = isUuid(idOrSlug) ? this.admin.from("rounds").select("*").eq("id", idOrSlug) : this.admin.from("rounds").select("*").eq("slug", idOrSlug);
     const rows = await this.rows(q.limit(1), mapBattle);
     return rows[0] ?? null;
   }
 
   async createBattle(input: NewBattle) {
-    const { data, error } = await this.admin.from("battles").insert(battleToRow(input)).select("*").single();
+    const { data, error } = await this.admin.from("rounds").insert(battleToRow(input)).select("*").single();
     if (error) throw new Error(error.message);
     return mapBattle(data as Row);
   }
 
   async updateBattle(id: string, patch: Partial<Omit<Battle, "id" | "createdAt">>) {
-    const { data, error } = await this.admin.from("battles").update(battleToRow(patch)).eq("id", id).select("*").single();
+    const { data, error } = await this.admin.from("rounds").update(battleToRow(patch)).eq("id", id).select("*").single();
     if (error) throw new Error(error.message);
-    if (!data) throw new NotFoundError("Battle");
+    if (!data) throw new NotFoundError("Round");
     return mapBattle(data as Row);
   }
 
   async transitionBattle(id: string, from: BattleStatus[], patch: Partial<Omit<Battle, "id" | "createdAt">>) {
-    const { data, error } = await this.admin.from("battles").update(battleToRow(patch)).eq("id", id).in("status", from).select("*");
+    const { data, error } = await this.admin.from("rounds").update(battleToRow(patch)).eq("id", id).in("status", from).select("*");
     if (error) throw new Error(error.message);
     const rows = (data as Row[]) ?? [];
     return rows.length ? mapBattle(rows[0]) : null;
   }
 
   async listPredictions(filter: PredictionFilter = {}) {
-    let q = this.admin.from("predictions").select(PREDICTION_SELECT);
+    let q = this.admin.from("calls").select(PREDICTION_SELECT);
     if (filter.battleId) q = q.eq("battle_id", filter.battleId);
     if (filter.battleIds) q = q.in("battle_id", filter.battleIds);
     if (filter.userId) q = q.eq("user_id", filter.userId);
@@ -229,7 +229,7 @@ export class SupabaseRepository implements ArenaRepository {
 
   async getPrediction(id: string) {
     if (!isUuid(id)) return null;
-    const rows = await this.rows(this.admin.from("predictions").select(PREDICTION_SELECT).eq("id", id).limit(1), mapPrediction);
+    const rows = await this.rows(this.admin.from("calls").select(PREDICTION_SELECT).eq("id", id).limit(1), mapPrediction);
     return rows[0] ?? null;
   }
 
@@ -248,12 +248,12 @@ export class SupabaseRepository implements ArenaRepository {
         throw new Error(error.message);
       }
       const created = await this.getPrediction(String(data));
-      if (!created) throw new Error("Prediction was not created");
+      if (!created) throw new Error("Call was not created");
       return created;
     }
     // Service-role path (used by seeds/tests): insert prediction and signals.
     const { data, error } = await this.admin
-      .from("predictions")
+      .from("calls")
       .insert({ battle_id: input.battleId, user_id: input.userId, direction: input.direction, confidence: input.confidence, thesis: input.thesis, reference_price: input.referencePrice, locked_at: input.lockedAt })
       .select("id")
       .single();
@@ -265,7 +265,7 @@ export class SupabaseRepository implements ArenaRepository {
     const { error: sigErr } = await this.admin.from("prediction_signals").insert(input.signalIds.map((signal_id) => ({ prediction_id: id, signal_id })));
     if (sigErr) throw new Error(sigErr.message);
     const created = await this.getPrediction(id);
-    if (!created) throw new Error("Prediction was not created");
+    if (!created) throw new Error("Call was not created");
     return created;
   }
 
@@ -273,7 +273,7 @@ export class SupabaseRepository implements ArenaRepository {
     for (const u of updates) {
       const patch: Row = { result: u.result, battle_score: u.battleScore };
       if (u.xpAwarded !== undefined) patch.xp_awarded = u.xpAwarded;
-      const { error } = await this.admin.from("predictions").update(patch).eq("id", u.id);
+      const { error } = await this.admin.from("calls").update(patch).eq("id", u.id);
       if (error) throw new Error(error.message);
     }
   }

@@ -13,7 +13,7 @@ const BASE: Record<AssetSymbol, number> = { BTC: 64250, ETH: 3180, SOL: 148.5 };
 const DAY = 86_400_000;
 
 export function simulatedPrice(symbol: AssetSymbol, timeMs: number): number {
-  const seed = hashString(`signal-arena:${symbol}`);
+  const seed = hashString(`callscore:${symbol}`);
   const d = timeMs / DAY; // days since epoch, fractional
   // Layered noise: slow trend (weeks), daily swings, intraday texture.
   const slow = smoothNoise(seed ^ 0x1111, d / 9) * 0.09;

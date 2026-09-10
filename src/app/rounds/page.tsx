@@ -9,7 +9,7 @@ import { PageHeader } from "@/components/ui/Section";
 import { EmptyState } from "@/components/ui/States";
 
 export const dynamic = "force-dynamic";
-export const metadata: Metadata = { title: "Arena", description: "Live, upcoming and settled Market Battles." };
+export const metadata: Metadata = { title: "Callscore", description: "Live, upcoming and settled Rounds." };
 
 const TABS = [
   { key: "live", label: "Live" },
@@ -18,7 +18,7 @@ const TABS = [
 ] as const;
 type Tab = (typeof TABS)[number]["key"];
 
-export default async function ArenaPage(props: PageProps<"/arena">) {
+export default async function ArenaPage(props: PageProps<"/rounds">) {
   await maybeRunMaintenance();
   const sp = await props.searchParams;
   const raw = typeof sp.tab === "string" ? sp.tab : "live";
@@ -33,13 +33,13 @@ export default async function ArenaPage(props: PageProps<"/arena">) {
   const list = groups[tab];
   return (
     <>
-      <PageHeader eyebrow="Arena" title="Market Battles" description="Daily forecasting challenges on BTC, ETH and SOL. Lock before the deadline; results settle automatically from the end-price snapshot." />
+      <PageHeader eyebrow="Callscore" title="Rounds" description="Daily forecasting challenges on BTC, ETH and SOL. Lock before the deadline; results settle automatically from the end-price snapshot." />
       <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
-        <div className="flex gap-1 rounded-lg border border-border bg-surface p-1" role="tablist" aria-label="Battle status">
+        <div className="flex gap-1 rounded-lg border border-border bg-surface p-1" role="tablist" aria-label="Round status">
           {TABS.map((t) => (
             <Link
               key={t.key}
-              href={`/arena?tab=${t.key}`}
+              href={`/rounds?tab=${t.key}`}
               role="tab"
               aria-selected={tab === t.key}
               className={`flex-1 rounded-md px-3 py-2 text-center text-sm transition ${tab === t.key ? "bg-surface-3 text-text" : "text-muted hover:text-text"}`}
@@ -51,9 +51,9 @@ export default async function ArenaPage(props: PageProps<"/arena">) {
         <div className="mt-6" role="tabpanel">
           {list.length === 0 ? (
             <EmptyState
-              title={tab === "live" ? "No live Battle right now" : tab === "upcoming" ? "No upcoming Battles scheduled" : "No settled Battles yet"}
-              description={tab === "live" ? "Check the upcoming tab for the next scheduled Battle." : tab === "upcoming" ? "New Daily Battles are published by the Arena team." : "Results will appear here after the first Battle settles."}
-              action={tab !== "live" && groups.live.length ? { href: "/arena?tab=live", label: "See live Battles" } : undefined}
+              title={tab === "live" ? "No live Round right now" : tab === "upcoming" ? "No upcoming Rounds scheduled" : "No settled Rounds yet"}
+              description={tab === "live" ? "Check the upcoming tab for the next scheduled Round." : tab === "upcoming" ? "New Daily Rounds are published by Callscore team." : "Results will appear here after the first Round settles."}
+              action={tab !== "live" && groups.live.length ? { href: "/rounds?tab=live", label: "See live Rounds" } : undefined}
             />
           ) : (
             <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">{list.map((s) => <BattleCard key={s.battle.id} summary={s} />)}</div>

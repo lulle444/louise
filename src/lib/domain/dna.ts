@@ -172,7 +172,7 @@ export function computeSignalDNA(input: DnaInput): SignalDNA {
     const vol = shares.get("volatility") ?? 0;
     if (contrarianRate !== null && contrarianRate >= 0.5) {
       style = "Contrarian";
-      styleReason = `Disagreed with the crowd majority in ${Math.round(contrarianRate * 100)}% of settled Battles.`;
+      styleReason = `Disagreed with the crowd majority in ${Math.round(contrarianRate * 100)}% of settled Rounds.`;
     } else {
       const ranked = [
         { style: "Trend Hunter" as MarketStyle, v: trend, label: "Market Trend" },
@@ -198,7 +198,7 @@ export function computeSignalDNA(input: DnaInput): SignalDNA {
     mostUsedSignal,
     bestSignal,
     bestAsset,
-    bestTimeframe: "24H Daily Battle",
+    bestTimeframe: "24H Daily Round",
     signalUsage,
     assetPerformance,
     directionAccuracy,

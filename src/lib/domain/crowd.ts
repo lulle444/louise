@@ -11,7 +11,7 @@ export interface CrowdSignal {
 /**
  * Aggregate locked human predictions by direction.
  * Callers must pass human predictions only — AI predictions are never part of
- * the Crowd Signal.
+ * the Crowd prediction.
  */
 export function aggregateCrowd(
   predictions: Array<{ direction: Direction }>,

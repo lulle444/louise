@@ -24,7 +24,7 @@ export function ProfileForm({ username, displayName, bio }: { username: string; 
       {state.message ? <p className="text-sm text-bull" role="status">{state.message}</p> : null}
       <div className="flex items-center justify-between">
         <Link href={`/profile/${username}`} className="text-sm text-muted hover:text-text">View public profile</Link>
-        <button type="submit" disabled={pending} className="rounded-md bg-cyan px-4 py-2 text-sm font-semibold text-bg hover:brightness-110 disabled:opacity-60">{pending ? "Saving…" : "Save changes"}</button>
+        <button type="submit" disabled={pending} className="rounded-md bg-cyan px-4 py-2 text-sm font-semibold text-white hover:brightness-110 disabled:opacity-60">{pending ? "Saving…" : "Save changes"}</button>
       </div>
     </form>
   );

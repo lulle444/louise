@@ -6,7 +6,7 @@ describe("AI strategies", () => {
   const prices = [100, 101, 102, 101.5, 103, 104, 105, 106.5, 107];
   const inputs = inputsFromSeries({ symbol: "BTC", battleId: "b-1", prices, neutralThresholdPercent: 0.5 });
 
-  it("produces the same forecast structure as a human prediction and is deterministic", () => {
+  it("produces the same forecast structure as a human call and is deterministic", () => {
     for (const profile of AI_PROFILES) {
       const a = runStrategy(profile, inputs, SIGNALS);
       const b = runStrategy(profile, inputs, SIGNALS);

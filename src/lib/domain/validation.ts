@@ -109,7 +109,7 @@ export function validatePredictionDeadline(input: {
   now: Date;
 }): { ok: true } | { ok: false; reason: string } {
   const t = input.now.getTime();
-  if (t < Date.parse(input.opensAt)) return { ok: false, reason: "This Battle has not opened yet." };
-  if (t >= Date.parse(input.locksAt)) return { ok: false, reason: "This Battle is locked. Predictions are no longer accepted." };
+  if (t < Date.parse(input.opensAt)) return { ok: false, reason: "This Round has not opened yet." };
+  if (t >= Date.parse(input.locksAt)) return { ok: false, reason: "This Round is locked. Calls are no longer accepted." };
   return { ok: true };
 }

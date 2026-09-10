@@ -1,8 +1,8 @@
 {
-  "name": "signal-arena",
+  "name": "callscore",
   "version": "0.1.0",
   "private": true,
-  "description": "SIGNAL ARENA — a competitive crypto-intelligence forecasting game where humans, AI profiles, and the crowd face the same market challenges using virtual points.",
+  "description": "CALLSCORE — a competitive crypto-intelligence forecasting game where humans, AI profiles, and the crowd face the same market challenges using virtual points.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

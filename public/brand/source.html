@@ -1,133 +1,75 @@
 <!doctype html>
 <html><head><meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
-  body { margin:0; background:#000; font-family: Inter, sans-serif; }
-  .mono { font-family: "JetBrains Mono", monospace; }
+  body { margin:0; background:#ccc; font-family: Manrope, sans-serif; }
+  .mono { font-family: "IBM Plex Mono", monospace; }
   .stage { display:flex; flex-direction:column; gap:40px; padding:40px; }
-
-  /* ---------- Avatar 400x400 ---------- */
-  .avatar { width:400px; height:400px; position:relative; overflow:hidden; background:
-      radial-gradient(260px 260px at 30% 20%, rgba(33,212,253,0.16), transparent 65%),
-      radial-gradient(240px 240px at 80% 90%, rgba(139,92,246,0.18), transparent 65%),
-      #06080D; }
-  .grid { position:absolute; inset:0; background-image:
-      linear-gradient(rgba(148,163,184,0.08) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(148,163,184,0.08) 1px, transparent 1px);
-      background-size:32px 32px; -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 72%); }
-  .avatar .mark { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%) scale(1.08); }
-
-  /* ---------- Wordmark logo 1200x400 (landscape) ---------- */
-  .wordmark { width:1200px; height:400px; position:relative; overflow:hidden; background:#06080D; display:flex; align-items:center; justify-content:center; gap:40px; }
-  .wordmark .text { color:#E8EEF8; font-size:96px; letter-spacing:0.22em; font-weight:700; }
-
-  /* ---------- Banner 1500x500 ---------- */
+  .avatar { width:400px; height:400px; position:relative; overflow:hidden; background:#0E8F7E; display:flex; align-items:center; justify-content:center; }
+  .wordmark { width:1200px; height:400px; position:relative; overflow:hidden; background:#ffffff; display:flex; align-items:center; justify-content:center; gap:34px; }
+  .wordmark .text { font-size:110px; font-weight:800; letter-spacing:-0.03em; color:#0F1A2B; }
+  .wordmark .text b { color:#0E8F7E; font-weight:800; }
   .banner { width:1500px; height:500px; position:relative; overflow:hidden; background:
-      radial-gradient(900px 500px at 8% -10%, rgba(33,212,253,0.14), transparent 60%),
-      radial-gradient(800px 500px at 95% 110%, rgba(139,92,246,0.18), transparent 60%),
-      #06080D; }
-  .banner .grid { -webkit-mask-image: radial-gradient(ellipse at 40% 50%, black 10%, transparent 80%); }
-  .banner .left { position:absolute; left:100px; top:0; height:500px; width:860px; display:flex; flex-direction:column; justify-content:center; gap:20px; }
-  .eyebrow { color:#21D4FD; font-size:15px; letter-spacing:0.26em; text-transform:uppercase; }
-  .brand { display:flex; align-items:center; gap:18px; }
-  .brand .text { color:#E8EEF8; font-size:34px; letter-spacing:0.24em; font-weight:700; }
-  .h1 { color:#E8EEF8; max-width:820px; font-size:54px; font-weight:600; letter-spacing:-0.02em; line-height:1.02; margin:0; }
-  .h1 .grad { background:linear-gradient(90deg,#21D4FD 0%, #E8EEF8 55%, #8B5CF6 100%); -webkit-background-clip:text; color:transparent; }
-  .sub { color:#94A3B8; font-size:22px; margin:0; }
-  .pill { display:inline-flex; align-items:center; gap:10px; border:1px solid rgba(33,212,253,.4); background:rgba(33,212,253,.08); color:#21D4FD; font-size:14px; letter-spacing:.2em; text-transform:uppercase; padding:8px 14px; border-radius:999px; width:max-content; }
-
-  /* signal card on the right */
-  .card { position:absolute; right:90px; top:88px; width:400px; height:324px; border-radius:18px; background:#0C111B; border:1px solid #1E293B;
-      box-shadow: 0 0 0 1px rgba(33,212,253,.25), 0 30px 60px -30px rgba(33,212,253,.5); padding:26px 28px; box-sizing:border-box; }
-  .card .top { position:absolute; left:0; right:0; top:0; height:2px; background:linear-gradient(90deg, transparent, #21D4FD, transparent); }
-  .card .lab { color:#21D4FD; font-size:11px; letter-spacing:.24em; text-transform:uppercase; }
-  .card .lock { position:absolute; right:26px; top:24px; color:#94A3B8; border:1px solid #1E293B; border-radius:999px; padding:5px 10px; font-size:10px; letter-spacing:.16em; text-transform:uppercase; }
-  .card .asset { color:#E8EEF8; font-size:24px; font-weight:600; margin-top:6px; }
-  .dir { display:inline-flex; align-items:center; gap:8px; margin-top:16px; border:1px solid rgba(52,211,153,.45); background:rgba(52,211,153,.10); color:#34D399; font-size:14px; letter-spacing:.14em; text-transform:uppercase; font-weight:700; padding:8px 14px; border-radius:999px; }
-  .conf { display:inline-flex; gap:4px; margin-left:14px; vertical-align:middle; }
-  .conf i { width:14px; height:6px; border-radius:2px; background:#1E293B; display:block; }
-  .conf i.on { background:#21D4FD; }
-  .sigs { display:flex; gap:8px; margin-top:16px; flex-wrap:wrap; }
-  .sig { border:1px solid #1E293B; background:#111827; color:#E8EEF8; font-size:12px; padding:6px 10px; border-radius:8px; }
-  .sig b { color:#21D4FD; font-weight:600; margin-right:6px; }
-  .score { display:grid; grid-template-columns:1fr auto 1fr; margin-top:18px; border-top:1px solid #1E293B; padding-top:16px; align-items:center; }
-  .score .h { color:#21D4FD; font-size:34px; font-weight:700; }
-  .score .a { color:#8B5CF6; font-size:34px; font-weight:700; text-align:right; }
-  .score .vs { color:#475569; font-size:11px; letter-spacing:.3em; padding:0 14px; }
-  .score small { display:block; color:#94A3B8; font-size:11px; letter-spacing:.16em; text-transform:uppercase; }
-  .foot { position:absolute; left:28px; right:28px; bottom:20px; display:flex; justify-content:space-between; color:#64748B; font-size:11px; letter-spacing:.14em; text-transform:uppercase; }
-
-  /* chart line behind the card */
-  .spark { position:absolute; right:0; bottom:0; width:720px; height:150px; opacity:.35; }
+      radial-gradient(900px 500px at 10% -10%, rgba(14,143,126,0.14), transparent 60%),
+      radial-gradient(800px 500px at 95% 110%, rgba(194,65,12,0.10), transparent 60%), #F4F6F9; }
+  .grid { position:absolute; inset:0; background-image:
+      linear-gradient(rgba(15,26,43,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(15,26,43,0.06) 1px, transparent 1px);
+      background-size:32px 32px; -webkit-mask-image: radial-gradient(ellipse at 40% 50%, black 10%, transparent 80%); }
+  .left { position:absolute; left:100px; top:0; height:500px; width:820px; display:flex; flex-direction:column; justify-content:center; gap:18px; }
+  .brand { display:flex; align-items:center; gap:14px; }
+  .brand .text { font-size:36px; font-weight:800; letter-spacing:-0.03em; color:#0F1A2B; }
+  .brand .text b { color:#0E8F7E; }
+  .eyebrow { color:#0E8F7E; font-size:14px; font-weight:600; letter-spacing:.24em; text-transform:uppercase; }
+  .h1 { color:#0F1A2B; font-size:58px; font-weight:800; letter-spacing:-0.03em; line-height:1.02; margin:0; }
+  .h1 .a { color:#0E8F7E; } .h1 .b { color:#C2410C; }
+  .sub { color:#5B6B7F; font-size:22px; margin:0; font-weight:500; }
+  .pill { display:inline-flex; gap:10px; border:1px solid rgba(14,143,126,.35); background:#fff; color:#0E8F7E; font-size:13px; font-weight:600; letter-spacing:.18em; text-transform:uppercase; padding:8px 14px; border-radius:999px; width:max-content; }
+  .card { position:absolute; right:90px; top:80px; width:420px; height:340px; border-radius:18px; background:#fff; border:1px solid #D8DFE8; border-left:6px solid #15803D; box-shadow:0 20px 40px -24px rgba(15,26,43,.35); padding:24px 28px; box-sizing:border-box; }
+  .lab { color:#15803D; font-size:11px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; display:flex; align-items:center; gap:10px; }
+  .tally { display:inline-flex; gap:3px; align-items:flex-end; } .tally i { display:block; width:3px; height:13px; border-radius:2px; background:currentColor; } .tally i:last-child { transform:rotate(-60deg) translateY(-2px); height:17px; }
+  .asset { color:#0F1A2B; font-size:26px; font-weight:800; margin-top:8px; }
+  .dir { display:inline-flex; align-items:center; gap:8px; margin-top:14px; border:1px solid rgba(21,128,61,.4); background:rgba(21,128,61,.08); color:#15803D; font-size:14px; letter-spacing:.14em; text-transform:uppercase; font-weight:700; padding:8px 14px; border-radius:999px; }
+  .res { display:inline-flex; margin-left:10px; border:1px solid rgba(21,128,61,.5); color:#15803D; font-size:12px; letter-spacing:.14em; text-transform:uppercase; font-weight:700; padding:6px 12px; border-radius:999px; vertical-align:middle; }
+  .sigs { display:flex; gap:8px; margin-top:14px; flex-wrap:wrap; } .sig { border:1px solid #D8DFE8; background:#EEF2F6; color:#0F1A2B; font-size:12px; font-weight:600; padding:6px 10px; border-radius:8px; }
+  .score { display:grid; grid-template-columns:1fr auto 1fr; margin-top:20px; border-top:1px solid #D8DFE8; padding-top:14px; align-items:center; }
+  .score .h { color:#0E8F7E; font-size:34px; font-weight:800; } .score .a { color:#C2410C; font-size:34px; font-weight:800; text-align:right; }
+  .score .vs { color:#8A98A9; font-size:11px; letter-spacing:.3em; padding:0 14px; } .score small { display:block; color:#5B6B7F; font-size:11px; letter-spacing:.16em; text-transform:uppercase; }
+  .foot { position:absolute; left:28px; right:28px; bottom:18px; display:flex; justify-content:space-between; color:#8A98A9; font-size:11px; letter-spacing:.14em; text-transform:uppercase; }
 </style></head>
 <body><div class="stage">
 
 <div id="avatar" class="avatar">
-  <div class="grid"></div>
-  <svg class="mark" width="236" height="236" viewBox="0 0 236 236" fill="none">
-    <defs>
-      <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#21D4FD"/><stop offset="1" stop-color="#8B5CF6"/></linearGradient>
-      <filter id="glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-    </defs>
-    <rect x="8" y="8" width="220" height="220" rx="48" fill="rgba(33,212,253,0.08)" stroke="url(#g1)" stroke-width="5"/>
-    <g filter="url(#glow)" stroke="#21D4FD" stroke-width="8" stroke-linecap="round" fill="none">
-      <path d="M62 152 A 64 64 0 1 1 174 152"/>
-      <path d="M90 140 A 36 36 0 1 1 146 140" stroke-opacity=".7"/>
-      <line x1="118" y1="118" x2="164" y2="72"/>
-    </g>
-    <circle cx="118" cy="118" r="11" fill="#21D4FD" filter="url(#glow)"/>
-  </svg>
+  <svg width="300" height="300" viewBox="0 0 64 64"><g stroke="#FFFFFF" stroke-width="5.5" stroke-linecap="round"><line x1="19" y1="20" x2="19" y2="44"/><line x1="28" y1="20" x2="28" y2="44"/><line x1="37" y1="20" x2="37" y2="44"/><line x1="46" y1="20" x2="46" y2="44"/><line x1="12" y1="46" x2="53" y2="18" stroke="#FDE68A" stroke-width="6"/></g></svg>
 </div>
 
 <div id="wordmark" class="wordmark">
-  <svg width="140" height="140" viewBox="0 0 236 236" fill="none">
-    <defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#21D4FD"/><stop offset="1" stop-color="#8B5CF6"/></linearGradient></defs>
-    <rect x="8" y="8" width="220" height="220" rx="48" fill="rgba(33,212,253,0.08)" stroke="url(#g2)" stroke-width="6"/>
-    <g stroke="#21D4FD" stroke-width="9" stroke-linecap="round" fill="none">
-      <path d="M62 152 A 64 64 0 1 1 174 152"/><path d="M90 140 A 36 36 0 1 1 146 140" stroke-opacity=".7"/><line x1="118" y1="118" x2="164" y2="72"/>
-    </g><circle cx="118" cy="118" r="12" fill="#21D4FD"/>
-  </svg>
-  <div class="text mono">SIGNAL ARENA</div>
+  <svg width="150" height="150" viewBox="0 0 64 64"><rect x="2" y="2" width="60" height="60" rx="16" fill="#0E8F7E"/><g stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"><line x1="19" y1="20" x2="19" y2="44"/><line x1="28" y1="20" x2="28" y2="44"/><line x1="37" y1="20" x2="37" y2="44"/><line x1="46" y1="20" x2="46" y2="44"/><line x1="12" y1="46" x2="53" y2="18" stroke="#FDE68A" stroke-width="5.5"/></g></svg>
+  <div class="text">call<b>score</b></div>
 </div>
 
 <div id="banner" class="banner">
   <div class="grid"></div>
-  <svg class="spark" viewBox="0 0 700 210" preserveAspectRatio="none">
-    <defs><linearGradient id="fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#34D399" stop-opacity=".35"/><stop offset="1" stop-color="#34D399" stop-opacity="0"/></linearGradient></defs>
-    <path d="M0 170 C60 160 90 175 140 150 S230 120 280 125 S360 90 420 80 S520 60 580 40 S660 30 700 20 L700 210 L0 210 Z" fill="url(#fill)"/>
-    <path d="M0 170 C60 160 90 175 140 150 S230 120 280 125 S360 90 420 80 S520 60 580 40 S660 30 700 20" stroke="#34D399" stroke-width="3" fill="none"/>
-    <line x1="0" y1="118" x2="700" y2="118" stroke="#94A3B8" stroke-dasharray="6 6" stroke-opacity=".6"/>
-  </svg>
-
   <div class="left">
     <div class="brand">
-      <svg width="52" height="52" viewBox="0 0 236 236" fill="none">
-        <defs><linearGradient id="g3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#21D4FD"/><stop offset="1" stop-color="#8B5CF6"/></linearGradient></defs>
-        <rect x="8" y="8" width="220" height="220" rx="48" fill="rgba(33,212,253,0.08)" stroke="url(#g3)" stroke-width="8"/>
-        <g stroke="#21D4FD" stroke-width="12" stroke-linecap="round" fill="none"><path d="M62 152 A 64 64 0 1 1 174 152"/><line x1="118" y1="118" x2="164" y2="72"/></g><circle cx="118" cy="118" r="14" fill="#21D4FD"/>
-      </svg>
-      <div class="text mono">SIGNAL ARENA</div>
+      <svg width="52" height="52" viewBox="0 0 64 64"><rect x="2" y="2" width="60" height="60" rx="16" fill="#0E8F7E"/><g stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"><line x1="19" y1="20" x2="19" y2="44"/><line x1="28" y1="20" x2="28" y2="44"/><line x1="37" y1="20" x2="37" y2="44"/><line x1="46" y1="20" x2="46" y2="44"/><line x1="12" y1="46" x2="53" y2="18" stroke="#FDE68A" stroke-width="5.5"/></g></svg>
+      <div class="text">call<b>score</b></div>
     </div>
-    <div class="eyebrow mono">The Market Intelligence Arena</div>
-    <h1 class="h1">Humans vs AI.<br><span class="grad">Who reads crypto<br>markets best?</span></h1>
-    <p class="sub">Pick your signals. Challenge the AI. Prove your edge.</p>
-    <div class="pill mono">Daily Battles · BTC · ETH · SOL · Virtual XP only</div>
+    <div class="eyebrow mono">The scoreboard for crypto calls</div>
+    <h1 class="h1">Make the call.<br><span class="a">Keep</span> <span class="b">the score.</span></h1>
+    <p class="sub">One crypto call a day. You vs the crowd vs three AI analysts.</p>
+    <div class="pill mono">Daily rounds · BTC · ETH · SOL · Virtual points only</div>
   </div>
-
   <div class="card">
-    <div class="top"></div>
-    <div class="lab mono">Signal Arena</div>
-    <div class="lock mono">Locked</div>
-    <div class="asset mono">BTC · 24H</div>
-    <div><span class="dir">▲ Bullish</span><span class="conf"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div>
-    <div class="sigs"><span class="sig"><b>↗</b>Momentum</span><span class="sig"><b>▥</b>Volume</span><span class="sig"><b>◌</b>Social Sentiment</span></div>
+    <div class="lab mono"><span class="tally"><i></i><i></i><i></i><i></i><i></i></span> Verified call</div>
+    <div class="asset mono">BTC · 24H · +1.05%</div>
+    <div><span class="dir">▲ Bullish</span><span class="res mono">Correct</span></div>
+    <div class="sigs"><span class="sig">Momentum</span><span class="sig">Volume</span><span class="sig">Market Trend</span></div>
     <div class="score">
-      <div><small>Humans</small><span class="h mono">58%</span></div>
+      <div><small class="mono">Humans</small><span class="h mono">58%</span></div>
       <div class="vs mono">VS</div>
-      <div><small style="text-align:right">AI analysts</small><span class="a mono">51%</span></div>
+      <div><small class="mono" style="text-align:right">AI analysts</small><span class="a mono">51%</span></div>
     </div>
-    <div class="foot mono"><span>Timestamped · Locked</span><span>14:00 UTC</span></div>
+    <div class="foot mono"><span>Locked · timestamped</span><span>Beat ATLAS · PULSE</span></div>
   </div>
 </div>
-
 </div></body></html>

@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { aggregateCrowd, canRevealCrowd } from "../crowd";
 
 describe("aggregateCrowd", () => {
-  it("computes percentages from human predictions only", () => {
+  it("computes percentages from human calls only", () => {
     const humans = [
       { direction: "bullish" as const },
       { direction: "bullish" as const },
@@ -26,7 +26,7 @@ describe("aggregateCrowd", () => {
 });
 
 describe("canRevealCrowd", () => {
-  it("hides the crowd until the viewer locks or the Battle closes", () => {
+  it("hides the crowd until the viewer locks or the Round closes", () => {
     expect(canRevealCrowd({ viewerHasLocked: false, battleAcceptingPredictions: true })).toBe(false);
     expect(canRevealCrowd({ viewerHasLocked: true, battleAcceptingPredictions: true })).toBe(true);
     expect(canRevealCrowd({ viewerHasLocked: false, battleAcceptingPredictions: false })).toBe(true);

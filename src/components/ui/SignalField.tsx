@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 
 /**
  * Subtle animated background: a handful of slow-drifting price traces and
- * soft pulses in the Arena palette. Purely decorative (aria-hidden).
+ * soft pulses on Callscore palette. Purely decorative (aria-hidden).
  * - Renders a single static frame when the user prefers reduced motion.
  * - Pauses while the tab is hidden.
  */
@@ -18,7 +18,7 @@ export function SignalField({ className = "", opacity = 1 }: { className?: strin
     if (!ctx) return;
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const colors = ["#21D4FD", "#8B5CF6", "#34D399", "#FB7185"];
+    const colors = ["#0E8F7E", "#C2410C", "#15803D", "#BE185D"];
     const traces = Array.from({ length: 5 }, (_, i) => ({
       color: colors[i % colors.length],
       seed: Math.random() * 1000,
@@ -78,12 +78,12 @@ export function SignalField({ className = "", opacity = 1 }: { className?: strin
         const a = (1 - k) * 0.35;
         ctx.beginPath();
         ctx.arc(p.x * width, p.y * height, r, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(33, 212, 253, ${a.toFixed(3)})`;
+        ctx.strokeStyle = `rgba(14, 143, 126, ${a.toFixed(3)})`;
         ctx.lineWidth = 1;
         ctx.stroke();
         ctx.beginPath();
         ctx.arc(p.x * width, p.y * height, 1.6, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(33, 212, 253, ${(0.5 * (1 - k)).toFixed(3)})`;
+        ctx.fillStyle = `rgba(14, 143, 126, ${(0.5 * (1 - k)).toFixed(3)})`;
         ctx.fill();
       }
     };

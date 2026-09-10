@@ -17,7 +17,7 @@ import type {
 
 export class DuplicatePredictionError extends Error {
   constructor() {
-    super("You have already locked a prediction for this Battle.");
+    super("You have already locked a call for this Round.");
     this.name = "DuplicatePredictionError";
   }
 }

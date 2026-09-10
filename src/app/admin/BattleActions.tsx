@@ -8,7 +8,7 @@ const initial: AdminActionState = { ok: true, message: "" };
 
 function ActionButton({ battleId, action, label, tone = "default", reason }: { battleId: string; action: string; label: string; tone?: "default" | "primary" | "danger"; reason?: string }) {
   const [state, run, pending] = useActionState<AdminActionState, FormData>(transitionBattleAction, initial);
-  const cls = tone === "primary" ? "bg-cyan text-bg" : tone === "danger" ? "border border-bear/50 text-bear hover:bg-bear/10" : "border border-border hover:bg-surface-2";
+  const cls = tone === "primary" ? "bg-cyan text-white" : tone === "danger" ? "border border-bear/50 text-bear hover:bg-bear/10" : "border border-border hover:bg-surface-2";
   return (
     <form action={run} className="inline-flex flex-col gap-1">
       <input type="hidden" name="battleId" value={battleId} />
@@ -27,7 +27,7 @@ function AIToggle({ battleId, profile, enabled, locked }: { battleId: string; pr
       <input type="hidden" name="battleId" value={battleId} />
       <input type="hidden" name="aiProfileId" value={profile.id} />
       <input type="hidden" name="enabled" value={enabled ? "false" : "true"} />
-      <button type="submit" disabled={pending} className={`rounded-md border px-2 py-1 font-mono text-[11px] ${enabled ? "border-transparent" : "border-border text-muted"}`} style={enabled ? { background: `${profile.accentColor}22`, color: profile.accentColor } : undefined} aria-pressed={enabled} title={locked ? "Forecast already locked" : enabled ? "Disable for this Battle" : "Enable for this Battle"}>
+      <button type="submit" disabled={pending} className={`rounded-md border px-2 py-1 font-mono text-[11px] ${enabled ? "border-transparent" : "border-border text-muted"}`} style={enabled ? { background: `${profile.accentColor}22`, color: profile.accentColor } : undefined} aria-pressed={enabled} title={locked ? "Forecast already locked" : enabled ? "Disable for this Round" : "Enable for this Round"}>
         {profile.name}{locked ? " ✓" : ""}
       </button>
       {state.message && !state.ok ? <span className="text-[11px] text-bear" role="status">{state.message}</span> : null}
@@ -68,7 +68,7 @@ export function BattleActions({ battle, status, aiProfiles, lockedAiIds, ended }
       </div>
       {!terminal ? (
         <div className="mt-3">
-          <p className="text-[11px] uppercase tracking-wider text-muted">AI profiles for this Battle</p>
+          <p className="text-[11px] uppercase tracking-wider text-muted">AI profiles for this Round</p>
           <div className="mt-1 flex flex-wrap gap-2">
             {aiProfiles.map((p) => <AIToggle key={p.id} battleId={battle.id} profile={p} enabled={battle.aiProfileIds.includes(p.id)} locked={lockedAiIds.includes(p.id)} />)}
           </div>

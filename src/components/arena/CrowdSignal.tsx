@@ -9,7 +9,7 @@ export function CrowdSignal({ crowd, revealed, reason, viewerDirection, justReve
   return (
     <section className="card p-5" aria-labelledby="crowd-heading">
       <div className="flex items-center justify-between gap-2">
-        <h3 id="crowd-heading" className="inline-flex items-center gap-2 text-sm font-semibold"><Users className="size-4 text-cyan" aria-hidden /> Crowd Signal</h3>
+        <h3 id="crowd-heading" className="inline-flex items-center gap-2 text-sm font-semibold"><Users className="size-4 text-cyan" aria-hidden /> Crowd call</h3>
         <span className="num text-xs text-muted">{revealed && crowd ? `${crowd.total} locked` : teaserTotal !== undefined ? `${teaserTotal} locked` : ""}</span>
       </div>
       {!revealed || !crowd ? (
@@ -23,7 +23,7 @@ export function CrowdSignal({ crowd, revealed, reason, viewerDirection, justReve
               </div>
             ))}
           </div>
-          <p className="mt-3 inline-flex items-start gap-2 text-xs text-muted"><EyeOff className="mt-0.5 size-3.5 shrink-0" aria-hidden /> {reason ?? "Crowd percentages are hidden until you lock your own prediction, so the crowd never shapes your thesis."}</p>
+          <p className="mt-3 inline-flex items-start gap-2 text-xs text-muted"><EyeOff className="mt-0.5 size-3.5 shrink-0" aria-hidden /> {reason ?? "Crowd percentages are hidden until you lock your own call, so the crowd never shapes your thesis."}</p>
         </div>
       ) : (
         <div className={`mt-4 space-y-3 ${justRevealed ? "rise" : ""}`}>
@@ -45,8 +45,8 @@ export function CrowdSignal({ crowd, revealed, reason, viewerDirection, justReve
               </div>
             );
           })}
-          {crowd.total === 0 ? <p className="text-xs text-muted">No human predictions locked yet.</p> : null}
-          <p className="text-[11px] text-muted">Human predictions only. AI analyst positions are never counted in the Crowd Signal.</p>
+          {crowd.total === 0 ? <p className="text-xs text-muted">No human calls locked yet.</p> : null}
+          <p className="text-[11px] text-muted">Human calls only. AI analyst positions are never counted in the Crowd prediction.</p>
         </div>
       )}
     </section>

@@ -20,7 +20,7 @@ import { DemoModeBadge } from "@/components/ui/DemoModeBadge";
 import { XIcon } from "@/components/ui/XIcon";
 
 export const dynamic = "force-dynamic";
-export const metadata: Metadata = { title: "Season recap", description: "This week in the Arena: Humans vs AI score, top analysts, contrarian wins and the Signal Cards that beat the machines." };
+export const metadata: Metadata = { title: "Weekly recap", description: "This week on Callscore: Humans vs AI score, top analysts, contrarian wins and the Call Cards that beat the machines." };
 
 export default async function SeasonPage() {
   const [repo, viewer] = await Promise.all([getRepository(), getViewer()]);
@@ -30,40 +30,40 @@ export default async function SeasonPage() {
   const recap = buildSeasonRecap(ctx, now);
   const demo = isDemoMode();
   const foundingOpen = now.getTime() < Date.parse(season.foundingWindowEndsAt);
-  const shareText = `Week in the Arena: Humans ${formatAccuracy(recap.humanAccuracy)} vs AI ${formatAccuracy(recap.aiAccuracy)} · ${recap.battlesSettled} Battles settled · ${recap.forecastsLocked} forecasts locked. Can you beat ORACLE? @${getXHandle()}`;
+  const shareText = `Week on Callscore: Humans ${formatAccuracy(recap.humanAccuracy)} vs AI ${formatAccuracy(recap.aiAccuracy)} · ${recap.battlesSettled} Rounds settled · ${recap.forecastsLocked} forecasts locked. Can you beat ATLAS? @${getXHandle()}`;
   const s = recap.summary;
 
   return (
     <>
-      <PageHeader eyebrow={`${season.name} · Week in review`} title="This week in the Arena" description={<>Seven days of settled Battles, scored under the same rules for everyone. Updated live. {demo ? <><DemoModeBadge className="ml-1 align-middle" /> <span className="block mt-2">This is the preview season on a simulated market. Season 1 launches with live prices; Founding Analyst badges earned now carry over.</span></> : null}</>}>
+      <PageHeader eyebrow={`${season.name} · Week in review`} title="This week on Callscore" description={<>Seven days of settled Rounds, scored under the same rules for everyone. Updated live. {demo ? <><DemoModeBadge className="ml-1 align-middle" /> <span className="block mt-2">This is the preview season on a simulated market. Season 1 launches with live prices; Founding Caller badges earned now carry over.</span></> : null}</>}>
         <div className="flex flex-col items-end gap-2">
-          <ShareActions url={`${getAppUrl()}/season`} text={shareText} />
+          <ShareActions url={`${getAppUrl()}/weekly`} text={shareText} />
           <a href={getXUrl()} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-muted hover:text-text"><XIcon className="size-3.5" /> Weekly scoreboard posts on @{getXHandle()}</a>
         </div>
       </PageHeader>
 
       <div className="mx-auto max-w-7xl space-y-10 px-4 py-8 sm:px-6">
         {/* Founding window */}
-        <section className={`card flex flex-wrap items-center justify-between gap-4 p-5 ${foundingOpen ? "border-cyan/40" : ""}`} aria-label="Founding Analyst">
+        <section className={`card flex flex-wrap items-center justify-between gap-4 p-5 ${foundingOpen ? "border-cyan/40" : ""}`} aria-label="Founding Caller">
           <div className="flex items-start gap-3">
             <span className="grid size-10 place-items-center rounded-lg border border-cyan/40 bg-cyan/10 text-cyan"><Award className="size-5" aria-hidden /></span>
             <div>
-              <p className="font-semibold">Founding Analyst badge {foundingOpen ? <span className="ml-2 rounded-full border border-cyan/40 bg-cyan/10 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-cyan">open</span> : <span className="ml-2 rounded-full border border-border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-muted">closed</span>}</p>
+              <p className="font-semibold">Founding Caller badge {foundingOpen ? <span className="ml-2 rounded-full border border-cyan/40 bg-cyan/10 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-cyan">open</span> : <span className="ml-2 rounded-full border border-border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-muted">closed</span>}</p>
               <p className="mt-1 text-sm text-muted">
                 {foundingOpen ? <>Lock any forecast before <LocalTime iso={season.foundingWindowEndsAt} /> and it is yours permanently. It is never awarded again.</> : <>The founding window closed <LocalTime iso={season.foundingWindowEndsAt} />. {recap.foundingCount} analysts hold the badge.</>}
               </p>
             </div>
           </div>
-          {foundingOpen ? <Link href="/arena" className="rounded-md bg-cyan px-4 py-2 text-sm font-semibold text-bg hover:brightness-110">Enter today’s Battle</Link> : null}
+          {foundingOpen ? <Link href="/rounds" className="rounded-md bg-cyan px-4 py-2 text-sm font-semibold text-white hover:brightness-110">Make today’s call</Link> : null}
         </section>
 
         {/* Week numbers */}
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-5">
-          <StatCard label="Humans · this week" value={formatAccuracy(recap.humanAccuracy)} accent="text-cyan" hint={`${recap.weekWins.humans} Battles won`} />
-          <StatCard label="AI · this week" value={formatAccuracy(recap.aiAccuracy)} accent="text-violet" hint={`${recap.weekWins.ai} Battles won · ${recap.weekWins.ties} ties`} />
-          <StatCard label="Battles settled" value={recap.battlesSettled} hint={<>since <LocalTime iso={recap.weekStart} /></>} />
+          <StatCard label="Humans · this week" value={formatAccuracy(recap.humanAccuracy)} accent="text-cyan" hint={`${recap.weekWins.humans} Rounds won`} />
+          <StatCard label="AI · this week" value={formatAccuracy(recap.aiAccuracy)} accent="text-violet" hint={`${recap.weekWins.ai} Rounds won · ${recap.weekWins.ties} ties`} />
+          <StatCard label="Rounds settled" value={recap.battlesSettled} hint={<>since <LocalTime iso={recap.weekStart} /></>} />
           <StatCard label="Forecasts locked" value={recap.forecastsLocked} hint={`${recap.activeAnalysts} active analysts`} />
-          <StatCard label="Season score" value={`${formatAccuracy(s.humanAccuracy.accuracy)} · ${formatAccuracy(s.aiAccuracy.accuracy)}`} hint="Humans · AI, all settled Battles" />
+          <StatCard label="Season score" value={`${formatAccuracy(s.humanAccuracy.accuracy)} · ${formatAccuracy(s.aiAccuracy.accuracy)}`} hint="Humans · AI, all settled Rounds" />
         </div>
 
         <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr]">
@@ -80,7 +80,7 @@ export default async function SeasonPage() {
                   return (
                     <div key={f.prediction.id}>
                       <p className="mb-2 font-mono text-[10px] uppercase tracking-wider text-muted">{f.beatAllAI ? "Beat every AI" : `Against ${100 - f.crowdShare}% of the crowd`}</p>
-                      <Link href={`/signal/${f.prediction.id}`} className="block rounded-[14px]"><SignalCard data={data} showLink={false} className="card-hover h-full" /></Link>
+                      <Link href={`/call/${f.prediction.id}`} className="block rounded-[14px]"><SignalCard data={data} showLink={false} className="card-hover h-full" /></Link>
                     </div>
                   );
                 })}
@@ -125,10 +125,10 @@ export default async function SeasonPage() {
               <h2 id="crowd-heading" className="text-base font-semibold">When the crowd was most wrong</h2>
               {recap.crowdWrongest ? (
                 <div className="mt-2 text-sm text-muted">
-                  <Link href={`/arena/${recap.crowdWrongest.battle.id}`} className="font-semibold text-text hover:underline">{recap.crowdWrongest.battle.title}</Link>
+                  <Link href={`/rounds/${recap.crowdWrongest.battle.id}`} className="font-semibold text-text hover:underline">{recap.crowdWrongest.battle.title}</Link>
                   <p className="mt-2">{recap.crowdWrongest.share}% of the crowd said <DirectionPill direction={recap.crowdWrongest.crowd} size="sm" />. The market closed <DirectionPill direction={recap.crowdWrongest.outcome} size="sm" />{recap.crowdWrongest.battle.startPrice && recap.crowdWrongest.battle.endPrice ? <span className="num"> ({formatPercent(((recap.crowdWrongest.battle.endPrice - recap.crowdWrongest.battle.startPrice) / recap.crowdWrongest.battle.startPrice) * 100)})</span> : null}.</p>
                 </div>
-              ) : <p className="mt-2 text-sm text-muted">The crowd majority was right in every settled Battle this week.</p>}
+              ) : <p className="mt-2 text-sm text-muted">The crowd majority was right in every settled Round this week.</p>}
             </section>
           </div>
         </div>
@@ -145,9 +145,9 @@ export default async function SeasonPage() {
         <section className="card flex flex-wrap items-center justify-between gap-4 p-5">
           <div>
             <p className="inline-flex items-center gap-2 font-semibold"><Share2 className="size-4 text-cyan" aria-hidden /> Post your receipts</p>
-            <p className="mt-1 text-sm text-muted">Lock it or it didn’t happen. Share a locked Signal Card before settlement and tag @{getXHandle()}.</p>
+            <p className="mt-1 text-sm text-muted">Lock it or it didn’t happen. Share a locked Call Card before settlement and tag @{getXHandle()}.</p>
           </div>
-          <Link href="/arena" className="rounded-md bg-cyan px-4 py-2 text-sm font-semibold text-bg hover:brightness-110">Enter today’s Battle</Link>
+          <Link href="/rounds" className="rounded-md bg-cyan px-4 py-2 text-sm font-semibold text-white hover:brightness-110">Make today’s call</Link>
         </section>
         <p className="text-xs text-muted">Educational forecasting game using virtual points. Track records are forecasting-game history, not investment performance.</p>
       </div>

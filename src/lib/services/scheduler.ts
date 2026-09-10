@@ -57,7 +57,7 @@ export async function ensureDailyBattles(
     const dayStart = today + d * DAY;
     if (existingOpens.has(dayStart)) continue;
     const window = dailyWindow(dayStart);
-    // Skip today's Battle if it would already be locked when created.
+    // Skip today's Round if it would already be locked when created.
     if (now.getTime() >= Date.parse(window.locksAt)) continue;
     const asset = assetForDay(dayStart, assets);
     if (!asset) continue;
@@ -70,7 +70,7 @@ export async function ensureDailyBattles(
       publish: true,
       now,
     });
-    await repo.appendAudit({ actorId: null, action: "battle.auto_schedule", targetType: "battle", targetId: battle.id, details: { asset: asset.symbol, opensAt: window.opensAt } });
+    await repo.appendAudit({ actorId: null, action: "battle.auto_schedule", targetType: "round", targetId: battle.id, details: { asset: asset.symbol, opensAt: window.opensAt } });
     created.push(battle);
   }
   return created;

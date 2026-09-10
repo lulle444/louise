@@ -26,20 +26,20 @@ export async function createSupabaseServerClient(): Promise<SupabaseClient> {
   });
 }
 
-const g = globalThis as unknown as { __signalArenaAdminClient?: SupabaseClient };
+const g = globalThis as unknown as { __callscoreAdminClient?: SupabaseClient };
 
 /**
  * Service-role client for server-side settlement, AI writes and admin
  * operations. Never import this from client code.
  */
 export function createSupabaseAdminClient(): SupabaseClient {
-  if (g.__signalArenaAdminClient) return g.__signalArenaAdminClient;
+  if (g.__callscoreAdminClient) return g.__callscoreAdminClient;
   const url = getSupabaseUrl();
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
   const key = serviceKey || getSupabaseAnonKey();
   if (!url || !key) throw new Error("Supabase credentials are not configured");
-  g.__signalArenaAdminClient = createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } });
-  return g.__signalArenaAdminClient;
+  g.__callscoreAdminClient = createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } });
+  return g.__callscoreAdminClient;
 }
 
 export function hasServiceRoleKey(): boolean {

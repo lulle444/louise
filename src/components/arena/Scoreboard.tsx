@@ -13,13 +13,13 @@ export function Scoreboard({ summary, compact = false }: { summary: HumansVsAiSu
         <div className={`p-5 ${lead === "humans" ? "bg-cyan/5" : ""}`}>
           <p className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider text-muted"><Users className="size-3.5 text-cyan" aria-hidden /> Humans</p>
           <p className="num mt-2 text-4xl font-semibold text-cyan sm:text-5xl">{formatAccuracy(h.accuracy)}</p>
-          <p className="num mt-1 text-xs text-muted">{h.correct}/{h.valid} correct · {summary.battleWins.humans} Battles won</p>
+          <p className="num mt-1 text-xs text-muted">{h.correct}/{h.valid} correct · {summary.battleWins.humans} Rounds won</p>
         </div>
         <div className="grid place-items-center border-x border-border px-3 font-mono text-xs uppercase tracking-[0.2em] text-dim sm:px-5">vs</div>
         <div className={`p-5 text-right ${lead === "ai" ? "bg-violet/5" : ""}`}>
           <p className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider text-muted">AI analysts <Bot className="size-3.5 text-violet" aria-hidden /></p>
           <p className="num mt-2 text-4xl font-semibold text-violet sm:text-5xl">{formatAccuracy(a.accuracy)}</p>
-          <p className="num mt-1 text-xs text-muted">{a.correct}/{a.valid} correct · {summary.battleWins.ai} Battles won</p>
+          <p className="num mt-1 text-xs text-muted">{a.correct}/{a.valid} correct · {summary.battleWins.ai} Rounds won</p>
         </div>
       </div>
       {!compact ? (
@@ -38,7 +38,7 @@ export function Scoreboard({ summary, compact = false }: { summary: HumansVsAiSu
         </div>
       ) : null}
       <div className="flex items-center justify-between border-t border-border px-5 py-3 text-xs text-muted">
-        <span>Ties: {summary.battleWins.ties}. Same Battles, same rules, same clock.</span>
+        <span>Ties: {summary.battleWins.ties}. Same Rounds, same rules, same clock.</span>
         <Link href="/methodology" className="text-cyan hover:underline">Methodology</Link>
       </div>
     </div>

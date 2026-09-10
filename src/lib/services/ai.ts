@@ -19,7 +19,7 @@ export async function generateAIPredictions(
 ): Promise<AIPrediction[]> {
   const generatedAt = opts.generatedAt ?? new Date();
   if (generatedAt.getTime() >= Date.parse(battle.locksAt)) {
-    throw new Error("AI forecasts must be generated before the Battle locks");
+    throw new Error("AI forecasts must be generated before the Round locks");
   }
   const profiles = (opts.profiles ?? (await repo.listAIProfiles())).filter((p) => p.active && battle.aiProfileIds.includes(p.id));
   const signals = opts.signals ?? (await repo.listSignals());

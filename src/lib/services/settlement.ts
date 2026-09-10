@@ -27,7 +27,7 @@ interface SettleOptions {
  * Settle a Battle. Idempotent and guarded:
  *  - a settled/void Battle is never re-settled;
  *  - the status transition to `settling` acts as a lock against concurrent runs;
- *  - XP is written through the ledger's unique (user, battle, reason) key so a
+ *  - XP is written through the ledger's unique (user, round, reason) key so a
  *    replay never double-awards.
  */
 export async function settleBattle(
@@ -38,13 +38,13 @@ export async function settleBattle(
 ): Promise<SettlementOutcome> {
   const now = opts.now ?? new Date();
   const battle = await repo.getBattle(battleId);
-  if (!battle) throw new Error("Battle not found");
-  if (battle.status === "settled") return { status: "already-settled", battle, message: "Battle is already settled." };
+  if (!battle) throw new Error("Round not found");
+  if (battle.status === "settled") return { status: "already-settled", battle, message: "Round is already settled." };
   if (battle.status === "void" || battle.status === "archived" || battle.status === "draft") {
-    return { status: "skipped", battle, message: `Battle is ${battle.status}; nothing to settle.` };
+    return { status: "skipped", battle, message: `Round is ${battle.status}; nothing to settle.` };
   }
   if (!canSettle(battle, now)) {
-    return { status: "not-ready", battle, message: "Battle has not reached its end time yet." };
+    return { status: "not-ready", battle, message: "Round has not reached its end time yet." };
   }
 
   const locked = await repo.transitionBattle(battle.id, ["upcoming", "open", "locked"], { status: "settling", settlementError: null });
@@ -64,7 +64,7 @@ export async function settleBattle(
   try {
     const assets = await repo.listAssets();
     const asset = assets.find((a) => a.id === battle.assetId);
-    if (!asset) throw new Error("Asset not found for Battle");
+    if (!asset) throw new Error("Asset not found for Round");
 
     // Start price: captured at open; fetch historically if it was never captured.
     let startPrice = battle.startPrice;
@@ -83,7 +83,7 @@ export async function settleBattle(
       endPrice = assertValidPrice(opts.endPriceOverride.price, `${asset.symbol} override`);
       endPriceAt = opts.endPriceOverride.at;
       source = `manual:${opts.actorId ?? "admin"}`;
-      await repo.appendAudit({ actorId: opts.actorId, action: "battle.end_price_override", targetType: "battle", targetId: battle.id, details: { price: endPrice, at: endPriceAt, reason: opts.endPriceOverride.reason } });
+      await repo.appendAudit({ actorId: opts.actorId, action: "battle.end_price_override", targetType: "round", targetId: battle.id, details: { price: endPrice, at: endPriceAt, reason: opts.endPriceOverride.reason } });
     } else {
       const snap = await provider.getHistoricalPrice(asset.symbol, new Date(battle.endsAt));
       endPrice = assertValidPrice(snap.price, `${asset.symbol} end`);
@@ -180,13 +180,13 @@ export async function settleBattle(
       settlementError: null,
     });
     await repo.updateSettlementRun(run.id, { status: "succeeded", finishedAt: new Date().toISOString(), endPrice });
-    await repo.appendAudit({ actorId: opts.actorId, action: "battle.settle", targetType: "battle", targetId: battle.id, details: { outcome, change, endPrice, source: opts.source, humans: predictions.length, ai: aiPredictions.length } });
+    await repo.appendAudit({ actorId: opts.actorId, action: "battle.settle", targetType: "round", targetId: battle.id, details: { outcome, change, endPrice, source: opts.source, humans: predictions.length, ai: aiPredictions.length } });
     return { status: "settled", battle: settled, message: `Settled ${outcome} (${change > 0 ? "+" : ""}${change.toFixed(2)}%).`, change, outcome, humanResults: predictions.length, aiResults: aiPredictions.length };
   } catch (err) {
     const message = err instanceof MarketDataError ? err.message : err instanceof Error ? err.message : "Unknown settlement error";
     const reverted = await repo.updateBattle(battle.id, { status: "locked", settlementError: message });
     await repo.updateSettlementRun(run.id, { status: "failed", finishedAt: new Date().toISOString(), error: message });
-    await repo.appendAudit({ actorId: opts.actorId, action: "battle.settle_failed", targetType: "battle", targetId: battle.id, details: { error: message, source: opts.source } });
+    await repo.appendAudit({ actorId: opts.actorId, action: "battle.settle_failed", targetType: "round", targetId: battle.id, details: { error: message, source: opts.source } });
     return { status: "failed", battle: reverted, message };
   }
 }
@@ -198,15 +198,15 @@ export async function voidBattle(
   opts: { actorId: string | null; reason: string },
 ): Promise<Battle> {
   const battle = await repo.getBattle(battleId);
-  if (!battle) throw new Error("Battle not found");
+  if (!battle) throw new Error("Round not found");
   if (battle.status === "void") return battle;
-  if (battle.status === "settled") throw new Error("A settled Battle cannot be voided. Archive it instead.");
+  if (battle.status === "settled") throw new Error("A settled Round cannot be voided. Archive it instead.");
   const predictions = await repo.listPredictions({ battleId });
   await repo.updatePredictionResults(predictions.map((p) => ({ id: p.id, result: "void" as const, battleScore: null })));
   const ai = await repo.listAIPredictions({ battleId });
   await repo.updateAIPredictionResults(ai.map((p) => ({ id: p.id, result: "void" as const, battleScore: null })));
   const updated = await repo.updateBattle(battleId, { status: "void", outcome: null, settlementError: opts.reason });
-  await repo.appendAudit({ actorId: opts.actorId, action: "battle.void", targetType: "battle", targetId: battleId, details: { reason: opts.reason, predictions: predictions.length } });
+  await repo.appendAudit({ actorId: opts.actorId, action: "battle.void", targetType: "round", targetId: battleId, details: { reason: opts.reason, predictions: predictions.length } });
   return updated;
 }
 

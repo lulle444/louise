@@ -3,7 +3,7 @@ import type { SignalCardData } from "@/components/arena/SignalCard";
 import { toSignalCardData } from "@/components/arena/SignalCard";
 import { streakAfterBattle } from "./stats";
 
-/** Resolve a public Signal Card (human or AI) by prediction id. */
+/** Resolve a public Call Card (human or AI) by prediction id. */
 export async function loadSignalCard(repo: ArenaRepository, predictionId: string): Promise<SignalCardData | null> {
   const [assets, signals] = await Promise.all([repo.listAssets(), repo.listSignals()]);
   const human = await repo.getPrediction(predictionId);

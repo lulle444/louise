@@ -11,10 +11,10 @@ export interface MaintenanceStatus {
   lastError: string | null;
 }
 
-const g = globalThis as unknown as { __signalArenaMaintenanceAt?: number; __signalArenaMaintenanceRunning?: boolean; __signalArenaMaintenanceStatus?: MaintenanceStatus };
+const g = globalThis as unknown as { __callscoreMaintenanceAt?: number; __callscoreMaintenanceRunning?: boolean; __callscoreMaintenanceStatus?: MaintenanceStatus };
 
 export function getMaintenanceStatus(): MaintenanceStatus {
-  return g.__signalArenaMaintenanceStatus ?? { lastRunAt: null, lastSource: null, lastReport: null, lastError: null };
+  return g.__callscoreMaintenanceStatus ?? { lastRunAt: null, lastSource: null, lastReport: null, lastError: null };
 }
 
 /** Run maintenance immediately (admin/cron) and record the outcome. */
@@ -22,12 +22,12 @@ export async function runMaintenanceNow(source: string, actorId: string | null =
   const repo = await getRepository();
   try {
     const report = await runScheduledMaintenance(repo, getMarketDataProvider(), actorId ?? source);
-    g.__signalArenaMaintenanceStatus = { lastRunAt: new Date().toISOString(), lastSource: source, lastReport: report, lastError: null };
-    g.__signalArenaMaintenanceAt = Date.now();
+    g.__callscoreMaintenanceStatus = { lastRunAt: new Date().toISOString(), lastSource: source, lastReport: report, lastError: null };
+    g.__callscoreMaintenanceAt = Date.now();
     return report;
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
-    g.__signalArenaMaintenanceStatus = { lastRunAt: new Date().toISOString(), lastSource: source, lastReport: null, lastError: message };
+    g.__callscoreMaintenanceStatus = { lastRunAt: new Date().toISOString(), lastSource: source, lastReport: null, lastError: message };
     throw err;
   }
 }
@@ -42,15 +42,15 @@ const THROTTLE_MS = 5 * 60_000;
 export async function maybeRunMaintenance(): Promise<void> {
   if (isDemoMode()) return;
   const now = Date.now();
-  if (g.__signalArenaMaintenanceRunning) return;
-  if (g.__signalArenaMaintenanceAt && now - g.__signalArenaMaintenanceAt < THROTTLE_MS) return;
-  g.__signalArenaMaintenanceRunning = true;
-  g.__signalArenaMaintenanceAt = now;
+  if (g.__callscoreMaintenanceRunning) return;
+  if (g.__callscoreMaintenanceAt && now - g.__callscoreMaintenanceAt < THROTTLE_MS) return;
+  g.__callscoreMaintenanceRunning = true;
+  g.__callscoreMaintenanceAt = now;
   try {
     await runMaintenanceNow("page-view");
   } catch (err) {
     console.error("[maintenance]", err instanceof Error ? err.message : err);
   } finally {
-    g.__signalArenaMaintenanceRunning = false;
+    g.__callscoreMaintenanceRunning = false;
   }
 }

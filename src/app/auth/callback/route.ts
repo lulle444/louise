@@ -6,8 +6,8 @@ import { isDemoMode } from "@/lib/config";
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const code = url.searchParams.get("code");
-  const next = url.searchParams.get("next") ?? "/arena";
-  const safeNext = next.startsWith("/") && !next.startsWith("//") ? next : "/arena";
+  const next = url.searchParams.get("next") ?? "/rounds";
+  const safeNext = next.startsWith("/") && !next.startsWith("//") ? next : "/rounds";
   if (isDemoMode() || !code) return NextResponse.redirect(new URL("/login", url.origin));
   const supabase = await createSupabaseServerClient();
   const { error } = await supabase.auth.exchangeCodeForSession(code);

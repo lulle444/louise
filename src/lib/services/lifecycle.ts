@@ -16,7 +16,7 @@ export function battleSlug(symbol: string, opensAt: string): string {
 
 export function defaultBattleTitle(asset: Asset, opensAt: string): string {
   const d = new Date(opensAt);
-  return `${asset.symbol} Daily Battle · ${d.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" })}`;
+  return `${asset.symbol} Daily Round · ${d.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" })}`;
 }
 
 export interface CreateBattleOptions {
@@ -60,7 +60,7 @@ export async function createBattle(
     createdBy: opts.createdBy,
   };
   const battle = await repo.createBattle(input);
-  await repo.appendAudit({ actorId: opts.createdBy, action: "battle.create", targetType: "battle", targetId: battle.id, details: { slug: battle.slug, assetId: battle.assetId } });
+  await repo.appendAudit({ actorId: opts.createdBy, action: "battle.create", targetType: "round", targetId: battle.id, details: { slug: battle.slug, assetId: battle.assetId } });
   if (opts.publish) return publishBattle(repo, provider, battle, opts.asset, opts.createdBy, opts.now ?? new Date());
   return battle;
 }
@@ -90,7 +90,7 @@ export async function publishBattle(
   }
   const status = now.getTime() < opensAt.getTime() ? "upcoming" : now.getTime() < Date.parse(battle.locksAt) ? "open" : "locked";
   const updated = await repo.updateBattle(battle.id, { status, startPrice, startPriceAt, settlementError: null });
-  await repo.appendAudit({ actorId, action: "battle.publish", targetType: "battle", targetId: battle.id, details: { status, startPrice } });
+  await repo.appendAudit({ actorId, action: "battle.publish", targetType: "round", targetId: battle.id, details: { status, startPrice } });
   if (status === "open" && now.getTime() < Date.parse(battle.locksAt)) {
     await generateAIPredictions(repo, provider, updated, asset, { generatedAt: now });
   }

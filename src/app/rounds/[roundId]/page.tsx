@@ -26,16 +26,16 @@ import { DemoModeBadge } from "@/components/ui/DemoModeBadge";
 
 export const dynamic = "force-dynamic";
 
-export async function generateMetadata(props: PageProps<"/arena/[battleId]">): Promise<Metadata> {
-  const { battleId } = await props.params;
+export async function generateMetadata(props: PageProps<"/rounds/[roundId]">): Promise<Metadata> {
+  const { roundId: battleId } = await props.params;
   const repo = await getRepository();
   const battle = await repo.getBattle(battleId);
-  if (!battle) return { title: "Battle" };
+  if (!battle) return { title: "Round" };
   return { title: battle.title, description: `Forecast ${battle.title}: Bullish, Neutral or Bearish with three supporting signals.` };
 }
 
-export default async function BattlePage(props: PageProps<"/arena/[battleId]">) {
-  const { battleId } = await props.params;
+export default async function BattlePage(props: PageProps<"/rounds/[roundId]">) {
+  const { roundId: battleId } = await props.params;
   const sp = await props.searchParams;
   const justLocked = sp.locked === "1";
   const [repo, viewer] = await Promise.all([getRepository(), getViewer()]);
@@ -120,8 +120,8 @@ export default async function BattlePage(props: PageProps<"/arena/[battleId]">) 
         <div className="space-y-6">
           {voided ? (
             <div className="card border-bear/30 p-5" role="status">
-              <p className="inline-flex items-center gap-2 font-semibold text-bear"><XCircle className="size-5" aria-hidden /> Battle void</p>
-              <p className="mt-1 text-sm text-muted">{battle.settlementError ?? "This Battle was voided by an administrator."} Void Battles award no score and are excluded from accuracy and leaderboards.</p>
+              <p className="inline-flex items-center gap-2 font-semibold text-bear"><XCircle className="size-5" aria-hidden /> Round void</p>
+              <p className="mt-1 text-sm text-muted">{battle.settlementError ?? "This Round was voided by an administrator."} Void Rounds award no score and are excluded from accuracy and leaderboards.</p>
             </div>
           ) : null}
 
@@ -137,7 +137,7 @@ export default async function BattlePage(props: PageProps<"/arena/[battleId]">) 
               <dl className="mt-4 grid grid-cols-2 gap-3 text-sm sm:grid-cols-4">
                 <div><dt className="text-[11px] uppercase tracking-wider text-muted">Start → End</dt><dd className="num mt-0.5">${formatPrice(battle.startPrice, asset.priceDecimals)} → ${formatPrice(battle.endPrice, asset.priceDecimals)}</dd></div>
                 <div><dt className="text-[11px] uppercase tracking-wider text-muted">Move</dt><dd className={`num mt-0.5 ${change !== null && change > 0 ? "text-bull" : change !== null && change < 0 ? "text-bear" : "text-neutral"}`}>{formatPercent(change)}</dd></div>
-                <div><dt className="text-[11px] uppercase tracking-wider text-muted">Battle Score</dt><dd className="num mt-0.5 font-semibold">{mine!.battleScore ?? 0}</dd></div>
+                <div><dt className="text-[11px] uppercase tracking-wider text-muted">Round Score</dt><dd className="num mt-0.5 font-semibold">{mine!.battleScore ?? 0}</dd></div>
                 <div><dt className="text-[11px] uppercase tracking-wider text-muted">XP earned</dt><dd className="num mt-0.5 font-semibold text-cyan">+{mine!.xpAwarded ?? 0}</dd></div>
               </dl>
               {view.viewerProfile ? <p className="mt-3 text-xs text-muted">Current streak: <span className="num text-text">{view.viewerProfile.currentStreak}</span> · Longest: <span className="num text-text">{view.viewerProfile.longestStreak}</span> · Total XP: <span className="num text-text">{view.viewerProfile.xp}</span></p> : null}
@@ -147,12 +147,12 @@ export default async function BattlePage(props: PageProps<"/arena/[battleId]">) 
           {mine && myCard ? (
             <div className={justLocked ? "rise" : ""} data-testid="locked-card">
               <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-                <p className="text-sm font-semibold">{settled ? "Your verified Signal Card" : "Your locked Signal Card"}</p>
-                <Link href={`/signal/${mine.id}`} className="text-sm text-cyan hover:underline">Public card →</Link>
+                <p className="text-sm font-semibold">{settled ? "Your verified Call Card" : "Your locked Call Card"}</p>
+                <Link href={`/call/${mine.id}`} className="text-sm text-cyan hover:underline">Public card →</Link>
               </div>
               <SignalCard data={myCard} />
               <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
-                <ShareActions url={`${getAppUrl()}/signal/${mine.id}`} text={`${myCard.direction.toUpperCase()} on ${asset.symbol} · ${myCard.signals.map((s) => s.name).join(" · ")} · Confidence ${mine.confidence}/5 — locked on SIGNAL ARENA`} />
+                <ShareActions url={`${getAppUrl()}/signal/${mine.id}`} text={`${myCard.direction.toUpperCase()} on ${asset.symbol} · ${myCard.signals.map((s) => s.name).join(" · ")} · Confidence ${mine.confidence}/5 — locked on Callscore`} />
                 {!ended ? <p className="inline-flex items-center gap-1.5 text-xs text-muted"><Clock className="size-3.5" aria-hidden /> Settles in <BattleCountdown target={battle.endsAt} /></p> : null}
               </div>
               {/* Position vs crowd and AI */}
@@ -180,12 +180,12 @@ export default async function BattlePage(props: PageProps<"/arena/[battleId]">) 
           ) : status === "upcoming" ? (
             <div className="card p-5">
               <p className="inline-flex items-center gap-2 font-semibold"><Clock className="size-4 text-violet" aria-hidden /> Opens <LocalTime iso={battle.opensAt} /></p>
-              <p className="mt-1 text-sm text-muted">The start price is captured when the Battle opens. Come back to lock your forecast before <LocalTime iso={battle.locksAt} />.</p>
+              <p className="mt-1 text-sm text-muted">The start price is captured when the Round opens. Come back to lock your forecast before <LocalTime iso={battle.locksAt} />.</p>
             </div>
           ) : (
             <div className="card p-5">
-              <p className="inline-flex items-center gap-2 font-semibold"><Info className="size-4 text-neutral" aria-hidden /> {ended ? "You did not enter this Battle" : "Predictions are closed"}</p>
-              <p className="mt-1 text-sm text-muted">{ended ? "Results below show how the crowd and AI analysts performed." : "This Battle locked. Settlement happens automatically at the end time."} <Link href="/arena" className="text-cyan hover:underline">Find the next live Battle →</Link></p>
+              <p className="inline-flex items-center gap-2 font-semibold"><Info className="size-4 text-neutral" aria-hidden /> {ended ? "You did not enter this Round" : "Calls are closed"}</p>
+              <p className="mt-1 text-sm text-muted">{ended ? "Results below show how the crowd and AI analysts performed." : "This Round locked. Settlement happens automatically at the end time."} <Link href="/rounds" className="text-cyan hover:underline">Find the next live Round →</Link></p>
             </div>
           )}
         </div>
@@ -198,9 +198,9 @@ export default async function BattlePage(props: PageProps<"/arena/[battleId]">) 
             <h3 id="ai-heading" className="text-sm font-semibold">AI analyst positions</h3>
             <p className="mt-1 text-xs text-muted">Rule-based simulations that locked before the deadline. Revealed under the same rule as the crowd.</p>
             {!view.aiRevealed ? (
-              <p className="mt-4 rounded-lg border border-dashed border-border p-4 text-xs text-muted">Hidden until you lock your prediction.</p>
+              <p className="mt-4 rounded-lg border border-dashed border-border p-4 text-xs text-muted">Hidden until you lock your call.</p>
             ) : aiWithProfiles.length === 0 ? (
-              <p className="mt-4 text-xs text-muted">No AI forecasts were locked for this Battle.</p>
+              <p className="mt-4 text-xs text-muted">No AI forecasts were locked for this Round.</p>
             ) : (
               <div className="mt-4 space-y-3">
                 {aiWithProfiles.map(({ prediction, profile }) => (
@@ -212,14 +212,14 @@ export default async function BattlePage(props: PageProps<"/arena/[battleId]">) 
 
           {view.crowdRevealed && view.humanPredictions.length > 0 ? (
             <section className="card p-5" aria-labelledby="participants-heading">
-              <h3 id="participants-heading" className="text-sm font-semibold">Locked Signal Cards <span className="num font-normal text-muted">({view.humanPredictions.length})</span></h3>
+              <h3 id="participants-heading" className="text-sm font-semibold">Locked Call Cards <span className="num font-normal text-muted">({view.humanPredictions.length})</span></h3>
               <ul className="mt-3 divide-y divide-border">
                 {view.humanPredictions.slice(0, 12).map((p) => {
                   const owner = view.participants.find((x) => x.id === p.userId);
                   return (
                     <li key={p.id} className="flex items-center gap-3 py-2 text-sm">
                       <Avatar name={owner?.displayName ?? "Analyst"} size="sm" />
-                      <Link href={`/signal/${p.id}`} className="min-w-0 flex-1 truncate hover:underline">{owner?.displayName ?? "Analyst"}</Link>
+                      <Link href={`/call/${p.id}`} className="min-w-0 flex-1 truncate hover:underline">{owner?.displayName ?? "Analyst"}</Link>
                       {settled ? <ResultPill result={p.result} /> : null}
                       <DirectionPill direction={p.direction} size="sm" />
                     </li>

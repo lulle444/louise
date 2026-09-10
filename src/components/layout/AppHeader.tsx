@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { Radar } from "lucide-react";
 import type { Viewer } from "@/lib/domain/types";
 import { DemoModeBadge } from "@/components/ui/DemoModeBadge";
+import { TallyMark, Wordmark } from "@/components/ui/TallyMark";
 import { XIcon } from "@/components/ui/XIcon";
 import { getXHandle, getXUrl } from "@/lib/config";
 import { MobileNavigation } from "./MobileNavigation";
@@ -9,29 +9,27 @@ import { NavLinks } from "./NavLinks";
 import { UserMenu } from "./UserMenu";
 
 export const NAV_ITEMS = [
-  { href: "/arena", label: "Arena" },
+  { href: "/rounds", label: "Rounds" },
   { href: "/humans-vs-ai", label: "Humans vs AI" },
   { href: "/leaderboard", label: "Leaderboard" },
-  { href: "/season", label: "Season" },
+  { href: "/weekly", label: "Weekly" },
   { href: "/methodology", label: "Methodology" },
 ];
 
 export function AppHeader({ viewer, demo }: { viewer: Viewer | null; demo: boolean }) {
   return (
-    <header className="sticky top-0 z-40 border-b border-border/80 bg-bg/80 backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b border-border bg-surface/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 sm:px-6">
-        <Link href="/" className="flex items-center gap-2.5" aria-label="SIGNAL ARENA home">
-          <span className="grid size-8 place-items-center rounded-lg border border-cyan/40 bg-cyan/10 text-cyan">
-            <Radar className="size-4" aria-hidden />
-          </span>
-          <span className="whitespace-nowrap font-mono text-sm font-semibold tracking-[0.2em] text-text">SIGNAL ARENA</span>
+        <Link href="/" className="flex items-center gap-2.5" aria-label="Callscore home">
+          <TallyMark size={30} />
+          <Wordmark />
         </Link>
         {demo ? <span className="hidden lg:block"><DemoModeBadge short /></span> : null}
         <nav className="ml-6 hidden items-center gap-1 md:flex" aria-label="Primary">
           <NavLinks items={NAV_ITEMS} />
         </nav>
         <div className="ml-auto hidden items-center gap-2 md:flex">
-          <a href={getXUrl()} target="_blank" rel="noopener noreferrer" className="grid size-9 place-items-center rounded-md text-muted transition hover:bg-surface-2 hover:text-text" aria-label={`SIGNAL ARENA on X (@${getXHandle()})`} title={`@${getXHandle()} on X`}>
+          <a href={getXUrl()} target="_blank" rel="noopener noreferrer" className="grid size-9 place-items-center rounded-md text-muted transition hover:bg-surface-2 hover:text-text" aria-label={`CALLSCORE on X (@${getXHandle()})`} title={`@${getXHandle()} on X`}>
             <XIcon className="size-4" />
           </a>
           <UserMenu viewer={viewer} />

@@ -70,7 +70,7 @@ describe("settlement service", () => {
     expect(ai.every((p) => Date.parse(p.lockedAt) < Date.parse(battle.locksAt))).toBe(true);
   });
 
-  it("rejects predictions after the lock deadline and duplicate entries", async () => {
+  it("rejects calls after the lock deadline and duplicate entries", async () => {
     const { repo, provider, battle, alice, sig } = await setup();
     await expect(lockPrediction(repo, provider, viewer(alice), { battleId: battle.id, direction: "bullish", signalIds: sig, confidence: 3, thesis: "" }, new Date("2026-03-01T04:00:00Z"))).rejects.toThrow(/already locked/);
     const carol = repo.ensureProfile(profile("carol"));
@@ -78,7 +78,7 @@ describe("settlement service", () => {
     await expect(lockPrediction(repo, provider, viewer(carol), { battleId: battle.id, direction: "bullish", signalIds: sig.slice(0, 2), confidence: 3, thesis: "" }, new Date("2026-03-01T05:00:00Z"))).rejects.toThrow(/exactly 3/);
   });
 
-  it("voids a Battle without awarding score or XP and excludes it from accuracy", async () => {
+  it("voids a Round without awarding score or XP and excludes it from accuracy", async () => {
     const { repo, battle, alice } = await setup();
     const voided = await voidBattle(repo, battle.id, { actorId: null, reason: "provider outage" });
     expect(voided.status).toBe("void");

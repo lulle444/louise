@@ -15,7 +15,7 @@ export default async function SettingsPage() {
   const profile = await repo.getProfileById(viewer.id);
   return (
     <>
-      <PageHeader eyebrow="Settings" title="Edit your public profile" description="Your username and scoring fields are managed by the Arena and cannot be edited here." />
+      <PageHeader eyebrow="Settings" title="Edit your public profile" description="Your username and scoring fields are managed by Callscore and cannot be edited here." />
       <div className="mx-auto max-w-2xl px-4 py-8 sm:px-6">
         <ProfileForm username={viewer.username} displayName={profile?.displayName ?? viewer.displayName} bio={profile?.bio ?? ""} />
       </div>

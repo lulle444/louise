@@ -91,7 +91,7 @@ export class DemoRepository implements ArenaRepository {
   }
 
   async createBattle(input: NewBattle) {
-    const id = nextId(this.state, "battle");
+    const id = nextId(this.state, "round");
     const ts = this.now();
     const battle: Battle = { ...input, id, slug: input.slug || id, createdAt: ts, updatedAt: ts };
     this.state.battles.push(battle);
@@ -100,7 +100,7 @@ export class DemoRepository implements ArenaRepository {
 
   async updateBattle(id: string, patch: Partial<Omit<Battle, "id" | "createdAt">>) {
     const idx = this.state.battles.findIndex((b) => b.id === id);
-    if (idx < 0) throw new NotFoundError("Battle");
+    if (idx < 0) throw new NotFoundError("Round");
     const updated: Battle = { ...this.state.battles[idx], ...patch, updatedAt: this.now() };
     this.state.battles[idx] = updated;
     return updated;

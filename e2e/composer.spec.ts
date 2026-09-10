@@ -1,16 +1,16 @@
 import { expect, test } from "@playwright/test";
 
-test("a demo guest can lock a prediction; the crowd is hidden before and revealed after", async ({ page }) => {
+test("a demo guest can lock a call; the crowd is hidden before and revealed after", async ({ page }) => {
   await page.goto("/login");
   await page.getByTestId("demo-guest").click();
-  await page.waitForURL(/\/arena/);
-  await page.goto("/arena");
-  await page.getByRole("link", { name: /Daily Battle, open/ }).first().click();
-  await expect(page).toHaveURL(/\/arena\//);
+  await page.waitForURL(/\/rounds/);
+  await page.goto("/rounds");
+  await page.getByRole("link", { name: /Daily Round, open/ }).first().click();
+  await expect(page).toHaveURL(/\/rounds\//);
 
   // Crowd hidden before lock.
   await expect(page.getByText(/Crowd percentages are hidden until you lock/)).toBeVisible();
-  await expect(page.getByText("Hidden until you lock your prediction.")).toBeVisible();
+  await expect(page.getByText("Hidden until you lock your call.")).toBeVisible();
 
   const lock = page.getByTestId("lock-button");
   await expect(lock).toBeDisabled();
@@ -32,20 +32,20 @@ test("a demo guest can lock a prediction; the crowd is hidden before and reveale
   await expect(lock).toBeDisabled();
   await page.getByRole("radio", { name: /4 of 5/ }).click();
   await page.getByLabel(/Thesis/).fill("Momentum and volume both confirm the trend for this session.");
-  await expect(page.getByText("Signal Preview")).toBeVisible();
+  await expect(page.getByText("Call Preview")).toBeVisible();
   await expect(lock).toBeEnabled();
 
   await lock.click();
   const dialog = page.getByRole("dialog");
-  await expect(dialog).toContainText("Locked predictions cannot be edited or deleted after submission.");
+  await expect(dialog).toContainText("Locked calls cannot be edited or deleted after submission.");
   await page.getByTestId("confirm-lock").click();
 
   // Locked state replaces the composer; crowd and AI positions revealed.
   await expect(page.getByTestId("locked-card")).toBeVisible({ timeout: 15_000 });
   await expect(page.getByTestId("composer")).toHaveCount(0);
-  await expect(page.getByText("Human predictions only.")).toBeVisible();
+  await expect(page.getByText("Human calls only.")).toBeVisible();
   await expect(page.getByRole("meter", { name: /Bullish/ })).toBeVisible();
-  await expect(page.getByText("ORACLE").first()).toBeVisible();
+  await expect(page.getByText("ATLAS").first()).toBeVisible();
   await expect(page.getByText("Your position")).toBeVisible();
 
   // Immutable: reloading still shows the locked card and no composer.
@@ -53,8 +53,8 @@ test("a demo guest can lock a prediction; the crowd is hidden before and reveale
   await expect(page.getByTestId("locked-card")).toBeVisible();
   await expect(page.getByTestId("composer")).toHaveCount(0);
 
-  // Public Signal Card works.
+  // Public Call Card works.
   await page.getByRole("link", { name: "Public card →" }).click();
-  await expect(page.getByText("Public Signal Card")).toBeVisible();
+  await expect(page.getByText("Public Call Card")).toBeVisible();
   await expect(page.getByText("Momentum and volume both confirm")).toBeVisible();
 });

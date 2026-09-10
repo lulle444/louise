@@ -10,7 +10,7 @@ export const metadata: Metadata = { title: "Create account" };
 
 export default async function SignupPage(props: PageProps<"/signup">) {
   const sp = await props.searchParams;
-  const next = typeof sp.next === "string" && sp.next.startsWith("/") ? sp.next : "/arena";
+  const next = typeof sp.next === "string" && sp.next.startsWith("/") ? sp.next : "/rounds";
   const viewer = await getViewer();
   if (viewer) redirect(next);
   if (isDemoMode()) redirect(`/login?next=${encodeURIComponent(next)}`);

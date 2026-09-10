@@ -83,19 +83,19 @@ export function SignalCard({ data, preview = false, showLink = true, className =
   const settled = data.result === "correct" || data.result === "incorrect";
   const voided = data.result === "void";
   const change = data.battle.startPrice && data.battle.endPrice ? ((data.battle.endPrice - data.battle.startPrice) / data.battle.startPrice) * 100 : null;
-  const accent = data.owner.accentColor ?? (settled ? (data.result === "correct" ? "#34D399" : "#FB7185") : "#21D4FD");
+  const accent = data.owner.accentColor ?? (settled ? (data.result === "correct" ? "#15803D" : "#C2313F") : "#0E8F7E");
   const duration = battleDurationLabel(data.battle.opensAt, data.battle.endsAt);
 
-  const srSummary = `${data.owner.name} forecast ${data.direction} on ${data.asset.symbol} ${duration} citing ${data.signals.map((s) => s.name).join(", ")} with confidence ${data.confidence} of 5, locked ${formatUtc(data.lockedAt)}. ${settled ? `Result: ${data.result}${change !== null ? `, market moved ${formatPercent(change)}` : ""}.` : voided ? "Battle void." : "Battle pending."}`;
+  const srSummary = `${data.owner.name} forecast ${data.direction} on ${data.asset.symbol} ${duration} citing ${data.signals.map((s) => s.name).join(", ")} with confidence ${data.confidence} of 5, locked ${formatUtc(data.lockedAt)}. ${settled ? `Result: ${data.result}${change !== null ? `, market moved ${formatPercent(change)}` : ""}.` : voided ? "Round void." : "Round pending."}`;
 
   return (
-    <article className={`card relative overflow-hidden ${className}`} style={{ boxShadow: `0 0 0 1px ${accent}33, 0 24px 48px -32px ${accent}66` }} aria-label={srSummary}>
-      <div className="absolute inset-x-0 top-0 h-px" style={{ background: `linear-gradient(90deg, transparent, ${accent}, transparent)` }} aria-hidden />
+    <article className={`card relative overflow-hidden ${className}`} style={{ borderLeft: `5px solid ${accent}` }} aria-label={srSummary}>
       <div className="p-5">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.22em]" style={{ color: accent }}>
-              {settled ? "Signal Verified" : voided ? "Signal Void" : preview ? "Signal Preview" : "Signal Arena"}
+            <p className="inline-flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-[0.2em]" style={{ color: accent }}>
+              <span className="tally" aria-hidden><i /><i /><i /><i /><i /></span>
+              {settled ? "Verified call" : voided ? "Void call" : preview ? "Call preview" : "Locked call"}
             </p>
             <p className="num mt-1 text-lg font-semibold">
               {data.asset.symbol} · {settled && change !== null ? <span className={change > 0 ? "text-bull" : change < 0 ? "text-bear" : "text-neutral"}>{formatPercent(change)}</span> : duration}
@@ -126,7 +126,7 @@ export function SignalCard({ data, preview = false, showLink = true, className =
         {settled ? (
           <div className="mt-4 grid grid-cols-2 gap-x-3 gap-y-2 text-xs">
             <div><p className="text-muted">Outcome</p><p className="mt-0.5"><DirectionPill direction={data.battle.outcome} size="sm" /></p></div>
-            <div><p className="text-muted">Battle Score</p><p className="num mt-0.5 font-semibold">{data.battleScore ?? 0}</p></div>
+            <div><p className="text-muted">Round Score</p><p className="num mt-0.5 font-semibold">{data.battleScore ?? 0}</p></div>
             {data.kind === "human" ? <div><p className="text-muted">XP earned</p><p className="num mt-0.5 font-semibold text-cyan">+{data.xpAwarded ?? 0}</p></div> : null}
             {data.streakAfter ? <div><p className="text-muted">Streak</p><p className="num mt-0.5 font-semibold">{data.streakAfter}-day</p></div> : null}
             {data.beatAI && data.beatAI.length > 0 ? <div className="col-span-2"><p className="text-muted">Beat</p><p className="mt-0.5 font-semibold text-violet">{data.beatAI.join(" · ")} AI</p></div> : null}

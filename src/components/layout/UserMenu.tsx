@@ -11,8 +11,8 @@ export function UserMenu({ viewer, stacked = false }: { viewer: Viewer | null; s
         <Link href="/login" className="whitespace-nowrap rounded-md px-3 py-2 text-sm text-muted hover:text-text">
           Sign in
         </Link>
-        <Link href="/arena" className="whitespace-nowrap rounded-md bg-cyan px-3.5 py-2 text-sm font-semibold text-bg shadow-glow-cyan transition hover:brightness-110">
-          Enter Today’s Battle
+        <Link href="/rounds" className="whitespace-nowrap rounded-md bg-cyan px-3.5 py-2 text-sm font-semibold text-white shadow-glow-cyan transition hover:brightness-110">
+          Make today’s call
         </Link>
       </div>
     );

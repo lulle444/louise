@@ -17,11 +17,12 @@ import { EmptyState } from "@/components/ui/States";
 
 export const dynamic = "force-dynamic";
 
-export async function generateMetadata(props: PageProps<"/signal/[predictionId]">): Promise<Metadata> {
-  const { predictionId } = await props.params;
+export async function generateMetadata(props: PageProps<"/call/[callId]">): Promise<Metadata> {
+  const { callId } = await props.params;
+  const predictionId = callId;
   const repo = await getRepository();
   const card = await loadSignalCard(repo, predictionId);
-  if (!card) return { title: "Signal Card" };
+  if (!card) return { title: "Call Card" };
   const settled = card.result === "correct" || card.result === "incorrect";
   const change = card.battle.startPrice && card.battle.endPrice ? ((card.battle.endPrice - card.battle.startPrice) / card.battle.startPrice) * 100 : null;
   const title = settled ? `${card.asset.symbol} ${formatPercent(change)} · ${card.result.toUpperCase()} · ${card.owner.name}` : `${card.direction.toUpperCase()} on ${card.asset.symbol} · ${card.owner.name}`;
@@ -29,13 +30,14 @@ export async function generateMetadata(props: PageProps<"/signal/[predictionId]"
   return {
     title,
     description,
-    openGraph: { title: `${title} · SIGNAL ARENA`, description, type: "article", url: `${getAppUrl()}/signal/${card.id}` },
-    twitter: { card: "summary_large_image", title: `${title} · SIGNAL ARENA`, description },
+    openGraph: { title: `${title} · CALLSCORE`, description, type: "article", url: `${getAppUrl()}/signal/${card.id}` },
+    twitter: { card: "summary_large_image", title: `${title} · CALLSCORE`, description },
   };
 }
 
-export default async function SignalPage(props: PageProps<"/signal/[predictionId]">) {
-  const { predictionId } = await props.params;
+export default async function SignalPage(props: PageProps<"/call/[callId]">) {
+  const { callId } = await props.params;
+  const predictionId = callId;
   const [repo, viewer] = await Promise.all([getRepository(), getViewer()]);
   const card = await loadSignalCard(repo, predictionId);
   if (!card) notFound();
@@ -49,7 +51,7 @@ export default async function SignalPage(props: PageProps<"/signal/[predictionId
     if (!canRevealCrowd({ viewerHasLocked: viewerLocked, battleAcceptingPredictions: true })) {
       return (
         <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6">
-          <EmptyState title="This Signal Card is sealed until you lock" description={`${card.owner.name} locked a forecast in a Battle that is still open. Lock your own prediction to reveal other analysts' positions — the Arena never lets the crowd shape your thesis.`} action={{ href: `/arena/${card.battle.id}`, label: "Enter this Battle" }} />
+          <EmptyState title="This Call Card is sealed until you lock" description={`${card.owner.name} locked a forecast in a Round that is still open. Lock your own call to reveal other analysts' positions — Callscore never lets the crowd shape your thesis.`} action={{ href: `/rounds/${card.battle.id}`, label: "Enter this Round" }} />
         </div>
       );
     }
@@ -58,29 +60,29 @@ export default async function SignalPage(props: PageProps<"/signal/[predictionId
   const url = `${getAppUrl()}/signal/${card.id}`;
   const settled = card.result === "correct" || card.result === "incorrect";
   const shareText = settled
-    ? `${card.result === "correct" ? "✔ CORRECT" : "✘ Incorrect"} — ${card.direction.toUpperCase()} on ${card.asset.symbol}${card.beatAI?.length ? ` · Beat ${card.beatAI.join(", ")} AI` : ""}${card.streakAfter ? ` · ${card.streakAfter}-day streak` : ""} · SIGNAL ARENA`
-    : `${card.direction.toUpperCase()} on ${card.asset.symbol} · ${card.signals.map((s) => s.name).join(" · ")} · Confidence ${card.confidence}/5 · locked on SIGNAL ARENA`;
+    ? `${card.result === "correct" ? "✔ CORRECT" : "✘ Incorrect"} — ${card.direction.toUpperCase()} on ${card.asset.symbol}${card.beatAI?.length ? ` · Beat ${card.beatAI.join(", ")} AI` : ""}${card.streakAfter ? ` · ${card.streakAfter}-day streak` : ""} · CALLSCORE`
+    : `${card.direction.toUpperCase()} on ${card.asset.symbol} · ${card.signals.map((s) => s.name).join(" · ")} · Confidence ${card.confidence}/5 · locked on Callscore`;
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-8 sm:px-6">
       <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
-        <p className="eyebrow">Public Signal Card</p>
+        <p className="eyebrow">Public Call Card</p>
         <StatusPill status={status} />
       </div>
       <SignalCard data={card} />
       <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
         <ShareActions url={url} text={shareText} />
-        <Link href={`/arena/${card.battle.id}`} className="text-sm text-cyan hover:underline">Open the Battle →</Link>
+        <Link href={`/rounds/${card.battle.id}`} className="text-sm text-cyan hover:underline">Open the Round →</Link>
       </div>
       <dl className="card mt-6 grid grid-cols-2 gap-4 p-5 text-sm sm:grid-cols-3">
         <div><dt className="text-[11px] uppercase tracking-wider text-muted">Identifier</dt><dd className="num mt-0.5 break-all text-xs">{card.id}</dd></div>
         <div><dt className="text-[11px] uppercase tracking-wider text-muted">Locked at</dt><dd className="mt-0.5"><LocalTime iso={card.lockedAt} /></dd></div>
-        <div><dt className="text-[11px] uppercase tracking-wider text-muted">Battle window</dt><dd className="mt-0.5 text-xs"><LocalTime iso={card.battle.opensAt} /> → <LocalTime iso={card.battle.endsAt} /></dd></div>
+        <div><dt className="text-[11px] uppercase tracking-wider text-muted">Round window</dt><dd className="mt-0.5 text-xs"><LocalTime iso={card.battle.opensAt} /> → <LocalTime iso={card.battle.endsAt} /></dd></div>
         <div><dt className="text-[11px] uppercase tracking-wider text-muted">Start price</dt><dd className="num mt-0.5">{card.battle.startPrice ? `$${card.battle.startPrice.toLocaleString("en-US", { maximumFractionDigits: card.asset.priceDecimals })}` : "—"}</dd></div>
         <div><dt className="text-[11px] uppercase tracking-wider text-muted">End price</dt><dd className="num mt-0.5">{card.battle.endPrice ? `$${card.battle.endPrice.toLocaleString("en-US", { maximumFractionDigits: card.asset.priceDecimals })}` : settled ? "—" : "Pending"}</dd></div>
         <div><dt className="text-[11px] uppercase tracking-wider text-muted">Author</dt><dd className="mt-0.5">{card.owner.isAI ? `${card.owner.name} (rule-based simulation)` : <Link href={`/profile/${card.owner.username}`} className="text-cyan hover:underline">@{card.owner.username}</Link>}</dd></div>
       </dl>
-      <p className="mt-4 text-xs text-muted">This card is timestamped and locked in the Arena database. It is not an on-chain record.</p>
+      <p className="mt-4 text-xs text-muted">This card is timestamped and locked on Callscore database. It is not an on-chain record.</p>
       <div className="mt-6"><Disclaimer compact /></div>
     </div>
   );

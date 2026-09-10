@@ -25,7 +25,7 @@ describe("computeSignalDNA", () => {
     expect(dna.bestSignal).toBeNull();
   });
 
-  it("computes a style and best signal once enough Battles have settled", () => {
+  it("computes a style and best signal once enough Rounds have settled", () => {
     const battles = Array.from({ length: 6 }, (_, i) => battle(`b${i}`, i % 2 ? "asset-btc" : "asset-eth"));
     const preds = battles.map((b, i) => prediction(`p${i}`, b.id, i === 5 ? "incorrect" : "correct", ["sig-momentum", "sig-market-trend", i % 2 ? "sig-volume" : "sig-volatility"]));
     const dna = computeSignalDNA({ predictions: preds, battles, assets: ASSETS, signals: SIGNALS });

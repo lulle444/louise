@@ -43,7 +43,7 @@ const SEED_USERS: SeedUser[] = [
   { username: "vantablack", displayName: "Yuki Tanaka", bio: "Dominance rotations only.", skill: 0.57, prefers: ["bitcoin-dominance", "market-breadth", "volume"], participation: 0.5, joinedDaysAgo: 24 },
   { username: "amberloop", displayName: "Zoe Marchetti", bio: "Sentiment cycles, patiently.", skill: 0.61, prefers: ["fear-greed", "social-sentiment", "market-trend"], participation: 0.7, joinedDaysAgo: 26 },
   { username: "cinder_tape", displayName: "Malik Haddad", bio: "Occasional forecaster.", skill: 0.5, prefers: ["momentum", "volume", "fear-greed"], participation: 0.3, joinedDaysAgo: 20 },
-  { username: "arena_admin", displayName: "Arena Admin", bio: "Operates the Arena. Forecasts under the same rules as everyone else.", skill: 0.55, prefers: ["market-trend", "volume", "volatility"], participation: 0.3, isAdmin: true, joinedDaysAgo: 45 },
+  { username: "arena_admin", displayName: "Callscore Admin", bio: "Operates Callscore. Forecasts under the same rules as everyone else.", skill: 0.55, prefers: ["market-trend", "volume", "volatility"], participation: 0.3, isAdmin: true, joinedDaysAgo: 45 },
   { username: "glasswing", displayName: "Ada Mensah", bio: "New here. Building a track record.", skill: 0.6, prefers: ["momentum", "market-trend", "social-sentiment"], participation: 1, recentOnly: 3, joinedDaysAgo: 4 },
 ];
 
@@ -139,7 +139,7 @@ export async function buildDemoState(now: Date = new Date()): Promise<DemoState>
     const endsAt = new Date(opensMs + 24 * HOUR).toISOString();
     const battle = await repo.createBattle({
       assetId: asset.id,
-      title: `${asset.symbol} Daily Battle`,
+      title: `${asset.symbol} Daily Round`,
       slug: `demo-${asset.symbol.toLowerCase()}-${String(SETTLED_DAYS - k + 1).padStart(3, "0")}`,
       battleType: "daily",
       status: "upcoming",
@@ -208,7 +208,7 @@ export async function buildDemoState(now: Date = new Date()): Promise<DemoState>
   const voidOpens = anchorMs - 2 * HOUR - 4 * DAY + 6 * HOUR;
   const voidBattle = await repo.createBattle({
     assetId: ASSETS[1].id,
-    title: "ETH Flash Battle",
+    title: "ETH Flash Round",
     slug: "demo-eth-void",
     battleType: "daily",
     status: "void",
@@ -226,7 +226,7 @@ export async function buildDemoState(now: Date = new Date()): Promise<DemoState>
     aiProfileIds: AI_PROFILES.map((p) => p.id),
     createdBy: demoUserId(DEMO_ADMIN_USERNAME),
   });
-  await repo.appendAudit({ actorId: demoUserId(DEMO_ADMIN_USERNAME), action: "battle.void", targetType: "battle", targetId: voidBattle.id, details: { reason: "End-price snapshot unavailable" } });
+  await repo.appendAudit({ actorId: demoUserId(DEMO_ADMIN_USERNAME), action: "battle.void", targetType: "round", targetId: voidBattle.id, details: { reason: "End-price snapshot unavailable" } });
 
   clock = now;
   state.builtAt = new Date().toISOString();

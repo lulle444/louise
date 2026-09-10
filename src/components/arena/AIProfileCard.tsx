@@ -26,7 +26,7 @@ export function AIProfileCard({ profile, accuracy, valid, streak, rating, childr
           <div><dt className="text-[10px] uppercase tracking-wider text-muted">Rating</dt><dd className="num mt-1 text-lg font-semibold">{rating?.toFixed(1) ?? "—"}</dd></div>
         </dl>
       ) : null}
-      {streak !== undefined && streak > 0 ? <p className="mt-2 text-center font-mono text-[11px] text-bull">{streak}-Battle streak</p> : null}
+      {streak !== undefined && streak > 0 ? <p className="mt-2 text-center font-mono text-[11px] text-bull">{streak}-Round streak</p> : null}
       {children}
     </article>
   );
@@ -58,7 +58,7 @@ export function AIPositionCard({ profile, prediction, signals, viewerDirection, 
         <span className="text-dim num">Locked {new Date(prediction.lockedAt).toISOString().slice(11, 16)} UTC · {prediction.strategyVersion}</span>
         {agree !== null ? <span className={agree ? "text-cyan" : "text-neutral"}>{agree ? "Agrees with you" : "Disagrees with you"}</span> : null}
       </div>
-      <Link href={`/signal/${prediction.id}`} className="mt-2 inline-block text-[11px] text-cyan hover:underline">View Signal Card →</Link>
+      <Link href={`/call/${prediction.id}`} className="mt-2 inline-block text-[11px] text-cyan hover:underline">View Call Card →</Link>
     </article>
   );
 }

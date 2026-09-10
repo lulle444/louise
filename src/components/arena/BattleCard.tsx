@@ -14,7 +14,7 @@ export function BattleCard({ summary, compact = false }: { summary: BattleSummar
   const viewerLabel = viewerState === "not-entered" ? (live ? "Not entered" : null) : viewerState === "locked" ? "Locked" : viewerState === "void" ? "Void" : "Settled";
   return (
     <Link
-      href={`/arena/${battle.id}`}
+      href={`/rounds/${battle.id}`}
       className={`card card-hover block p-4 ${live ? "border-cyan/30" : ""}`}
       aria-label={`${battle.title}, ${status}`}
     >
@@ -23,7 +23,7 @@ export function BattleCard({ summary, compact = false }: { summary: BattleSummar
           <AssetMark symbol={asset.symbol} />
           <div>
             <p className="font-semibold leading-tight">{asset.name} <span className="font-mono text-xs text-muted">{asset.symbol}</span></p>
-            <p className="text-xs text-muted">Daily Battle · {battleDurationLabel(battle.opensAt, battle.endsAt)}</p>
+            <p className="text-xs text-muted">Daily Round · {battleDurationLabel(battle.opensAt, battle.endsAt)}</p>
           </div>
         </div>
         <StatusPill status={status} />

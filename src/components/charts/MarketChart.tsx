@@ -14,7 +14,7 @@ export function MarketChart({ series, startPrice, decimals, simulated, height = 
   const pad = (max - min) * 0.15 || max * 0.01;
   const last = data[data.length - 1].price;
   const up = startPrice ? last >= startPrice : true;
-  const stroke = up ? "#34D399" : "#FB7185";
+  const stroke = up ? "#15803D" : "#C2313F";
   return (
     <figure>
       <div style={{ height }} role="img" aria-label={`Price series from $${formatPrice(data[0].price, decimals)} to $${formatPrice(last, decimals)}${startPrice ? `, Battle start price $${formatPrice(startPrice, decimals)}` : ""}.`}>
@@ -29,20 +29,20 @@ export function MarketChart({ series, startPrice, decimals, simulated, height = 
             <XAxis dataKey="t" type="number" domain={["dataMin", "dataMax"]} hide />
             <YAxis domain={[min - pad, max + pad]} hide />
             <Tooltip
-              contentStyle={{ background: "#0C111B", border: "1px solid #1E293B", borderRadius: 8, fontSize: 12, fontFamily: "var(--font-mono)" }}
+              contentStyle={{ background: "#FFFFFF", border: "1px solid #D8DFE8", color: "#0F1A2B", borderRadius: 8, fontSize: 12, fontFamily: "var(--font-mono)" }}
               labelFormatter={(v) => new Date(Number(v)).toUTCString().replace(" GMT", " UTC")}
               formatter={(v) => [`$${formatPrice(Number(v), decimals)}`, "Price"]}
             />
-            {startPrice ? <ReferenceLine y={startPrice} stroke="#94A3B8" strokeDasharray="4 4" /> : null}
-            {opensAt ? <ReferenceLine x={Date.parse(opensAt)} stroke="#21D4FD" strokeOpacity={0.5} strokeDasharray="3 3" /> : null}
-            {endsAt && Date.parse(endsAt) <= data[data.length - 1].t ? <ReferenceLine x={Date.parse(endsAt)} stroke="#8B5CF6" strokeOpacity={0.6} strokeDasharray="3 3" /> : null}
+            {startPrice ? <ReferenceLine y={startPrice} stroke="#5B6B7F" strokeDasharray="4 4" /> : null}
+            {opensAt ? <ReferenceLine x={Date.parse(opensAt)} stroke="#0E8F7E" strokeOpacity={0.6} strokeDasharray="3 3" /> : null}
+            {endsAt && Date.parse(endsAt) <= data[data.length - 1].t ? <ReferenceLine x={Date.parse(endsAt)} stroke="#C2410C" strokeOpacity={0.6} strokeDasharray="3 3" /> : null}
             <Area type="monotone" dataKey="price" stroke={stroke} strokeWidth={2} fill="url(#chartFill)" isAnimationActive={false} />
           </AreaChart>
         </ResponsiveContainer>
       </div>
       <figcaption className="mt-1 flex flex-wrap items-center justify-between gap-x-4 gap-y-0.5 font-mono text-[10px] uppercase tracking-wider text-muted">
         <span>{simulated ? "Simulated series · demo data" : "Historical series · provider data"}</span>
-        <span>Dashed line: Battle start price</span>
+        <span>Dashed line: Round start price</span>
       </figcaption>
     </figure>
   );

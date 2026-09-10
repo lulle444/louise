@@ -9,7 +9,7 @@ export function EmptyState({ title, description, action, icon }: { title: string
       <h3 className="mt-4 text-base font-semibold">{title}</h3>
       {description ? <p className="mt-1 max-w-md text-sm text-muted">{description}</p> : null}
       {action ? (
-        <Link href={action.href} className="mt-5 rounded-md bg-cyan px-4 py-2 text-sm font-semibold text-bg hover:brightness-110">
+        <Link href={action.href} className="mt-5 rounded-md bg-cyan px-4 py-2 text-sm font-semibold text-white hover:brightness-110">
           {action.label}
         </Link>
       ) : null}

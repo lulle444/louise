@@ -1,5 +1,5 @@
 /**
- * Shared domain types for SIGNAL ARENA.
+ * Shared domain types for CALLSCORE.
  * All timestamps are ISO-8601 strings in UTC.
  */
 

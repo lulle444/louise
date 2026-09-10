@@ -17,7 +17,7 @@ export interface AuthState {
 
 function safeNext(value: FormDataEntryValue | null): string {
   const v = typeof value === "string" ? value : "";
-  return v.startsWith("/") && !v.startsWith("//") ? v : "/arena";
+  return v.startsWith("/") && !v.startsWith("//") ? v : "/rounds";
 }
 
 export async function demoSignIn(formData: FormData): Promise<void> {

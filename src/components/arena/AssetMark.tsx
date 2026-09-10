@@ -1,7 +1,7 @@
 const META: Record<string, { color: string; glyph: string }> = {
-  BTC: { color: "#F7931A", glyph: "₿" },
-  ETH: { color: "#8C8CFF", glyph: "Ξ" },
-  SOL: { color: "#14F195", glyph: "◎" },
+  BTC: { color: "#D97706", glyph: "₿" },
+  ETH: { color: "#4F46E5", glyph: "Ξ" },
+  SOL: { color: "#0E8F7E", glyph: "◎" },
 };
 
 export function AssetMark({ symbol, size = "md" }: { symbol: string; size?: "sm" | "md" | "lg" }) {

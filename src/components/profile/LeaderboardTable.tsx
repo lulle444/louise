@@ -16,7 +16,7 @@ export function LeaderboardTable({ rows, highlightUserId }: { rows: LeaderboardR
             <th scope="col" className="px-4 py-3 text-right">Settled</th>
             <th scope="col" className="px-4 py-3 text-right">Streak</th>
             <th scope="col" className="px-4 py-3">Best signal</th>
-            <th scope="col" className="px-4 py-3 text-right">Arena rating</th>
+            <th scope="col" className="px-4 py-3 text-right">Callscore rating</th>
           </tr>
         </thead>
         <tbody>

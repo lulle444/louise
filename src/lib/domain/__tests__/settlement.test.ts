@@ -44,7 +44,7 @@ describe("scorePrediction", () => {
     expect(scorePrediction("bearish", "bullish", false)).toEqual({ result: "incorrect", battleScore: 0 });
   });
 
-  it("voids predictions when the Battle is void", () => {
+  it("voids calls when the Round is void", () => {
     expect(scorePrediction("bullish", "bullish", true)).toEqual({ result: "void", battleScore: null });
     expect(scorePrediction("bullish", null, false)).toEqual({ result: "void", battleScore: null });
   });
@@ -65,7 +65,7 @@ describe("effectiveStatus / deadlines", () => {
     expect(effectiveStatus(battle, new Date("2026-01-01T14:00:00Z"))).toBe("locked");
   });
 
-  it("does not accept predictions at or after locksAt", () => {
+  it("does not accept calls at or after locksAt", () => {
     expect(isAcceptingPredictions(battle, new Date("2026-01-01T13:59:59Z"))).toBe(true);
     expect(isAcceptingPredictions(battle, new Date("2026-01-01T14:00:00Z"))).toBe(false);
   });

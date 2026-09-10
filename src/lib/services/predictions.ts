@@ -29,15 +29,15 @@ export async function lockPrediction(
   const parsed = predictionInputSchema.safeParse(raw);
   if (!parsed.success) {
     const issue = parsed.error.issues[0];
-    throw new PredictionError(issue?.message ?? "Invalid prediction", "invalid");
+    throw new PredictionError(issue?.message ?? "Invalid call", "invalid");
   }
   const input: PredictionInput = parsed.data;
 
   const battle = await repo.getBattle(input.battleId);
-  if (!battle) throw new PredictionError("Battle not found.", "not_found");
+  if (!battle) throw new PredictionError("Round not found.", "not_found");
   if (!isAcceptingPredictions(battle, now)) {
     const deadline = validatePredictionDeadline({ opensAt: battle.opensAt, locksAt: battle.locksAt, now });
-    throw new PredictionError(deadline.ok ? "This Battle is not accepting predictions." : deadline.reason, "closed");
+    throw new PredictionError(deadline.ok ? "This Round is not accepting calls." : deadline.reason, "closed");
   }
 
   const signals = await repo.listSignals();

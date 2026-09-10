@@ -2,17 +2,17 @@ import type { Badge, Direction, Prediction } from "./types";
 
 export const BADGE_CATALOGUE: Badge[] = [
   { id: "badge-first-signal", slug: "first-signal", name: "First Signal", description: "Locked your first forecast.", icon: "Radio" },
-  { id: "badge-three-day-streak", slug: "three-day-streak", name: "Three-Day Streak", description: "Three correct Battles in a row.", icon: "Flame" },
-  { id: "badge-five-day-streak", slug: "five-day-streak", name: "Five-Day Streak", description: "Five correct Battles in a row.", icon: "Zap" },
-  { id: "badge-perfect-week", slug: "perfect-week", name: "Perfect Week", description: "Seven correct Battles in a row.", icon: "Crown" },
-  { id: "badge-beat-the-ai", slug: "beat-the-ai", name: "Beat the AI", description: "Correct while every AI analyst in the Battle was wrong.", icon: "Cpu" },
+  { id: "badge-three-day-streak", slug: "three-day-streak", name: "Three-Day Streak", description: "Three correct Rounds in a row.", icon: "Flame" },
+  { id: "badge-five-day-streak", slug: "five-day-streak", name: "Five-Day Streak", description: "Five correct Rounds in a row.", icon: "Zap" },
+  { id: "badge-perfect-week", slug: "perfect-week", name: "Perfect Week", description: "Seven correct Rounds in a row.", icon: "Crown" },
+  { id: "badge-beat-the-ai", slug: "beat-the-ai", name: "Beat the AI", description: "Correct while every AI analyst in the Round was wrong.", icon: "Cpu" },
   { id: "badge-crowd-breaker", slug: "crowd-breaker", name: "Crowd Breaker", description: "Correct against the crowd majority.", icon: "Users" },
-  { id: "badge-btc-specialist", slug: "btc-specialist", name: "BTC Specialist", description: "Five correct BTC Battles.", icon: "Bitcoin" },
-  { id: "badge-eth-specialist", slug: "eth-specialist", name: "ETH Specialist", description: "Five correct ETH Battles.", icon: "Hexagon" },
-  { id: "badge-sol-specialist", slug: "sol-specialist", name: "SOL Specialist", description: "Five correct SOL Battles.", icon: "Sun" },
+  { id: "badge-btc-specialist", slug: "btc-specialist", name: "BTC Specialist", description: "Five correct BTC Rounds.", icon: "Bitcoin" },
+  { id: "badge-eth-specialist", slug: "eth-specialist", name: "ETH Specialist", description: "Five correct ETH Rounds.", icon: "Hexagon" },
+  { id: "badge-sol-specialist", slug: "sol-specialist", name: "SOL Specialist", description: "Five correct SOL Rounds.", icon: "Sun" },
   { id: "badge-momentum-master", slug: "momentum-master", name: "Momentum Master", description: "Five correct forecasts citing Momentum.", icon: "TrendingUp" },
   { id: "badge-contrarian-win", slug: "contrarian-win", name: "Contrarian Win", description: "Correct with a direction fewer than 25% of the crowd chose.", icon: "GitBranch" },
-  { id: "badge-founding-analyst", slug: "founding-analyst", name: "Founding Analyst", description: "Locked a forecast in the first week of a season. Never awarded again.", icon: "Award" },
+  { id: "badge-founding-analyst", slug: "founding-analyst", name: "Founding Caller", description: "Locked a forecast in the first week of a season. Never awarded again.", icon: "Award" },
 ];
 
 export const badgeBySlug = (slug: string): Badge | undefined => BADGE_CATALOGUE.find((b) => b.slug === slug);
@@ -23,7 +23,7 @@ export interface BadgeEvaluationContext {
   assetSymbol: string;
   /** Streak after applying this result. */
   streakAfter: number;
-  /** All of the user's predictions including the just-settled one, results applied. */
+  /** All of the user's calls including the just-settled one, results applied. */
   history: Prediction[];
   /** Asset symbol per battle id for the history. */
   assetByBattle: Record<string, string>;

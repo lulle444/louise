@@ -1,24 +1,24 @@
 import { expect, test } from "@playwright/test";
 
-test("homepage communicates Humans vs AI and links into the Arena", async ({ page }) => {
+test("homepage communicates Humans vs AI and links into Callscore", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("Humans vs AI");
-  await expect(page.getByText("The Market Intelligence Arena")).toBeVisible();
-  await expect(page.getByRole("link", { name: "Enter Today’s Battle" }).first()).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Make the call");
+  await expect(page.getByText("The scoreboard for crypto calls")).toBeVisible();
+  await expect(page.getByRole("link", { name: "Make today’s call" }).first()).toBeVisible();
   await expect(page.getByText("Preview season").first()).toBeVisible();
   // Crowd preview is obscured for visitors.
-  await expect(page.getByText(/Sign in and lock a forecast in today’s Battle/)).toBeVisible();
-  await expect(page.getByRole("contentinfo").getByText("SIGNAL ARENA is an educational forecasting game")).toBeVisible();
+  await expect(page.getByText(/Sign in and lock a forecast in today’s Round/)).toBeVisible();
+  await expect(page.getByRole("contentinfo").getByText("CALLSCORE is an educational forecasting game")).toBeVisible();
 });
 
-test("arena lists seeded live, upcoming and settled Battles", async ({ page }) => {
-  await page.goto("/arena");
+test("arena lists seeded live, upcoming and settled Rounds", async ({ page }) => {
+  await page.goto("/rounds");
   await expect(page.getByRole("tab", { name: /Live/ })).toHaveAttribute("aria-selected", "true");
-  await expect(page.getByRole("link", { name: /Daily Battle, open/ }).first()).toBeVisible();
+  await expect(page.getByRole("link", { name: /Daily Round, open/ }).first()).toBeVisible();
   await page.getByRole("tab", { name: /Upcoming/ }).click();
   await expect(page.getByRole("link", { name: /upcoming/ }).first()).toBeVisible();
   await page.getByRole("tab", { name: /Settled/ }).click();
-  const settled = page.getByRole("link", { name: /Daily Battle, settled/ });
+  const settled = page.getByRole("link", { name: /Daily Round, settled/ });
   await expect(settled.first()).toBeVisible();
   expect(await settled.count()).toBeGreaterThanOrEqual(3);
 });
@@ -26,7 +26,7 @@ test("arena lists seeded live, upcoming and settled Battles", async ({ page }) =
 test("humans vs ai, leaderboard, methodology and token pages render", async ({ page }) => {
   await page.goto("/humans-vs-ai");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Who reads crypto markets best?");
-  await expect(page.getByText("ORACLE").first()).toBeVisible();
+  await expect(page.getByText("ATLAS").first()).toBeVisible();
   await page.goto("/leaderboard");
   await expect(page.getByRole("table")).toBeVisible();
   await expect(page.getByText(/ranked/).first()).toBeVisible();
@@ -34,27 +34,27 @@ test("humans vs ai, leaderboard, methodology and token pages render", async ({ p
   await expect(page.getByRole("heading", { name: "Leaderboard formula" })).toBeVisible();
   await page.goto("/token");
   await expect(page.getByText("No token is needed for the core forecasting experience.")).toBeVisible();
-  await page.goto("/season");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("This week in the Arena");
-  await expect(page.getByText("Founding Analyst badge").first()).toBeVisible();
+  await page.goto("/weekly");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("This week on Callscore");
+  await expect(page.getByText("Founding Caller badge").first()).toBeVisible();
   await expect(page.getByRole("heading", { name: "Top analysts this week" })).toBeVisible();
 });
 
-test("settled result renders on a seeded analyst's Battle and Signal Card", async ({ page }) => {
+test("settled result renders on a seeded analyst's Round and Call Card", async ({ page }) => {
   await page.goto("/login");
   await page.getByTestId("demo-analyst").click();
-  await page.waitForURL(/\/arena/);
+  await page.waitForURL(/\/rounds/);
   await page.goto("/profile/nova");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Nova Reyes");
-  await expect(page.getByText("Signal DNA").first()).toBeVisible();
-  // Open the first settled Signal Card from the profile history.
+  await expect(page.getByText("Call Profile").first()).toBeVisible();
+  // Open the first settled Call Card from the profile history.
   const firstCard = page.locator("article[aria-label*='Result:']").first();
   await expect(firstCard).toBeVisible();
   await firstCard.locator("xpath=ancestor::a").click();
-  await expect(page).toHaveURL(/\/signal\//);
-  await expect(page.getByText("Public Signal Card")).toBeVisible();
+  await expect(page).toHaveURL(/\/call\//);
+  await expect(page.getByText("Public Call Card")).toBeVisible();
   await expect(page.getByText("timestamped and locked").first()).toBeVisible();
-  await page.getByRole("link", { name: "Open the Battle →" }).click();
+  await page.getByRole("link", { name: "Open the Round →" }).click();
   await expect(page.getByTestId("settled-result")).toBeVisible();
   await expect(page.getByTestId("settled-result")).toContainText(/Correct|Incorrect/);
   await expect(page.getByRole("heading", { name: "AI analyst positions" })).toBeVisible();
@@ -67,16 +67,16 @@ test("protected admin route rejects visitors and ordinary users", async ({ page,
 
   await page.goto("/login");
   await page.getByTestId("demo-guest").click();
-  await page.waitForURL(/\/arena/);
+  await page.waitForURL(/\/rounds/);
   await page.goto("/admin");
-  await expect(page).toHaveURL(/\/arena\?denied=admin/);
-  await expect(page.getByText("Battle console")).toHaveCount(0);
+  await expect(page).toHaveURL(/\/rounds\?denied=admin/);
+  await expect(page.getByText("Round console")).toHaveCount(0);
 
   // Admin identity reaches the console.
   await page.context().clearCookies();
   await page.goto("/login");
   await page.getByTestId("demo-admin").click();
   await page.waitForURL(/\/admin/);
-  await expect(page.getByRole("heading", { name: "Battle console" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Round console" })).toBeVisible();
   await expect(page.getByText("Price provider")).toBeVisible();
 });

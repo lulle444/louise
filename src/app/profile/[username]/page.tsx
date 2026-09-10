@@ -20,7 +20,7 @@ export const dynamic = "force-dynamic";
 
 export async function generateMetadata(props: PageProps<"/profile/[username]">): Promise<Metadata> {
   const { username } = await props.params;
-  return { title: `@${username}`, description: `Forecasting track record of @${username} on SIGNAL ARENA.` };
+  return { title: `@${username}`, description: `Forecasting track record of @${username} on Callscore.` };
 }
 
 export default async function ProfilePage(props: PageProps<"/profile/[username]">) {
@@ -71,17 +71,17 @@ export default async function ProfilePage(props: PageProps<"/profile/[username]"
       </div>
 
       <div className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-6">
-        <StatCard label="Arena rating" value={stats.rating.toFixed(1)} hint={stats.ranked ? "Ranked" : `Provisional · ${MIN_RANKED_BATTLES - stats.accuracy.valid} more settled to rank`} accent="text-cyan" />
+        <StatCard label="Callscore rating" value={stats.rating.toFixed(1)} hint={stats.ranked ? "Ranked" : `Provisional · ${MIN_RANKED_BATTLES - stats.accuracy.valid} more settled to rank`} accent="text-cyan" />
         <StatCard label="Accuracy" value={formatAccuracy(stats.accuracy.accuracy)} hint={`${stats.accuracy.correct}/${stats.accuracy.valid} correct`} />
         <StatCard label="Settled" value={stats.accuracy.valid} hint={stats.accuracy.voided ? `${stats.accuracy.voided} void excluded` : `${stats.accuracy.pending} pending`} />
         <StatCard label="Streak" value={profile.currentStreak} hint={`Longest ${profile.longestStreak}`} accent={profile.currentStreak > 0 ? "text-bull" : "text-text"} />
-        <StatCard label="Best asset" value={stats.bestAsset?.symbol ?? "—"} hint={stats.bestAsset ? formatAccuracy(stats.bestAsset.accuracy) : "Needs 3+ Battles per asset"} />
+        <StatCard label="Best asset" value={stats.bestAsset?.symbol ?? "—"} hint={stats.bestAsset ? formatAccuracy(stats.bestAsset.accuracy) : "Needs 3+ Rounds per asset"} />
         <StatCard label="Best signal" value={<span className="text-lg">{stats.bestSignal?.name ?? "—"}</span>} hint={stats.bestSignal ? formatAccuracy(stats.bestSignal.accuracy) : "Needs 3+ settled uses"} />
       </div>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-2">
         <section className="card p-5" aria-labelledby="dna-heading">
-          <h2 id="dna-heading" className="text-base font-semibold">Signal DNA</h2>
+          <h2 id="dna-heading" className="text-base font-semibold">Call Profile</h2>
           {dna.ready ? (
             <>
               <SignalDNAChart data={dna.radar} />
@@ -104,11 +104,11 @@ export default async function ProfilePage(props: PageProps<"/profile/[username]"
             </>
           ) : (
             <div className="mt-4 rounded-lg border border-dashed border-border p-6 text-center">
-              <p className="font-semibold">Building your Signal DNA</p>
-              <p className="mt-1 text-sm text-muted">{dna.validSettled} of {dna.requiredSettled} settled Battles. Signal DNA is a statistical summary of forecasting-game history and needs a minimum sample before it says anything.</p>
+              <p className="font-semibold">Building your Call Profile</p>
+              <p className="mt-1 text-sm text-muted">{dna.validSettled} of {dna.requiredSettled} settled Rounds. Call Profile is a statistical summary of forecasting-game history and needs a minimum sample before it says anything.</p>
             </div>
           )}
-          <p className="mt-4 text-[11px] text-muted">Signal DNA summarises forecasting-game history. It is not proof of trading profitability.</p>
+          <p className="mt-4 text-[11px] text-muted">Call Profile summarises forecasting-game history. It is not proof of trading profitability.</p>
         </section>
 
         <div className="space-y-6">
@@ -116,7 +116,7 @@ export default async function ProfilePage(props: PageProps<"/profile/[username]"
             <h2 id="perf-heading" className="text-base font-semibold">Performance by asset and signal</h2>
             <div className="mt-3 grid gap-4 sm:grid-cols-2">
               <table className="w-full text-sm"><caption className="mb-1 text-left text-[11px] uppercase tracking-wider text-muted">By asset</caption><tbody>
-                {dna.assetPerformance.length === 0 ? <tr><td className="text-muted">No settled Battles</td></tr> : dna.assetPerformance.map((a) => <tr key={a.assetId} className="border-t border-border/60"><td className="num py-1.5">{a.symbol}</td><td className="num py-1.5 text-right">{formatAccuracy(a.accuracy)}</td><td className="num py-1.5 text-right text-xs text-muted">{a.correct}/{a.valid}</td></tr>)}
+                {dna.assetPerformance.length === 0 ? <tr><td className="text-muted">No settled Rounds</td></tr> : dna.assetPerformance.map((a) => <tr key={a.assetId} className="border-t border-border/60"><td className="num py-1.5">{a.symbol}</td><td className="num py-1.5 text-right">{formatAccuracy(a.accuracy)}</td><td className="num py-1.5 text-right text-xs text-muted">{a.correct}/{a.valid}</td></tr>)}
               </tbody></table>
               <table className="w-full text-sm"><caption className="mb-1 text-left text-[11px] uppercase tracking-wider text-muted">By selected signal</caption><tbody>
                 {dna.signalUsage.length === 0 ? <tr><td className="text-muted">No signals cited yet</td></tr> : dna.signalUsage.map((u) => <tr key={u.signalId} className="border-t border-border/60"><td className="py-1.5">{u.name}</td><td className="num py-1.5 text-right">{formatAccuracy(u.accuracy)}</td><td className="num py-1.5 text-right text-xs text-muted">{u.correct}/{u.valid}</td></tr>)}
@@ -133,12 +133,12 @@ export default async function ProfilePage(props: PageProps<"/profile/[username]"
 
       <section className="mt-6" aria-labelledby="history-heading">
         <div className="mb-3 flex items-center justify-between">
-          <h2 id="history-heading" className="text-base font-semibold">Signal Cards <span className="num text-sm font-normal text-muted">({stats.predictions.length})</span></h2>
+          <h2 id="history-heading" className="text-base font-semibold">Call Cards <span className="num text-sm font-normal text-muted">({stats.predictions.length})</span></h2>
         </div>
         {cards.length === 0 ? (
-          <EmptyState title="No forecasts yet" description={isOwner ? "Enter today’s Battle to lock your first Signal Card." : "This analyst has not locked a forecast yet."} action={isOwner ? { href: "/arena", label: "Enter a Battle" } : undefined} />
+          <EmptyState title="No forecasts yet" description={isOwner ? "Make today’s call to lock your first Call Card." : "This analyst has not locked a forecast yet."} action={isOwner ? { href: "/rounds", label: "Enter a Round" } : undefined} />
         ) : (
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">{cards.map((c) => <Link key={c.id} href={`/signal/${c.id}`} className="block rounded-[14px] focus-visible:outline-cyan"><SignalCard data={c} showLink={false} className="card-hover h-full" /></Link>)}</div>
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">{cards.map((c) => <Link key={c.id} href={`/call/${c.id}`} className="block rounded-[14px] focus-visible:outline-cyan"><SignalCard data={c} showLink={false} className="card-hover h-full" /></Link>)}</div>
         )}
         {stats.predictions.length > cards.length ? <p className="mt-3 text-xs text-muted">Showing the {cards.length} most recent of {stats.predictions.length}.</p> : null}
       </section>

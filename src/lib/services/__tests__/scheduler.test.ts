@@ -5,8 +5,8 @@ import { MockMarketDataProvider } from "@/lib/market/mock-provider";
 import { assetForDay, ensureDailyBattles, utcDayStart } from "@/lib/services/scheduler";
 import { ASSETS } from "@/lib/domain/catalogue";
 
-describe("daily Battle scheduler", () => {
-  it("creates today's and tomorrow's Battles once, rotating assets", async () => {
+describe("daily Round scheduler", () => {
+  it("creates today's and tomorrow's Rounds once, rotating assets", async () => {
     const repo = new DemoRepository(emptyState(new Date().toISOString()));
     const now = new Date("2026-03-10T08:00:00Z");
     const provider = new MockMarketDataProvider(() => now);
@@ -26,7 +26,7 @@ describe("daily Battle scheduler", () => {
     expect((await repo.listBattles()).length).toBe(2);
   });
 
-  it("skips today's Battle when it would already be locked", async () => {
+  it("skips today's Round when it would already be locked", async () => {
     const repo = new DemoRepository(emptyState(new Date().toISOString()));
     const now = new Date("2026-03-10T21:00:00Z");
     const created = await ensureDailyBattles(repo, provider(now), now);

@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { arenaRating, computeAccuracy, computeStreaks, levelForXp, levelProgress, settlementXpAwards, xpLedgerKey } from "../scoring";
 
 describe("computeAccuracy", () => {
-  it("excludes void and pending predictions", () => {
+  it("excludes void and pending calls", () => {
     const acc = computeAccuracy([
       { result: "correct" },
       { result: "incorrect" },
@@ -17,7 +17,7 @@ describe("computeAccuracy", () => {
     expect(acc.accuracy).toBeCloseTo(2 / 3);
   });
 
-  it("returns null accuracy with no valid predictions", () => {
+  it("returns null accuracy with no valid calls", () => {
     expect(computeAccuracy([{ result: "void" }]).accuracy).toBeNull();
     expect(computeAccuracy([]).accuracy).toBeNull();
   });
@@ -72,7 +72,7 @@ describe("settlementXpAwards", () => {
       .toEqual([{ reason: "correct", amount: 100 }, { reason: "streak_5", amount: 50 }]);
   });
 
-  it("awards the seven-battle bonus once regardless of correctness", () => {
+  it("awards the seven-round bonus once regardless of correctness", () => {
     expect(settlementXpAwards({ result: "incorrect", streakAfter: 0, validSettledAfter: 7, hasSevenBattleBonus: false }))
       .toEqual([{ reason: "seven_battles", amount: 50 }]);
     expect(settlementXpAwards({ result: "incorrect", streakAfter: 0, validSettledAfter: 7, hasSevenBattleBonus: true }))

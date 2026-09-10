@@ -16,7 +16,7 @@ interface Row {
   series: PricePoint[];
 }
 
-/** Live (or simulated, in Demo Mode) 7-day view of the Arena's assets. */
+/** Live (or simulated, in Demo Mode) 7-day view of Callscore's assets. */
 export async function MarketStrip() {
   const repo = await getRepository();
   const provider = getMarketDataProvider();
@@ -47,7 +47,7 @@ export async function MarketStrip() {
   return (
     <section className="mx-auto max-w-7xl px-4 pt-6 sm:px-6" aria-label="Markets">
       <div className="mb-3 flex items-center justify-between">
-        <p className="eyebrow">Arena markets · 7 days</p>
+        <p className="eyebrow">Markets · 7 days</p>
         <p className="font-mono text-[10px] uppercase tracking-wider text-muted">{provider.isMock ? "Simulated series" : `Live via ${provider.name}`}</p>
       </div>
       {!anyData ? (

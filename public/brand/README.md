@@ -1,6 +1,6 @@
-# SIGNAL ARENA brand assets
+# Callscore brand assets
 
-Generated from `source.html` (renders with Inter + JetBrains Mono, matching the site theme).
+Generated from `source.html` (Manrope + IBM Plex Mono, Analyst-light palette).
 
 | File | Use |
 |---|---|
@@ -9,4 +9,4 @@ Generated from `source.html` (renders with Inter + JetBrains Mono, matching the 
 | `logo-wordmark.png` / `@2x` | Horizontal logo on dark background |
 | `mark.svg` | Vector mark (also used as the site icon at `src/app/icon.svg`) |
 
-Colours: background `#06080D`, cyan `#21D4FD`, violet `#8B5CF6`, bullish green `#34D399`, text `#E8EEF8`.
+Colours: background `#F4F6F9`, teal `#0E8F7E`, AI orange `#C2410C`, bullish `#15803D`, bearish `#C2313F`, text `#0F1A2B`.

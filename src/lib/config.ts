@@ -7,17 +7,17 @@
  * core loop can be reviewed without external services.
  */
 
-export const APP_NAME = "SIGNAL ARENA";
-export const TAGLINE = "Pick your signals. Challenge the AI. Prove your edge.";
-export const SUPPORTING_MESSAGE = "Humans vs AI. Who reads crypto markets best?";
+export const APP_NAME = "Callscore";
+export const TAGLINE = "Make the call. Beat the machines. Keep the score.";
+export const SUPPORTING_MESSAGE = "Who reads crypto best: you, the crowd, or the machines?";
 
 export const DISCLAIMER =
-  "SIGNAL ARENA is an educational forecasting game using virtual points. It does not execute trades or provide financial advice. Crypto markets are volatile, and past forecasting performance does not predict future results.";
+  "Callscore is an educational forecasting game using virtual points. It does not execute trades or provide financial advice. Crypto markets are volatile, and past forecasting performance does not predict future results.";
 
 /** Minimum valid settled predictions before a user is ranked on the leaderboard. */
 export const MIN_RANKED_BATTLES = 5;
 
-/** Minimum valid settled predictions before Signal DNA is computed. */
+/** Minimum valid settled predictions before Call Profile is computed. */
 export const MIN_DNA_BATTLES = 5;
 
 /** Minimum uses of a signal before it can be named "best signal". */
@@ -28,7 +28,7 @@ export const MIN_ASSET_BATTLES = 3;
 
 /**
  * Season framing. Season 0 is the preview season (simulated market in Demo
- * Mode). The founding window grants the "Founding Analyst" badge to anyone who
+ * Mode). The founding window grants the "Founding Caller" badge to anyone who
  * locks a forecast within the first days of the season.
  */
 export interface SeasonInfo {
@@ -88,7 +88,7 @@ export function isDemoMode(): boolean {
 /** X (Twitter) handle without the @; override with NEXT_PUBLIC_X_HANDLE. */
 export function getXHandle(): string {
   const v = (process.env.NEXT_PUBLIC_X_HANDLE ?? "").trim().replace(/^@/, "");
-  return v || "Signal__Arena";
+  return v || "callscore";
 }
 
 export function getXUrl(): string {

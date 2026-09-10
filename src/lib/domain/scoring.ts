@@ -74,7 +74,7 @@ export function computeAccuracy(
 }
 
 /**
- * Arena rating (0..100). Transparent formula that reduces the advantage of
+ * Callscore rating (0..100). Transparent formula that reduces the advantage of
  * tiny sample sizes:
  *   accuracy_component   = accuracy% * 0.60
  *   experience_component = min(valid / 30, 1) * 25
