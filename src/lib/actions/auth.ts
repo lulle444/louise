@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { isDemoMode } from "../config";
+import { getAppUrl, isDemoMode } from "../config";
 import { loginSchema, signupSchema } from "../domain/validation";
 import { getDemoState } from "../data/demo";
 import { DEMO_ADMIN_USERNAME, DEMO_ANALYST_USERNAME } from "../data/demo/seed";
@@ -67,12 +67,16 @@ export async function signUpWithPassword(_prev: AuthState, formData: FormData): 
   const parsed = signupSchema.safeParse({ email: formData.get("email"), password: formData.get("password"), username: formData.get("username") });
   if (!parsed.success) return { error: parsed.error.issues[0]?.message ?? "Invalid input" };
   const supabase = await createSupabaseServerClient();
+  const next = safeNext(formData.get("next"));
   const { data, error } = await supabase.auth.signUp({
     email: parsed.data.email,
     password: parsed.data.password,
-    options: { data: { username: parsed.data.username, display_name: parsed.data.username } },
+    options: {
+      data: { username: parsed.data.username, display_name: parsed.data.username },
+      emailRedirectTo: `${getAppUrl()}/auth/callback?next=${encodeURIComponent(next)}`,
+    },
   });
   if (error) return { error: error.message };
-  if (data.session) redirect(safeNext(formData.get("next")));
+  if (data.session) redirect(next);
   return { message: "Check your inbox to confirm your email, then sign in." };
 }
