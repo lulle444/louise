@@ -147,8 +147,8 @@ Human lineups are inserted through the `lock_lineup()` RPC (security definer) wh
 
 Scheduled jobs (`vercel.json`) call:
 
-- `GET /api/cron/snapshot` every 6h — locks AI lineups and takes published Races live at their lock time, records interval snapshots for live Races and the final snapshot when the window ends.
-- `GET /api/cron/settle` every 6h (offset) — settles live Races whose window has ended. Settlement is idempotent: results are keyed by lineup, XP by `(user, race, reason)`.
+- `GET /api/cron/snapshot` daily at 00:00 UTC (Hobby plan allows daily crons only; raise to every 6h on Pro) — locks AI lineups and takes published Races live at their lock time, records interval snapshots for live Races and the final snapshot when the window ends.
+- `GET /api/cron/settle` daily at 00:30 UTC — settles live Races whose window has ended. Settlement is idempotent: results are keyed by lineup, XP by `(user, race, reason)`.
 
 Both require `Authorization: Bearer $CRON_SECRET`. Admins can trigger the same actions from `/admin`.
 
