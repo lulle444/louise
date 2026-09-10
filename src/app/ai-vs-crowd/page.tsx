@@ -5,7 +5,7 @@ import { AICoachCard } from "@/components/AICoachCard";
 import { Avatar } from "@/components/Avatar";
 import { DemoBadge } from "@/components/DemoBadge";
 import { EmptyState } from "@/components/EmptyState";
-import { ScoreHistoryChart } from "@/components/ScoreHistoryChart";
+import { ScoreHistoryChart } from "@/components/LazyScoreChart";
 import { SectionHeading } from "@/components/SectionHeading";
 import { getSession } from "@/lib/auth/session";
 import { getAiVsCrowd } from "@/lib/services/views";

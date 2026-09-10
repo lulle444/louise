@@ -10,7 +10,7 @@ import { MethodologyTooltip } from "@/components/MethodologyTooltip";
 import { NarrativeReplay } from "@/components/NarrativeReplay";
 import { PodiumReveal } from "@/components/PodiumReveal";
 import { RaceHero } from "@/components/RaceHero";
-import { ScoreHistoryChart } from "@/components/ScoreHistoryChart";
+import { ScoreHistoryChart } from "@/components/LazyScoreChart";
 import { ShareOnX } from "@/components/ShareOnX";
 import { CopyLink } from "@/components/CopyLink";
 import { Avatar } from "@/components/Avatar";

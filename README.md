@@ -161,6 +161,10 @@ Both require `Authorization: Bearer $CRON_SECRET`. Admins can trigger the same a
 - **Unit** (`tests/unit`): lineup validation (roles, uniqueness, exactly 100 Energy, deadline), narrative score formula and normalization bounds, Leader/Challenger/Wildcard scoring and caps, XP idempotency and streaks, crowd aggregation excluding AI, Meta Rating threshold, AI coach rules, and a full demo-world build covering settlement idempotency, deadline/duplicate rejection and void behaviour.
 - **Smoke** (`tests/e2e`): homepage, Race list, guest lineup lock with hidden → revealed crowd, settled Race view, leaderboard/profile/narrative pages, admin rejection and demo-admin access, cron authorization, and the full loop (lock → go live → settle → result).
 
+## Analytics
+
+`@vercel/analytics` and `@vercel/speed-insights` are mounted in the root layout. Enable **Analytics** and **Speed Insights** for the project in the Vercel dashboard to start collecting; outside Vercel the two script requests 404 harmlessly.
+
 ## Deployment (Vercel)
 
 1. Import the repository; framework preset Next.js.

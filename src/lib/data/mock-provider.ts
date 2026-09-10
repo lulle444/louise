@@ -20,7 +20,7 @@ export interface MockAssetConfig {
   volatility: number; // per-step stdev in fraction
 }
 
-const seriesCache = new Map<string, SeriesPoint[]>();
+const seriesCache = new Map<string, { points: SeriesPoint[]; rand: () => number; price: number }>();
 
 export function stepIndex(ms: number): number {
   return Math.floor((ms - MOCK_EPOCH_MS) / MOCK_STEP_MS);
@@ -30,10 +30,20 @@ export function stepToMs(index: number): number {
   return MOCK_EPOCH_MS + index * MOCK_STEP_MS;
 }
 
+const weekNoise = new Map<string, number>();
+function cachedNoise(key: string): number {
+  let v = weekNoise.get(key);
+  if (v === undefined) {
+    v = noise(key);
+    weekNoise.set(key, v);
+  }
+  return v;
+}
+
 /** Deterministic weekly drift for a narrative. Returns a per-step fraction. */
 export function narrativeWeeklyDrift(narrativeSlug: string, weekIndex: number): number {
   // Between roughly -0.35% and +0.35% per 6h step, i.e. about ±10% per week.
-  return noise(`drift:${narrativeSlug}:${weekIndex}`) * 0.0035;
+  return cachedNoise(`drift:${narrativeSlug}:${weekIndex}`) * 0.0035;
 }
 
 function gaussian(rand: () => number): number {
@@ -43,15 +53,16 @@ function gaussian(rand: () => number): number {
 }
 
 function buildSeries(cfg: MockAssetConfig, untilIndex: number): SeriesPoint[] {
-  const cacheKey = cfg.symbol;
-  const existing = seriesCache.get(cacheKey);
-  if (existing && existing.length > untilIndex) return existing;
-
-  const rand = mulberry32(hashString(`series:${cfg.symbol}`));
-  const points: SeriesPoint[] = existing ? [...existing] : [];
-  let price = points.length ? points[points.length - 1].close : cfg.basePrice;
-  // Re-seed by advancing the generator deterministically to the resume point.
-  for (let i = 0; i < points.length * 2; i++) rand();
+  let state = seriesCache.get(cfg.symbol);
+  if (!state) {
+    state = { points: [], rand: mulberry32(hashString(`series:${cfg.symbol}`)), price: cfg.basePrice };
+    seriesCache.set(cfg.symbol, state);
+  }
+  if (state.points.length > untilIndex) return state.points;
+  // Extend the walk in place; the generator continues from where it stopped so
+  // values depend only on (symbol, step index), never on request order.
+  const { points, rand } = state;
+  let price = state.price;
   for (let i = points.length; i <= untilIndex; i++) {
     const ms = stepToMs(i);
     const week = Math.floor(i / 28);
@@ -59,11 +70,11 @@ function buildSeries(cfg: MockAssetConfig, untilIndex: number): SeriesPoint[] {
     const shock = gaussian(rand) * cfg.volatility;
     price = Math.max(cfg.basePrice * 0.05, price * (1 + drift + shock));
     const volumeNoise = 1 + gaussian(rand) * 0.35;
-    const weekVolumeBias = 1 + noise(`vol:${cfg.narrativeSlug}:${week}`) * 0.4;
+    const weekVolumeBias = 1 + cachedNoise(`vol:${cfg.narrativeSlug}:${week}`) * 0.4;
     const volume = Math.max(1, cfg.baseVolume * Math.max(0.2, volumeNoise) * weekVolumeBias);
     points.push({ t: new Date(ms).toISOString(), close: price, volume });
   }
-  seriesCache.set(cacheKey, points);
+  state.price = price;
   return points;
 }
 

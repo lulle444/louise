@@ -3,6 +3,8 @@ import "./globals.css";
 import { AppHeader } from "@/components/AppHeader";
 import { AppFooter } from "@/components/AppFooter";
 import { LiveTicker } from "@/components/LiveTicker";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { APP_NAME, APP_SOCIAL_DESCRIPTION, APP_TAGLINE, X_HANDLE, getAppUrl } from "@/lib/config";
 
 export const metadata: Metadata = {
@@ -36,6 +38,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </main>
         <AppFooter />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

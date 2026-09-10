@@ -33,23 +33,30 @@ export interface WindowSpec {
   atIso: string;
 }
 
-function pointAtOrBefore(series: SeriesPoint[], iso: string): SeriesPoint | null {
-  const t = Date.parse(iso);
+interface Timed {
+  points: SeriesPoint[];
+  ms: number[];
+}
+
+function timed(series: SeriesPoint[]): Timed {
+  return { points: series, ms: series.map((p) => Date.parse(p.t)) };
+}
+
+function pointAtOrBefore(s: Timed, t: number): SeriesPoint | null {
   let best: SeriesPoint | null = null;
-  for (const p of series) {
-    if (Date.parse(p.t) <= t) best = p;
+  for (let i = 0; i < s.points.length; i++) {
+    if (s.ms[i] <= t) best = s.points[i];
     else break;
   }
   return best;
 }
 
-function within(series: SeriesPoint[], fromIso: string, toIso: string): SeriesPoint[] {
-  const a = Date.parse(fromIso);
-  const b = Date.parse(toIso);
-  return series.filter((p) => {
-    const t = Date.parse(p.t);
-    return t >= a && t <= b;
-  });
+function within(s: Timed, a: number, b: number): SeriesPoint[] {
+  const out: SeriesPoint[] = [];
+  for (let i = 0; i < s.points.length; i++) {
+    if (s.ms[i] >= a && s.ms[i] <= b) out.push(s.points[i]);
+  }
+  return out;
 }
 
 export interface NarrativeRawResult {
@@ -76,7 +83,8 @@ export async function computeNarrativeRaw(
   const fromMs = Date.parse(window.fromIso);
   const atMs = Date.parse(window.atIso);
   const spanMs = atMs - fromMs;
-  const priorFromIso = new Date(fromMs - spanMs).toISOString();
+  const priorFromMs = fromMs - spanMs;
+  const priorFromIso = new Date(priorFromMs).toISOString();
 
   const perAsset: NarrativeRawResult["perAsset"] = [];
   const stepsBySymbol = new Map<string, SeriesPoint[]>();
@@ -89,9 +97,9 @@ export async function computeNarrativeRaw(
 
   for (const c of constituents) {
     const w = weights.get(c.symbol) ?? 0;
-    const series = (await provider.getSeries(c.symbol, priorFromIso, window.atIso)).filter(isValidPoint);
-    const start = pointAtOrBefore(series, window.fromIso);
-    const end = pointAtOrBefore(series, window.atIso);
+    const series = timed((await provider.getSeries(c.symbol, priorFromIso, window.atIso)).filter(isValidPoint));
+    const start = pointAtOrBefore(series, fromMs);
+    const end = pointAtOrBefore(series, atMs);
     if (!start || !end || start.close <= 0) {
       perAsset.push({ symbol: c.symbol, weight: w, changePct: null });
       continue;
@@ -103,8 +111,8 @@ export async function computeNarrativeRaw(
     counted++;
     if (changePct > 0) positive++;
 
-    const inWindow = within(series, window.fromIso, window.atIso);
-    const prior = within(series, priorFromIso, window.fromIso).filter((p) => Date.parse(p.t) < fromMs);
+    const inWindow = within(series, fromMs, atMs);
+    const prior = within(series, priorFromMs, fromMs - 1);
     const avg = (pts: SeriesPoint[]) => (pts.length ? pts.reduce((s, p) => s + p.volume, 0) / pts.length : 0);
     volWindow += avg(inWindow) * w;
     volPrior += avg(prior) * w;
@@ -122,6 +130,8 @@ export async function computeNarrativeRaw(
 
   // Momentum consistency: build a weighted index across aligned steps.
   const timestamps = [...new Set([...stepsBySymbol.values()].flat().map((p) => p.t))].sort();
+  const lookup = new Map<string, Map<string, SeriesPoint>>();
+  for (const [symbol, pts] of stepsBySymbol) lookup.set(symbol, new Map(pts.map((p) => [p.t, p])));
   let ups = 0;
   let intervals = 0;
   let prevIndex: number | null = null;
@@ -130,7 +140,7 @@ export async function computeNarrativeRaw(
     let wsum = 0;
     for (const c of constituents) {
       const pts = stepsBySymbol.get(c.symbol);
-      const p = pts?.find((x) => x.t === t);
+      const p = lookup.get(c.symbol)?.get(t);
       const first = pts?.[0];
       if (!p || !first || first.close <= 0) continue;
       const w = weights.get(c.symbol) ?? 0;

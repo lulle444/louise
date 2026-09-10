@@ -2,7 +2,7 @@
   "name": "megasprint",
   "version": "0.1.0",
   "private": true,
-  "description": "MEGASPRINT \u2014 an educational crypto narrative forecasting game using virtual points.",
+  "description": "MEGASPRINT — an educational crypto narrative forecasting game using virtual points.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -18,6 +18,8 @@
   "dependencies": {
     "@supabase/ssr": "^0.12.7",
     "@supabase/supabase-js": "^2.116.0",
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0",
     "lucide-react": "^1.44.0",
     "next": "16.3.4",
     "react": "19.2.8",

@@ -572,3 +572,22 @@ a {
     stroke-dashoffset: 0;
   }
 }
+
+@keyframes radar-in {
+  from {
+    transform: scale(0.1);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.radar-shape {
+  animation: radar-in 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .radar-shape {
+    animation: none !important;
+  }
+}

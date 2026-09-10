@@ -5,7 +5,7 @@ import { DemoBadge } from "@/components/DemoBadge";
 import { MethodologyTooltip } from "@/components/MethodologyTooltip";
 import { NarrativeIcon } from "@/components/NarrativeIcon";
 import { RankMove } from "@/components/RankMove";
-import { ScoreHistoryChart } from "@/components/ScoreHistoryChart";
+import { ScoreHistoryChart } from "@/components/LazyScoreChart";
 import { Stat } from "@/components/Stat";
 import { ComponentGauges } from "@/components/ComponentGauges";
 import { RelativeTime } from "@/components/RelativeTime";
