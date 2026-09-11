@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, BadgeCheck, CalendarClock, Clock3, GitCompareArrows, Scale, Users } from "lucide-react";
 import { DataFreshness } from "@/components/DataFreshness";
+import { BrandImage, hasBrandImage } from "@/components/BrandImage";
 import { HeroScoreDemo } from "@/components/HeroScoreDemo";
 import { Disclaimer } from "@/components/Disclaimer";
 import { ProjectCard } from "@/components/ProjectCard";
@@ -77,6 +78,34 @@ export default async function HomePage() {
         </dl>
       </section>
 
+      {/* How it works */}
+      {hasBrandImage("pipeline") ? (
+        <section aria-labelledby="how-heading" className="card overflow-hidden p-0">
+          <div className="grid items-center gap-6 lg:grid-cols-[1fr_1.1fr]">
+            <div className="p-6 sm:p-8">
+              <SectionHeading id="how-heading" eyebrow="How it works" title="Every claim leaves a trace" />
+              <ol className="space-y-3 text-sm text-slate">
+                {[
+                  ["Commitment", "A public roadmap item is recorded with its source and deadline."],
+                  ["Code", "Repository releases and tags are observed, never assumed."],
+                  ["Product", "Live endpoints are checked on a schedule."],
+                  ["Deadline", "The date passes, or the project publishes an update."],
+                  ["Verified", "A moderator records the conclusion with reasons and evidence."],
+                ].map(([title, body], i) => (
+                  <li key={title} className="flex gap-3">
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary-soft font-mono text-[11px] font-semibold text-primary">{i + 1}</span>
+                    <span>
+                      <span className="font-medium text-ink">{title}.</span> {body}
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+            <BrandImage name="pipeline" className="rounded-none lg:rounded-l-none" sizes="(min-width: 1024px) 55vw, 100vw" />
+          </div>
+        </section>
+      ) : null}
+
       {/* Latest verified shipments */}
       <section aria-labelledby="shipped-heading">
         <SectionHeading
@@ -127,6 +156,7 @@ export default async function HomePage() {
               </Link>
             }
           />
+          <BrandImage name="calendar" className="mb-4" sizes="(min-width: 1024px) 40vw, 100vw" />
           {dueThisWeek.length === 0 ? (
             <Card>
               <p className="text-sm text-slate">No public commitments are due in the next seven days.</p>
@@ -208,7 +238,11 @@ export default async function HomePage() {
       <section aria-labelledby="score-heading" className="card p-6 sm:p-8">
         <div className="grid gap-8 lg:grid-cols-[auto_1fr]">
           <div className="flex items-center justify-center">
-            <ShipScoreGauge total={72} size={140} label="Example Ship Score" />
+            {hasBrandImage("scoreRing") ? (
+              <BrandImage name="scoreRing" className="w-full max-w-sm" sizes="(min-width: 1024px) 30vw, 100vw" />
+            ) : (
+              <ShipScoreGauge total={72} size={140} label="Example Ship Score" />
+            )}
           </div>
           <div>
             <SectionHeading id="score-heading" eyebrow="How the Ship Score works" title="A transparent, versioned delivery score" />

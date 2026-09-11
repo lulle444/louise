@@ -8,6 +8,7 @@ import { SiteNav } from "@/components/SiteNav";
 import { XIcon } from "@/components/XIcon";
 import { UserMenu } from "@/components/UserMenu";
 import { getConfig, SITE } from "@/lib/config";
+import { brandImagePath, hasBrandImage } from "@/components/BrandImage";
 import { SAFE_EXTERNAL_LINK_PROPS } from "@/lib/domain/url";
 import { getSessionUser } from "@/lib/session";
 
@@ -15,7 +16,13 @@ export const metadata: Metadata = {
   metadataBase: new URL(getConfig().appUrl),
   title: { default: "SHIPTRACE — Crypto makes promises. We track what ships.", template: "%s · SHIPTRACE" },
   description: SITE.description,
-  openGraph: { siteName: "SHIPTRACE", type: "website", title: "SHIPTRACE — Crypto makes promises. We track what ships.", description: SITE.description },
+  openGraph: {
+    siteName: "SHIPTRACE",
+    type: "website",
+    title: "SHIPTRACE — Crypto makes promises. We track what ships.",
+    description: SITE.description,
+    ...(hasBrandImage("og") ? { images: [{ url: brandImagePath("og"), width: 1600, height: 900, alt: "SHIPTRACE" }] } : {}),
+  },
   twitter: { card: "summary_large_image", site: SITE.xHandle, creator: SITE.xHandle, title: "SHIPTRACE", description: "Crypto makes promises. We track what ships. Roadmaps · Evidence · Delivery history" },
 };
 

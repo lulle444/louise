@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BrandImage } from "@/components/BrandImage";
 import { FEED_TYPE_META, ShippingFeed } from "@/components/ShippingFeed";
 import { PageHeader, inputClass } from "@/components/ui";
 import { getDataSource } from "@/lib/data";
@@ -21,6 +22,7 @@ export default async function ShippingFeedPage({ searchParams }: { searchParams:
   return (
     <div>
       <PageHeader eyebrow="This week in shipping" title="Shipping feed" description="Verified events in chronological order. Every entry links to its public source. Weekly digest: filter by type or project." />
+      <BrandImage name="trace" className="mb-6" sizes="100vw" />
       <form method="get" action="/shipping-feed" className="card mb-6 p-4">
         <fieldset>
           <legend className="text-xs uppercase tracking-wider text-slate">Event types</legend>
