@@ -19,7 +19,7 @@ export default async function SignupPage({ searchParams }: { searchParams: Promi
       ) : null}
       {demo ? (
         <div className="card mt-6 space-y-4 p-5">
-          <p className="text-sm text-muted">Email sign-up needs Supabase. In Demo Mode you can play as a guest right away.</p>
+          <p className="text-sm text-muted">Email sign-up is not enabled yet. You can play as a guest right away.</p>
           <form action={continueAsGuest}>
             <input type="hidden" name="next" value="/race" />
             <button type="submit" className="btn btn-primary w-full">Continue as guest</button>

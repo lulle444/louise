@@ -96,7 +96,7 @@ export async function raceTransitionAction(formData: FormData) {
           await takeRaceSnapshot(store, provider, race, "final", race.endsAt, newId);
         }
         const outcome = await settleRace(store, raceId, actor, now, newId);
-        const early = Date.parse(now) < Date.parse(race.endsAt) ? " (demo fast-forward: settled before the window ended using deterministic demo data)" : "";
+        const early = Date.parse(now) < Date.parse(race.endsAt) ? " (fast-forward: settled before the window ended using simulated data)" : "";
         back(outcome.alreadySettled ? `${race.name} was already settled` : `${race.name} settled: ${outcome.results.length} results, ${outcome.xpAdded.length} XP entries, ${outcome.badgesAdded.length} badges${early}`);
       }
       case "void": {

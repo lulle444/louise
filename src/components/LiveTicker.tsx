@@ -5,7 +5,7 @@ import { latestRaceSnapshot, snapshotOfKind } from "@/lib/services/snapshots";
 
 /** Scrolling tape of narrative scores for the live Race. CSS marquee; static under reduced motion. */
 export async function LiveTicker() {
-  const { store, demo } = await getSession();
+  const { store } = await getSession();
   const races = await store.listRaces();
   const live = races.find((r) => r.status === "live");
   if (!live) return null;
@@ -26,7 +26,7 @@ export async function LiveTicker() {
       <div className="mx-auto flex max-w-7xl items-center">
         <Link href={`/race/${live.id}`} className="flex shrink-0 items-center gap-2 border-r border-border px-3 py-1.5 font-mono text-[0.62rem] uppercase tracking-[0.18em] text-cyan sm:px-4">
           <span className="h-1.5 w-1.5 animate-pulse-soft rounded-full bg-cyan" aria-hidden="true" />
-          Live{demo ? " · demo" : ""}
+          Live
         </Link>
         <div className="ticker-viewport flex-1 overflow-hidden">
           <ul className="ticker-tape">

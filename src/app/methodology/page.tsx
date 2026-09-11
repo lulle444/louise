@@ -17,7 +17,7 @@ export default function MethodologyPage() {
       <div className="prose-mr">
         <h2 id="data-sources">Data sources and timestamps</h2>
         <p>
-          Market data comes from a pluggable provider. In Demo Mode a deterministic mock provider generates a seeded random walk at six-hour steps, clearly labelled <em>Demo data</em> everywhere it appears. In production the provider is CoinGecko (via <code>MARKET_DATA_API_KEY</code>). Every snapshot stores its <code>source</code>, <code>takenAt</code>, constituent version and formula version. Demo values are never presented as live, and live values are never fabricated: if data is missing the narrative is marked unavailable.
+          Market data comes from a pluggable provider. Until a live provider is connected, a deterministic simulated provider generates a seeded random walk at six-hour steps; the footer states when data is simulated. In production the provider is CoinGecko (via <code>MARKET_DATA_API_KEY</code>). Every snapshot stores its <code>source</code>, <code>takenAt</code>, constituent version and formula version. Simulated values are never presented as live, and live values are never fabricated: if data is missing the narrative is marked unavailable.
         </p>
 
         <h2 id="constituents">Constituents and weighting</h2>
@@ -91,7 +91,7 @@ race_score  = leader + challenger + wildcard   (max 360)`}</pre>
 
         <h2 id="limitations">Limitations</h2>
         <ul>
-          <li>Demo Mode data is synthetic. It demonstrates the loop; it says nothing about real markets.</li>
+          <li>Simulated data demonstrates the loop; it says nothing about real markets.</li>
           <li>Narrative membership is editorial. Reasonable people disagree about which assets belong where.</li>
           <li>Six-hour snapshots miss intra-interval moves; volume data from public APIs can be revised.</li>
           <li>MEGASPRINT is educational. It does not execute trades, hold funds, or give financial advice.</li>

@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Avatar } from "@/components/Avatar";
 import { BadgeIcon } from "@/components/BadgeIcon";
-import { DemoBadge } from "@/components/DemoBadge";
 import { EmptyState } from "@/components/EmptyState";
 import { LineupPicks, ROLE_META } from "@/components/LineupPicks";
 import { MetaDNAChart } from "@/components/MetaDNAChart";
@@ -40,7 +39,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ userna
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
             <h1 className="text-2xl font-bold tracking-tight">{profile.displayName}</h1>
-            {profile.isDemo ? <DemoBadge label={profile.isGuest ? "Guest session" : "Demo player"} /> : null}
+            {profile.isGuest ? <span className="rounded-full border border-border px-2 py-0.5 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-muted">Guest session</span> : null}
           </div>
           <p className="text-sm text-muted">@{profile.username} · joined {formatDate(profile.createdAt, { year: "numeric" })}</p>
           {profile.bio ? <p className="mt-1 text-sm text-muted">{profile.bio}</p> : null}

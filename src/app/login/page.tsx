@@ -28,11 +28,11 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
       {demo ? (
         <div className="card mt-6 space-y-4 p-5">
           <div className="flex items-center justify-between">
-            <p className="font-semibold">Demo Mode</p>
+            <p className="font-semibold">Play instantly</p>
             <DemoBadge />
           </div>
           <p className="text-sm text-muted">
-            Supabase credentials are not configured, so MEGASPRINT is running on deterministic demo data. Guest sessions live in this browser only.
+            No account needed. Your guest lineups are stored in this browser only.
           </p>
           <form action={continueAsGuest}>
             <input type="hidden" name="next" value={next} />
@@ -45,10 +45,10 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
             <input type="hidden" name="next" value={next === "/" ? "/admin" : next} />
             <button type="submit" className="btn btn-secondary w-full" data-testid="demo-admin">
               <Shield className="h-4 w-4" aria-hidden="true" />
-              Enter demo admin
+              Admin preview
             </button>
           </form>
-          <p className="text-xs text-dim">In production, admin access is granted only to emails listed in ADMIN_EMAILS.</p>
+          <p className="text-xs text-dim">Admin access in production is limited to the configured admin emails.</p>
         </div>
       ) : (
         <form action={signInWithEmail} className="card mt-6 space-y-4 p-5">

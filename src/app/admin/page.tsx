@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ShieldAlert } from "lucide-react";
-import { DemoBadge } from "@/components/DemoBadge";
 import { ErrorState } from "@/components/ErrorState";
 import { SectionHeading } from "@/components/SectionHeading";
 import { StatusPill } from "@/components/StatusPill";
@@ -49,8 +48,8 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
 
   return (
     <div className="space-y-10 py-8" data-testid="admin-panel">
-      <SectionHeading eyebrow="Control room" title="Admin" description={`Signed in as ${viewer.displayName}. Every action is written to the audit log.`} action={demo ? <DemoBadge label="Demo · in-memory" /> : null} />
-      {demo ? <p className="rounded-md border border-amber/40 bg-amber/10 px-3 py-2 text-sm text-amber">Demo Mode keeps state in server memory. Changes persist until the process restarts (or the next UTC day rebuilds the demo timeline).</p> : null}
+      <SectionHeading eyebrow="Control room" title="Admin" description={`Signed in as ${viewer.displayName}. Every action is written to the audit log.`} />
+      {demo ? <p className="rounded-md border border-amber/40 bg-amber/10 px-3 py-2 text-sm text-amber">Preview mode: state is kept in server memory and resets when the process restarts (the timeline is rebuilt each UTC day). Connect Supabase for persistence.</p> : null}
       {sp.ok ? <p role="status" className="rounded-md border border-primary/40 bg-primary/10 px-3 py-2 text-sm text-primary">{sp.ok}</p> : null}
       {sp.error ? <p role="alert" className="rounded-md border border-coral/40 bg-coral/10 px-3 py-2 text-sm text-coral">{sp.error}</p> : null}
 

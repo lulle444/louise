@@ -59,7 +59,7 @@ export function HeroRaceCard({
               {leadingDelta.toFixed(1)} vs start
             </p>
           ) : (
-            <p className="mono text-sm text-muted">{demo ? "demo data" : "live data"}</p>
+            <p className="mono text-sm text-muted">{demo ? "pre-lock field" : "live data"}</p>
           )}
         </div>
         <div>

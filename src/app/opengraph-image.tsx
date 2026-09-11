@@ -33,7 +33,6 @@ export default function OpenGraphImage() {
       >
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", width: 640 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-            {/* eslint-disable-next-line @next/next/no-img-element -- OG renderer */}
             <img src={LOGO_URI} width={52} height={52} alt="" style={{ borderRadius: 12 }} />
             <div style={{ display: "flex", fontSize: 30, fontWeight: 800, letterSpacing: 2 }}>{APP_NAME}</div>
           </div>

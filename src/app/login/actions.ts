@@ -23,7 +23,7 @@ export async function enterDemoAdmin(formData: FormData): Promise<void> {
   const existing = await readGuest();
   const state = existing ?? newGuestState(true);
   state.admin = true;
-  if (!existing) state.displayName = "Demo Admin";
+  if (!existing) state.displayName = "Admin";
   await writeGuest(state);
   redirect(safeNext(formData.get("next")) === "/" ? "/admin" : safeNext(formData.get("next")));
 }

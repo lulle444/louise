@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Disclaimer } from "./Disclaimer";
-import { APP_NAME, X_HANDLE, X_PROFILE_URL } from "@/lib/config";
+import { APP_NAME, X_HANDLE, X_PROFILE_URL, isDemoMode } from "@/lib/config";
 import { XLogo } from "./XLogo";
 
 export function AppFooter() {
@@ -14,7 +14,7 @@ export function AppFooter() {
             {APP_NAME}
           </p>
           <Disclaimer compact />
-          <p className="text-xs text-dim">Virtual points only. No deposits, wagers, prizes, wallets, or trade execution.</p>
+          <p className="text-xs text-dim">Virtual points only. No deposits, wagers, prizes, wallets, or trade execution.{isDemoMode() ? " Market data is simulated until a live provider is connected." : ""}</p>
         </div>
         <nav aria-label="Footer" className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted md:flex-col">
           <Link href="/methodology" className="hover:text-ink">Methodology</Link>

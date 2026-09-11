@@ -104,7 +104,7 @@ export default async function HomePage() {
         <section className="space-y-4">
           <div className="flex items-end justify-between gap-3">
             <p className="eyebrow">Narrative markets · {featured?.name}</p>
-            <p className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-muted">{demo ? "Demo data · deterministic" : "Live via CoinGecko"}</p>
+            {!demo ? <p className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-muted">Live via CoinGecko</p> : null}
           </div>
           <div className="grid gap-4 md:grid-cols-3">
             {top.map((s) => (

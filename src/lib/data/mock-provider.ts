@@ -79,7 +79,7 @@ function buildSeries(cfg: MockAssetConfig, untilIndex: number): SeriesPoint[] {
 }
 
 export class MockMarketDataProvider implements MarketDataProvider {
-  readonly name = "mock-deterministic-v1";
+  readonly name = "simulated-v1";
   readonly isLive = false;
   private configs: Map<string, MockAssetConfig>;
 
