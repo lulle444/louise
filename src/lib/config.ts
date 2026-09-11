@@ -66,6 +66,8 @@ export const SITE = {
   tagline: "Crypto makes promises. SHIPTRACE checks what gets delivered.",
   description:
     "SHIPTRACE turns public crypto roadmaps into trackable commitments. Follow deadlines, inspect evidence, and compare documented delivery history across projects.",
+  xUrl: "https://x.com/shiptrace_",
+  xHandle: "@shiptrace_",
   disclaimer:
     "SHIPTRACE tracks publicly available project commitments and evidence. A Ship Score is not an investment recommendation, security audit, legal conclusion, or guarantee of future delivery.",
 } as const;

@@ -5,8 +5,10 @@ import { BackgroundVisuals } from "@/components/BackgroundVisuals";
 import { BrandMark } from "@/components/BrandMark";
 import { Disclaimer } from "@/components/Disclaimer";
 import { SiteNav } from "@/components/SiteNav";
+import { XIcon } from "@/components/XIcon";
 import { UserMenu } from "@/components/UserMenu";
 import { getConfig, SITE } from "@/lib/config";
+import { SAFE_EXTERNAL_LINK_PROPS } from "@/lib/domain/url";
 import { getSessionUser } from "@/lib/session";
 
 export const metadata: Metadata = {
@@ -14,7 +16,7 @@ export const metadata: Metadata = {
   title: { default: "SHIPTRACE — Crypto makes promises. We track what ships.", template: "%s · SHIPTRACE" },
   description: SITE.description,
   openGraph: { siteName: "SHIPTRACE", type: "website", title: "SHIPTRACE — Crypto makes promises. We track what ships.", description: SITE.description },
-  twitter: { card: "summary_large_image", title: "SHIPTRACE", description: "Crypto makes promises. We track what ships. Roadmaps · Evidence · Delivery history" },
+  twitter: { card: "summary_large_image", site: SITE.xHandle, creator: SITE.xHandle, title: "SHIPTRACE", description: "Crypto makes promises. We track what ships. Roadmaps · Evidence · Delivery history" },
 };
 
 const FOOTER_LINKS = [
@@ -53,6 +55,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                 </p>
                 <p className="mt-1 text-sm text-slate">{SITE.tagline}</p>
                 <p className="mt-2 font-mono text-xs text-slate-dim">Roadmaps · Evidence · Delivery history</p>
+                <a href={SITE.xUrl} className="mt-3 inline-flex items-center gap-2 rounded-md border border-border bg-surface px-3 py-1.5 text-sm text-ink hover:border-border-strong" {...SAFE_EXTERNAL_LINK_PROPS}>
+                  <XIcon className="h-4 w-4" /> Follow {SITE.xHandle} on X
+                </a>
                 {config.demoMode ? (
                   <p className="mt-3 text-xs text-slate-dim">Sample dataset: the projects shown are fictional examples used to demonstrate the product.</p>
                 ) : null}
