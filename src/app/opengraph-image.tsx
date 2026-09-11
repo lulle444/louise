@@ -38,10 +38,10 @@ export default function OpenGraphImage() {
             <div style={{ display: "flex", fontSize: 30, fontWeight: 800, letterSpacing: 2 }}>{APP_NAME}</div>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-            <div style={{ display: "flex", fontSize: 22, letterSpacing: 6, color: "#22D3EE" }}>THE CRYPTO NARRATIVE LEAGUE</div>
+            <div style={{ display: "flex", fontSize: 22, letterSpacing: 6, color: "#B4F464" }}>THE CRYPTO NARRATIVE LEAGUE</div>
             <div style={{ display: "flex", flexDirection: "column", fontSize: 62, fontWeight: 800, lineHeight: 1.05 }}>
               <span>Spot the next narrative</span>
-              <span style={{ background: "linear-gradient(90deg, #67E8F9, #8B5CF6)", backgroundClip: "text", color: "transparent" }}>before the crowd.</span>
+              <span style={{ background: "linear-gradient(90deg, #B4F464, #22D3EE)", backgroundClip: "text", color: "transparent" }}>before the crowd.</span>
             </div>
             <div style={{ display: "flex", fontSize: 24, color: "#94A3B8", lineHeight: 1.4 }}>{APP_SOCIAL_DESCRIPTION}</div>
           </div>

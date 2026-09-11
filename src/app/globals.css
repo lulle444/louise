@@ -101,13 +101,13 @@ a {
   font-size: 0.7rem;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--color-primary);
+  color: var(--color-brand);
 }
 .eyebrow-muted {
   color: var(--color-muted);
 }
 .gradient-text {
-  background: linear-gradient(90deg, #67e8f9 0%, #22d3ee 35%, #a78bfa 70%, #8b5cf6 100%);
+  background: linear-gradient(90deg, #c9ff7a 0%, #b4f464 30%, #67e8f9 70%, #22d3ee 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
