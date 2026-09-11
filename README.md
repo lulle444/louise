@@ -141,7 +141,7 @@ Copy `.env.example` to `.env.local`.
 | `WEBSITE_CHECK_SECRET` | Enables the website health provider (any non-empty value; acts as an explicit opt-in). |
 | `ADMIN_EMAILS` | Comma-separated emails granted the `admin` role at sign-in. |
 | `CRON_SECRET` | Bearer secret required by `/api/cron/*`. |
-| `NEXT_PUBLIC_APP_URL` | Absolute URL for share links, sitemap and Open Graph. |
+| `NEXT_PUBLIC_APP_URL` | Absolute URL for share links, sitemap and Open Graph. Optional on Vercel, where the deployment hostname is detected automatically. |
 | `NEXT_PUBLIC_DEMO_MODE` | `true` forces Demo Mode even when Supabase is configured. |
 
 ## Supabase: migrations and seeding

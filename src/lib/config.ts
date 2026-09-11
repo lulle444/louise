@@ -18,6 +18,19 @@ function env(name: string): string | undefined {
   return value && value.trim() ? value.trim() : undefined;
 }
 
+/**
+ * Public site URL. Explicit NEXT_PUBLIC_APP_URL wins; on Vercel the production
+ * or deployment hostname is used automatically so share links and Open Graph
+ * metadata work without manual configuration.
+ */
+function resolveAppUrl(): string {
+  const explicit = env("NEXT_PUBLIC_APP_URL");
+  if (explicit) return explicit.replace(/\/$/, "");
+  const vercelHost = env("VERCEL_PROJECT_PRODUCTION_URL") ?? env("VERCEL_URL");
+  if (vercelHost) return `https://${vercelHost.replace(/^https?:\/\//, "").replace(/\/$/, "")}`;
+  return "http://localhost:3000";
+}
+
 export function getConfig(): AppConfig {
   const forcedDemo = (env("NEXT_PUBLIC_DEMO_MODE") ?? "").toLowerCase() === "true";
   const supabaseUrl = env("NEXT_PUBLIC_SUPABASE_URL");
@@ -32,7 +45,7 @@ export function getConfig(): AppConfig {
   return {
     demoMode,
     demoReason,
-    appUrl: (env("NEXT_PUBLIC_APP_URL") ?? "http://localhost:3000").replace(/\/$/, ""),
+    appUrl: resolveAppUrl(),
     supabase: supabaseConfigured ? { url: supabaseUrl!, anonKey: supabaseAnon!, serviceRoleKey: env("SUPABASE_SERVICE_ROLE_KEY") ?? null } : null,
     githubToken: env("GITHUB_TOKEN") ?? null,
     websiteCheckSecret: env("WEBSITE_CHECK_SECRET") ?? null,
