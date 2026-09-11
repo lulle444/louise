@@ -74,7 +74,7 @@ export function HeroScoreDemo() {
           <span className="stamp text-slate">formula v1.0.0</span>
         </div>
 
-        <div className="mt-5 flex items-center gap-5">
+        <div className="mt-5 flex flex-col items-center gap-5 sm:flex-row">
           <div className="relative shrink-0" style={{ width: size, height: size }}>
             <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} aria-hidden="true">
               <defs>
@@ -101,7 +101,7 @@ export function HeroScoreDemo() {
               <span className="mt-1 font-mono text-[10px] uppercase tracking-widest text-slate">/ 100</span>
             </div>
           </div>
-          <div className="min-w-0 flex-1">
+          <div className="w-full min-w-0 flex-1 text-center sm:text-left">
             <p className="text-sm font-semibold text-ink">{progress >= 0.98 ? "Consistent documented delivery" : "Verifying evidence…"}</p>
             <p className="mt-1 text-xs text-slate">Measures documented delivery, not investment quality.</p>
             <ul className="mt-3 space-y-1.5">
