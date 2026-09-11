@@ -42,8 +42,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-a {
-  color: inherit;
+@layer base {
+  a {
+    color: inherit;
+  }
 }
 
 *:focus-visible {
@@ -309,4 +311,33 @@ table.data th {
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-float, .hero-float-slow { animation: none; }
+}
+
+/* ---------------------------------------------------------------- ticker & hover */
+.ticker__track {
+  display: flex;
+  width: max-content;
+  animation: ticker 60s linear infinite;
+}
+.ticker:hover .ticker__track,
+.ticker:focus-within .ticker__track {
+  animation-play-state: paused;
+}
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ticker { overflow-x: auto; }
+  .ticker__track { animation: none; }
+}
+article.card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+article.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(20, 41, 75, 0.05), 0 14px 32px rgba(20, 41, 75, 0.09);
+}
+@media (prefers-reduced-motion: reduce) {
+  article.card:hover { transform: none; }
 }

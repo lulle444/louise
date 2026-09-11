@@ -3,6 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { ShieldCheck, User, UserCog } from "lucide-react";
 import { SignInForm } from "@/components/AuthForms";
+import { BrandImage } from "@/components/BrandImage";
 import { Alert, PageHeader } from "@/components/ui";
 import { demoSignIn } from "@/lib/actions/auth";
 import { getConfig } from "@/lib/config";
@@ -25,6 +26,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
   const config = getConfig();
   return (
     <div className="mx-auto max-w-lg">
+      <BrandImage name="scoreRing" className="mb-6" sizes="(min-width: 640px) 32rem, 100vw" />
       <PageHeader eyebrow="Account" title="Sign in" description="Accounts exist so submissions and moderation decisions are attributable. SHIPTRACE never connects wallets." />
       {params.error ? <Alert tone="coral">Sign-in failed. Please try again.</Alert> : null}
       {config.demoMode ? (

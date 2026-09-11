@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BrandImage } from "@/components/BrandImage";
 import { PageHeader } from "@/components/ui";
 import { SITE } from "@/lib/config";
 
@@ -11,6 +12,7 @@ export default function AboutPage() {
   return (
     <div className="mx-auto max-w-3xl space-y-10 text-sm text-slate">
       <PageHeader eyebrow="About" title="Crypto makes promises. SHIPTRACE checks what gets delivered." description={SITE.description} />
+      <BrandImage name="pipeline" sizes="(min-width: 1024px) 60vw, 100vw" />
       <section aria-labelledby="what-h" className="space-y-3">
         <h2 id="what-h" className="text-xl font-semibold text-ink">What SHIPTRACE records</h2>
         <p>For every tracked project, SHIPTRACE records what was publicly promised (as a short paraphrase with the original source), the deadline, the evidence offered, and the final status. Each project receives a transparent Ship Score based on delivery history, evidence quality, development continuity, product availability, and transparency.</p>

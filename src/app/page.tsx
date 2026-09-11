@@ -2,7 +2,11 @@ import Link from "next/link";
 import { ArrowRight, BadgeCheck, CalendarClock, Clock3, GitCompareArrows, Scale, Users } from "lucide-react";
 import { DataFreshness } from "@/components/DataFreshness";
 import { BrandImage, hasBrandImage } from "@/components/BrandImage";
+import { EventTicker } from "@/components/EventTicker";
+import { FollowCta } from "@/components/FollowCta";
 import { HeroScoreDemo } from "@/components/HeroScoreDemo";
+import { HomeFaq } from "@/components/HomeFaq";
+import { getConfig, SITE } from "@/lib/config";
 import { Disclaimer } from "@/components/Disclaimer";
 import { ProjectCard } from "@/components/ProjectCard";
 import { ProjectSearch } from "@/components/ProjectSearch";
@@ -21,15 +25,30 @@ export default async function HomePage() {
   const ds = await getDataSource();
   const now = new Date();
   const weekAhead = new Date(now.getTime() + 7 * 86_400_000);
-  const [summaries, shipped, dueThisWeek, attention, evidenceActivity, stats] = await Promise.all([
+  const [summaries, shipped, dueThisWeek, attention, evidenceActivity, stats, tickerEvents] = await Promise.all([
     ds.listProjectSummaries({ sort: "score" }),
     ds.listFeedEvents({ types: ["shipped", "partially_shipped"], limit: 5, verifiedOnly: true }),
     ds.listMilestones({ dueAfter: isoDateOnly(now), dueBefore: isoDateOnly(weekAhead) }),
     ds.listFeedEvents({ types: ["delayed", "no_evidence"], limit: 4, verifiedOnly: true }),
     ds.listEvidence({ limit: 6 }),
     ds.getStats(),
+    ds.listFeedEvents({ limit: 14, verifiedOnly: true }),
   ]);
   const projects = new Map(summaries.map((s) => [s.project.id, s.project]));
+  const appUrl = getConfig().appUrl;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      { "@type": "Organization", name: "SHIPTRACE", url: appUrl, logo: `${appUrl}/icon.svg`, sameAs: [SITE.xUrl] },
+      {
+        "@type": "WebSite",
+        name: "SHIPTRACE",
+        url: appUrl,
+        description: SITE.description,
+        potentialAction: { "@type": "SearchAction", target: `${appUrl}/projects?q={search_term_string}`, "query-input": "required name=search_term_string" },
+      },
+    ],
+  };
   const consistent = summaries.filter((s) => s.score?.total !== null && s.score !== null).slice(0, 4);
   const compareTrio = summaries.slice(0, 3).map((s) => s.project.slug);
   const trendingComparisons = [
@@ -40,6 +59,8 @@ export default async function HomePage() {
 
   return (
     <div className="space-y-16">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <EventTicker events={tickerEvents} projects={projects} />
       {/* Hero */}
       <section className="relative pb-6 pt-8 sm:pt-12">
         <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
@@ -328,6 +349,10 @@ export default async function HomePage() {
           </ol>
         </section>
       </div>
+
+      <HomeFaq />
+
+      <FollowCta />
 
       <Disclaimer className="border-t border-border pt-6" />
     </div>

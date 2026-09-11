@@ -21,7 +21,11 @@ export const metadata: Metadata = {
     type: "website",
     title: "SHIPTRACE — Crypto makes promises. We track what ships.",
     description: SITE.description,
-    ...(hasBrandImage("og") ? { images: [{ url: brandImagePath("og"), width: 1600, height: 900, alt: "SHIPTRACE" }] } : {}),
+    ...(hasBrandImage("og")
+      ? { images: [{ url: brandImagePath("og"), width: 1600, height: 900, alt: "SHIPTRACE" }] }
+      : hasBrandImage("trace")
+        ? { images: [{ url: brandImagePath("trace"), width: 1600, height: 900, alt: "SHIPTRACE — follow the evidence" }] }
+        : {}),
   },
   twitter: { card: "summary_large_image", site: SITE.xHandle, creator: SITE.xHandle, title: "SHIPTRACE", description: "Crypto makes promises. We track what ships. Roadmaps · Evidence · Delivery history" },
 };
