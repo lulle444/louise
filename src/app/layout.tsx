@@ -37,6 +37,8 @@ const FOOTER_LINKS = [
   { href: "/submit", label: "Submit evidence" },
   { href: "/shipping-feed", label: "Shipping feed" },
   { href: "/deadlines", label: "Deadlines" },
+  { href: "/privacy", label: "Privacy" },
+  { href: "/terms", label: "Terms" },
 ];
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

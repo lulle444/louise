@@ -259,6 +259,7 @@ A deployment without Supabase variables runs in Demo Mode and is safe to share a
 | `/watchlist` | Followed projects, approaching deadlines, score changes, activity |
 | `/submit` | Evidence, correction, or project suggestion forms |
 | `/methodology`, `/token`, `/about` | Published method, future-utility information, product overview |
+| `/privacy`, `/terms` | Legal pages (drafts; fill placeholders in `src/components/LegalLayout.tsx`) |
 | `/profile/[username]` | Public contributor profile |
 | `/admin` | Moderation and admin workspace (server-protected) |
 | `/login`, `/signup` | Authentication (demo personas in Demo Mode) |
