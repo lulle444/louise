@@ -195,9 +195,9 @@ Cron routes (all require `Authorization: Bearer $CRON_SECRET`):
 
 | Route | Schedule (`vercel.json`) | Job |
 | --- | --- | --- |
-| `/api/cron/github` | every 6 hours | fetch repository snapshots |
-| `/api/cron/website` | every 30 minutes | check approved endpoints |
-| `/api/cron/scores` | every 6 hours | recalculate all published projects |
+| `/api/cron/github` | daily 03:00 UTC (Hobby-compatible; raise on Pro) | fetch repository snapshots |
+| `/api/cron/website` | daily 04:00 UTC | check approved endpoints |
+| `/api/cron/scores` | daily 05:00 UTC | recalculate all published projects |
 
 Run manually: `curl -H "Authorization: Bearer $CRON_SECRET" https://your-app/api/cron/scores`.
 
