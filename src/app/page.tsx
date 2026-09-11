@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, BadgeCheck, CalendarClock, Clock3, GitCompareArrows, Scale, Users } from "lucide-react";
 import { DataFreshness } from "@/components/DataFreshness";
+import { HeroScoreDemo } from "@/components/HeroScoreDemo";
 import { Disclaimer } from "@/components/Disclaimer";
 import { ProjectCard } from "@/components/ProjectCard";
 import { ProjectSearch } from "@/components/ProjectSearch";
@@ -39,23 +40,28 @@ export default async function HomePage() {
   return (
     <div className="space-y-16">
       {/* Hero */}
-      <section className="relative px-2 pb-6 pt-10 sm:pt-16">
-        <div className="mx-auto max-w-4xl text-center">
-          <p className="eyebrow">Proof of progress</p>
-          <h1 className="mt-5 text-4xl font-extrabold leading-[1.08] tracking-tight text-ink sm:text-5xl lg:text-6xl">
-            Crypto makes promises.
-            <span className="block text-primary">We track what ships.</span>
-          </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-slate sm:text-xl">Follow public milestones, inspect the evidence, and compare delivery history across crypto projects.</p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <ButtonLink href="/projects" className="px-6 py-3 text-base">
-              Explore Projects <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </ButtonLink>
-            <ButtonLink href="/shipping-feed" variant="secondary" className="px-6 py-3 text-base">
-              See What Shipped
-            </ButtonLink>
+      <section className="relative pb-6 pt-8 sm:pt-12">
+        <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+          <div className="text-center lg:text-left">
+            <p className="eyebrow">Proof of progress</p>
+            <h1 className="mt-5 text-4xl font-extrabold leading-[1.08] tracking-tight text-ink sm:text-5xl">
+              Crypto makes promises.
+              <span className="block text-primary">We track what ships.</span>
+            </h1>
+            <p className="mx-auto mt-6 max-w-xl text-lg text-slate lg:mx-0 sm:text-xl">Follow public milestones, inspect the evidence, and compare delivery history across crypto projects.</p>
+            <div className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
+              <ButtonLink href="/projects" className="px-6 py-3 text-base">
+                Explore Projects <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </ButtonLink>
+              <ButtonLink href="/shipping-feed" variant="secondary" className="px-6 py-3 text-base">
+                See What Shipped
+              </ButtonLink>
+            </div>
+            <ProjectSearch size="lg" className="mx-auto mt-8 max-w-xl lg:mx-0" />
           </div>
-          <ProjectSearch size="lg" className="mx-auto mt-8 max-w-xl" />
+          <div className="px-2 sm:px-6 lg:px-0">
+            <HeroScoreDemo />
+          </div>
         </div>
         <dl className="mx-auto mt-12 grid max-w-3xl grid-cols-3 gap-3">
           {[
