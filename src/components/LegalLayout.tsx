@@ -1,22 +1,32 @@
 import Link from "next/link";
-import { Alert, PageHeader } from "@/components/ui";
+import { PageHeader } from "@/components/ui";
+import { SITE } from "@/lib/config";
+import { SAFE_EXTERNAL_LINK_PROPS } from "@/lib/domain/url";
 
-export const LEGAL_OPERATOR = "[Company name], [registered address], [country]";
-export const LEGAL_CONTACT = "[contact email]";
+export const LEGAL_OPERATOR = "SHIPTRACE";
 export const LEGAL_UPDATED = "11 September 2026";
+
+/** Contact channel used across the legal pages. */
+export function LegalContact() {
+  return (
+    <>
+      a direct message to{" "}
+      <a href={SITE.xUrl} className="text-primary underline underline-offset-4" {...SAFE_EXTERNAL_LINK_PROPS}>
+        {SITE.xHandle} on X
+      </a>{" "}
+      or the{" "}
+      <Link href="/submit?tab=correction" className="text-primary underline underline-offset-4">
+        correction form
+      </Link>
+    </>
+  );
+}
 
 export function LegalLayout({ eyebrow, title, description, children }: { eyebrow: string; title: string; description: string; children: React.ReactNode }) {
   return (
     <div className="mx-auto max-w-3xl">
       <PageHeader eyebrow={eyebrow} title={title} description={description} />
       <p className="mb-6 font-mono text-xs text-slate">Last updated {LEGAL_UPDATED}</p>
-      {LEGAL_OPERATOR.startsWith("[") ? (
-        <div className="mb-6">
-          <Alert tone="amber" title="Draft">
-            This page is a draft. Replace the bracketed placeholders (operator name, address, contact email, governing law) in <code className="font-mono text-xs">src/components/LegalLayout.tsx</code> and have the text reviewed by a lawyer before public launch.
-          </Alert>
-        </div>
-      ) : null}
       <div className="legal space-y-8 text-sm leading-relaxed text-slate">{children}</div>
       <p className="mt-10 border-t border-border pt-4 text-xs text-slate">
         See also the{" "}

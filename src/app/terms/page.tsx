@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { LEGAL_CONTACT, LEGAL_OPERATOR, LegalLayout, LegalSection } from "@/components/LegalLayout";
+import { LEGAL_OPERATOR, LegalContact, LegalLayout, LegalSection } from "@/components/LegalLayout";
 
 export const metadata: Metadata = { title: "Terms of Use", description: "The rules for using SHIPTRACE and contributing evidence." };
 
@@ -8,7 +8,7 @@ export default function TermsPage() {
   return (
     <LegalLayout eyebrow="Legal" title="Terms of Use" description="By using SHIPTRACE you agree to these terms. They are short on purpose; the important parts are that Ship Scores are not investment advice and that contributions are public.">
       <LegalSection id="service" title="1. The service">
-        <p>SHIPTRACE, operated by {LEGAL_OPERATOR}, records publicly available project commitments, evidence about their delivery, and a Ship Score calculated from that evidence using a published methodology. The service is provided free of charge for informational purposes.</p>
+        <p>{LEGAL_OPERATOR} (“SHIPTRACE”, “we”) records publicly available project commitments, evidence about their delivery, and a Ship Score calculated from that evidence using a published methodology. The service is provided free of charge for informational purposes.</p>
       </LegalSection>
 
       <LegalSection id="not-advice" title="2. Not investment, legal or security advice">
@@ -42,7 +42,7 @@ export default function TermsPage() {
       </LegalSection>
 
       <LegalSection id="ip" title="7. Intellectual property">
-        <p>The SHIPTRACE name, logo, design and methodology text are ours. Project names and marks belong to their owners and are used only to identify the projects being tracked. Short paraphrases of public commitments and links to sources are used for reporting and commentary; we do not reproduce large copyrighted passages. If you believe content infringes your rights, contact {LEGAL_CONTACT}.</p>
+        <p>The SHIPTRACE name, logo, design and methodology text are ours. Project names and marks belong to their owners and are used only to identify the projects being tracked. Short paraphrases of public commitments and links to sources are used for reporting and commentary; we do not reproduce large copyrighted passages. If you believe content infringes your rights, contact us by <LegalContact />.</p>
       </LegalSection>
 
       <LegalSection id="availability" title="8. Availability and changes">
@@ -54,11 +54,11 @@ export default function TermsPage() {
       </LegalSection>
 
       <LegalSection id="law" title="10. Governing law">
-        <p>These terms are governed by the laws of [governing jurisdiction], and disputes are subject to the courts of [jurisdiction], without affecting mandatory consumer protections where you live.</p>
+        <p>These terms are governed by the laws of the country in which SHIPTRACE is established, and disputes are subject to the courts of that country, without affecting mandatory consumer protections that apply where you live.</p>
       </LegalSection>
 
       <LegalSection id="contact" title="11. Contact">
-        <p>Questions about these terms: {LEGAL_CONTACT}.</p>
+        <p>Questions about these terms: contact us by <LegalContact />.</p>
       </LegalSection>
     </LegalLayout>
   );

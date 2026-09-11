@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { LEGAL_CONTACT, LEGAL_OPERATOR, LegalLayout, LegalSection } from "@/components/LegalLayout";
+import { LEGAL_OPERATOR, LegalContact, LegalLayout, LegalSection } from "@/components/LegalLayout";
 
 export const metadata: Metadata = { title: "Privacy Policy", description: "How SHIPTRACE collects, uses and protects personal data." };
 
@@ -7,7 +7,7 @@ export default function PrivacyPage() {
   return (
     <LegalLayout eyebrow="Legal" title="Privacy Policy" description="What we collect, why, and the choices you have. SHIPTRACE is designed to hold as little personal data as possible.">
       <LegalSection id="who" title="1. Who we are">
-        <p>SHIPTRACE is operated by {LEGAL_OPERATOR} (“we”, “us”). We are the data controller for personal data processed through this website. Contact: {LEGAL_CONTACT}.</p>
+        <p>This website is operated by the {LEGAL_OPERATOR} team (“SHIPTRACE”, “we”, “us”), which is the data controller for personal data processed through it. You can reach us by <LegalContact />.</p>
       </LegalSection>
 
       <LegalSection id="what" title="2. What we collect">
@@ -61,7 +61,7 @@ export default function PrivacyPage() {
       </LegalSection>
 
       <LegalSection id="rights" title="9. Your rights">
-        <p>Depending on where you live, you may have the right to access, correct, delete, or export your personal data, to object to or restrict processing, and to complain to a supervisory authority. To exercise these rights, contact {LEGAL_CONTACT}. We may need to verify your identity first.</p>
+        <p>Depending on where you live, you may have the right to access, correct, delete, or export your personal data, to object to or restrict processing, and to complain to a supervisory authority. To exercise these rights, contact us by <LegalContact />. We may need to verify your identity first.</p>
       </LegalSection>
 
       <LegalSection id="children" title="10. Children">
