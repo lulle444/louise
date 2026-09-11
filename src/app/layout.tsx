@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description: APP_SOCIAL_DESCRIPTION,
   openGraph: { title: `${APP_NAME} — ${APP_TAGLINE}`, description: APP_SOCIAL_DESCRIPTION, type: "website", siteName: APP_NAME },
   twitter: { card: "summary_large_image", site: `@${X_HANDLE}`, creator: `@${X_HANDLE}`, title: `${APP_NAME} — ${APP_TAGLINE}`, description: APP_SOCIAL_DESCRIPTION },
-  icons: { icon: "/icon.svg" },
+  icons: { icon: "/icon.svg", apple: "/logo.svg" },
 };
 
 export const viewport: Viewport = {

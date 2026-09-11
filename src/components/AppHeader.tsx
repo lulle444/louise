@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Activity } from "lucide-react";
 import { getSession } from "@/lib/auth/session";
 import { Avatar } from "./Avatar";
 import { DemoBadge } from "./DemoBadge";
@@ -23,11 +22,10 @@ export async function AppHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-bg/85 backdrop-blur">
       <div className="mx-auto flex h-[74px] max-w-7xl items-center gap-5 px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-3" aria-label="MEGASPRINT home">
-          <span className="ring-logo">
-            <Activity className="h-4 w-4" aria-hidden="true" />
-          </span>
-          <span className="wordmark hidden sm:inline">MEGASPRINT</span>
+        <Link href="/" className="mr-3 flex shrink-0 items-center gap-3 whitespace-nowrap" aria-label="MEGASPRINT home">
+          {/* eslint-disable-next-line @next/next/no-img-element -- static SVG brand mark */}
+          <img src="/logo.svg" alt="" width={38} height={38} className="h-[38px] w-[38px] rounded-[10px] shadow-[0_0_0_4px_rgba(180,244,100,0.08)]" />
+          <span className="wordmark hidden pr-1 sm:inline">MEGASPRINT</span>
         </Link>
         <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
           {NAV.map((item) => (

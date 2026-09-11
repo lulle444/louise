@@ -1,6 +1,9 @@
 import { ImageResponse } from "next/og";
 import { APP_NAME, APP_SOCIAL_DESCRIPTION } from "@/lib/config";
 
+const LOGO_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64"><rect width="64" height="64" rx="14" fill="#B4F464"/><g fill="none" stroke="#05070C" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 43.4 L16.5 34.3 L20.1 25.6 L25.6 33.8 L32 13.7 L38.4 33.8 L43.9 25.6 L47.5 34.3 L59 43.4"/><path d="M26.4 37.2 L13.3 47.4"/><path d="M37.6 37.2 L50.7 47.4"/></g></svg>`;
+const LOGO_URI = `data:image/svg+xml;base64,${Buffer.from(LOGO_SVG).toString("base64")}`;
+
 export const runtime = "edge";
 export const alt = `${APP_NAME} — predict the next crypto narrative before the crowd`;
 export const size = { width: 1200, height: 630 };
@@ -30,9 +33,8 @@ export default function OpenGraphImage() {
       >
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", width: 640 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-            <div style={{ width: 44, height: 44, borderRadius: 12, background: "#22D3EE", display: "flex", alignItems: "center", justifyContent: "center", color: "#06080D", fontSize: 26, fontWeight: 700 }}>
-              ⚡
-            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element -- OG renderer */}
+            <img src={LOGO_URI} width={52} height={52} alt="" style={{ borderRadius: 12 }} />
             <div style={{ display: "flex", fontSize: 30, fontWeight: 800, letterSpacing: 2 }}>{APP_NAME}</div>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>

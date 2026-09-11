@@ -8,7 +8,11 @@ export function AppFooter() {
     <footer className="mt-auto border-t border-border bg-surface/60">
       <div className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:px-6 md:grid-cols-[1fr_auto] lg:px-8">
         <div className="max-w-2xl space-y-2">
-          <p className="font-semibold tracking-tight">{APP_NAME}</p>
+          <p className="flex items-center gap-2 font-semibold tracking-tight">
+            {/* eslint-disable-next-line @next/next/no-img-element -- static SVG brand mark */}
+            <img src="/logo.svg" alt="" width={22} height={22} className="h-[22px] w-[22px] rounded-md" />
+            {APP_NAME}
+          </p>
           <Disclaimer compact />
           <p className="text-xs text-dim">Virtual points only. No deposits, wagers, prizes, wallets, or trade execution.</p>
         </div>
