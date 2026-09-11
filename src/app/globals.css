@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #05070c;
-  --color-surface: #0a0e16;
-  --color-surface-2: #0f1520;
-  --color-border: #182130;
+  --color-bg: #080b12;
+  --color-surface: #0e1420;
+  --color-surface-2: #131a27;
+  --color-border: #1e2a3b;
   --color-primary: #22d3ee;
   --color-primary-strong: #67e8f9;
   --color-brand: #b4f464;
@@ -62,7 +62,8 @@ body {
   background:
     radial-gradient(1100px 520px at 85% -12%, rgba(139, 92, 246, 0.1), transparent 60%),
     radial-gradient(900px 480px at -5% 8%, rgba(34, 211, 238, 0.07), transparent 60%),
-    var(--color-bg);
+    linear-gradient(180deg, #0b0f18 0%, var(--color-bg) 40%, #060810 100%);
+  background-attachment: fixed, fixed, scroll;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -85,9 +86,10 @@ a {
 }
 
 .card {
-  background: linear-gradient(180deg, rgba(15, 21, 32, 0.9), rgba(10, 14, 22, 0.95));
+  background: linear-gradient(180deg, rgba(20, 27, 40, 0.92), rgba(14, 20, 32, 0.96));
   border: 1px solid var(--color-border);
   border-radius: 1.1rem;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.02) inset, 0 10px 30px -20px rgba(0, 0, 0, 0.6);
 }
 
 .card-2 {
@@ -615,17 +617,60 @@ a {
 .orbit {
   position: absolute;
   border-radius: 9999px;
-  border: 1px solid rgba(34, 211, 238, 0.12);
+  border: 1px solid rgba(34, 211, 238, 0.2);
+  border-top-color: rgba(34, 211, 238, 0.45);
   animation: orbit-drift 40s linear infinite;
 }
 .orbit-2 {
-  border-color: rgba(139, 92, 246, 0.14);
+  border-color: rgba(139, 92, 246, 0.2);
+  border-top-color: rgba(139, 92, 246, 0.5);
   animation-duration: 55s;
   animation-direction: reverse;
 }
 .orbit-3 {
-  border-color: rgba(34, 211, 238, 0.08);
+  border-color: rgba(34, 211, 238, 0.12);
+  border-top-color: rgba(180, 244, 100, 0.35);
   animation-duration: 70s;
+}
+.signal-waves {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.signal-wave {
+  fill: none;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation:
+    wave-draw 6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards,
+    wave-drift 18s ease-in-out infinite alternate;
+}
+.signal-wave-2 {
+  animation-delay: 0.6s, 0s;
+  animation-duration: 6s, 24s;
+}
+.signal-wave-3 {
+  animation-delay: 1.2s, 0s;
+  animation-duration: 6s, 30s;
+}
+@keyframes wave-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes wave-drift {
+  from {
+    transform: translate3d(-2%, 0, 0);
+  }
+  to {
+    transform: translate3d(2%, 1.5%, 0);
+  }
+}
+.hero-parallax {
+  will-change: transform;
 }
 @keyframes orbit-drift {
   to {
@@ -664,7 +709,11 @@ a {
 }
 @media (prefers-reduced-motion: reduce) {
   .orbit,
-  .node-dot {
+  .node-dot,
+  .signal-wave {
     animation: none !important;
+  }
+  .signal-wave {
+    stroke-dashoffset: 0;
   }
 }
