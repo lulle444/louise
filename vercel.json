@@ -1,6 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": null,
-  "buildCommand": null,
-  "outputDirectory": "."
+  "framework": "nextjs",
+  "crons": [
+    { "path": "/api/cron/github", "schedule": "0 */6 * * *" },
+    { "path": "/api/cron/website", "schedule": "*/30 * * * *" },
+    { "path": "/api/cron/scores", "schedule": "30 */6 * * *" }
+  ]
 }
