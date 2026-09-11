@@ -28,7 +28,6 @@ It is an evidence-based product-delivery tracker. It is **not** an investment-ra
 14. [Deployment (Vercel)](#deployment-vercel)
 15. [Routes](#routes)
 16. [Known limitations](#known-limitations)
-17. [Legacy folder](#legacy-folder)
 
 ---
 
@@ -276,6 +275,3 @@ A deployment without Supabase variables runs in Demo Mode and is safe to share a
 - Contributor badges are seeded/awarded in the database; automatic badge awarding is not implemented.
 - The brand mark in `public/brand/shiptrace-mark.svg` is a vector approximation of the supplied logo; replace it with the official export if desired.
 
-## Legacy folder
-
-`legacy/terratamers/` preserves the repository's previous contents (a standalone browser game). It is excluded from the Next.js build, lint and type-check.
