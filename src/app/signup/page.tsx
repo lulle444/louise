@@ -17,10 +17,10 @@ export default async function SignupPage() {
     <div className="mx-auto max-w-lg">
       <PageHeader eyebrow="Account" title="Create an account" description="Contributor accounts can submit evidence, request corrections, and follow projects. Roles for moderation are assigned by admins." />
       {config.demoMode ? (
-        <Alert tone="primary" title="Demo Mode">
-          <p>Sign-up is disabled while Supabase is not configured. Use a demo persona instead.</p>
+        <Alert tone="primary" title="Accounts are not enabled yet">
+          <p>Sign-up opens once accounts are configured. Until then, continue with one of the roles on the sign-in page.</p>
           <div className="mt-3">
-            <ButtonLink href="/login">Choose a demo persona</ButtonLink>
+            <ButtonLink href="/login">Choose a role</ButtonLink>
           </div>
         </Alert>
       ) : (

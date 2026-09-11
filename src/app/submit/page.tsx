@@ -33,10 +33,10 @@ export default async function SubmitPage({ searchParams }: { searchParams: Promi
       {!user || !canSubmit(user) ? (
         <Alert tone="primary" title="Sign in to submit">
           <p>
-            Submissions are attributed to a username so decisions are accountable.{config.demoMode ? " In Demo Mode you can continue as a demo guest without creating an account." : ""}
+            Submissions are attributed to a username so decisions are accountable.{config.demoMode ? " You can continue as a guest without creating an account." : ""}
           </p>
           <div className="mt-3">
-            <ButtonLink href={`/login?next=${encodeURIComponent(next)}`}>Sign in{config.demoMode ? " or continue as demo guest" : ""}</ButtonLink>
+            <ButtonLink href={`/login?next=${encodeURIComponent(next)}`}>Sign in{config.demoMode ? " or continue as guest" : ""}</ButtonLink>
           </div>
         </Alert>
       ) : (

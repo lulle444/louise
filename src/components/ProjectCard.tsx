@@ -3,7 +3,6 @@ import { ArrowRight, CalendarClock, FileCheck2 } from "lucide-react";
 import type { ProjectSummary } from "@/lib/data/types";
 import { formatDate, formatRelative } from "@/lib/format";
 import { DataFreshness } from "./DataFreshness";
-import { DemoBadge } from "./DemoBadge";
 import { ShipScoreGauge } from "./ShipScoreGauge";
 import { StatusBadge } from "./StatusBadge";
 import { Pill } from "@/components/ui";
@@ -17,7 +16,6 @@ export function ProjectCard({ summary, compareHref }: { summary: ProjectSummary;
           <div className="flex flex-wrap items-center gap-2">
             <Pill tone="primary">{project.category}</Pill>
             <span className="text-xs text-slate">{project.ecosystem}</span>
-            {project.isDemo ? <DemoBadge compact /> : null}
           </div>
           <h3 className="mt-2 text-lg font-semibold text-ink">
             <Link href={`/projects/${project.slug}`} className="after:absolute after:inset-0 focus-visible:outline-none">

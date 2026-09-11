@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Award, FileCheck2, Scale, ShieldCheck } from "lucide-react";
-import { DemoBadge } from "@/components/DemoBadge";
 import { EvidenceCard } from "@/components/EvidenceCard";
 import { EmptyState, PageHeader, Pill, SectionHeading, Stat } from "@/components/ui";
 import { getDataSource } from "@/lib/data";
@@ -42,7 +41,6 @@ export default async function ProfilePage({ params }: { params: Promise<{ userna
             {profile.role === "moderator" || profile.role === "admin" ? <ShieldCheck className="h-3 w-3" aria-hidden="true" /> : null}
             {profile.role}
           </Pill>
-          {profile.isDemo ? <DemoBadge compact /> : null}
           <span className="text-xs text-slate">member since {formatDate(profile.createdAt)}</span>
         </div>
         {profile.bio ? <p className="mt-3 max-w-2xl text-sm text-slate">{profile.bio}</p> : null}

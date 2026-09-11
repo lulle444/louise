@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { Activity, GitCompareArrows, Globe, Scale } from "lucide-react";
 import { ConfidenceBadge } from "@/components/ConfidenceBadge";
 import { DataFreshness } from "@/components/DataFreshness";
-import { DemoBadge } from "@/components/DemoBadge";
 import { EvidenceCard } from "@/components/EvidenceCard";
 import { MilestoneCard } from "@/components/MilestoneCard";
 import { MilestoneTimeline } from "@/components/MilestoneTimeline";
@@ -58,7 +57,6 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             <div className="flex flex-wrap items-center gap-2">
               <Pill tone="primary">{project.category}</Pill>
               <span className="text-sm text-slate">{project.ecosystem}</span>
-              {project.isDemo ? <DemoBadge /> : null}
             </div>
             <div className="mt-3 flex items-center gap-3">
               <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-border bg-bg font-mono text-lg text-primary" aria-hidden="true">
@@ -179,7 +177,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                   {githubRepositories.map((r) => (
                     <SourceChip key={r.id} url={r.url} label={`${r.owner}/${r.repo}`} />
                   ))}
-                  <span className="stamp text-slate">{latestGh.source === "demo" ? "demo observation" : "GitHub API"}</span>
+                  <span className="stamp text-slate">{latestGh.source === "demo" ? "sample observation" : "GitHub API"}</span>
                 </div>
                 <dl className="mt-4 grid grid-cols-2 gap-3 text-sm sm:grid-cols-3">
                   <div>

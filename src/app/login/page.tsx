@@ -3,7 +3,6 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { ShieldCheck, User, UserCog } from "lucide-react";
 import { SignInForm } from "@/components/AuthForms";
-import { DemoBadge } from "@/components/DemoBadge";
 import { Alert, PageHeader } from "@/components/ui";
 import { demoSignIn } from "@/lib/actions/auth";
 import { getConfig } from "@/lib/config";
@@ -13,9 +12,9 @@ export const metadata: Metadata = { title: "Sign in" };
 export const dynamic = "force-dynamic";
 
 const PERSONAS = [
-  { persona: "guest", label: "Continue as demo guest", description: "Submit evidence, file corrections, and follow projects.", Icon: User },
-  { persona: "moderator", label: "Continue as demo moderator", description: "Review the queue, change verified status, resolve disputes.", Icon: ShieldCheck },
-  { persona: "admin", label: "Continue as demo admin", description: "Everything a moderator can do, plus integrations.", Icon: UserCog },
+  { persona: "guest", label: "Continue as guest", description: "Submit evidence, file corrections, and follow projects.", Icon: User },
+  { persona: "moderator", label: "Continue as moderator", description: "Review the queue, change verified status, resolve disputes.", Icon: ShieldCheck },
+  { persona: "admin", label: "Continue as admin", description: "Everything a moderator can do, plus integrations.", Icon: UserCog },
 ];
 
 export default async function LoginPage({ searchParams }: { searchParams: Promise<{ next?: string; error?: string }> }) {
@@ -30,11 +29,8 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
       {params.error ? <Alert tone="coral">Sign-in failed. Please try again.</Alert> : null}
       {config.demoMode ? (
         <div className="card space-y-3 p-5">
-          <div className="flex items-center justify-between">
-            <p className="font-medium text-ink">Demo personas</p>
-            <DemoBadge compact />
-          </div>
-          <p className="text-sm text-slate">Email sign-in is disabled in Demo Mode. Pick a fictional persona to walk through the user or moderator loop.</p>
+          <p className="font-medium text-ink">Try SHIPTRACE as</p>
+          <p className="text-sm text-slate">Pick a role to walk through the contributor or moderator experience. Email sign-in is enabled once accounts are configured.</p>
           {PERSONAS.map(({ persona, label, description, Icon }) => (
             <form key={persona} action={demoSignIn}>
               <input type="hidden" name="persona" value={persona} />

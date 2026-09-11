@@ -3,7 +3,6 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { AlertTriangle, Database, GitBranch, Globe, ShieldCheck } from "lucide-react";
 import { ApprovalForm, MilestoneForm, ProjectForm, RecalculateForm } from "@/components/AdminForms";
-import { DemoBadge } from "@/components/DemoBadge";
 import { DisputeResolutionCard, ModerationQueue, type QueueEvidenceItem } from "@/components/ModerationQueue";
 import { StatusBadge } from "@/components/StatusBadge";
 import { Alert, EmptyState, PageHeader, Pill, SectionHeading, Stat } from "@/components/ui";
@@ -66,7 +65,6 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
         <div className="mt-3 flex flex-wrap items-center gap-2 text-sm text-slate">
           <ShieldCheck className="h-4 w-4 text-mint" aria-hidden="true" />
           Signed in as {user.displayName} ({user.role}). Every action requires a reason and is written to the audit log. Material history is never deleted.
-          {config.demoMode ? <DemoBadge /> : null}
         </div>
       </PageHeader>
 

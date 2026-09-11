@@ -56,14 +56,6 @@ a {
   background: rgba(38, 198, 245, 0.35);
 }
 
-.grid-lines {
-  background-image:
-    linear-gradient(rgba(31, 139, 240, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(31, 139, 240, 0.08) 1px, transparent 1px);
-  background-size: 32px 32px;
-  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
-}
-
 .card {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -288,15 +280,6 @@ table.data th {
   50% { opacity: 1; }
 }
 
-.bg-visuals__grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(31, 139, 240, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(31, 139, 240, 0.05) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: radial-gradient(ellipse at 50% 0%, black 20%, transparent 70%);
-}
 
 @media (max-width: 640px) {
   .bg-visuals__glow { filter: blur(50px); }

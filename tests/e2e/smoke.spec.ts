@@ -2,13 +2,14 @@ import { expect, test, type Page } from "@playwright/test";
 
 async function signInAs(page: Page, persona: "guest" | "moderator") {
   await page.goto("/login?next=/");
-  await page.getByRole("button", { name: persona === "guest" ? /Continue as demo guest/ : /Continue as demo moderator/ }).click();
+  await page.getByRole("button", { name: persona === "guest" ? /Continue as guest/ : /Continue as moderator/ }).click();
   await page.waitForURL((url) => url.pathname === "/");
 }
 
 test("homepage explains the product and search works", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Crypto makes promises. We track what ships.");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Crypto makes promises.");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("We track what ships.");
   await expect(page.getByText("PROOF OF PROGRESS", { exact: false }).first()).toBeVisible();
   await expect(page.getByRole("link", { name: "Explore Projects" })).toBeVisible();
   await expect(page.getByRole("link", { name: "See What Shipped" })).toBeVisible();

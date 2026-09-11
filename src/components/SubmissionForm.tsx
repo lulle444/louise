@@ -61,7 +61,7 @@ export function SubmissionForm({
       <div className="mt-4">
         <Alert tone="primary">
           Submissions are public, attributed to your username, and reviewed by moderators before anything changes. They never directly change a verified status or score.
-          {isDemo ? " In Demo Mode, submissions are stored in memory and reset when the server restarts." : ""}
+          {isDemo ? " On this preview, submissions are stored temporarily and may be reset." : ""}
         </Alert>
       </div>
       <div id="panel-evidence" role="tabpanel" aria-labelledby="tab-evidence" hidden={tab !== "evidence"} className="mt-5">

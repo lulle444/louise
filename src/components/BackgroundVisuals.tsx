@@ -51,7 +51,6 @@ export function BackgroundVisuals() {
           </g>
         ))}
       </svg>
-      <div className="bg-visuals__grid" />
     </div>
   );
 }

@@ -108,11 +108,11 @@ No external services are needed. Missing Supabase/GitHub keys activate clearly l
 
 ## Demo Mode walkthrough
 
-Demo Mode seeds **12 fictional projects** (all on the reserved `.example` TLD) with 65 milestones across every status, 52 evidence records, three disputes, six contributors, 12 weeks of repository observations, 30 website checks per endpoint, and six months of score history (the two oldest snapshots use the legacy formula `v0.9.0`). Every page carries a Demo badge. Data lives in server memory and resets on restart.
+Demo Mode seeds **12 fictional projects** (all on the reserved `.example` TLD) with 65 milestones across every status, 52 evidence records, three disputes, six contributors, 12 weeks of repository observations, 30 website checks per endpoint, and six months of score history (the two oldest snapshots use the legacy formula `v0.9.0`). The footer carries a discreet sample-dataset note. Data lives in server memory and resets on restart.
 
 **User loop**
 
-1. Open `/login` → *Continue as demo guest*.
+1. Open `/login` → *Continue as guest*.
 2. Go to `/projects/quillswap` → milestone *Fee switch governance vote* → **Submit evidence**.
 3. Submit a URL such as `https://quillswap.example/blog/fee-switch-vote` with a title and explanation. The result page links to its Proof Card, which shows *Pending moderation · unverified*. The milestone moves to *Submitted for review*; its verified status is unchanged.
 4. Use **Request correction** on any milestone to file a correction/dispute (e.g. the open one on Nimbus Wallet's *In-app transaction simulation*).
@@ -120,14 +120,14 @@ Demo Mode seeds **12 fictional projects** (all on the reserved `.example` TLD) w
 
 **Moderator loop**
 
-1. `/login` → *Continue as demo moderator* → `/admin`.
+1. `/login` → *Continue as moderator* → `/admin`.
 2. **Evidence queue**: accept the pending *Fee upgrade activation notice* (Tessera Rollup) with a reason. It appears under *Recently decided* and the project's Ship Score is recalculated.
 3. Open `/projects/tessera-rollup/milestones/ms_tessera_rollup_fee_upgrade` → **Change verified status** → *Shipped*, select the accepted evidence, give a reason. A status event with an audit ID is appended and the score is recalculated. Shipped items appear in `/shipping-feed`.
 4. **Disputes** tab: resolve the open Nimbus Wallet dispute or the Hollowmere Realms correction request.
 5. **Scores** tab: recalculate with `v1.0.0` or the legacy `v0.9.0`; snapshots are appended, never rewritten.
 6. **Audit log** tab shows every decision with actor, reason and before/after state.
 
-*Continue as demo admin* additionally exposes the Integrations panel.
+*Continue as admin* additionally exposes the Integrations panel.
 
 ## Environment variables
 

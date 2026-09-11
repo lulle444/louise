@@ -3,7 +3,6 @@ import Link from "next/link";
 import "./globals.css";
 import { BackgroundVisuals } from "@/components/BackgroundVisuals";
 import { BrandMark } from "@/components/BrandMark";
-import { DemoBadge, DemoBanner } from "@/components/DemoBadge";
 import { Disclaimer } from "@/components/Disclaimer";
 import { SiteNav } from "@/components/SiteNav";
 import { UserMenu } from "@/components/UserMenu";
@@ -37,7 +36,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-primary focus:px-3 focus:py-2 focus:text-white">
           Skip to content
         </a>
-        {config.demoMode ? <DemoBanner /> : null}
         <header className="sticky top-0 z-30 border-b border-border bg-bg/85 backdrop-blur">
           <div className="relative">
             <SiteNav userSlot={<UserMenu user={user} />} />
@@ -56,9 +54,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                 <p className="mt-1 text-sm text-slate">{SITE.tagline}</p>
                 <p className="mt-2 font-mono text-xs text-slate-dim">Roadmaps · Evidence · Delivery history</p>
                 {config.demoMode ? (
-                  <div className="mt-3">
-                    <DemoBadge />
-                  </div>
+                  <p className="mt-3 text-xs text-slate-dim">Sample dataset: the projects shown are fictional examples used to demonstrate the product.</p>
                 ) : null}
               </div>
               <nav aria-label="Footer" className="grid grid-cols-2 gap-x-8 gap-y-2 text-sm text-slate sm:grid-cols-3">

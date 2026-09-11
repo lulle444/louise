@@ -5,7 +5,6 @@ import { formatDate, formatDateTime } from "@/lib/format";
 import { EvidenceTypeBadge, ReviewStamp } from "./EvidenceStamp";
 import { SourceChip } from "./SourceChip";
 import { StatusBadge } from "./StatusBadge";
-import { DemoBadge } from "./DemoBadge";
 
 export function ProofCard({ evidence, milestone, project }: { evidence: Evidence; milestone: Milestone | null; project: Project }) {
   return (
@@ -16,7 +15,6 @@ export function ProofCard({ evidence, milestone, project }: { evidence: Evidence
           <ShieldCheck className="h-3 w-3" aria-hidden="true" /> Proof card
         </span>
         <ReviewStamp state={evidence.reviewState} />
-        {project.isDemo ? <DemoBadge compact /> : null}
       </div>
       <p className="mt-4 eyebrow">
         <Link href={`/projects/${project.slug}`} className="hover:underline">

@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, BadgeCheck, CalendarClock, Clock3, GitCompareArrows, Scale, Users } from "lucide-react";
 import { DataFreshness } from "@/components/DataFreshness";
-import { DemoBadge } from "@/components/DemoBadge";
 import { Disclaimer } from "@/components/Disclaimer";
 import { ProjectCard } from "@/components/ProjectCard";
 import { ProjectSearch } from "@/components/ProjectSearch";
@@ -10,7 +9,6 @@ import { ShipScoreGauge } from "@/components/ShipScoreGauge";
 import { SourceChip } from "@/components/SourceChip";
 import { StatusBadge } from "@/components/StatusBadge";
 import { ButtonLink, Card, SectionHeading, cn } from "@/components/ui";
-import { getConfig } from "@/lib/config";
 import { getDataSource } from "@/lib/data";
 import { FORMULA_V1 } from "@/lib/domain/score";
 import { formatDate, formatRelative, isoDateOnly } from "@/lib/format";
@@ -19,7 +17,6 @@ export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
   const ds = await getDataSource();
-  const config = getConfig();
   const now = new Date();
   const weekAhead = new Date(now.getTime() + 7 * 86_400_000);
   const [summaries, shipped, dueThisWeek, attention, evidenceActivity, stats] = await Promise.all([
@@ -42,28 +39,36 @@ export default async function HomePage() {
   return (
     <div className="space-y-16">
       {/* Hero */}
-      <section className="relative overflow-hidden rounded-[20px] border border-border bg-surface px-6 py-14 sm:px-12 sm:py-20">
-        <div className="grid-lines pointer-events-none absolute inset-0" aria-hidden="true" />
-        <div className="relative mx-auto max-w-3xl text-center">
+      <section className="relative px-2 pb-6 pt-10 sm:pt-16">
+        <div className="mx-auto max-w-4xl text-center">
           <p className="eyebrow">Proof of progress</p>
-          <h1 className="mt-4 text-4xl font-bold tracking-tight text-ink sm:text-5xl">Crypto makes promises. We track what ships.</h1>
-          <p className="mt-4 text-lg text-slate">Follow public milestones, inspect the evidence, and compare delivery history across crypto projects.</p>
+          <h1 className="mt-5 text-4xl font-extrabold leading-[1.08] tracking-tight text-ink sm:text-5xl lg:text-6xl">
+            Crypto makes promises.
+            <span className="block text-primary">We track what ships.</span>
+          </h1>
+          <p className="mx-auto mt-6 max-w-2xl text-lg text-slate sm:text-xl">Follow public milestones, inspect the evidence, and compare delivery history across crypto projects.</p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <ButtonLink href="/projects">
+            <ButtonLink href="/projects" className="px-6 py-3 text-base">
               Explore Projects <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </ButtonLink>
-            <ButtonLink href="/shipping-feed" variant="secondary">
+            <ButtonLink href="/shipping-feed" variant="secondary" className="px-6 py-3 text-base">
               See What Shipped
             </ButtonLink>
           </div>
           <ProjectSearch size="lg" className="mx-auto mt-8 max-w-xl" />
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 font-mono text-xs text-slate">
-            <span>{stats.projects} projects tracked</span>
-            <span>{stats.milestones} commitments</span>
-            <span>{stats.acceptedEvidence} verified evidence records</span>
-            {config.demoMode ? <DemoBadge /> : null}
-          </div>
         </div>
+        <dl className="mx-auto mt-12 grid max-w-3xl grid-cols-3 gap-3">
+          {[
+            [stats.projects, "projects tracked"],
+            [stats.milestones, "public commitments"],
+            [stats.acceptedEvidence, "verified evidence records"],
+          ].map(([value, label]) => (
+            <div key={String(label)} className="card flex flex-col px-4 py-4 text-center">
+              <dt className="order-2 text-xs uppercase tracking-wider text-slate">{label}</dt>
+              <dd className="order-1 text-2xl font-bold tabular-nums text-ink sm:text-3xl">{value}</dd>
+            </div>
+          ))}
+        </dl>
       </section>
 
       {/* Latest verified shipments */}
