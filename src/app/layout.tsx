@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
+import { BackgroundVisuals } from "@/components/BackgroundVisuals";
 import { BrandMark } from "@/components/BrandMark";
 import { DemoBadge, DemoBanner } from "@/components/DemoBadge";
 import { Disclaimer } from "@/components/Disclaimer";
@@ -32,6 +33,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en">
       <body className="flex min-h-screen flex-col">
+        <BackgroundVisuals />
         <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-primary focus:px-3 focus:py-2 focus:text-white">
           Skip to content
         </a>
