@@ -14,7 +14,7 @@ export default function PrivacyPage() {
         <ul className="list-disc space-y-1 pl-5">
           <li><span className="text-ink">Account data</span> if you create an account: email address, a username you choose, a display name, and an optional bio. Passwords are handled by our authentication provider and are never visible to us.</li>
           <li><span className="text-ink">Contributions</span>: evidence submissions, correction requests, votes, and watchlists. Evidence and corrections are public and attributed to your username by design.</li>
-          <li><span className="text-ink">Moderation records</span>: decisions, reasons and timestamps attached to a moderator's account, kept permanently as part of the audit history.</li>
+          <li><span className="text-ink">Moderation records</span>: decisions, reasons and timestamps attached to a moderator&apos;s account, kept permanently as part of the audit history.</li>
           <li><span className="text-ink">Technical data</span>: IP address, browser type and request logs collected by our hosting provider for security and reliability, retained for a limited period.</li>
           <li><span className="text-ink">Cookies</span>: a session cookie needed to keep you signed in. We do not use advertising cookies. See section 7.</li>
         </ul>
