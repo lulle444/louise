@@ -27,7 +27,7 @@ export default async function ShippingFeedPage({ searchParams }: { searchParams:
           <div className="mt-2 flex flex-wrap gap-2">
             {FEED_EVENT_TYPES.map((t) => (
               <label key={t} className="inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-border px-2.5 py-1 text-xs text-slate has-[:checked]:border-primary has-[:checked]:text-ink">
-                <input type="checkbox" name="type" value={t} defaultChecked={types.includes(t)} className="accent-[#5b8cff]" />
+                <input type="checkbox" name="type" value={t} defaultChecked={types.includes(t)} className="accent-[#1f8bf0]" />
                 {FEED_TYPE_META[t].label}
               </label>
             ))}
@@ -45,7 +45,7 @@ export default async function ShippingFeedPage({ searchParams }: { searchParams:
               ))}
             </select>
           </label>
-          <button type="submit" className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-bg hover:bg-[#7aa1ff]">
+          <button type="submit" className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-[#1677d6]">
             Apply filters
           </button>
           <a href="/shipping-feed" className="text-sm text-slate hover:text-ink">

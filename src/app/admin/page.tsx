@@ -79,7 +79,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
 
       <nav aria-label="Admin sections" className="flex flex-wrap gap-1 rounded-lg border border-border bg-surface p-1">
         {TABS.map(([key, label]) => (
-          <Link key={key} href={`/admin?tab=${key}`} aria-current={tab === key ? "page" : undefined} className={tab === key ? "rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-bg" : "rounded-md px-3 py-1.5 text-sm text-slate hover:bg-surface-2 hover:text-ink"}>
+          <Link key={key} href={`/admin?tab=${key}`} aria-current={tab === key ? "page" : undefined} className={tab === key ? "rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-white" : "rounded-md px-3 py-1.5 text-sm text-slate hover:bg-surface-2 hover:text-ink"}>
             {label}
           </Link>
         ))}

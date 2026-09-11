@@ -11,7 +11,7 @@ export function UserMenu({ user }: { user: SessionUser | null }) {
         <Link href="/login" className="inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm text-slate hover:bg-surface-2 hover:text-ink">
           <LogIn className="h-4 w-4" aria-hidden="true" /> Sign in
         </Link>
-        <Link href="/submit" className="rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-bg hover:bg-[#7aa1ff]">
+        <Link href="/submit" className="rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-white hover:bg-[#1677d6]">
           Submit evidence
         </Link>
       </>
@@ -30,7 +30,7 @@ export function UserMenu({ user }: { user: SessionUser | null }) {
       <Link href={`/profile/${user.username}`} className="inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm text-slate hover:bg-surface-2 hover:text-ink">
         <User className="h-4 w-4" aria-hidden="true" /> {user.username}
       </Link>
-      <Link href="/submit" className="rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-bg hover:bg-[#7aa1ff]">
+      <Link href="/submit" className="rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-white hover:bg-[#1677d6]">
         Submit
       </Link>
       <form action={signOut}>

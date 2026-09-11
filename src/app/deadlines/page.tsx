@@ -38,7 +38,7 @@ export default async function DeadlinesPage({ searchParams }: { searchParams: Pr
   const tab = (key: string, label: string, param: "range" | "group", active: boolean) => (
     <a
       href={`/deadlines?range=${param === "range" ? key : range}&group=${param === "group" ? key : groupBy}`}
-      className={cn("rounded-md px-3 py-1.5 text-sm", active ? "bg-primary font-semibold text-bg" : "text-slate hover:bg-surface-2 hover:text-ink")}
+      className={cn("rounded-md px-3 py-1.5 text-sm", active ? "bg-primary font-semibold text-white" : "text-slate hover:bg-surface-2 hover:text-ink")}
       aria-current={active ? "page" : undefined}
     >
       {label}

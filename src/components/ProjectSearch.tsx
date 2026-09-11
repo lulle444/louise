@@ -19,7 +19,7 @@ export function ProjectSearch({ defaultValue = "", className, size = "md", autoF
         autoFocus={autoFocus}
         className={cn(inputClass, size === "lg" ? "py-3 pl-11 pr-28 text-base" : "pl-9 pr-24")}
       />
-      <button type="submit" className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-md bg-primary px-3 py-1.5 text-xs font-semibold text-bg hover:bg-[#7aa1ff]">
+      <button type="submit" className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-md bg-primary px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#1677d6]">
         Search
       </button>
     </form>

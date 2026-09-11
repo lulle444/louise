@@ -52,7 +52,7 @@ export function SubmissionForm({
             aria-controls={`panel-${t.key}`}
             id={`tab-${t.key}`}
             onClick={() => setTab(t.key)}
-            className={cn("rounded-md px-3 py-1.5 text-sm", tab === t.key ? "bg-primary text-bg font-semibold" : "text-slate hover:bg-surface-2 hover:text-ink")}
+            className={cn("rounded-md px-3 py-1.5 text-sm", tab === t.key ? "bg-primary text-white font-semibold" : "text-slate hover:bg-surface-2 hover:text-ink")}
           >
             {t.label}
           </button>

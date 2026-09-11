@@ -17,18 +17,18 @@ export function ScoreHistoryChart({ history }: { history: ShipScoreSnapshot[] })
       <div className="h-48 w-full" role="img" aria-label={`Ship Score history: ${labelled.map((s) => `${formatDate(s.calculatedAt)} ${s.total}`).join(", ") || "no scores yet"}`}>
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data} margin={{ top: 8, right: 12, left: -20, bottom: 0 }}>
-            <CartesianGrid stroke="#253041" strokeDasharray="3 3" vertical={false} />
-            <XAxis dataKey="date" stroke="#5f6b7d" tick={{ fill: "#8a97ab", fontSize: 11 }} tickLine={false} axisLine={false} />
-            <YAxis domain={[0, 100]} stroke="#5f6b7d" tick={{ fill: "#8a97ab", fontSize: 11 }} tickLine={false} axisLine={false} />
+            <CartesianGrid stroke="#d8e4f2" strokeDasharray="3 3" vertical={false} />
+            <XAxis dataKey="date" stroke="#b7cbe3" tick={{ fill: "#52627a", fontSize: 11 }} tickLine={false} axisLine={false} />
+            <YAxis domain={[0, 100]} stroke="#b7cbe3" tick={{ fill: "#52627a", fontSize: 11 }} tickLine={false} axisLine={false} />
             <Tooltip
-              contentStyle={{ background: "#0e131b", border: "1px solid #253041", borderRadius: 8, fontSize: 12 }}
-              labelStyle={{ color: "#e6ebf2" }}
+              contentStyle={{ background: "#ffffff", border: "1px solid #d8e4f2", borderRadius: 8, fontSize: 12 }}
+              labelStyle={{ color: "#14294b" }}
               formatter={(value, _name, item) => {
                 const payload = item?.payload as { version?: string; completeness?: number } | undefined;
                 return [value === null ? "Insufficient data" : `${value} / 100`, `Ship Score (${payload?.version ?? ""}, data ${payload?.completeness ?? 0}%)`];
               }}
             />
-            <Line type="monotone" dataKey="total" stroke="#5b8cff" strokeWidth={2} dot={{ r: 3, fill: "#5b8cff" }} connectNulls={false} isAnimationActive={false} />
+            <Line type="monotone" dataKey="total" stroke="#1f8bf0" strokeWidth={2} dot={{ r: 3, fill: "#1f8bf0" }} connectNulls={false} isAnimationActive={false} />
           </LineChart>
         </ResponsiveContainer>
       </div>

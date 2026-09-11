@@ -8,8 +8,8 @@ export function cn(...parts: (string | false | null | undefined)[]): string {
 
 type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";
 const buttonStyles: Record<ButtonVariant, string> = {
-  primary: "bg-primary text-bg hover:bg-[#7aa1ff] border border-transparent font-semibold",
-  secondary: "bg-surface-2 text-ink border border-border hover:border-border-strong hover:bg-[#182130]",
+  primary: "bg-primary text-white hover:bg-[#1677d6] border border-transparent font-semibold",
+  secondary: "bg-surface-2 text-ink border border-border hover:border-border-strong hover:bg-[#e3eef9]",
   ghost: "bg-transparent text-slate hover:text-ink border border-transparent hover:bg-surface-2",
   danger: "bg-coral-soft text-coral border border-coral/40 hover:bg-coral/20",
 };

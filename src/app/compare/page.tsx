@@ -35,7 +35,7 @@ export default async function ComparePage({ searchParams }: { searchParams: Prom
           </label>
         ))}
         <div className="sm:col-span-3">
-          <button type="submit" className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-bg hover:bg-[#7aa1ff]">
+          <button type="submit" className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-[#1677d6]">
             Compare
           </button>
         </div>

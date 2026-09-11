@@ -1,31 +1,32 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #07090d;
-  --color-surface: #0e131b;
-  --color-surface-2: #131a25;
-  --color-border: #253041;
-  --color-border-strong: #33425a;
-  --color-primary: #5b8cff;
-  --color-primary-soft: #1a2a4d;
-  --color-mint: #49d6a3;
-  --color-mint-soft: #123329;
-  --color-amber: #f2b84b;
-  --color-amber-soft: #3a2d10;
-  --color-coral: #f2737a;
-  --color-coral-soft: #3d1a1e;
-  --color-violet: #9b7cff;
-  --color-violet-soft: #271f47;
-  --color-ink: #e6ebf2;
-  --color-slate: #8a97ab;
-  --color-slate-dim: #5f6b7d;
+  --color-bg: #f5f9fe;
+  --color-surface: #ffffff;
+  --color-surface-2: #eef4fb;
+  --color-border: #d8e4f2;
+  --color-border-strong: #b7cbe3;
+  --color-primary: #1f8bf0;
+  --color-primary-soft: #e3f1fe;
+  --color-cyan: #26c6f5;
+  --color-mint: #0f9f7c;
+  --color-mint-soft: #e0f7ef;
+  --color-amber: #b0731a;
+  --color-amber-soft: #fff3dc;
+  --color-coral: #d04552;
+  --color-coral-soft: #fde8ea;
+  --color-violet: #6a58cf;
+  --color-violet-soft: #eeebfb;
+  --color-ink: #14294b;
+  --color-slate: #52627a;
+  --color-slate-dim: #8a99af;
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
   --radius-card: 14px;
 }
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 html {
@@ -37,7 +38,8 @@ html {
 body {
   font-family: var(--font-sans);
   background:
-    radial-gradient(1200px 600px at 50% -200px, rgba(91, 140, 255, 0.12), transparent 60%),
+    radial-gradient(1200px 600px at 50% -200px, rgba(38, 198, 245, 0.16), transparent 60%),
+    radial-gradient(900px 500px at 100% 20%, rgba(31, 139, 240, 0.08), transparent 60%),
     var(--color-bg);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
@@ -54,13 +56,13 @@ a {
 }
 
 ::selection {
-  background: rgba(91, 140, 255, 0.35);
+  background: rgba(38, 198, 245, 0.35);
 }
 
 .grid-lines {
   background-image:
-    linear-gradient(rgba(37, 48, 65, 0.35) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(37, 48, 65, 0.35) 1px, transparent 1px);
+    linear-gradient(rgba(31, 139, 240, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31, 139, 240, 0.08) 1px, transparent 1px);
   background-size: 32px 32px;
   mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
 }
@@ -69,6 +71,7 @@ a {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-card);
+  box-shadow: 0 1px 2px rgba(20, 41, 75, 0.04), 0 8px 24px rgba(20, 41, 75, 0.05);
   min-width: 0;
   overflow-wrap: break-word;
 }
@@ -157,7 +160,7 @@ main {
 input,
 select,
 textarea {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 table.data th {

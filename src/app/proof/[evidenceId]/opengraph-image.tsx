@@ -14,10 +14,10 @@ export default async function Image({ params }: { params: Promise<{ evidenceId: 
   const project = evidence ? await ds.getProjectById(evidence.projectId) : null;
   const milestone = evidence?.milestoneId ? await ds.getMilestone(evidence.milestoneId) : null;
   const verified = evidence?.reviewState === "accepted";
-  const accent = verified ? "#49d6a3" : "#f2b84b";
+  const accent = verified ? "#0f9f7c" : "#b0731a";
   return new ImageResponse(
     (
-      <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: 64, background: "#07090d", color: "#e6ebf2", fontFamily: "sans-serif" }}>
+      <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: 64, background: "linear-gradient(135deg, #ffffff 0%, #eaf4fd 100%)", color: "#14294b", fontFamily: "sans-serif" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 28, fontWeight: 700, letterSpacing: 2 }}>SHIPTRACE · PROOF CARD</div>
           <div style={{ display: "flex", border: `2px solid ${accent}`, color: accent, padding: "8px 18px", borderRadius: 8, fontSize: 22, letterSpacing: 2 }}>
@@ -25,15 +25,15 @@ export default async function Image({ params }: { params: Promise<{ evidenceId: 
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-          <div style={{ display: "flex", fontSize: 26, color: "#5b8cff", letterSpacing: 3 }}>{project ? `${project.name.toUpperCase()} · ${project.category}` : "PROJECT"}</div>
+          <div style={{ display: "flex", fontSize: 26, color: "#1f8bf0", letterSpacing: 3 }}>{project ? `${project.name.toUpperCase()} · ${project.category}` : "PROJECT"}</div>
           <div style={{ display: "flex", fontSize: 54, fontWeight: 700, lineHeight: 1.1 }}>{evidence?.title ?? "Evidence record"}</div>
           {milestone ? (
-            <div style={{ display: "flex", fontSize: 28, color: "#8a97ab" }}>
+            <div style={{ display: "flex", fontSize: 28, color: "#52627a" }}>
               Milestone: {milestone.title} — {STATUS_LABELS[milestone.status]}
             </div>
           ) : null}
         </div>
-        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 22, color: "#8a97ab" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 22, color: "#52627a" }}>
           <div style={{ display: "flex" }}>{evidence ? EVIDENCE_TYPE_LABELS[evidence.type] : ""}</div>
           <div style={{ display: "flex" }}>Documented delivery, not investment advice</div>
         </div>

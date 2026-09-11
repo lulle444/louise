@@ -2,11 +2,11 @@ import { scoreBand } from "@/lib/domain/score";
 import { cn } from "@/components/ui";
 
 const BAND_COLOR = {
-  high: "#49d6a3",
-  solid: "#5b8cff",
-  mixed: "#f2b84b",
-  low: "#f2737a",
-  insufficient: "#5f6b7d",
+  high: "#0f9f7c",
+  solid: "#1f8bf0",
+  mixed: "#e0a030",
+  low: "#d04552",
+  insufficient: "#8a99af",
 } as const;
 
 /**
@@ -24,7 +24,7 @@ export function ShipScoreGauge({ total, size = 96, label = "Ship Score", classNa
   return (
     <div className={cn("relative inline-flex shrink-0 items-center justify-center", className)} style={{ width: size, height: size }} role="img" aria-label={total === null ? `${label}: insufficient data` : `${label} ${total} out of 100`}>
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} aria-hidden="true">
-        <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke="#253041" strokeWidth={stroke} />
+        <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke="#e3ecf6" strokeWidth={stroke} />
         {total !== null ? (
           <circle
             cx={size / 2}
