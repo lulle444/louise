@@ -121,7 +121,7 @@ export default async function ProjectsPage({ searchParams }: { searchParams: Pro
           </select>
         </label>
         <div className="flex items-end gap-2">
-          <button type="submit" className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-[#1677d6]">
+          <button type="submit" className="btn btn-primary rounded-lg px-4 py-2 text-sm font-semibold text-white">
             Apply
           </button>
           <Link href="/projects" className="rounded-lg border border-border px-4 py-2 text-sm text-slate hover:text-ink">

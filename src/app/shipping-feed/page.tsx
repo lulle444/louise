@@ -47,7 +47,7 @@ export default async function ShippingFeedPage({ searchParams }: { searchParams:
               ))}
             </select>
           </label>
-          <button type="submit" className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-[#1677d6]">
+          <button type="submit" className="btn btn-primary rounded-lg px-4 py-2 text-sm font-semibold text-white">
             Apply filters
           </button>
           <a href="/shipping-feed" className="text-sm text-slate hover:text-ink">

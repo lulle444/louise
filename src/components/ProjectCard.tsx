@@ -10,7 +10,7 @@ import { Pill } from "@/components/ui";
 export function ProjectCard({ summary, compareHref }: { summary: ProjectSummary; compareHref?: string }) {
   const { project, score, milestonesTotal, milestonesDelivered, nextDeadline, lastEvidenceAt, dataCheckedAt } = summary;
   return (
-    <article className="card group flex h-full flex-col gap-4 p-5 transition-colors hover:border-border-strong">
+    <article className="card group relative flex h-full flex-col gap-4 p-5 transition-colors hover:border-border-strong">
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2">

@@ -73,12 +73,13 @@ export default async function HomePage() {
             <p className="mx-auto mt-6 max-w-xl text-lg text-slate lg:mx-0 sm:text-xl">Follow public milestones, inspect the evidence, and compare delivery history across crypto projects.</p>
             <div className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
               <ButtonLink href="/projects" className="px-6 py-3 text-base">
-                Explore Projects <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                Explore Projects <ArrowRight className="btn-arrow h-4 w-4" aria-hidden="true" />
               </ButtonLink>
               <ButtonLink href="/shipping-feed" variant="secondary" className="px-6 py-3 text-base">
                 See What Shipped
               </ButtonLink>
             </div>
+            <p className="mt-3 font-mono text-xs text-slate">Free to browse · No wallet · No sign-up needed</p>
             <ProjectSearch size="lg" className="mx-auto mt-8 max-w-xl lg:mx-0" />
           </div>
           <div className="px-2 sm:px-6 lg:px-0">
@@ -135,8 +136,8 @@ export default async function HomePage() {
           title="Latest verified shipments"
           description="Milestones moved to shipped or partially shipped by a moderator, with the accepted source."
           action={
-            <Link href="/shipping-feed" className="text-sm text-primary hover:underline">
-              Full shipping feed →
+            <Link href="/shipping-feed" className="arrow-link text-sm text-primary">
+              Full shipping feed
             </Link>
           }
         />
@@ -172,8 +173,8 @@ export default async function HomePage() {
             title="Due this week"
             description="Public deadlines in the next seven days. Dates and status only — no countdowns."
             action={
-              <Link href="/deadlines" className="text-sm text-primary hover:underline">
-                Calendar →
+              <Link href="/deadlines" className="arrow-link text-sm text-primary">
+                Calendar
               </Link>
             }
           />
@@ -243,8 +244,8 @@ export default async function HomePage() {
           title="Most consistent shippers"
           description="Highest Ship Scores among projects with sufficient data. This measures documented delivery, not investment quality."
           action={
-            <Link href="/projects?sort=score" className="text-sm text-primary hover:underline">
-              Full directory →
+            <Link href="/projects?sort=score" className="arrow-link text-sm text-primary">
+              Full directory
             </Link>
           }
         />
@@ -287,8 +288,8 @@ export default async function HomePage() {
               ))}
             </dl>
             <p className="mt-4 font-mono text-xs text-slate">ship_score = delivery×0.40 + development×0.20 + availability×0.15 + transparency×0.15 + evidence×0.10</p>
-            <Link href="/methodology" className="mt-4 inline-flex items-center gap-1 text-sm text-primary hover:underline">
-              Read the methodology <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            <Link href="/methodology" className="arrow-link mt-4 text-sm text-primary">
+              Read the methodology
             </Link>
           </div>
         </div>
@@ -323,8 +324,8 @@ export default async function HomePage() {
             title="Evidence activity"
             description={`${stats.pendingEvidence} submissions pending review · ${stats.openDisputes} open corrections · ${stats.contributors} contributors`}
             action={
-              <Link href="/submit" className="text-sm text-primary hover:underline">
-                Submit evidence →
+              <Link href="/submit" className="arrow-link text-sm text-primary">
+                Submit evidence
               </Link>
             }
           />

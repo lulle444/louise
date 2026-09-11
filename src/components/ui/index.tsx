@@ -8,13 +8,13 @@ export function cn(...parts: (string | false | null | undefined)[]): string {
 
 type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";
 const buttonStyles: Record<ButtonVariant, string> = {
-  primary: "bg-primary text-white hover:bg-[#1677d6] border border-transparent font-semibold",
-  secondary: "bg-surface-2 text-ink border border-border hover:border-border-strong hover:bg-[#e3eef9]",
+  primary: "btn-primary text-white border border-transparent font-semibold",
+  secondary: "btn-secondary bg-surface text-ink border border-border",
   ghost: "bg-transparent text-slate hover:text-ink border border-transparent hover:bg-surface-2",
   danger: "bg-coral-soft text-coral border border-coral/40 hover:bg-coral/20",
 };
 const buttonBase =
-  "inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-50";
+  "btn group inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-50";
 
 export function Button({ variant = "primary", className, ...props }: ComponentPropsWithoutRef<"button"> & { variant?: ButtonVariant }) {
   return <button className={cn(buttonBase, buttonStyles[variant], className)} {...props} />;
