@@ -23,7 +23,7 @@ export default async function OgImage(props: { params: Promise<{ callId: string 
       <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: 64, background: "linear-gradient(135deg, #FFFFFF 0%, #F4F6F9 60%, #E8EEF3 100%)", color: "#0F1A2B", fontFamily: "sans-serif" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-            <div style={{ width: 44, height: 44, borderRadius: 12, background: "#4F46E5", display: "flex", alignItems: "center", justifyContent: "center", color: "#FFFFFF", fontSize: 26, fontWeight: 800 }}>^</div>
+            <div style={{ width: 44, height: 44, borderRadius: 12, background: "linear-gradient(135deg, #3B1FE3, #4433FF 55%, #6A3BEA)", display: "flex", alignItems: "center", justifyContent: "center", color: "#FFFFFF", fontSize: 26, fontWeight: 800 }}>/\/</div>
             <div style={{ fontSize: 30, fontWeight: 800, letterSpacing: -1 }}>alphr</div>
           </div>
           <div style={{ fontSize: 22, letterSpacing: 6, color: settled ? (card.result === "correct" ? "#15803D" : "#C2313F") : "#5B6B7F", textTransform: "uppercase" }}>

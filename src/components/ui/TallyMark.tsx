@@ -1,12 +1,20 @@
-/** Alphr brand mark: a rising chevron over a baseline — "the call, graded". */
+/** Alphr brand mark: rising zigzag stroke with a dot, on an indigo gradient tile. */
 export function TallyMark({ size = 32, className = "", tone = "solid" }: { size?: number; className?: string; tone?: "solid" | "outline" }) {
   const solid = tone === "solid";
   const fg = solid ? "#FFFFFF" : "currentColor";
+  const id = `alphr-g-${size}`;
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" className={className} aria-hidden>
-      <rect x="2" y="2" width="60" height="60" rx="16" fill={solid ? "#4F46E5" : "none"} stroke={solid ? "none" : "currentColor"} strokeWidth={solid ? 0 : 3} />
-      <path d="M14 42 L32 18 L50 42" fill="none" stroke={fg} strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
-      <line x1="16" y1="50" x2="48" y2="50" stroke={solid ? "#FDE68A" : "currentColor"} strokeWidth="5" strokeLinecap="round" />
+      <defs>
+        <linearGradient id={id} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#3B1FE3" />
+          <stop offset="0.55" stopColor="#4433FF" />
+          <stop offset="1" stopColor="#6A3BEA" />
+        </linearGradient>
+      </defs>
+      <rect x="2" y="2" width="60" height="60" rx="16" fill={solid ? `url(#${id})` : "none"} stroke={solid ? "none" : "currentColor"} strokeWidth={solid ? 0 : 3} />
+      <path d="M15 46 L29 22 L41 40 L46 33" fill="none" stroke={fg} strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="50" cy="24" r="4.5" fill={fg} />
     </svg>
   );
 }
