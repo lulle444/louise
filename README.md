@@ -147,11 +147,12 @@ Copy `.env.example` to `.env.local`.
 ## Supabase: migrations and seeding
 
 1. Create a Supabase project and enable email/password auth.
-2. Apply migrations in order (Supabase CLI or SQL editor):
+2. Apply the schema. Easiest: paste `supabase/setup.sql` (both migrations combined) into the Supabase SQL editor and run it. Or use the CLI:
    ```bash
    supabase db push            # applies supabase/migrations/0001_init.sql and 0002_rls.sql
    # or: psql "$DATABASE_URL" -f supabase/migrations/0001_init.sql -f supabase/migrations/0002_rls.sql
    ```
+   In Supabase **Authentication → URL Configuration**, set the Site URL to your deployment URL and add `<your-url>/auth/callback` to the redirect list.
 3. Optional fictional seed for staging:
    ```bash
    npm run db:seed:generate    # regenerates supabase/seed.sql from the Demo spec (dates relative to today)

@@ -68,7 +68,10 @@ export async function signUpWithPassword(_prev: ActionState, formData: FormData)
   const { error } = await supabase.auth.signUp({
     email: parsed.data.email,
     password: parsed.data.password,
-    options: { data: { username: parsed.data.username, display_name: parsed.data.displayName } },
+    options: {
+      data: { username: parsed.data.username, display_name: parsed.data.displayName },
+      emailRedirectTo: `${config.appUrl}/auth/callback`,
+    },
   });
   if (error) return { ok: false, message: error.message };
   return { ok: true, message: "Check your inbox to confirm your email, then sign in." };
