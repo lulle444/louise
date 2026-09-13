@@ -7,8 +7,12 @@ import { NextResponse, type NextRequest } from "next/server";
  * server-side in the route itself, not here.
  */
 export async function proxy(request: NextRequest) {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL ?? process.env.SUPABASE_URL;
+  const key =
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ??
+    process.env.SUPABASE_ANON_KEY ??
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ??
+    process.env.SUPABASE_PUBLISHABLE_KEY;
   const demo = (process.env.NEXT_PUBLIC_DEMO_MODE ?? "").toLowerCase() === "true";
   if (demo || !url || !key) return NextResponse.next({ request });
 

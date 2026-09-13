@@ -33,8 +33,11 @@ function resolveAppUrl(): string {
 
 export function getConfig(): AppConfig {
   const forcedDemo = (env("NEXT_PUBLIC_DEMO_MODE") ?? "").toLowerCase() === "true";
-  const supabaseUrl = env("NEXT_PUBLIC_SUPABASE_URL");
-  const supabaseAnon = env("NEXT_PUBLIC_SUPABASE_ANON_KEY");
+  // Accept the names set manually and the ones written by the Vercel–Supabase integration.
+  const supabaseUrl = env("NEXT_PUBLIC_SUPABASE_URL") ?? env("SUPABASE_URL");
+  const supabaseAnon =
+    env("NEXT_PUBLIC_SUPABASE_ANON_KEY") ?? env("SUPABASE_ANON_KEY") ?? env("NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY") ?? env("SUPABASE_PUBLISHABLE_KEY");
+  const supabaseService = env("SUPABASE_SERVICE_ROLE_KEY") ?? env("SUPABASE_SECRET_KEY");
   const supabaseConfigured = !!supabaseUrl && !!supabaseAnon;
   const demoMode = forcedDemo || !supabaseConfigured;
   const demoReason = forcedDemo
@@ -46,7 +49,7 @@ export function getConfig(): AppConfig {
     demoMode,
     demoReason,
     appUrl: resolveAppUrl(),
-    supabase: supabaseConfigured ? { url: supabaseUrl!, anonKey: supabaseAnon!, serviceRoleKey: env("SUPABASE_SERVICE_ROLE_KEY") ?? null } : null,
+    supabase: supabaseConfigured ? { url: supabaseUrl!, anonKey: supabaseAnon!, serviceRoleKey: supabaseService ?? null } : null,
     githubToken: env("GITHUB_TOKEN") ?? null,
     websiteCheckSecret: env("WEBSITE_CHECK_SECRET") ?? null,
     cronSecret: env("CRON_SECRET") ?? null,

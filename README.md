@@ -135,7 +135,7 @@ Copy `.env.example` to `.env.local`.
 
 | Variable | Purpose |
 | --- | --- |
-| `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase project. If missing, Demo Mode is active. |
+| `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase project. If missing, Demo Mode is active. The names written by the Vercel–Supabase integration (`SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_SECRET_KEY`) are accepted too. |
 | `SUPABASE_SERVICE_ROLE_KEY` | Server-side writes from server actions and cron jobs. Never exposed to the browser. If absent, writes go through the user client and RLS. |
 | `GITHUB_TOKEN` | Enables the GitHub metadata provider. |
 | `WEBSITE_CHECK_SECRET` | Enables the website health provider (any non-empty value; acts as an explicit opt-in). |
