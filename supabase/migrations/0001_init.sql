@@ -28,18 +28,24 @@ create table public.profiles (
 
 -- Role helpers (depend on profiles)
 create or replace function public.current_role_name()
-returns text language sql stable security definer set search_path = public as $$
-  select coalesce((select role from public.profiles where id = auth.uid()), 'guest');
+returns text language plpgsql stable security definer set search_path = public as $$
+begin
+  return coalesce((select role from public.profiles where id = auth.uid()), 'guest');
+end;
 $$;
 
 create or replace function public.is_moderator()
-returns boolean language sql stable security definer set search_path = public as $$
-  select public.current_role_name() in ('moderator', 'admin');
+returns boolean language plpgsql stable security definer set search_path = public as $$
+begin
+  return public.current_role_name() in ('moderator', 'admin');
+end;
 $$;
 
 create or replace function public.is_admin()
-returns boolean language sql stable security definer set search_path = public as $$
-  select public.current_role_name() = 'admin';
+returns boolean language plpgsql stable security definer set search_path = public as $$
+begin
+  return public.current_role_name() = 'admin';
+end;
 $$;
 
 create or replace function public.handle_new_user()
