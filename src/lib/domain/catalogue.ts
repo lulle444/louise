@@ -9,7 +9,7 @@ export const ASSETS: Asset[] = [
 ];
 
 export const SIGNALS: Signal[] = [
-  { id: "sig-momentum", slug: "momentum", name: "Momentum", description: "Recent price acceleration. Is the move speeding up or fading?", icon: "TrendingUp", accentColor: "#0E8F7E", active: true },
+  { id: "sig-momentum", slug: "momentum", name: "Momentum", description: "Recent price acceleration. Is the move speeding up or fading?", icon: "TrendingUp", accentColor: "#4F46E5", active: true },
   { id: "sig-volume", slug: "volume", name: "Volume", description: "Trading activity behind the move. Strong volume can confirm a direction.", icon: "BarChart3", accentColor: "#2563EB", active: true },
   { id: "sig-volatility", slug: "volatility", name: "Volatility", description: "How wide the price is swinging. High volatility means larger, less predictable moves.", icon: "Activity", accentColor: "#B45309", active: true },
   { id: "sig-market-trend", slug: "market-trend", name: "Market Trend", description: "The broader multi-day direction of the asset.", icon: "LineChart", accentColor: "#15803D", active: true },

@@ -20,7 +20,7 @@ export function AppHeader({ viewer, demo }: { viewer: Viewer | null; demo: boole
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-surface/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 sm:px-6">
-        <Link href="/" className="flex items-center gap-2.5" aria-label="Callscore home">
+        <Link href="/" className="flex items-center gap-2.5" aria-label="Alphr home">
           <TallyMark size={30} />
           <Wordmark />
         </Link>
@@ -29,7 +29,7 @@ export function AppHeader({ viewer, demo }: { viewer: Viewer | null; demo: boole
           <NavLinks items={NAV_ITEMS} />
         </nav>
         <div className="ml-auto hidden items-center gap-2 md:flex">
-          <a href={getXUrl()} target="_blank" rel="noopener noreferrer" className="grid size-9 place-items-center rounded-md text-muted transition hover:bg-surface-2 hover:text-text" aria-label={`CALLSCORE on X (@${getXHandle()})`} title={`@${getXHandle()} on X`}>
+          <a href={getXUrl()} target="_blank" rel="noopener noreferrer" className="grid size-9 place-items-center rounded-md text-muted transition hover:bg-surface-2 hover:text-text" aria-label={`ALPHR on X (@${getXHandle()})`} title={`@${getXHandle()} on X`}>
             <XIcon className="size-4" />
           </a>
           <UserMenu viewer={viewer} />

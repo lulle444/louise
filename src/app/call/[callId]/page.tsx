@@ -30,8 +30,8 @@ export async function generateMetadata(props: PageProps<"/call/[callId]">): Prom
   return {
     title,
     description,
-    openGraph: { title: `${title} · CALLSCORE`, description, type: "article", url: `${getAppUrl()}/signal/${card.id}` },
-    twitter: { card: "summary_large_image", title: `${title} · CALLSCORE`, description },
+    openGraph: { title: `${title} · ALPHR`, description, type: "article", url: `${getAppUrl()}/signal/${card.id}` },
+    twitter: { card: "summary_large_image", title: `${title} · ALPHR`, description },
   };
 }
 
@@ -51,7 +51,7 @@ export default async function SignalPage(props: PageProps<"/call/[callId]">) {
     if (!canRevealCrowd({ viewerHasLocked: viewerLocked, battleAcceptingPredictions: true })) {
       return (
         <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6">
-          <EmptyState title="This Call Card is sealed until you lock" description={`${card.owner.name} locked a forecast in a Round that is still open. Lock your own call to reveal other analysts' positions — Callscore never lets the crowd shape your thesis.`} action={{ href: `/rounds/${card.battle.id}`, label: "Enter this Round" }} />
+          <EmptyState title="This Call Card is sealed until you lock" description={`${card.owner.name} locked a forecast in a Round that is still open. Lock your own call to reveal other analysts' positions — Alphr never lets the crowd shape your thesis.`} action={{ href: `/rounds/${card.battle.id}`, label: "Enter this Round" }} />
         </div>
       );
     }
@@ -60,8 +60,8 @@ export default async function SignalPage(props: PageProps<"/call/[callId]">) {
   const url = `${getAppUrl()}/signal/${card.id}`;
   const settled = card.result === "correct" || card.result === "incorrect";
   const shareText = settled
-    ? `${card.result === "correct" ? "✔ CORRECT" : "✘ Incorrect"} — ${card.direction.toUpperCase()} on ${card.asset.symbol}${card.beatAI?.length ? ` · Beat ${card.beatAI.join(", ")} AI` : ""}${card.streakAfter ? ` · ${card.streakAfter}-day streak` : ""} · CALLSCORE`
-    : `${card.direction.toUpperCase()} on ${card.asset.symbol} · ${card.signals.map((s) => s.name).join(" · ")} · Confidence ${card.confidence}/5 · locked on Callscore`;
+    ? `${card.result === "correct" ? "✔ CORRECT" : "✘ Incorrect"} — ${card.direction.toUpperCase()} on ${card.asset.symbol}${card.beatAI?.length ? ` · Beat ${card.beatAI.join(", ")} AI` : ""}${card.streakAfter ? ` · ${card.streakAfter}-day streak` : ""} · ALPHR`
+    : `${card.direction.toUpperCase()} on ${card.asset.symbol} · ${card.signals.map((s) => s.name).join(" · ")} · Confidence ${card.confidence}/5 · locked on Alphr`;
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-8 sm:px-6">
@@ -82,7 +82,7 @@ export default async function SignalPage(props: PageProps<"/call/[callId]">) {
         <div><dt className="text-[11px] uppercase tracking-wider text-muted">End price</dt><dd className="num mt-0.5">{card.battle.endPrice ? `$${card.battle.endPrice.toLocaleString("en-US", { maximumFractionDigits: card.asset.priceDecimals })}` : settled ? "—" : "Pending"}</dd></div>
         <div><dt className="text-[11px] uppercase tracking-wider text-muted">Author</dt><dd className="mt-0.5">{card.owner.isAI ? `${card.owner.name} (rule-based simulation)` : <Link href={`/profile/${card.owner.username}`} className="text-cyan hover:underline">@{card.owner.username}</Link>}</dd></div>
       </dl>
-      <p className="mt-4 text-xs text-muted">This card is timestamped and locked on Callscore database. It is not an on-chain record.</p>
+      <p className="mt-4 text-xs text-muted">This card is timestamped and locked on Alphr database. It is not an on-chain record.</p>
       <div className="mt-6"><Disclaimer compact /></div>
     </div>
   );

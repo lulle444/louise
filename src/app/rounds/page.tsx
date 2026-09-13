@@ -9,7 +9,7 @@ import { PageHeader } from "@/components/ui/Section";
 import { EmptyState } from "@/components/ui/States";
 
 export const dynamic = "force-dynamic";
-export const metadata: Metadata = { title: "Callscore", description: "Live, upcoming and settled Rounds." };
+export const metadata: Metadata = { title: "Alphr", description: "Live, upcoming and settled Rounds." };
 
 const TABS = [
   { key: "live", label: "Live" },
@@ -33,7 +33,7 @@ export default async function ArenaPage(props: PageProps<"/rounds">) {
   const list = groups[tab];
   return (
     <>
-      <PageHeader eyebrow="Callscore" title="Rounds" description="Daily forecasting challenges on BTC, ETH and SOL. Lock before the deadline; results settle automatically from the end-price snapshot." />
+      <PageHeader eyebrow="Alphr" title="Rounds" description="Daily forecasting challenges on BTC, ETH and SOL. Lock before the deadline; results settle automatically from the end-price snapshot." />
       <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
         <div className="flex gap-1 rounded-lg border border-border bg-surface p-1" role="tablist" aria-label="Round status">
           {TABS.map((t) => (
@@ -52,7 +52,7 @@ export default async function ArenaPage(props: PageProps<"/rounds">) {
           {list.length === 0 ? (
             <EmptyState
               title={tab === "live" ? "No live Round right now" : tab === "upcoming" ? "No upcoming Rounds scheduled" : "No settled Rounds yet"}
-              description={tab === "live" ? "Check the upcoming tab for the next scheduled Round." : tab === "upcoming" ? "New Daily Rounds are published by Callscore team." : "Results will appear here after the first Round settles."}
+              description={tab === "live" ? "Check the upcoming tab for the next scheduled Round." : tab === "upcoming" ? "New Daily Rounds are published by Alphr team." : "Results will appear here after the first Round settles."}
               action={tab !== "live" && groups.live.length ? { href: "/rounds?tab=live", label: "See live Rounds" } : undefined}
             />
           ) : (

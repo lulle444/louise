@@ -21,7 +21,7 @@ export default async function LoginPage(props: PageProps<"/login">) {
   return (
     <div className="mx-auto max-w-md px-4 py-12 sm:px-6">
       <p className="eyebrow">Sign in</p>
-      <h1 className="mt-2 text-2xl font-semibold">Welcome back to Callscore</h1>
+      <h1 className="mt-2 text-2xl font-semibold">Welcome back to Alphr</h1>
       <p className="mt-1 text-sm text-muted">No wallet needed. Virtual points only.</p>
 
       {demo ? (
@@ -30,7 +30,7 @@ export default async function LoginPage(props: PageProps<"/login">) {
             <p className="text-sm font-semibold">Demo Mode sign-in</p>
             <DemoModeBadge />
           </div>
-          <p className="mt-1 text-xs text-muted">Supabase credentials are not configured, so Callscore runs on seeded data. Pick an identity to try the full loop.</p>
+          <p className="mt-1 text-xs text-muted">Supabase credentials are not configured, so Alphr runs on seeded data. Pick an identity to try the full loop.</p>
           <div className="mt-5 space-y-3">
             <form action={demoSignIn}>
               <input type="hidden" name="kind" value="guest" />
@@ -48,7 +48,7 @@ export default async function LoginPage(props: PageProps<"/login">) {
             <form action={demoSignIn}>
               <input type="hidden" name="kind" value="admin" />
               <input type="hidden" name="next" value="/admin" />
-              <button type="submit" className="w-full rounded-md border border-violet/40 px-4 py-2.5 text-sm font-semibold text-violet hover:bg-violet/10" data-testid="demo-admin">Sign in as Callscore Admin</button>
+              <button type="submit" className="w-full rounded-md border border-violet/40 px-4 py-2.5 text-sm font-semibold text-violet hover:bg-violet/10" data-testid="demo-admin">Sign in as Alphr Admin</button>
               <p className="mt-1 text-[11px] text-muted">Opens the protected /admin Round console.</p>
             </form>
             ) : null}

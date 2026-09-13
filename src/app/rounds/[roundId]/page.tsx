@@ -152,7 +152,7 @@ export default async function BattlePage(props: PageProps<"/rounds/[roundId]">) 
               </div>
               <SignalCard data={myCard} />
               <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
-                <ShareActions url={`${getAppUrl()}/signal/${mine.id}`} text={`${myCard.direction.toUpperCase()} on ${asset.symbol} · ${myCard.signals.map((s) => s.name).join(" · ")} · Confidence ${mine.confidence}/5 — locked on Callscore`} />
+                <ShareActions url={`${getAppUrl()}/signal/${mine.id}`} text={`${myCard.direction.toUpperCase()} on ${asset.symbol} · ${myCard.signals.map((s) => s.name).join(" · ")} · Confidence ${mine.confidence}/5 — locked on Alphr`} />
                 {!ended ? <p className="inline-flex items-center gap-1.5 text-xs text-muted"><Clock className="size-3.5" aria-hidden /> Settles in <BattleCountdown target={battle.endsAt} /></p> : null}
               </div>
               {/* Position vs crowd and AI */}

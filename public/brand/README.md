@@ -1,4 +1,4 @@
-# Callscore brand assets
+# Alphr brand assets
 
 Generated from `source.html` (Manrope + IBM Plex Mono, Analyst-light palette).
 
@@ -9,4 +9,4 @@ Generated from `source.html` (Manrope + IBM Plex Mono, Analyst-light palette).
 | `logo-wordmark.png` / `@2x` | Horizontal logo on dark background |
 | `mark.svg` | Vector mark (also used as the site icon at `src/app/icon.svg`) |
 
-Colours: background `#F4F6F9`, teal `#0E8F7E`, AI orange `#C2410C`, bullish `#15803D`, bearish `#C2313F`, text `#0F1A2B`.
+Colours: background `#F4F6F9`, teal `#4F46E5`, AI orange `#C2410C`, bullish `#15803D`, bearish `#C2313F`, text `#0F1A2B`.

@@ -83,7 +83,7 @@ export function SignalCard({ data, preview = false, showLink = true, className =
   const settled = data.result === "correct" || data.result === "incorrect";
   const voided = data.result === "void";
   const change = data.battle.startPrice && data.battle.endPrice ? ((data.battle.endPrice - data.battle.startPrice) / data.battle.startPrice) * 100 : null;
-  const accent = data.owner.accentColor ?? (settled ? (data.result === "correct" ? "#15803D" : "#C2313F") : "#0E8F7E");
+  const accent = data.owner.accentColor ?? (settled ? (data.result === "correct" ? "#15803D" : "#C2313F") : "#4F46E5");
   const duration = battleDurationLabel(data.battle.opensAt, data.battle.endsAt);
 
   const srSummary = `${data.owner.name} forecast ${data.direction} on ${data.asset.symbol} ${duration} citing ${data.signals.map((s) => s.name).join(", ")} with confidence ${data.confidence} of 5, locked ${formatUtc(data.lockedAt)}. ${settled ? `Result: ${data.result}${change !== null ? `, market moved ${formatPercent(change)}` : ""}.` : voided ? "Round void." : "Round pending."}`;

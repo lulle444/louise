@@ -1,11 +1,11 @@
-# Callscore
+# Alphr
 
 **Make the call. Beat the machines. Keep the score.**
 Who reads crypto best: you, the crowd, or the machines?
 
-Callscore is a competitive crypto-intelligence platform where humans, three fictional AI analyst profiles, and the aggregated crowd face the same daily market forecasting challenges ("Rounds"). Pick a direction, cite exactly three signals, set your confidence, lock your forecast, and build a transparent, timestamped track record using **virtual points only**.
+Alphr is a competitive crypto-intelligence platform where humans, three fictional AI analyst profiles, and the aggregated crowd face the same daily market forecasting challenges ("Rounds"). Pick a direction, cite exactly three signals, set your confidence, lock your forecast, and build a transparent, timestamped track record using **virtual points only**.
 
-> CALLSCORE is an educational forecasting game using virtual points. It does not execute trades or provide financial advice. Crypto markets are volatile, and past forecasting performance does not predict future results.
+> ALPHR is an educational forecasting game using virtual points. It does not execute trades or provide financial advice. Crypto markets are volatile, and past forecasting performance does not predict future results.
 
 ---
 
@@ -17,7 +17,7 @@ Callscore is a competitive crypto-intelligence platform where humans, three fict
 - **Three rule-based AI analysts** (ATLAS, PULSE, DRIFT) that lock forecasts before the deadline with a stored strategy version and input snapshot. They are deterministic simulations, not commercial AI models.
 - **Automatic, idempotent settlement** from an authoritative end-price snapshot with configurable neutral threshold, XP ledger, streaks, levels and badges.
 - **Humans vs AI** scoreboard, 7/30-day accuracy, per-Round trend chart, biggest disagreement, best-performing signal.
-- **Leaderboard** with week/month/all-time and per-asset filters, transparent Callscore rating, minimum-sample ranking rule.
+- **Leaderboard** with week/month/all-time and per-asset filters, transparent Alphr rating, minimum-sample ranking rule.
 - **Public profiles** with Call Profile (radar + text), performance by asset/signal, badges and historical Call Cards.
 - **Shareable Call Cards** (`/signal/[id]`) with copy-link, share-on-X and a dynamic Open Graph image.
 - **Admin console** (`/admin`, server-authorized): create/publish/lock/settle/void/archive Rounds, inspect price snapshots and settlement errors, toggle AI profiles, manual audited price override, health view and audit log.
@@ -57,7 +57,7 @@ Go to **/login** and choose one of:
 |---|---|
 | **Continue as guest** | Fresh account. Enter the live Round, lock a forecast, watch the crowd and AI positions reveal, view your public Call Card. |
 | **Nova Reyes (analyst)** | Seeded history: settled results, XP/level, streaks, badges, Call Profile, leaderboard placement. |
-| **Callscore Admin** | Opens the protected `/admin` console. |
+| **Alphr Admin** | Opens the protected `/admin` console. |
 
 Guest/analyst forecasts locked in Demo Mode are kept in server memory and mirrored into an httpOnly cookie so the locked state survives serverless cold starts. Admin changes in Demo Mode live in server memory and reset on restart.
 
@@ -82,7 +82,7 @@ src/
     actions/              Server Actions (calls, admin, auth, profile)
   proxy.ts                Supabase session refresh (no-op in Demo Mode)
 supabase/
-  migrations/               0001 schema + RLS, 0002 dashboard edits, 0003 Callscore identities
+  migrations/               0001 schema + RLS, 0002 dashboard edits, 0003 Alphr identities
   seed.sql                  catalogue seed (assets, signals, AI profiles, badges, levels)
 e2e/                      Playwright smoke suite
 legacy/terratamers/       unrelated static game that previously lived in this repo (preserved, not built)
@@ -142,7 +142,7 @@ Copy `.env.example` to `.env.local`.
 - Outcome: `change = (end − start) / start × 100`; Bullish if `change > threshold`, Bearish if `change < −threshold`, otherwise Neutral (boundaries are Neutral).
 - Round Score: 100 correct / 0 incorrect; void excluded from accuracy.
 - XP: +10 lock, +100 correct, +25 at a 3-streak, +50 at a 5-streak, +50 once for seven valid Rounds.
-- Callscore rating: `accuracy% × 0.6 + min(settled/30,1) × 25 + min(streak/10,1) × 15`; ranked at ≥ 5 valid settled Rounds.
+- Alphr rating: `accuracy% × 0.6 + min(settled/30,1) × 25 + min(streak/10,1) × 15`; ranked at ≥ 5 valid settled Rounds.
 - Full detail on `/methodology`.
 
 ## Scripts

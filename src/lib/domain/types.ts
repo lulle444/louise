@@ -1,5 +1,5 @@
 /**
- * Shared domain types for CALLSCORE.
+ * Shared domain types for ALPHR.
  * All timestamps are ISO-8601 strings in UTC.
  */
 

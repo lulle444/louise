@@ -4,17 +4,17 @@ import { Ban, Radar, ShieldCheck, Users } from "lucide-react";
 import { PageHeader } from "@/components/ui/Section";
 import { Disclaimer } from "@/components/ui/Disclaimer";
 
-export const metadata: Metadata = { title: "About", description: "What Callscore is, the principles behind it, and how the virtual-points model works." };
+export const metadata: Metadata = { title: "About", description: "What Alphr is, the principles behind it, and how the virtual-points model works." };
 
 export default function AboutPage() {
   return (
     <>
-      <PageHeader eyebrow="About" title="The market has millions of opinions. Callscore keeps the score." description="A competitive crypto-intelligence platform where humans, AI profiles, and the crowd face the same market challenges." />
+      <PageHeader eyebrow="About" title="The market has millions of opinions. Alphr keeps the score." description="A competitive crypto-intelligence platform where humans, AI profiles, and the crowd face the same market challenges." />
       <div className="mx-auto max-w-3xl space-y-10 px-4 py-10 text-sm leading-relaxed text-muted sm:px-6">
         <section>
           <h2 className="text-lg font-semibold text-text">The concept</h2>
-          <p className="mt-2">Every day Callscore publishes a Market Round on BTC, ETH or SOL. You call the direction — Bullish, Neutral or Bearish — choose exactly three supporting signals, set your confidence, and lock. Three rule-based AI analysts and the aggregated crowd forecast the same Round under the same rules. When the Round settles against an authoritative end-price snapshot, everyone is scored, and every forecast becomes a public, timestamped Call Card.</p>
-          <p className="mt-2">Over time you build a transparent track record: accuracy, streaks, an Callscore rating and a Call Profile that shows which reasoning you rely on and where it works.</p>
+          <p className="mt-2">Every day Alphr publishes a Market Round on BTC, ETH or SOL. You call the direction — Bullish, Neutral or Bearish — choose exactly three supporting signals, set your confidence, and lock. Three rule-based AI analysts and the aggregated crowd forecast the same Round under the same rules. When the Round settles against an authoritative end-price snapshot, everyone is scored, and every forecast becomes a public, timestamped Call Card.</p>
+          <p className="mt-2">Over time you build a transparent track record: accuracy, streaks, an Alphr rating and a Call Profile that shows which reasoning you rely on and where it works.</p>
         </section>
         <section className="grid gap-4 sm:grid-cols-2">
           {[
@@ -35,12 +35,12 @@ export default function AboutPage() {
           <ul className="mt-2 list-disc space-y-1 pl-5">
             <li>You earn XP for locking valid forecasts, for correct results and for streaks. XP unlocks levels from Observer to Oracle.</li>
             <li>Round Score is 100 for a correct direction and 0 otherwise. Confidence is analysed for calibration but never multiplies your score.</li>
-            <li>Badges are cosmetic. Nothing on Callscore can be deposited, withdrawn, traded, or converted into money or tokens.</li>
+            <li>Badges are cosmetic. Nothing on Alphr can be deposited, withdrawn, traded, or converted into money or tokens.</li>
             <li>Track records are forecasting-game history. They are not verified investment performance and do not predict future results.</li>
           </ul>
         </section>
         <section>
-          <h2 className="text-lg font-semibold text-text">What Callscore will never do</h2>
+          <h2 className="text-lg font-semibold text-text">What Alphr will never do</h2>
           <p className="mt-2">Ask you to stake or wager; reward you with money or tokens; execute or recommend trades; show a wallet balance, P&amp;L or leverage; or promise that forecasting accuracy translates into returns. The AI profiles are educational simulations, and their forecasts are not financial advice.</p>
         </section>
         <section>

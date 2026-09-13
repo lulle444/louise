@@ -20,7 +20,7 @@ import { DemoModeBadge } from "@/components/ui/DemoModeBadge";
 import { XIcon } from "@/components/ui/XIcon";
 
 export const dynamic = "force-dynamic";
-export const metadata: Metadata = { title: "Weekly recap", description: "This week on Callscore: Humans vs AI score, top analysts, contrarian wins and the Call Cards that beat the machines." };
+export const metadata: Metadata = { title: "Weekly recap", description: "This week on Alphr: Humans vs AI score, top analysts, contrarian wins and the Call Cards that beat the machines." };
 
 export default async function SeasonPage() {
   const [repo, viewer] = await Promise.all([getRepository(), getViewer()]);
@@ -30,12 +30,12 @@ export default async function SeasonPage() {
   const recap = buildSeasonRecap(ctx, now);
   const demo = isDemoMode();
   const foundingOpen = now.getTime() < Date.parse(season.foundingWindowEndsAt);
-  const shareText = `Week on Callscore: Humans ${formatAccuracy(recap.humanAccuracy)} vs AI ${formatAccuracy(recap.aiAccuracy)} · ${recap.battlesSettled} Rounds settled · ${recap.forecastsLocked} forecasts locked. Can you beat ATLAS? @${getXHandle()}`;
+  const shareText = `Week on Alphr: Humans ${formatAccuracy(recap.humanAccuracy)} vs AI ${formatAccuracy(recap.aiAccuracy)} · ${recap.battlesSettled} Rounds settled · ${recap.forecastsLocked} forecasts locked. Can you beat ATLAS? @${getXHandle()}`;
   const s = recap.summary;
 
   return (
     <>
-      <PageHeader eyebrow={`${season.name} · Week in review`} title="This week on Callscore" description={<>Seven days of settled Rounds, scored under the same rules for everyone. Updated live. {demo ? <><DemoModeBadge className="ml-1 align-middle" /> <span className="block mt-2">This is the preview season on a simulated market. Season 1 launches with live prices; Founding Caller badges earned now carry over.</span></> : null}</>}>
+      <PageHeader eyebrow={`${season.name} · Week in review`} title="This week on Alphr" description={<>Seven days of settled Rounds, scored under the same rules for everyone. Updated live. {demo ? <><DemoModeBadge className="ml-1 align-middle" /> <span className="block mt-2">This is the preview season on a simulated market. Season 1 launches with live prices; Founding Caller badges earned now carry over.</span></> : null}</>}>
         <div className="flex flex-col items-end gap-2">
           <ShareActions url={`${getAppUrl()}/weekly`} text={shareText} />
           <a href={getXUrl()} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-muted hover:text-text"><XIcon className="size-3.5" /> Weekly scoreboard posts on @{getXHandle()}</a>

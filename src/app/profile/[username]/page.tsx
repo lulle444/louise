@@ -20,7 +20,7 @@ export const dynamic = "force-dynamic";
 
 export async function generateMetadata(props: PageProps<"/profile/[username]">): Promise<Metadata> {
   const { username } = await props.params;
-  return { title: `@${username}`, description: `Forecasting track record of @${username} on Callscore.` };
+  return { title: `@${username}`, description: `Forecasting track record of @${username} on Alphr.` };
 }
 
 export default async function ProfilePage(props: PageProps<"/profile/[username]">) {
@@ -71,7 +71,7 @@ export default async function ProfilePage(props: PageProps<"/profile/[username]"
       </div>
 
       <div className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-6">
-        <StatCard label="Callscore rating" value={stats.rating.toFixed(1)} hint={stats.ranked ? "Ranked" : `Provisional · ${MIN_RANKED_BATTLES - stats.accuracy.valid} more settled to rank`} accent="text-cyan" />
+        <StatCard label="Alphr rating" value={stats.rating.toFixed(1)} hint={stats.ranked ? "Ranked" : `Provisional · ${MIN_RANKED_BATTLES - stats.accuracy.valid} more settled to rank`} accent="text-cyan" />
         <StatCard label="Accuracy" value={formatAccuracy(stats.accuracy.accuracy)} hint={`${stats.accuracy.correct}/${stats.accuracy.valid} correct`} />
         <StatCard label="Settled" value={stats.accuracy.valid} hint={stats.accuracy.voided ? `${stats.accuracy.voided} void excluded` : `${stats.accuracy.pending} pending`} />
         <StatCard label="Streak" value={profile.currentStreak} hint={`Longest ${profile.longestStreak}`} accent={profile.currentStreak > 0 ? "text-bull" : "text-text"} />

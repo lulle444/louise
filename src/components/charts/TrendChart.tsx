@@ -13,7 +13,7 @@ export function TrendChart({ data }: { data: Array<{ label: string; human: numbe
           <YAxis domain={[0, 100]} tick={{ fill: "#5B6B7F", fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={(v) => `${v}%`} />
           <Tooltip contentStyle={{ background: "#FFFFFF", border: "1px solid #D8DFE8", color: "#0F1A2B", borderRadius: 8, fontSize: 12 }} formatter={(v) => [`${v}%`]} />
           <Legend wrapperStyle={{ fontSize: 12 }} />
-          <Line type="monotone" dataKey="human" name="Humans" stroke="#0E8F7E" strokeWidth={2} dot={{ r: 2 }} connectNulls isAnimationActive={false} />
+          <Line type="monotone" dataKey="human" name="Humans" stroke="#4F46E5" strokeWidth={2} dot={{ r: 2 }} connectNulls isAnimationActive={false} />
           <Line type="monotone" dataKey="ai" name="AI analysts" stroke="#C2410C" strokeWidth={2} dot={{ r: 2 }} strokeDasharray="5 3" connectNulls isAnimationActive={false} />
         </LineChart>
       </ResponsiveContainer>

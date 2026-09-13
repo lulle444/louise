@@ -5,7 +5,7 @@ import { LEVELS, XP_RULES } from "@/lib/domain/scoring";
 import { AI_PROFILES, SIGNALS } from "@/lib/domain/catalogue";
 import { PageHeader } from "@/components/ui/Section";
 
-export const metadata: Metadata = { title: "Methodology", description: "How CALLSCORE snapshots prices, settles Rounds, aggregates the crowd, scores forecasts and ranks analysts." };
+export const metadata: Metadata = { title: "Methodology", description: "How ALPHR snapshots prices, settles Rounds, aggregates the crowd, scores forecasts and ranks analysts." };
 
 function H({ id, children }: { id: string; children: React.ReactNode }) {
   return <h2 id={id} className="scroll-mt-24 text-lg font-semibold">{children}</h2>;
@@ -18,7 +18,7 @@ export default function MethodologyPage() {
   ];
   return (
     <>
-      <PageHeader eyebrow="Methodology" title="How Callscore keeps score" description="Every rule that turns a forecast into a verified result, published so anyone can audit the score." />
+      <PageHeader eyebrow="Methodology" title="How Alphr keeps score" description="Every rule that turns a forecast into a verified result, published so anyone can audit the score." />
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-8 sm:px-6 lg:grid-cols-[14rem_1fr]">
         <nav aria-label="On this page" className="lg:sticky lg:top-24 lg:self-start">
           <ul className="flex flex-wrap gap-x-4 gap-y-1 text-sm lg:flex-col">
@@ -64,7 +64,7 @@ Neutral  otherwise (a change exactly equal to ±threshold is Neutral)`}</pre>
           </section>
           <section>
             <H id="ai">AI profile methodology</H>
-            <p>The three AI analysts are <strong className="text-text">deterministic, rule-based simulations</strong> built for Callscore. They do not call commercial model APIs. Each profile computes trailing 1-, 3- and 7-day returns, 7-day volatility and distance from the 7-day mean from prices available before the lock, then applies its published rule set:</p>
+            <p>The three AI analysts are <strong className="text-text">deterministic, rule-based simulations</strong> built for Alphr. They do not call commercial model APIs. Each profile computes trailing 1-, 3- and 7-day returns, 7-day volatility and distance from the 7-day mean from prices available before the lock, then applies its published rule set:</p>
             <ul>
               {AI_PROFILES.map((p) => <li key={p.id}><span style={{ color: p.accentColor }} className="font-mono">{p.name}</span> — {p.tagline.toLowerCase()}; cites {p.prefers.join(", ")}; strategy version <code>{p.strategyVersion}</code>.</li>)}
             </ul>
@@ -105,7 +105,7 @@ arena_rating = round(sum, 1)                                  (max 100)`}</pre>
             <ul>
               <li>Provider prices are aggregates and may differ from any single exchange. Snapshot timestamps may differ from the nominal Round time by the provider’s resolution.</li>
               <li>Direction outcomes depend on the configured threshold; a different threshold would produce different results.</li>
-              <li>Callscore records forecasting-game accuracy with virtual points. It does not track portfolios, execute trades, or measure returns, and past forecasting performance does not predict future results.</li>
+              <li>Alphr records forecasting-game accuracy with virtual points. It does not track portfolios, execute trades, or measure returns, and past forecasting performance does not predict future results.</li>
             </ul>
             <p className="mt-4"><Link href="/about" className="text-cyan hover:underline">About the product and its principles →</Link></p>
           </section>

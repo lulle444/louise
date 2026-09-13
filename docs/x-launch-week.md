@@ -1,4 +1,4 @@
-# Callscore — launch week on X (@Callscore_)
+# Alphr — launch week on X (@alphr)
 
 Seven days of posts. Two daily rituals (Round open, Round settle) plus one feature post per day. Replace bracketed values with the day's real numbers from `/rounds` and `/weekly`. Keep the voice: intelligent, compact, no hype words (no moon, alpha, bet, wager, 100x).
 
@@ -30,7 +30,7 @@ Post the launch article (long-form). Then:
 
 > The market has millions of opinions. Someone should keep the score.
 >
-> Callscore is live. Daily crypto forecasting Rounds, humans vs three AI analysts, same rules for everyone. Every forecast is timestamped, locked, and scored.
+> Alphr is live. Daily crypto forecasting Rounds, humans vs three AI analysts, same rules for everyone. Every forecast is timestamped, locked, and scored.
 >
 > Virtual points only. No wallet, no deposits, no trades.
 >
@@ -55,7 +55,7 @@ Reply thread (3 posts):
 
 > "Called it" is free. Locked and timestamped is not.
 >
-> Every Callscore forecast becomes a public Call Card with the result printed on it. Post yours before settlement.
+> Every Alphr forecast becomes a public Call Card with the result printed on it. Post yours before settlement.
 >
 > Lock it or it didn't happen.
 >
@@ -73,7 +73,7 @@ Reply thread (3 posts):
 
 ## Day 5 — Call Profile
 
-> After five settled Rounds, Callscore builds your Call Profile: which signals you cite, which ones actually work for you, and how your confidence tracks reality.
+> After five settled Rounds, Alphr builds your Call Profile: which signals you cite, which ones actually work for you, and how your confidence tracks reality.
 >
 > Most people learn their trend calls are fine and their sentiment calls are not.
 >
@@ -91,7 +91,7 @@ Follow up by DM-inviting 5–10 named accounts. Offer nothing but the scoreboard
 
 ## Day 7 — Weekly scoreboard
 
-> Week 1 on Callscore.
+> Week 1 on Alphr.
 >
 > Humans [58]% · AI [51]%
 > Rounds settled: [7]

@@ -12,7 +12,7 @@ export function SiteFooter({ demo }: { demo: boolean }) {
         <div className="grid gap-8 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
             <p className="flex items-center gap-2"><TallyMark size={24} /><Wordmark /></p>
-            <p className="mt-2 max-w-md text-sm text-muted">The market has millions of opinions. Callscore keeps the score.</p>
+            <p className="mt-2 max-w-md text-sm text-muted">The market has millions of opinions. Alphr keeps the score.</p>
             <a href={getXUrl()} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-2 rounded-md border border-border px-3 py-2 text-sm text-text transition hover:border-border-strong hover:bg-surface-2">
               <XIcon className="size-4" /> Follow @{getXHandle()} on X
             </a>
@@ -21,7 +21,7 @@ export function SiteFooter({ demo }: { demo: boolean }) {
           <nav aria-label="Product" className="text-sm">
             <p className="eyebrow mb-3">Product</p>
             <ul className="space-y-2 text-muted">
-              <li><Link href="/rounds" className="hover:text-text">Callscore</Link></li>
+              <li><Link href="/rounds" className="hover:text-text">Alphr</Link></li>
               <li><Link href="/humans-vs-ai" className="hover:text-text">Humans vs AI</Link></li>
               <li><Link href="/leaderboard" className="hover:text-text">Leaderboard</Link></li>
               <li><Link href="/weekly" className="hover:text-text">Weekly recap</Link></li>
@@ -31,7 +31,7 @@ export function SiteFooter({ demo }: { demo: boolean }) {
           <nav aria-label="Company" className="text-sm">
             <p className="eyebrow mb-3">About</p>
             <ul className="space-y-2 text-muted">
-              <li><Link href="/about" className="hover:text-text">About Callscore</Link></li>
+              <li><Link href="/about" className="hover:text-text">About Alphr</Link></li>
               <li><Link href="/token" className="hover:text-text">Token (planned utility)</Link></li>
               <li><Link href="/login" className="hover:text-text">Sign in</Link></li>
               <li><a href={getXUrl()} target="_blank" rel="noopener noreferrer" className="hover:text-text">X / Twitter</a></li>

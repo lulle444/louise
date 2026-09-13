@@ -9,7 +9,7 @@ import { PageHeader } from "@/components/ui/Section";
 import { EmptyState } from "@/components/ui/States";
 
 export const dynamic = "force-dynamic";
-export const metadata: Metadata = { title: "Leaderboard", description: "Callscore ratings for ranked analysts by accuracy, experience and consistency." };
+export const metadata: Metadata = { title: "Leaderboard", description: "Alphr ratings for ranked analysts by accuracy, experience and consistency." };
 
 const RANGES: Array<{ key: LeaderboardRange; label: string }> = [
   { key: "week", label: "This week" },
@@ -30,7 +30,7 @@ export default async function LeaderboardPage(props: PageProps<"/leaderboard">) 
   const href = (r: LeaderboardRange, a: string | null) => `/leaderboard?range=${r}${a ? `&asset=${a}` : ""}`;
   return (
     <>
-      <PageHeader eyebrow="Leaderboard" title="Callscore ratings" description={<>Only analysts with at least {MIN_RANKED_BATTLES} valid settled Rounds in the selected scope are ranked. Rating = accuracy × 0.6 + experience (up to 25) + consistency (up to 15). <Link href="/methodology#leaderboard" className="text-cyan hover:underline">Formula →</Link></>} />
+      <PageHeader eyebrow="Leaderboard" title="Alphr ratings" description={<>Only analysts with at least {MIN_RANKED_BATTLES} valid settled Rounds in the selected scope are ranked. Rating = accuracy × 0.6 + experience (up to 25) + consistency (up to 15). <Link href="/methodology#leaderboard" className="text-cyan hover:underline">Formula →</Link></>} />
       <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
         <div className="flex flex-wrap gap-2">
           <div className="flex gap-1 rounded-lg border border-border bg-surface p-1" role="group" aria-label="Time range">

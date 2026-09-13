@@ -83,10 +83,10 @@ export default async function HomePage() {
           </div>
           <p className="eyebrow">The scoreboard for crypto calls</p>
           <h1 className="mx-auto mt-4 max-w-4xl text-5xl leading-[1.02] sm:text-6xl lg:text-7xl">
-            Make the call.<br /><span className="text-cyan italic">Keep the score.</span>
+            Call the market.<br /><span className="text-cyan italic">Get graded.</span>
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-base text-muted sm:text-lg">
-            One crypto call a day. Back it with three signals, lock it, and let the market grade you, the crowd and three AI analysts by the same rules.
+            One crypto call a day, backed by three signals and locked before the deadline. The market grades you, the crowd and three AI analysts by the same rules.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link href={live ? `/rounds/${live.battle.id}` : "/rounds"} className="inline-flex items-center gap-2 rounded-lg bg-cyan px-6 py-3 text-sm font-semibold text-white shadow-glow-cyan transition hover:brightness-110">
@@ -146,7 +146,7 @@ export default async function HomePage() {
       </Suspense>
 
       {/* Scoreboard + crowd preview */}
-      <Section eyebrow="Scoreboard" title="Humans vs AI, under the same rules" description="Every analyst — human or simulated — faces the same market, timeframe and scoring. Callscore keeps the score." action={{ href: "/humans-vs-ai", label: "Full comparison" }}>
+      <Section eyebrow="Scoreboard" title="Humans vs AI, under the same rules" description="Every analyst — human or simulated — faces the same market, timeframe and scoring. Alphr keeps the score." action={{ href: "/humans-vs-ai", label: "Full comparison" }}>
         <div className="grid gap-4 lg:grid-cols-[1.4fr_1fr]">
           <Scoreboard summary={hva} compact />
           <CrowdSignal
@@ -274,7 +274,7 @@ export default async function HomePage() {
           <div className="relative">
             <p className="eyebrow">Ready?</p>
             <h2 className="mt-3 text-3xl sm:text-4xl">Make the call. Beat the machines. <span className="italic text-cyan">Keep the score.</span></h2>
-            <p className="mx-auto mt-2 max-w-xl text-sm text-muted">The market has millions of opinions. Callscore keeps the score.</p>
+            <p className="mx-auto mt-2 max-w-xl text-sm text-muted">The market has millions of opinions. Alphr keeps the score.</p>
             <Link href={live ? `/rounds/${live.battle.id}` : "/rounds"} className="mt-6 inline-flex items-center gap-2 rounded-md bg-cyan px-5 py-3 text-sm font-semibold text-white shadow-glow-cyan hover:brightness-110">
               <Lock className="size-4" aria-hidden /> Make today’s call
             </Link>

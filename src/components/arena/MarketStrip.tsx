@@ -16,7 +16,7 @@ interface Row {
   series: PricePoint[];
 }
 
-/** Live (or simulated, in Demo Mode) 7-day view of Callscore's assets. */
+/** Live (or simulated, in Demo Mode) 7-day view of Alphr's assets. */
 export async function MarketStrip() {
   const repo = await getRepository();
   const provider = getMarketDataProvider();

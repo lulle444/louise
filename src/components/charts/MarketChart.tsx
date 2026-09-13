@@ -14,7 +14,7 @@ export function MarketChart({ series, startPrice, decimals, simulated, height = 
   const pad = (max - min) * 0.15 || max * 0.01;
   const last = data[data.length - 1].price;
   const up = startPrice ? last >= startPrice : true;
-  const stroke = up ? "#0E8F7E" : "#0F1A2B";
+  const stroke = up ? "#4F46E5" : "#0F1A2B";
   return (
     <figure>
       <div style={{ height }} role="img" aria-label={`Price series from $${formatPrice(data[0].price, decimals)} to $${formatPrice(last, decimals)}${startPrice ? `, Battle start price $${formatPrice(startPrice, decimals)}` : ""}.`}>
@@ -34,7 +34,7 @@ export function MarketChart({ series, startPrice, decimals, simulated, height = 
               formatter={(v) => [`$${formatPrice(Number(v), decimals)}`, "Price"]}
             />
             {startPrice ? <ReferenceLine y={startPrice} stroke="#5B6B7F" strokeDasharray="4 4" /> : null}
-            {opensAt ? <ReferenceLine x={Date.parse(opensAt)} stroke="#0E8F7E" strokeOpacity={0.6} strokeDasharray="3 3" /> : null}
+            {opensAt ? <ReferenceLine x={Date.parse(opensAt)} stroke="#4F46E5" strokeOpacity={0.6} strokeDasharray="3 3" /> : null}
             {endsAt && Date.parse(endsAt) <= data[data.length - 1].t ? <ReferenceLine x={Date.parse(endsAt)} stroke="#C2410C" strokeOpacity={0.6} strokeDasharray="3 3" /> : null}
             <Area type="monotone" dataKey="price" stroke={stroke} strokeWidth={2} fill="url(#chartFill)" isAnimationActive={false} />
           </AreaChart>

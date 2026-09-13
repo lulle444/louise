@@ -7,12 +7,12 @@
  * core loop can be reviewed without external services.
  */
 
-export const APP_NAME = "Callscore";
-export const TAGLINE = "Make the call. Beat the machines. Keep the score.";
+export const APP_NAME = "Alphr";
+export const TAGLINE = "Call the market. Get graded.";
 export const SUPPORTING_MESSAGE = "Who reads crypto best: you, the crowd, or the machines?";
 
 export const DISCLAIMER =
-  "Callscore is an educational forecasting game using virtual points. It does not execute trades or provide financial advice. Crypto markets are volatile, and past forecasting performance does not predict future results.";
+  "Alphr is an educational forecasting game using virtual points. It does not execute trades or provide financial advice. Crypto markets are volatile, and past forecasting performance does not predict future results.";
 
 /** Minimum valid settled predictions before a user is ranked on the leaderboard. */
 export const MIN_RANKED_BATTLES = 5;
@@ -88,7 +88,7 @@ export function isDemoMode(): boolean {
 /** X (Twitter) handle without the @; override with NEXT_PUBLIC_X_HANDLE. */
 export function getXHandle(): string {
   const v = (process.env.NEXT_PUBLIC_X_HANDLE ?? "").trim().replace(/^@/, "");
-  return v || "Callscore_";
+  return v || "alphr";
 }
 
 export function getXUrl(): string {

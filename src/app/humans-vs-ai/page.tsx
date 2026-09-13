@@ -38,7 +38,7 @@ export default async function HumansVsAiPage() {
           <TrendChart data={s.trend} />
         </section>
 
-        <Section eyebrow="AI analysts" title="Three profiles, three styles" description="These are deterministic rule-based simulations built for Callscore. They are not commercial AI models and their forecasts are not financial advice." className="!px-0 !py-0">
+        <Section eyebrow="AI analysts" title="Three profiles, three styles" description="These are deterministic rule-based simulations built for Alphr. They are not commercial AI models and their forecasts are not financial advice." className="!px-0 !py-0">
           <div className="grid gap-4 md:grid-cols-3">
             {s.aiProfileStats.map((a) => (
               <AIProfileCard key={a.profile.id} profile={a.profile} accuracy={a.accuracy.accuracy} valid={a.accuracy.valid} streak={a.streak} rating={a.rating}>

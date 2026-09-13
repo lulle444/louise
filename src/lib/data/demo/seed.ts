@@ -43,7 +43,7 @@ const SEED_USERS: SeedUser[] = [
   { username: "vantablack", displayName: "Yuki Tanaka", bio: "Dominance rotations only.", skill: 0.57, prefers: ["bitcoin-dominance", "market-breadth", "volume"], participation: 0.5, joinedDaysAgo: 24 },
   { username: "amberloop", displayName: "Zoe Marchetti", bio: "Sentiment cycles, patiently.", skill: 0.61, prefers: ["fear-greed", "social-sentiment", "market-trend"], participation: 0.7, joinedDaysAgo: 26 },
   { username: "cinder_tape", displayName: "Malik Haddad", bio: "Occasional forecaster.", skill: 0.5, prefers: ["momentum", "volume", "fear-greed"], participation: 0.3, joinedDaysAgo: 20 },
-  { username: "arena_admin", displayName: "Callscore Admin", bio: "Operates Callscore. Forecasts under the same rules as everyone else.", skill: 0.55, prefers: ["market-trend", "volume", "volatility"], participation: 0.3, isAdmin: true, joinedDaysAgo: 45 },
+  { username: "arena_admin", displayName: "Alphr Admin", bio: "Operates Alphr. Forecasts under the same rules as everyone else.", skill: 0.55, prefers: ["market-trend", "volume", "volatility"], participation: 0.3, isAdmin: true, joinedDaysAgo: 45 },
   { username: "glasswing", displayName: "Ada Mensah", bio: "New here. Building a track record.", skill: 0.6, prefers: ["momentum", "market-trend", "social-sentiment"], participation: 1, recentOnly: 3, joinedDaysAgo: 4 },
 ];
 

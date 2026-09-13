@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "Token (planned utility)", descriptio
 
 export default function TokenPage() {
   const utilities = [
-    { Icon: Vote, title: "Community voting", body: "Vote on which assets and Round formats Callscore adds next." },
+    { Icon: Vote, title: "Community voting", body: "Vote on which assets and Round formats Alphr adds next." },
     { Icon: BarChart3, title: "Advanced historical analytics", body: "Deeper views of signal performance and calibration over long horizons." },
     { Icon: Users, title: "Private analyst groups", body: "Run invite-only Rounds with your own group and a shared scoreboard." },
     { Icon: Palette, title: "Cosmetic themes", body: "Profile and Call Card themes. Purely visual." },
@@ -41,7 +41,7 @@ export default function TokenPage() {
         </section>
         <section className="text-sm text-muted">
           <h2 className="text-lg font-semibold text-text">What this page deliberately does not include</h2>
-          <p className="mt-2">Price projections, sale dates, allocation tables, purchase links, guaranteed benefits or any investment language. If you see those anywhere claiming to be CALLSCORE, they are not from us.</p>
+          <p className="mt-2">Price projections, sale dates, allocation tables, purchase links, guaranteed benefits or any investment language. If you see those anywhere claiming to be ALPHR, they are not from us.</p>
           <p className="mt-4"><Link href="/about" className="text-cyan hover:underline">Read the product principles →</Link></p>
         </section>
         <Disclaimer />

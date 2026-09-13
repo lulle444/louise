@@ -1,14 +1,14 @@
 import { expect, test } from "@playwright/test";
 
-test("homepage communicates Humans vs AI and links into Callscore", async ({ page }) => {
+test("homepage communicates Humans vs AI and links into Alphr", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("Make the call");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Call the market");
   await expect(page.getByText("The scoreboard for crypto calls")).toBeVisible();
   await expect(page.getByRole("link", { name: "Make today’s call" }).first()).toBeVisible();
   await expect(page.getByText("Preview season").first()).toBeVisible();
   // Crowd preview is obscured for visitors.
   await expect(page.getByText(/Sign in and lock a forecast in today’s Round/)).toBeVisible();
-  await expect(page.getByRole("contentinfo").getByText("CALLSCORE is an educational forecasting game")).toBeVisible();
+  await expect(page.getByRole("contentinfo").getByText("ALPHR is an educational forecasting game")).toBeVisible();
 });
 
 test("arena lists seeded live, upcoming and settled Rounds", async ({ page }) => {
@@ -35,7 +35,7 @@ test("humans vs ai, leaderboard, methodology and token pages render", async ({ p
   await page.goto("/token");
   await expect(page.getByText("No token is needed for the core forecasting experience.")).toBeVisible();
   await page.goto("/weekly");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("This week on Callscore");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("This week on Alphr");
   await expect(page.getByText("Founding Caller badge").first()).toBeVisible();
   await expect(page.getByRole("heading", { name: "Top analysts this week" })).toBeVisible();
 });

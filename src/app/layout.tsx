@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(getAppUrl()),
   title: { default: `${APP_NAME} — ${SUPPORTING_MESSAGE}`, template: `%s · ${APP_NAME}` },
   description:
-    "Callscore is a competitive crypto-intelligence platform where humans, AI profiles, and the crowd face the same market challenges. Pick three signals, lock your forecast, and build a transparent track record using virtual points.",
+    "Alphr is a competitive crypto-intelligence platform where humans, AI profiles, and the crowd face the same market challenges. Pick three signals, lock your forecast, and build a transparent track record using virtual points.",
   openGraph: { siteName: APP_NAME, type: "website" },
   twitter: { card: "summary_large_image" },
 };
