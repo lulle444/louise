@@ -47,3 +47,40 @@ export function BrandImage({
     </div>
   );
 }
+
+/**
+ * Compact page header with a brand render as its background. Fixed height,
+ * image anchored to the right and faded under the text on the left.
+ */
+export function PageHero({
+  name,
+  eyebrow,
+  title,
+  description,
+  children,
+}: {
+  name: BrandImageKey;
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  children?: React.ReactNode;
+}) {
+  const present = hasBrandImage(name);
+  const meta = BRAND_IMAGES[name];
+  return (
+    <header className="card relative mb-8 overflow-hidden p-0">
+      {present ? (
+        <>
+          <Image src={brandImagePath(name)} alt={meta.alt} fill sizes="100vw" priority className="object-cover object-right" />
+          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/70 sm:via-white/90 sm:to-white/10" aria-hidden="true" />
+        </>
+      ) : null}
+      <div className="relative max-w-2xl px-6 py-8 sm:px-8 sm:py-10 lg:min-h-[240px]">
+        {eyebrow ? <p className="eyebrow mb-2">{eyebrow}</p> : null}
+        <h1 className="text-3xl font-bold tracking-tight text-ink sm:text-4xl">{title}</h1>
+        {description ? <p className="mt-3 text-base text-slate">{description}</p> : null}
+        {children}
+      </div>
+    </header>
+  );
+}

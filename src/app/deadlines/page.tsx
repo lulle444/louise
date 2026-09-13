@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { BrandImage } from "@/components/BrandImage";
+import { PageHero } from "@/components/BrandImage";
 import { DeadlineCalendar, type DeadlineGroup } from "@/components/DeadlineCalendar";
-import { PageHeader, cn } from "@/components/ui";
+import { cn } from "@/components/ui";
 import { getDataSource } from "@/lib/data";
 import { STATUS_LABELS } from "@/lib/domain/status";
 import type { MilestoneStatus } from "@/lib/domain/types";
@@ -48,8 +48,7 @@ export default async function DeadlinesPage({ searchParams }: { searchParams: Pr
 
   return (
     <div>
-      <PageHeader eyebrow="Calendar" title="Commitment deadlines" description="Public deadlines grouped by status or project. Dates are recorded from cited sources; a passing deadline changes nothing until a moderator records a conclusion." />
-      <BrandImage name="calendar" className="mb-6" sizes="100vw" />
+      <PageHero name="calendar" eyebrow="Calendar" title="Commitment deadlines" description="Public deadlines grouped by status or project. Dates are recorded from cited sources; a passing deadline changes nothing until a moderator records a conclusion." />
       <div className="mb-6 flex flex-wrap items-center gap-4">
         <nav aria-label="Range" className="flex gap-1 rounded-lg border border-border bg-surface p-1">
           {tab("week", "This week", "range", range === "week")}

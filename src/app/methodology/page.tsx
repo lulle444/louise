@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BrandImage } from "@/components/BrandImage";
+import { PageHero } from "@/components/BrandImage";
 import { StatusBadge } from "@/components/StatusBadge";
-import { PageHeader } from "@/components/ui";
+
 import { EVIDENCE_RANK, EVIDENCE_TYPE_LABELS, EVIDENCE_WEIGHT } from "@/lib/domain/evidence";
 import { FORMULA_V0_9, FORMULA_V1 } from "@/lib/domain/score";
 import { STATUS_DESCRIPTIONS } from "@/lib/domain/status";
@@ -40,8 +40,7 @@ export default function MethodologyPage() {
         </ol>
       </nav>
       <div className="prose-shiptrace max-w-3xl space-y-12 text-sm text-slate">
-        <PageHeader eyebrow="Methodology" title="How SHIPTRACE works" description="SHIPTRACE is an evidence-based product-delivery tracker. It records what a project publicly promised, the deadline, the evidence offered, and the final status. It is not an investment-rating service." />
-        <BrandImage name="scoreRing" sizes="(min-width: 1024px) 60vw, 100vw" />
+        <PageHero name="scoreRing" eyebrow="Methodology" title="How SHIPTRACE works" description="SHIPTRACE is an evidence-based product-delivery tracker. It records what a project publicly promised, the deadline, the evidence offered, and the final status. It is not an investment-rating service." />
 
         <section id="formula" aria-labelledby="formula-h" className="space-y-3">
           <h2 id="formula-h" className="text-xl font-semibold text-ink">Scoring formula</h2>

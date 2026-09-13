@@ -178,7 +178,7 @@ export default async function HomePage() {
               </Link>
             }
           />
-          <BrandImage name="calendar" className="mb-4" sizes="(min-width: 1024px) 40vw, 100vw" />
+          <BrandImage name="calendar" className="mb-4 max-h-40" imgClassName="h-40 object-cover object-center" sizes="(min-width: 1024px) 40vw, 100vw" />
           {dueThisWeek.length === 0 ? (
             <Card>
               <p className="text-sm text-slate">No public commitments are due in the next seven days.</p>

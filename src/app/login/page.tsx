@@ -26,7 +26,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
   const config = getConfig();
   return (
     <div className="mx-auto max-w-lg">
-      <BrandImage name="scoreRing" className="mb-6" sizes="(min-width: 640px) 32rem, 100vw" />
+      <BrandImage name="scoreRing" className="mb-6 max-h-44" imgClassName="h-44 object-cover object-center" sizes="(min-width: 640px) 32rem, 100vw" />
       <PageHeader eyebrow="Account" title="Sign in" description="Accounts exist so submissions and moderation decisions are attributable. SHIPTRACE never connects wallets." />
       {params.error ? <Alert tone="coral">Sign-in failed. Please try again.</Alert> : null}
       {config.demoMode ? (
