@@ -13,7 +13,9 @@ import { ShipScoreGauge } from "@/components/ShipScoreGauge";
 import { FEED_TYPE_META } from "@/components/ShippingFeed";
 import { SourceChip } from "@/components/SourceChip";
 import { StatusBadge } from "@/components/StatusBadge";
+import { ShareScoreButton } from "@/components/ShareScoreButton";
 import { WatchButton } from "@/components/WatchButton";
+import { getConfig } from "@/lib/config";
 import { ButtonLink, EmptyState, Pill, SectionHeading, cn } from "@/components/ui";
 import { getDataSource } from "@/lib/data";
 import { canSubmit } from "@/lib/domain/auth";
@@ -48,6 +50,11 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const latestGh = githubSnapshots.at(-1) ?? null;
   const recentChecks = websiteChecks.slice(-60);
   const openDisputes = disputes.filter((d) => d.state === "open" || d.state === "under_review");
+  const appUrl = getConfig().appUrl;
+  const projectUrl = `${appUrl}/projects/${project.slug}`;
+  const shareText = `${project.name} on SHIPTRACE: Ship Score ${latestScore?.total ?? "insufficient data"}, ${shipped.length}/${milestones.length} milestones shipped, ${milestones.filter((m) => m.status === "no_evidence").length} without qualifying evidence. Documented delivery, not investment advice.`;
+  const badgeUrl = `${appUrl}/badge/${project.slug}.svg`;
+  const badgeMarkdown = `[![Ship Score](${badgeUrl})](${projectUrl})`;
 
   return (
     <div className="space-y-12">
@@ -85,6 +92,18 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               </ButtonLink>
             </div>
           </div>
+        </div>
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4">
+          <ShareScoreButton text={shareText} url={projectUrl} />
+          <details className="text-xs text-slate">
+            <summary className="cursor-pointer hover:text-ink">Embed Ship Score badge</summary>
+            <div className="mt-2 space-y-2">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={`/badge/${project.slug}.svg`} alt={`${project.name} Ship Score badge`} height={22} />
+              <pre className="max-w-md overflow-x-auto rounded-md border border-border bg-bg p-2 font-mono text-[11px] text-ink">{badgeMarkdown}</pre>
+              <p>Paste into a README or docs page. The badge updates automatically and links back here.</p>
+            </div>
+          </details>
         </div>
         <nav aria-label="Profile sections" className="mt-6 flex flex-wrap gap-2 border-t border-border pt-4 text-xs">
           {[

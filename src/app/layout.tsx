@@ -4,6 +4,8 @@ import "./globals.css";
 import { BackgroundVisuals } from "@/components/BackgroundVisuals";
 import { BrandMark } from "@/components/BrandMark";
 import { Disclaimer } from "@/components/Disclaimer";
+import { Analytics } from "@vercel/analytics/next";
+import { SearchHotkey } from "@/components/SearchHotkey";
 import { SiteNav } from "@/components/SiteNav";
 import { XIcon } from "@/components/XIcon";
 import { UserMenu } from "@/components/UserMenu";
@@ -16,6 +18,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(getConfig().appUrl),
   title: { default: "SHIPTRACE — Crypto makes promises. We track what ships.", template: "%s · SHIPTRACE" },
   description: SITE.description,
+  alternates: { types: { "application/rss+xml": [{ url: "/feed.xml", title: "SHIPTRACE shipping feed" }] } },
   openGraph: {
     siteName: "SHIPTRACE",
     type: "website",
@@ -48,6 +51,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang="en">
       <body className="flex min-h-screen flex-col">
         <BackgroundVisuals />
+        <SearchHotkey />
+        <Analytics />
         <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-primary focus:px-3 focus:py-2 focus:text-white">
           Skip to content
         </a>

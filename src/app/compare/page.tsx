@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { CompareRadar } from "@/components/CompareRadar";
 import { CompareTable } from "@/components/CompareTable";
 import { Alert, EmptyState, PageHeader, inputClass } from "@/components/ui";
 import { getDataSource } from "@/lib/data";
@@ -52,6 +53,7 @@ export default async function ComparePage({ searchParams }: { searchParams: Prom
         />
       ) : (
         <div className="space-y-4">
+          <CompareRadar series={bundles.map((b) => ({ name: b.project.name, components: b.latestScore?.components ?? null }))} />
           <div className="card p-2 sm:p-4">
             <CompareTable bundles={bundles} />
           </div>

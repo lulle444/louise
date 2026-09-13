@@ -263,6 +263,8 @@ A deployment without Supabase variables runs in Demo Mode and is safe to share a
 | `/profile/[username]` | Public contributor profile |
 | `/admin` | Moderation and admin workspace (server-protected) |
 | `/login`, `/signup` | Authentication (demo personas in Demo Mode) |
+| `/feed.xml` | RSS feed of verified shipping events |
+| `/badge/[slug].svg` | Embeddable Ship Score badge |
 | `/api/cron/{github,website,scores}` | Scheduled jobs |
 
 ## Known limitations

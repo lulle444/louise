@@ -19,6 +19,9 @@ export function ProjectSearch({ defaultValue = "", className, size = "md", autoF
         autoFocus={autoFocus}
         className={cn(inputClass, size === "lg" ? "py-3 pl-11 pr-28 text-base" : "pl-9 pr-24")}
       />
+      <kbd className="pointer-events-none absolute right-[5.5rem] top-1/2 hidden -translate-y-1/2 rounded border border-border bg-surface px-1.5 py-0.5 font-mono text-[10px] text-slate sm:block" aria-hidden="true">
+        /
+      </kbd>
       <button type="submit" className="absolute right-1.5 top-1/2 -translate-y-1/2 btn btn-primary rounded-md px-3 py-1.5 text-xs font-semibold text-white">
         Search
       </button>
