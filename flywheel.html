@@ -83,24 +83,13 @@
     <div class="card card-grid reveal">
       <div id="flywheel-loop">
         <div class="panel-title"><span>Keeper gas flywheel</span><span id="loopStatus" style="color:var(--violet);"><span class="pulse-dot"></span>idle</span></div>
-        <div class="loop-diagram">
-          <svg class="loop-svg" viewBox="0 0 300 300" aria-hidden="true">
-            <path id="loopPathN" d="M150,150 C160,120 140,80 150,45" fill="none" stroke="rgba(108,76,251,0.22)" stroke-width="4" stroke-linecap="round"/>
-            <path id="loopPathE" d="M150,150 C180,140 220,160 255,150" fill="none" stroke="rgba(18,217,160,0.25)" stroke-width="4" stroke-linecap="round"/>
-            <path id="loopPathS" d="M150,150 C140,180 160,220 150,255" fill="none" stroke="rgba(108,76,251,0.22)" stroke-width="4" stroke-linecap="round"/>
-            <path id="loopPathW" d="M150,150 C120,160 80,140 45,150" fill="none" stroke="rgba(18,217,160,0.25)" stroke-width="4" stroke-linecap="round"/>
-            <circle r="4.5" fill="#6C4CFB"><animateMotion dur="2.4s" repeatCount="indefinite"><mpath href="#loopPathN"/></animateMotion></circle>
-            <circle r="4.5" fill="#12D9A0"><animateMotion dur="2.4s" begin="0.6s" repeatCount="indefinite"><mpath href="#loopPathE"/></animateMotion></circle>
-            <circle r="4.5" fill="#6C4CFB"><animateMotion dur="2.4s" begin="1.2s" repeatCount="indefinite"><mpath href="#loopPathS"/></animateMotion></circle>
-            <circle r="4.5" fill="#12D9A0"><animateMotion dur="2.4s" begin="1.8s" repeatCount="indefinite"><mpath href="#loopPathW"/></animateMotion></circle>
-          </svg>
-          <div class="loop-core" aria-hidden="true"></div>
-          <div class="loop-node n"><span class="li-icon">💧</span><span class="li-label">Fee accrues</span><span class="li-sub">0.50%/yr</span></div>
-          <div class="loop-node e"><span class="li-icon">💎</span><span class="li-label">Swapped to ETH</span><span class="li-sub">Uniswap v4</span></div>
-          <div class="loop-node s"><span class="li-icon">🔒</span><span class="li-label">Funds policy</span><span class="li-sub">GasSponsor</span></div>
-          <div class="loop-node w"><span class="li-icon">🔋</span><span class="li-label">Free rebalances</span><span class="li-sub">stays on target</span></div>
+        <div class="flow-chain">
+          <div class="flow-step reveal"><span class="fs-num">1</span><span class="fs-label">Fee accrues<span class="fs-sub">0.50%/yr on TVL</span></span></div>
+          <div class="flow-step reveal" style="transition-delay:.06s;"><span class="fs-num" style="background:var(--mint);">2</span><span class="fs-label">Swapped to ETH<span class="fs-sub">via Uniswap v4</span></span></div>
+          <div class="flow-step reveal" style="transition-delay:.12s;"><span class="fs-num">3</span><span class="fs-label">Funds keeper policy<span class="fs-sub">GasSponsor</span></span></div>
+          <div class="flow-step reveal" style="transition-delay:.18s;"><span class="fs-num" style="background:var(--mint);">4</span><span class="fs-label">Free rebalances<span class="fs-sub">basket stays on target</span></span></div>
         </div>
-        <div class="flow-loop">Fee accrues → swapped to ETH → funds policy → free rebalances → back to fee accrues</div>
+        <div class="flow-loop">① → ② → ③ → ④ → back to ①, on every sweep</div>
         <div class="deposit-box" id="flywheel-sweep">
           <label>Accrued fee</label>
           <div class="deposit-row">
