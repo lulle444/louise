@@ -252,10 +252,20 @@ create table public.github_snapshots (
   last_push_at timestamptz,
   source text not null check (source in ('github_api', 'demo')),
   retrieved_at timestamptz not null default now(),
-  retrieved_day date generated always as ((retrieved_at at time zone 'utc')::date) stored,
+  retrieved_day date not null,
   unique (repository_id, retrieved_day)
 );
 create index on public.github_snapshots(project_id, retrieved_at desc);
+
+create or replace function public.set_github_snapshot_day()
+returns trigger language plpgsql as $$
+begin
+  new.retrieved_day := (new.retrieved_at at time zone 'utc')::date;
+  return new;
+end;
+$$;
+create trigger github_snapshots_day before insert or update on public.github_snapshots
+for each row execute procedure public.set_github_snapshot_day();
 
 create table public.website_endpoints (
   id text primary key default gen_random_uuid()::text,
@@ -274,10 +284,20 @@ create table public.website_checks (
   latency_ms integer,
   error text,
   checked_at timestamptz not null default now(),
-  checked_bucket bigint generated always as (floor(extract(epoch from checked_at) / 600)::bigint) stored,
+  checked_bucket bigint not null,
   unique (endpoint_id, checked_bucket)
 );
 create index on public.website_checks(project_id, checked_at desc);
+
+create or replace function public.set_website_check_bucket()
+returns trigger language plpgsql as $$
+begin
+  new.checked_bucket := floor(extract(epoch from new.checked_at) / 600)::bigint;
+  return new;
+end;
+$$;
+create trigger website_checks_bucket before insert or update on public.website_checks
+for each row execute procedure public.set_website_check_bucket();
 
 -- ---------------------------------------------------------------- scores
 create table public.ship_score_snapshots (
