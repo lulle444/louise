@@ -48,8 +48,9 @@ export const getSessionUser = cache(async (): Promise<SessionUser | null> => {
   return {
     id: user.id,
     email: user.email ?? null,
-    username: profile?.username ?? user.email?.split("@")[0] ?? user.id.slice(0, 8),
-    displayName: profile?.display_name ?? user.email ?? "Member",
+    // Never derive public names from the email address.
+    username: profile?.username ?? `member-${user.id.slice(0, 8)}`,
+    displayName: profile?.display_name ?? `Member ${user.id.slice(0, 4)}`,
     role,
     isDemo: false,
   };
