@@ -4,21 +4,6 @@
 create extension if not exists pgcrypto;
 
 -- ---------------------------------------------------------------- helpers
-create or replace function public.current_role_name()
-returns text language sql stable security definer set search_path = public as $$
-  select coalesce((select role from public.profiles where id = auth.uid()), 'guest');
-$$;
-
-create or replace function public.is_moderator()
-returns boolean language sql stable security definer set search_path = public as $$
-  select public.current_role_name() in ('moderator', 'admin');
-$$;
-
-create or replace function public.is_admin()
-returns boolean language sql stable security definer set search_path = public as $$
-  select public.current_role_name() = 'admin';
-$$;
-
 create or replace function public.set_updated_at()
 returns trigger language plpgsql as $$
 begin
@@ -40,6 +25,22 @@ create table public.profiles (
   is_demo boolean not null default false,
   created_at timestamptz not null default now()
 );
+
+-- Role helpers (depend on profiles)
+create or replace function public.current_role_name()
+returns text language sql stable security definer set search_path = public as $$
+  select coalesce((select role from public.profiles where id = auth.uid()), 'guest');
+$$;
+
+create or replace function public.is_moderator()
+returns boolean language sql stable security definer set search_path = public as $$
+  select public.current_role_name() in ('moderator', 'admin');
+$$;
+
+create or replace function public.is_admin()
+returns boolean language sql stable security definer set search_path = public as $$
+  select public.current_role_name() = 'admin';
+$$;
 
 create or replace function public.handle_new_user()
 returns trigger language plpgsql security definer set search_path = public as $$
