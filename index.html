@@ -137,24 +137,37 @@
       <p>Each piece funds the next — deposit, sweep, sponsor, repeat.</p>
     </div>
     <div class="feature-grid">
-      <a class="feature-card reveal" href="/vault">
+      <a class="feature-card c1 reveal" href="/vault">
+        <span class="feature-num">1</span>
         <div class="feature-icon">🏦</div>
         <h3>Vault</h3>
         <p>Deposit USDG into a fixed basket of tokenized stocks — rebalanced on-chain.</p>
         <span class="feature-arrow">Explore the vault →</span>
       </a>
-      <a class="feature-card reveal" style="transition-delay:.08s;" href="/flywheel">
+      <div class="feature-connector" aria-hidden="true">
+        <svg viewBox="0 0 48 22"><path d="M2,11 H38" stroke="#EAE6FA" stroke-width="2" fill="none"/><path d="M32,5 L40,11 L32,17" stroke="#6C4CFB" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle r="3" fill="#6C4CFB"><animateMotion dur="1.8s" repeatCount="indefinite" path="M2,11 H38"/></circle></svg>
+      </div>
+      <a class="feature-card c2 reveal" style="transition-delay:.08s;" href="/flywheel">
+        <span class="feature-num">2</span>
         <div class="feature-icon">🔁</div>
         <h3>Flywheel</h3>
         <p>The vault's own management fee is swept and swapped into keeper gas.</p>
         <span class="feature-arrow">See the loop →</span>
       </a>
-      <a class="feature-card reveal" style="transition-delay:.16s;" href="/gas-sponsor">
+      <div class="feature-connector" aria-hidden="true">
+        <svg viewBox="0 0 48 22"><path d="M2,11 H38" stroke="#EAE6FA" stroke-width="2" fill="none"/><path d="M32,5 L40,11 L32,17" stroke="#12D9A0" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle r="3" fill="#12D9A0"><animateMotion dur="1.8s" begin=".6s" repeatCount="indefinite" path="M2,11 H38"/></circle></svg>
+      </div>
+      <a class="feature-card c3 reveal" style="transition-delay:.16s;" href="/gas-sponsor">
+        <span class="feature-num">3</span>
         <div class="feature-icon">⛽</div>
         <h3>Gas Sponsor</h3>
         <p>A shared ERC-4337 paymaster keeps rebalances free, funded by the loop.</p>
         <span class="feature-arrow">View policies →</span>
       </a>
+    </div>
+    <div class="loop-return reveal">
+      <span class="loop-return-icon">↺</span>
+      <span>Fee flows back into the vault — the loop never stops</span>
     </div>
   </div>
 </section>
@@ -168,6 +181,7 @@
 
 <div class="cta-wrap">
   <div class="cta-band reveal">
+    <span class="cta-eyebrow"><span class="pulse-dot" style="color:#fff;"></span>Live loop · self-funded</span>
     <h2>Deposit once. Let the loop run.</h2>
     <p>Perpetua funds its own upkeep — no separate gas budget required.</p>
     <div class="hero-ctas" style="margin-bottom:0;justify-content:center;">
