@@ -34,6 +34,9 @@ test("humans vs ai, leaderboard, methodology and token pages render", async ({ p
   await expect(page.getByRole("heading", { name: "Leaderboard formula" })).toBeVisible();
   await page.goto("/token");
   await expect(page.getByText("No token is needed for the core forecasting experience.")).toBeVisible();
+  await page.goto("/learn");
+  await expect(page.getByRole("heading", { name: "How to read the signals" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Fear & Greed" })).toBeVisible();
   await page.goto("/weekly");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("This week on Alphr");
   await expect(page.getByText("Founding Caller badge").first()).toBeVisible();

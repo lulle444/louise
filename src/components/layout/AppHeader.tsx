@@ -13,6 +13,7 @@ export const NAV_ITEMS = [
   { href: "/humans-vs-ai", label: "Humans vs AI" },
   { href: "/leaderboard", label: "Leaderboard" },
   { href: "/weekly", label: "Weekly" },
+  { href: "/learn", label: "Learn" },
   { href: "/methodology", label: "Methodology" },
 ];
 

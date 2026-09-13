@@ -59,7 +59,7 @@ export function SignalSelector({ signals, value, onChange }: { signals: Signal[]
         <legend className="text-sm font-semibold">2. Supporting signals</legend>
         <span className={`num text-xs ${full ? "text-cyan" : "text-muted"}`} aria-live="polite">{value.length} of {SIGNALS_PER_PREDICTION} selected</span>
       </div>
-      <p className="mt-1 text-xs text-muted">Pick exactly three reasons behind your call. {full ? "Deselect one to swap." : ""}</p>
+      <p className="mt-1 text-xs text-muted">Pick exactly three reasons behind your call. {full ? "Deselect one to swap." : ""} <a href="/learn" target="_blank" rel="noopener" className="text-cyan hover:underline">How to read each signal ↗</a></p>
       <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
         {signals.map((s) => {
           const selected = value.includes(s.id);
