@@ -48,7 +48,7 @@ export default async function ProfilePage(props: PageProps<"/profile/[username]"
           <div className="flex items-center gap-4">
             <Avatar name={profile.displayName} size="xl" />
             <div>
-              <h1 className="text-3xl">{profile.displayName}</h1>
+              <h1 className="text-2xl font-semibold">{profile.displayName}</h1>
               <p className="font-mono text-sm text-muted">@{profile.username} · joined <LocalTime iso={profile.createdAt} /></p>
               {profile.bio ? <p className="mt-2 max-w-lg text-sm text-muted">{profile.bio}</p> : null}
             </div>

@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 test("homepage communicates Humans vs AI and links into Alphr", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("Call the market");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("You vs the machines");
   await expect(page.getByText("The scoreboard for crypto calls")).toBeVisible();
   await expect(page.getByRole("link", { name: "Make today’s call" }).first()).toBeVisible();
   await expect(page.getByText("Preview season").first()).toBeVisible();

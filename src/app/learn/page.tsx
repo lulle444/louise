@@ -81,7 +81,7 @@ export default function LearnPage() {
             ))}
           </ul>
           <p className="mt-6 text-sm text-muted">
-            Three habits that show up in every good track record: commit before you look at the crowd, update in small steps rather than flipping, and keep the score even when it's unflattering. Alphr enforces the first and does the third for you. <Link href="/methodology" className="text-cyan hover:underline">How scoring works →</Link>
+            Three habits that show up in every good track record: commit before you look at the crowd, update in small steps rather than flipping, and keep the score even when it’s unflattering. Alphr enforces the first and does the third for you. <Link href="/methodology" className="text-cyan hover:underline">How scoring works →</Link>
           </p>
         </section>
 

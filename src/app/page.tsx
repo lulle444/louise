@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { ArrowRight, Lock, ShieldCheck, Target, Trophy } from "lucide-react";
-import { TallyMark } from "@/components/ui/TallyMark";
 import { formatPrice as fmtPrice } from "@/lib/domain/format";
 import { getRepository } from "@/lib/data";
 import { maybeRunMaintenance } from "@/lib/services/maintenance";
@@ -77,63 +76,68 @@ export default async function HomePage() {
         <div className="grid-bg pointer-events-none absolute inset-0" aria-hidden />
         <SignalField opacity={0.5} />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-bg" aria-hidden />
-        <div className="relative mx-auto max-w-7xl px-4 pb-10 pt-14 text-center sm:px-6 lg:pt-20">
-          <div className="mx-auto mb-5 flex items-center justify-center gap-2">
-            <TallyMark size={44} />
-          </div>
-          <p className="eyebrow">The scoreboard for crypto calls</p>
-          <h1 className="mx-auto mt-4 max-w-4xl text-5xl leading-[1.02] sm:text-6xl lg:text-7xl">
-            Call the market.<br /><span className="text-cyan italic">Get graded.</span>
-          </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-base text-muted sm:text-lg">
-            One crypto call a day, backed by three signals and locked before the deadline. The market grades you, the crowd and three AI analysts by the same rules.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link href={live ? `/rounds/${live.battle.id}` : "/rounds"} className="inline-flex items-center gap-2 rounded-lg bg-cyan px-6 py-3 text-sm font-semibold text-white shadow-glow-cyan transition hover:brightness-110">
-              Make today’s call <ArrowRight className="size-4" aria-hidden />
-            </Link>
-            <Link href="/humans-vs-ai" className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface px-6 py-3 text-sm font-semibold hover:border-border-strong">
-              Humans vs AI so far
-            </Link>
-          </div>
-          <p className="mt-5 text-xs text-muted">Virtual points only. No wallet, no deposits, no trades.</p>
-          {demo ? (
-            <p className="mt-3 inline-flex flex-wrap items-center justify-center gap-2 text-xs text-muted">
-              <DemoModeBadge />
-              <span>Season 1 launches with live prices. <Link href="/weekly" className="text-cyan hover:underline">Preview season recap →</Link></span>
+        <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:py-24">
+          <div>
+            <p className="eyebrow">The scoreboard for crypto calls</p>
+            <h1 className="mt-4 text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
+              You vs the machines.<br />
+              <span className="text-cyan">Who</span> calls crypto <span className="text-violet">best?</span>
+            </h1>
+            <p className="mt-5 max-w-xl text-base text-muted sm:text-lg">
+              Make your call, lock it, and build a graded track record against three AI analysts and the crowd.
             </p>
-          ) : null}
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link href={live ? `/rounds/${live.battle.id}` : "/rounds"} className="inline-flex items-center gap-2 rounded-md bg-cyan px-5 py-3 text-sm font-semibold text-white shadow-glow-cyan transition hover:brightness-110">
+                Make today’s call <ArrowRight className="size-4" aria-hidden />
+              </Link>
+              <Link href="/rounds" className="inline-flex items-center gap-2 rounded-md border border-border bg-surface px-5 py-3 text-sm font-semibold hover:border-border-strong">
+                See open Rounds
+              </Link>
+            </div>
+            <p className="mt-6 text-xs text-muted">Virtual points only. No wallet, no deposits, no trades.</p>
+            {demo ? (
+              <p className="mt-3 inline-flex flex-wrap items-center gap-2 text-xs text-muted">
+                <DemoModeBadge />
+                <span>Season 1 launches with live prices. <Link href="/weekly" className="text-cyan hover:underline">Preview season recap →</Link></span>
+              </p>
+            ) : null}
+          </div>
 
-          {/* Today's round: wide card */}
-          <div className="card mx-auto mt-10 max-w-5xl p-5 text-left sm:p-6" aria-labelledby="live-battle-heading">
+          {/* Today's round card */}
+          <div className="card relative p-5 lg:self-center" aria-labelledby="live-battle-heading">
             {live ? (
-              <div className="grid gap-6 md:grid-cols-[auto_1fr_auto_auto] md:items-center">
-                <div className="flex items-center gap-3">
+              <>
+                <div className="flex items-center justify-between">
+                  <p id="live-battle-heading" className="eyebrow">Today’s round</p>
+                  <StatusPill status={live.status} />
+                </div>
+                <div className="mt-4 flex items-center gap-3">
                   <AssetMark symbol={live.asset.symbol} size="lg" />
                   <div>
-                    <p id="live-battle-heading" className="eyebrow">Today’s round</p>
-                    <p className="text-xl font-bold">{live.asset.name} <span className="font-mono text-sm font-normal text-muted">{live.asset.symbol} · 24H</span></p>
+                    <p className="text-xl font-semibold">{live.asset.name} <span className="font-mono text-sm text-muted">{live.asset.symbol} · 24H</span></p>
+                    <p className="text-xs text-muted">{live.battle.title}</p>
                   </div>
                 </div>
-                <dl className="grid grid-cols-2 gap-4 md:border-l md:border-border md:pl-6">
+                <dl className="mt-5 grid grid-cols-2 gap-4">
                   <div>
                     <dt className="text-[11px] uppercase tracking-wider text-muted">{demo ? "Simulated price" : "Reference price"}</dt>
-                    <dd className="num mt-1 text-xl font-semibold">{priceUnavailable ? <span className="text-sm text-neutral">Unavailable</span> : livePrice ? `$${fmtPrice(livePrice.price, live.asset.priceDecimals)}` : "—"}</dd>
+                    <dd className="num mt-1 text-2xl font-semibold">{priceUnavailable ? <span className="text-sm text-neutral">Unavailable</span> : livePrice ? `$${fmtPrice(livePrice.price, live.asset.priceDecimals)}` : "—"}</dd>
                     {live.battle.startPrice && livePrice ? <dd className={`num text-xs ${livePrice.price >= live.battle.startPrice ? "text-bull" : "text-bear"}`}>{formatPercent(((livePrice.price - live.battle.startPrice) / live.battle.startPrice) * 100)} since open</dd> : null}
                   </div>
                   <div>
                     <dt className="text-[11px] uppercase tracking-wider text-muted">{live.status === "open" ? "Locks in" : live.status === "upcoming" ? "Opens in" : "Settles in"}</dt>
-                    <dd className="num mt-1 text-xl font-semibold text-cyan"><BattleCountdown target={live.status === "open" ? live.battle.locksAt : live.status === "upcoming" ? live.battle.opensAt : live.battle.endsAt} /></dd>
+                    <dd className="num mt-1 text-2xl font-semibold text-cyan"><BattleCountdown target={live.status === "open" ? live.battle.locksAt : live.status === "upcoming" ? live.battle.opensAt : live.battle.endsAt} /></dd>
                     <dd className="text-xs text-muted">{live.participantCount} calls locked · {live.aiCount} AI</dd>
                   </div>
                 </dl>
-                <div className="md:text-right">
-                  <StatusPill status={live.status} />
-                  <p className="mt-2 text-xs text-muted">You: <span className={live.viewerState === "not-entered" ? "text-text" : "text-cyan"}>{live.viewerState === "not-entered" ? "not in yet" : live.viewerState === "locked" ? "locked" : "settled"}</span></p>
+                {priceUnavailable ? <div className="mt-3"><DataUnavailable /></div> : null}
+                <div className="mt-5 flex items-center justify-between border-t border-border pt-4">
+                  <p className="text-xs text-muted">
+                    You: <span className={live.viewerState === "not-entered" ? "text-text" : "text-cyan"}>{live.viewerState === "not-entered" ? "not in yet" : live.viewerState === "locked" ? "locked" : "settled"}</span>
+                  </p>
+                  <Link href={`/rounds/${live.battle.id}`} className="text-sm font-semibold text-cyan hover:underline">{live.viewerState === "not-entered" && live.status === "open" ? "Make your call →" : "Open round →"}</Link>
                 </div>
-                <Link href={`/rounds/${live.battle.id}`} className="inline-flex items-center justify-center gap-2 rounded-lg bg-text px-5 py-3 text-sm font-semibold text-white hover:bg-text/90">{live.viewerState === "not-entered" && live.status === "open" ? "Make your call" : "Open round"} <ArrowRight className="size-4" aria-hidden /></Link>
-                {priceUnavailable ? <div className="md:col-span-4"><DataUnavailable /></div> : null}
-              </div>
+              </>
             ) : (
               <EmptyState title="No round scheduled" description="The next Daily Round will appear here once it is published." action={{ href: "/rounds", label: "Browse rounds" }} />
             )}
@@ -273,7 +277,7 @@ export default async function HomePage() {
           <SignalField opacity={0.35} />
           <div className="relative">
             <p className="eyebrow">Ready?</p>
-            <h2 className="mt-3 text-3xl sm:text-4xl">Make the call. Beat the machines. <span className="italic text-cyan">Keep the score.</span></h2>
+            <h2 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">Make the call. Beat the machines. Keep the score.</h2>
             <p className="mx-auto mt-2 max-w-xl text-sm text-muted">The market has millions of opinions. Alphr keeps the score.</p>
             <Link href={live ? `/rounds/${live.battle.id}` : "/rounds"} className="mt-6 inline-flex items-center gap-2 rounded-md bg-cyan px-5 py-3 text-sm font-semibold text-white shadow-glow-cyan hover:brightness-110">
               <Lock className="size-4" aria-hidden /> Make today’s call

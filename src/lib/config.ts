@@ -9,7 +9,7 @@
 
 export const APP_NAME = "Alphr";
 export const TAGLINE = "Call the market. Get graded.";
-export const SUPPORTING_MESSAGE = "Who reads crypto best: you, the crowd, or the machines?";
+export const SUPPORTING_MESSAGE = "You vs the machines. Who calls crypto best?";
 
 export const DISCLAIMER =
   "Alphr is an educational forecasting game using virtual points. It does not execute trades or provide financial advice. Crypto markets are volatile, and past forecasting performance does not predict future results.";
