@@ -81,7 +81,7 @@ export default async function HomePage() {
             <p className="eyebrow">The scoreboard for crypto calls</p>
             <h1 className="mt-4 text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
               You vs the machines.<br />
-              <span className="text-cyan">Who</span> calls crypto <span className="text-violet">best?</span>
+              <span className="text-cyan">Who</span> calls crypto <span className="text-bull">best?</span>
             </h1>
             <p className="mt-5 max-w-xl text-base text-muted sm:text-lg">
               Make your call, lock it, and build a graded track record against three AI analysts and the crowd.
