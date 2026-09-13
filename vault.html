@@ -3,232 +3,142 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dynamo Vault — a fixed basket of tokenized stocks | Dynamo</title>
-<meta name="description" content="One deposit, a fixed basket of tokenized stocks. How the Dynamo Vault splits deposits, rebalances, and keeps its own keeper gas funded on Robinhood Chain.">
-<script>
-  try {
-    if (localStorage.getItem('dynamo-theme') === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'dark');
-    }
-  } catch (e) {}
-</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<link rel="icon" type="image/png" href="favicon.png">
-<meta property="og:title" content="Dynamo Vault — a fixed basket of tokenized stocks">
-<meta property="og:description" content="One deposit, a fixed basket of tokenized stocks, and keeper gas that funds itself.">
-<meta property="og:image" content="https://dynamo-lulle.vercel.app/og-image.png">
-<meta property="og:url" content="https://dynamo-lulle.vercel.app/vault.html">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@use_dynamo">
-<meta name="twitter:title" content="Dynamo Vault — a fixed basket of tokenized stocks">
-<meta name="twitter:description" content="One deposit, a fixed basket of tokenized stocks, and keeper gas that funds itself.">
-<meta name="twitter:image" content="https://dynamo-lulle.vercel.app/og-image.png">
+<title>Vault — Perpetua</title>
+<meta name="description" content="One deposit. A fixed basket of tokenized stocks.">
+<link rel="icon" type="image/svg+xml" href="/logo.svg">
+<link rel="stylesheet" href="/style.css">
 </head>
-<body id="top" data-page="vault">
+<body>
 
-<div class="ticker-bar">
-  <div class="wrap ticker-inner">
-    <span class="live-dot" aria-hidden="true"></span>
-    <span class="live-label">ROBINHOOD CHAIN · 4663</span>
-    <div class="ticker-scroll">
-      <div class="ticker-track" id="ticker">
-        <span>DEX VOLUME <span class="up">$34.6B</span></span>
-        <span>PROTOCOL TVL <span class="up">$1.27B</span></span>
-        <span>ADDRESSES <span class="flat">12.3M</span></span>
-        <span>STOCK TOKENS LIVE <span class="flat">190+</span></span>
-        <span>RWA SHARE OF VOLUME <span class="up">~4%</span></span>
-        <span>KEEPER GAS <span class="up">SELF-FUNDED</span></span>
-        <span>GAS SUBSIDY ENDS <span class="flat">SEP 29, 2026</span></span>
-        <span>DEX VOLUME <span class="up">$34.6B</span></span>
-        <span>PROTOCOL TVL <span class="up">$1.27B</span></span>
-        <span>ADDRESSES <span class="flat">12.3M</span></span>
-        <span>STOCK TOKENS LIVE <span class="flat">190+</span></span>
-        <span>RWA SHARE OF VOLUME <span class="up">~4%</span></span>
-        <span>KEEPER GAS <span class="up">SELF-FUNDED</span></span>
-        <span>GAS SUBSIDY ENDS <span class="flat">SEP 29, 2026</span></span>
-      </div>
-    </div>
-  </div>
+<div class="ticker-bar" aria-hidden="true">
+  <div class="ticker-track" id="tickerTrack"></div>
 </div>
 
 <header class="top">
   <div class="wrap nav-wrap">
-    <a class="brand" href="index.html"><img src="logo.png" alt="" class="brand-mark" width="30" height="30">Dynamo <em>/ Robinhood Chain</em></a>
-
-    <div class="nav-panel" id="navPanel">
-      <nav class="nav">
-        <a href="vault.html" class="nav-link" data-page="vault">Vault</a>
-        <a href="flywheel.html" class="nav-link" data-page="flywheel">Flywheel</a>
-        <a href="gas-sponsor.html" class="nav-link" data-page="gas">Gas Sponsor</a>
-        <a href="activity.html" class="nav-link" data-page="activity">Activity</a>
-        <a href="https://x.com/use_dynamo" target="_blank" rel="noopener">X</a>
-      </nav>
-      <a class="nav-cta" href="https://github.com/lulle444/louise/tree/claude/tally-website-m6sr5p/contracts" target="_blank" rel="noopener">View contracts ↗</a>
-    </div>
-
-    <div class="nav-actions">
-      <button class="icon-btn" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navPanel">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
+    <a class="brand" href="/">
+      <img class="brand-mark" src="/logo.svg" alt="" width="32" height="32">
+      Perpetua
+    </a>
+    <nav class="pill-nav">
+      <div class="nav-item"><a href="/vault" aria-current="page">Vault</a>
+        <div class="dropdown">
+          <a href="/vault#vault-allocation">Basket allocation</a>
+          <a href="/vault#vault-deposit">Deposit</a>
+        </div>
+      </div>
+      <div class="nav-item"><a href="/flywheel">Flywheel</a>
+        <div class="dropdown">
+          <a href="/flywheel#flywheel-loop">How the loop works</a>
+          <a href="/flywheel#flywheel-sweep">Accrued fee</a>
+        </div>
+      </div>
+      <div class="nav-item"><a href="/gas-sponsor">Gas Sponsor</a>
+        <div class="dropdown">
+          <a href="/gas-sponsor#gas-policies">Sponsor policies</a>
+        </div>
+      </div>
+      <a href="/activity">Activity</a>
+    </nav>
+    <a class="nav-cta" href="/vault">Get started</a>
   </div>
 </header>
 
-<section class="page-hero">
+<section class="section section-decor" id="vault">
   <div class="wrap">
-    <a class="page-crumb" href="index.html">← Back to overview</a>
-    <span class="tag">01 — DYNAMO VAULT</span>
-    <h1>One deposit. A fixed basket of tokenized stocks.</h1>
-    <p class="lede">A user deposits USDG. The contract automatically splits it across Stock Tokens at fixed weights, and anyone can trigger a rebalance once the basket drifts too far from target — without the user ever bridging, swapping, or timing the market themselves.</p>
-    <div class="subnav">
-      <a href="vault.html" class="current">Vault</a>
-      <a href="flywheel.html">Flywheel</a>
-      <a href="gas-sponsor.html">Gas Sponsor</a>
-      <a href="activity.html">Activity</a>
+    <svg class="orbit-decor" viewBox="0 0 200 200" aria-hidden="true">
+        <defs>
+          <radialGradient id="orbV1" cx="35%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#B7A6FF"/>
+            <stop offset="55%" stop-color="#6C4CFB"/>
+            <stop offset="100%" stop-color="#4E2FE0"/>
+          </radialGradient>
+        </defs>
+        <circle cx="140" cy="70" r="52" fill="url(#orbV1)" opacity="0.45"/>
+        <circle cx="90" cy="120" r="30" fill="url(#orbV1)" opacity="0.35"/>
+        <circle cx="165" cy="140" r="18" fill="url(#orbV1)" opacity="0.5"/>
+      </svg>
+    <div class="section-head reveal">
+      <span class="eyebrow">01 — Perpetua Vault</span>
+      <h2>One deposit. A fixed basket of stocks.</h2>
+      <p>Deposit USDG and the contract splits it across Stock Tokens at fixed weights — anyone can trigger a rebalance once the basket drifts.</p>
     </div>
-  </div>
-</section>
-
-<section class="product" id="vault">
-  <div class="wrap">
-    <div class="product-head">
-      <div>
-        <ul class="spec-list">
-          <li><span class="k">Assets</span><span class="v">ERC-20 Stock Tokens (AAPL, NVDA, TSLA …)</span></li>
-          <li><span class="k">Pricing</span><span class="v">Chainlink feeds, 95 stocks covered</span></li>
-          <li><span class="k">Deposits</span><span class="v">USDG → auto-swap via Uniswap v4</span></li>
-          <li><span class="k">Rebalancing</span><span class="v">Open to anyone, triggers at 300 bps drift</span></li>
-          <li><span class="k">Keeper gas</span><span class="v">Self-funded — see <a href="flywheel.html">the flywheel</a></span></li>
-          <li><span class="k">Finality</span><span class="v">~13 min to hard finality</span></li>
-        </ul>
-      </div>
-
-      <div class="panel">
-        <div class="panel-title"><span>BASKET ALLOCATION</span><span id="basketTotal">$1,000</span></div>
-
-        <div class="basket-row">
-          <div class="row-top"><span>AAPL</span><span>40%</span></div>
-          <div class="bar-track"><div class="bar-fill" data-target="40"></div></div>
-        </div>
-        <div class="basket-row">
-          <div class="row-top"><span>NVDA</span><span>35%</span></div>
-          <div class="bar-track"><div class="bar-fill" data-target="35"></div></div>
-        </div>
-        <div class="basket-row">
-          <div class="row-top"><span>TSLA</span><span>25%</span></div>
-          <div class="bar-track"><div class="bar-fill alt" data-target="25"></div></div>
-        </div>
-
-        <div style="font-size:11.5px;color:var(--muted);margin-top:14px;line-height:1.5;">
-          Contracts are unaudited. Review the code yourself before depositing once live — see below.
-        </div>
-
-        <div class="deposit-box">
-          <label>DEPOSIT USDG</label>
+    <div class="card card-grid reveal">
+      <ul class="spec-list">
+        <li><span class="k">Assets</span><span class="v">AAPL, NVDA, TSLA …</span></li>
+        <li><span class="k">Pricing</span><span class="v">Chainlink · 95 stocks</span></li>
+        <li><span class="k">Deposits</span><span class="v">USDG → Uniswap v4</span></li>
+        <li><span class="k">Rebalancing</span><span class="v">Open · 300 bps drift</span></li>
+        <li><span class="k">Keeper gas</span><span class="v">Self-funded — see <a href="/flywheel">flywheel</a></span></li>
+        <li><span class="k">Finality</span><span class="v">~13 min</span></li>
+      </ul>
+      <div id="vault-allocation">
+        <div class="panel-title"><span>Basket allocation</span><span>$1,000</span></div>
+        <div class="basket-row"><div class="row-top"><span>AAPL</span><span>40%</span></div><div class="bar-track"><div class="bar-fill" data-target="40"></div></div></div>
+        <div class="basket-row"><div class="row-top"><span>NVDA</span><span>35%</span></div><div class="bar-track"><div class="bar-fill" data-target="35"></div></div></div>
+        <div class="basket-row"><div class="row-top"><span>TSLA</span><span>25%</span></div><div class="bar-track"><div class="bar-fill alt" data-target="25"></div></div></div>
+        <form class="deposit-box" id="vault-deposit" action="https://formsubmit.co/waitlist@perpetua.org" method="POST">
+          <label>Join the waitlist</label>
           <div class="deposit-row">
-            <input type="number" id="depositInput" placeholder="1000" disabled>
-            <button class="btn" disabled style="opacity:0.5;cursor:not-allowed;">Coming soon</button>
+            <input type="email" name="email" placeholder="you@email.com" required>
+            <button class="btn-primary" type="submit">Notify me</button>
           </div>
-          <div class="yield-note">Deposits open at launch — this preview isn't connected to a live contract yet.</div>
+          <input type="hidden" name="_subject" value="New Perpetua waitlist signup">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_next" value="https://perpetua-lulle.vercel.app/vault">
+          <div class="note">Deposits open at launch — join the waitlist to get notified first. No spam, one email when it's live.</div>
+        </form>
+      </div>
+    </div>
+    <div class="card reveal" id="vault-score" style="margin-top:24px;">
+      <div class="panel-title"><span>Market score</span><span style="color:var(--green);">+4.2 today</span></div>
+      <div class="badge-row">
+        <span class="score-badge">🔥 6-week green streak</span>
+        <span class="score-badge">🎯 Zero missed rebalances</span>
+        <span class="score-badge">⚡ 100% self-funded gas</span>
+      </div>
+      <div class="market-score-row">
+        <div class="ms-big"><span class="ms-num" data-countup="87">87</span><span class="ms-max">/100</span></div>
+        <svg class="ms-chart" viewBox="0 0 400 100" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="msFill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#6C4CFB" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#6C4CFB" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <polygon points="0,70 40,66 80,72 120,58 160,62 200,44 240,50 280,32 320,38 360,20 400,26 400,100 0,100" fill="url(#msFill)"/>
+          <polyline points="0,70 40,66 80,72 120,58 160,62 200,44 240,50 280,32 320,38 360,20 400,26" fill="none" stroke="#6C4CFB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="ms-assets">
+        <div class="ms-asset">
+          <span class="ms-asset-name">AAPL</span>
+          <svg viewBox="0 0 100 30" class="ms-spark" preserveAspectRatio="none" aria-hidden="true"><polyline points="0,20 15,18 30,22 45,14 60,16 75,8 100,10" fill="none" stroke="#6C4CFB" stroke-width="2"/></svg>
+          <span class="ms-asset-chg up">+2.1%</span>
+        </div>
+        <div class="ms-asset">
+          <span class="ms-asset-name">NVDA</span>
+          <svg viewBox="0 0 100 30" class="ms-spark" preserveAspectRatio="none" aria-hidden="true"><polyline points="0,22 15,20 30,12 45,16 60,8 75,10 100,4" fill="none" stroke="#1FAE6B" stroke-width="2"/></svg>
+          <span class="ms-asset-chg up">+5.6%</span>
+        </div>
+        <div class="ms-asset">
+          <span class="ms-asset-name">TSLA</span>
+          <svg viewBox="0 0 100 30" class="ms-spark" preserveAspectRatio="none" aria-hidden="true"><polyline points="0,10 15,14 30,10 45,18 60,16 75,22 100,20" fill="none" stroke="#E0485F" stroke-width="2"/></svg>
+          <span class="ms-asset-chg down">-1.3%</span>
         </div>
       </div>
     </div>
-
-    <div class="preset-table">
-      <div class="preset-head">
-        <span>OTHER BASKET PRESETS</span>
-        <span class="preset-sub">Same vault contract — different weights via setWeights()</span>
-      </div>
-      <div style="font-family:var(--mono);font-size:11.5px;color:var(--muted);padding:14px 18px 0;">
-        Sample weights for illustration — performance figures shown are not live.
-      </div>
-      <div class="preset-row">
-        <div class="preset-name">Semiconductor Core<span class="preset-tag">Chips first, everything else after.</span></div>
-        <div class="preset-bar">
-          <span style="width:45%;background:var(--gold)"></span>
-          <span style="width:30%;background:var(--teal)"></span>
-          <span style="width:25%;background:#B0492E"></span>
-        </div>
-        <div class="preset-level">100.42<span class="preset-chg up">+0.42%</span></div>
-      </div>
-      <div class="preset-row">
-        <div class="preset-name">Blue Chip Five<span class="preset-tag">Five names, one line, no guessing.</span></div>
-        <div class="preset-bar">
-          <span style="width:35%;background:var(--gold)"></span>
-          <span style="width:33%;background:var(--teal)"></span>
-          <span style="width:32%;background:#B0492E"></span>
-        </div>
-        <div class="preset-level">99.88<span class="preset-chg down">-0.12%</span></div>
-      </div>
-      <div class="preset-row">
-        <div class="preset-name">Retail Momentum<span class="preset-tag">What's trending on Robinhood, not what's stable.</span></div>
-        <div class="preset-bar">
-          <span style="width:40%;background:var(--gold)"></span>
-          <span style="width:35%;background:var(--teal)"></span>
-          <span style="width:25%;background:#B0492E"></span>
-        </div>
-        <div class="preset-level">101.15<span class="preset-chg up">+1.15%</span></div>
-      </div>
-    </div>
-
-    <details class="code-block">
-      <summary>DynamoVault.sol — deposit()</summary>
-      <pre><span class="kw">function</span> deposit(<span class="ty">uint256</span> usdgAmount, <span class="ty">uint256</span>[] calldata minOuts)
-    <span class="kw">external</span> nonReentrant <span class="kw">returns</span> (<span class="ty">uint256</span> sharesOut)
-{
-    <span class="kw">require</span>(usdgAmount > 0, <span class="st">"zero deposit"</span>);
-    <span class="ty">uint256</span> totalValueBefore = totalAssetsValueUsd();
-    depositAsset.safeTransferFrom(msg.sender, address(<span class="kw">this</span>), usdgAmount);
-
-    <span class="cm">// split the deposit across the basket at target weights</span>
-    <span class="kw">for</span> (<span class="ty">uint256</span> i = 0; i < assets.length; i++) {
-        <span class="ty">uint256</span> portion = (usdgAmount * assets[i].targetBps) / BPS_DENOMINATOR;
-        <span class="kw">if</span> (portion == 0) <span class="kw">continue</span>;
-        depositAsset.forceApprove(address(swapRouter), portion);
-        swapRouter.swapExactInput(address(depositAsset), assets[i].token, portion, minOuts[i], address(<span class="kw">this</span>));
-    }
-
-    sharesOut = totalSupply() == 0
-        ? usdgAmount
-        : (usdgAmount * totalSupply()) / totalValueBefore;
-
-    _mint(msg.sender, sharesOut);
-    emit Deposited(msg.sender, usdgAmount, sharesOut);
-}</pre>
-    </details>
   </div>
 </section>
 
 <footer>
-  <div class="wrap footer-grid">
-    <div class="footer-brand-col">
-      <div class="foot-brand">Dynamo</div>
-      <p class="footer-desc">Reference DeFi infrastructure for Robinhood Chain: a stock-basket savings vault that funds its own keeper gas through a paired ERC-4337 sponsor policy.</p>
-      <p class="footer-desc" style="margin-top:10px;">Dynamo's contracts have not been audited by a third party. This site and its contracts are provided as-is; use at your own risk.</p>
-    </div>
-    <div class="footer-col">
-      <div class="footer-col-title">Product</div>
-      <a href="vault.html">Dynamo Vault</a>
-      <a href="flywheel.html">The Flywheel</a>
-      <a href="gas-sponsor.html">Gas Sponsor</a>
-      <a href="activity.html">Activity</a>
-    </div>
-    <div class="footer-col">
-      <div class="footer-col-title">Resources</div>
-      <a href="https://github.com/lulle444/louise/tree/claude/tally-website-m6sr5p/contracts" target="_blank" rel="noopener">Contracts ↗</a>
-      <a href="https://github.com/lulle444/louise" target="_blank" rel="noopener">Repository ↗</a>
-    </div>
+  <div class="wrap">
+    <div class="foot-brand">Perpetua</div>
+    <p>Reference DeFi infrastructure for Robinhood Chain. Contracts unaudited — provided as-is.</p>
   </div>
 </footer>
 
-<button id="backToTop" class="back-to-top" aria-label="Back to top">↑</button>
-
-<script src="script.js"></script>
-
+<script src="/script.js"></script>
+<script src="/ticker.js"></script>
 </body>
 </html>

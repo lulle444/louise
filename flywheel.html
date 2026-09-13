@@ -3,209 +3,109 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Keeper Gas Flywheel — the vault pays for its own upkeep | Dynamo</title>
-<meta name="description" content="Every deposit accrues a management fee. Instead of sitting idle, it's swept, swapped to ETH, and dropped into the vault's own gas sponsor policy — funding the keepers who keep the basket on target.">
-<script>
-  try {
-    if (localStorage.getItem('dynamo-theme') === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'dark');
-    }
-  } catch (e) {}
-</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<link rel="icon" type="image/png" href="favicon.png">
-<meta property="og:title" content="The Keeper Gas Flywheel — the vault pays for its own upkeep">
-<meta property="og:description" content="Every deposit accrues a fee that funds the keepers who keep the basket on target — a closed loop, not a subsidy.">
-<meta property="og:image" content="https://dynamo-lulle.vercel.app/og-image.png">
-<meta property="og:url" content="https://dynamo-lulle.vercel.app/flywheel.html">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@use_dynamo">
-<meta name="twitter:title" content="The Keeper Gas Flywheel — the vault pays for its own upkeep">
-<meta name="twitter:description" content="Every deposit accrues a fee that funds the keepers who keep the basket on target — a closed loop, not a subsidy.">
-<meta name="twitter:image" content="https://dynamo-lulle.vercel.app/og-image.png">
+<title>Flywheel — Perpetua</title>
+<meta name="description" content="The vault pays for its own upkeep.">
+<link rel="icon" type="image/svg+xml" href="/logo.svg">
+<link rel="stylesheet" href="/style.css">
 </head>
-<body id="top" data-page="flywheel">
+<body>
 
-<div class="ticker-bar">
-  <div class="wrap ticker-inner">
-    <span class="live-dot" aria-hidden="true"></span>
-    <span class="live-label">ROBINHOOD CHAIN · 4663</span>
-    <div class="ticker-scroll">
-      <div class="ticker-track" id="ticker">
-        <span>DEX VOLUME <span class="up">$34.6B</span></span>
-        <span>PROTOCOL TVL <span class="up">$1.27B</span></span>
-        <span>ADDRESSES <span class="flat">12.3M</span></span>
-        <span>STOCK TOKENS LIVE <span class="flat">190+</span></span>
-        <span>RWA SHARE OF VOLUME <span class="up">~4%</span></span>
-        <span>KEEPER GAS <span class="up">SELF-FUNDED</span></span>
-        <span>GAS SUBSIDY ENDS <span class="flat">SEP 29, 2026</span></span>
-        <span>DEX VOLUME <span class="up">$34.6B</span></span>
-        <span>PROTOCOL TVL <span class="up">$1.27B</span></span>
-        <span>ADDRESSES <span class="flat">12.3M</span></span>
-        <span>STOCK TOKENS LIVE <span class="flat">190+</span></span>
-        <span>RWA SHARE OF VOLUME <span class="up">~4%</span></span>
-        <span>KEEPER GAS <span class="up">SELF-FUNDED</span></span>
-        <span>GAS SUBSIDY ENDS <span class="flat">SEP 29, 2026</span></span>
-      </div>
-    </div>
-  </div>
+<div class="ticker-bar" aria-hidden="true">
+  <div class="ticker-track" id="tickerTrack"></div>
 </div>
 
 <header class="top">
   <div class="wrap nav-wrap">
-    <a class="brand" href="index.html"><img src="logo.png" alt="" class="brand-mark" width="30" height="30">Dynamo <em>/ Robinhood Chain</em></a>
-
-    <div class="nav-panel" id="navPanel">
-      <nav class="nav">
-        <a href="vault.html" class="nav-link" data-page="vault">Vault</a>
-        <a href="flywheel.html" class="nav-link" data-page="flywheel">Flywheel</a>
-        <a href="gas-sponsor.html" class="nav-link" data-page="gas">Gas Sponsor</a>
-        <a href="activity.html" class="nav-link" data-page="activity">Activity</a>
-        <a href="https://x.com/use_dynamo" target="_blank" rel="noopener">X</a>
-      </nav>
-      <a class="nav-cta" href="https://github.com/lulle444/louise/tree/claude/tally-website-m6sr5p/contracts" target="_blank" rel="noopener">View contracts ↗</a>
-    </div>
-
-    <div class="nav-actions">
-      <button class="icon-btn" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navPanel">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
+    <a class="brand" href="/">
+      <img class="brand-mark" src="/logo.svg" alt="" width="32" height="32">
+      Perpetua
+    </a>
+    <nav class="pill-nav">
+      <div class="nav-item"><a href="/vault">Vault</a>
+        <div class="dropdown">
+          <a href="/vault#vault-allocation">Basket allocation</a>
+          <a href="/vault#vault-deposit">Deposit</a>
+        </div>
+      </div>
+      <div class="nav-item"><a href="/flywheel" aria-current="page">Flywheel</a>
+        <div class="dropdown">
+          <a href="/flywheel#flywheel-loop">How the loop works</a>
+          <a href="/flywheel#flywheel-sweep">Accrued fee</a>
+        </div>
+      </div>
+      <div class="nav-item"><a href="/gas-sponsor">Gas Sponsor</a>
+        <div class="dropdown">
+          <a href="/gas-sponsor#gas-policies">Sponsor policies</a>
+        </div>
+      </div>
+      <a href="/activity">Activity</a>
+    </nav>
+    <a class="nav-cta" href="/vault">Get started</a>
   </div>
 </header>
 
-<section class="page-hero">
+<section class="section section-decor" id="flywheel" style="background:var(--bg-soft);">
   <div class="wrap">
-    <a class="page-crumb" href="index.html">← Back to overview</a>
-    <span class="tag">02 — THE FLYWHEEL</span>
-    <h1>The vault pays for its own upkeep.</h1>
-    <p class="lede">Every deposit accrues a 0.50% annualized fee. Instead of sitting idle, that fee is swept, swapped to ETH, and dropped straight into the vault's own DynamoGasSponsor policy — the same policy that sponsors the keepers who call <code>rebalance()</code>. A bigger basket means a bigger fee, which means more sponsored keeper calls, which means the basket stays closer to target, which is what makes the vault worth holding in the first place.</p>
-    <div class="subnav">
-      <a href="vault.html">Vault</a>
-      <a href="flywheel.html" class="current">Flywheel</a>
-      <a href="gas-sponsor.html">Gas Sponsor</a>
-      <a href="activity.html">Activity</a>
+    <svg class="orbit-decor" viewBox="0 0 200 200" aria-hidden="true">
+        <defs>
+          <radialGradient id="orbV2" cx="35%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#B7A6FF"/>
+            <stop offset="55%" stop-color="#6C4CFB"/>
+            <stop offset="100%" stop-color="#4E2FE0"/>
+          </radialGradient>
+          <radialGradient id="orbG2" cx="35%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#8CF0C4"/>
+            <stop offset="55%" stop-color="#1FAE6B"/>
+            <stop offset="100%" stop-color="#0F7A49"/>
+          </radialGradient>
+        </defs>
+        <circle cx="80" cy="90" r="46" fill="url(#orbV2)" opacity="0.45"/>
+        <circle cx="128" cy="118" r="34" fill="url(#orbG2)" opacity="0.5"/>
+        <circle cx="150" cy="55" r="20" fill="url(#orbG2)" opacity="0.35"/>
+      </svg>
+      <div class="section-head reveal">
+      <span class="eyebrow">02 — The Flywheel</span>
+      <h2>The vault pays for its own upkeep.</h2>
+      <p>Every deposit accrues a fee. It's swept, swapped to ETH, and dropped into the vault's own gas sponsor policy.</p>
     </div>
-  </div>
-</section>
-
-<section class="product" id="flywheel">
-  <div class="wrap">
-    <div class="product-head">
-      <div class="panel">
-        <div class="panel-title"><span>KEEPER GAS FLYWHEEL</span><span id="loopStatus">idle</span></div>
-
+    <div class="card card-grid reveal">
+      <div id="flywheel-loop">
+        <div class="panel-title"><span>Keeper gas flywheel</span><span id="loopStatus" style="color:var(--violet);"><span class="pulse-dot"></span>idle</span></div>
         <div class="flow-chain">
-          <div class="flow-step">
-            <span class="fs-num">1</span>
-            <span class="fs-label">Fee accrues<span class="fs-sub">0.50% / yr on TVL</span></span>
-          </div>
-          <div class="flow-step">
-            <span class="fs-num">2</span>
-            <span class="fs-label">Swapped to ETH<span class="fs-sub">via Uniswap v4</span></span>
-          </div>
-          <div class="flow-step">
-            <span class="fs-num">3</span>
-            <span class="fs-label">Funds keeper policy<span class="fs-sub">DynamoGasSponsor</span></span>
-          </div>
-          <div class="flow-step">
-            <span class="fs-num">4</span>
-            <span class="fs-label">Free rebalances<span class="fs-sub">basket stays on target</span></span>
-          </div>
+          <div class="flow-step"><span class="fs-num">1</span><span class="fs-label">Fee accrues<span class="fs-sub">0.50% / yr</span></span></div>
+          <div class="flow-step"><span class="fs-num">2</span><span class="fs-label">Swapped to ETH<span class="fs-sub">Uniswap v4</span></span></div>
+          <div class="flow-step"><span class="fs-num">3</span><span class="fs-label">Funds policy<span class="fs-sub">GasSponsor</span></span></div>
+          <div class="flow-step"><span class="fs-num">4</span><span class="fs-label">Free rebalances<span class="fs-sub">stays on target</span></span></div>
         </div>
-        <div class="flow-loop">① → ② → ③ → ④ → back to ①, on every sweep</div>
-
-        <div class="deposit-box">
-          <label>ACCRUED FEE READY TO SWEEP</label>
+        <div class="flow-loop">① → ② → ③ → ④ → back to ①</div>
+        <div class="deposit-box" id="flywheel-sweep">
+          <label>Accrued fee</label>
           <div class="deposit-row">
-            <div class="fee-readout"><span id="feeAccrued">$0.00</span><span class="fee-unit">USDG</span></div>
-            <button class="btn" onclick="sweepFee()">Accrue &amp; fund</button>
+            <div class="fee-readout"><span id="feeAccrued">$0.42</span><span class="fee-unit">USDG</span></div>
+            <button class="btn-primary" onclick="sweepFee()">Sweep</button>
           </div>
-          <div class="yield-note">Keeper policy balance: <span class="num" id="poolBalance">0.2200 ETH</span></div>
+          <div class="note">Keeper policy balance: <span id="poolBalance" style="color:var(--violet);font-weight:700;">0.2200 ETH</span></div>
         </div>
       </div>
-
-      <div>
-        <ul class="spec-list">
-          <li><span class="k">Fee source</span><span class="v">0.50% annualized on TVL, pro-rated per sweep</span></li>
-          <li><span class="k">Fee routing</span><span class="v">100% → USDG→ETH swap → policy balance</span></li>
-          <li><span class="k">Who can sweep</span><span class="v">Anyone — <code>accrueAndFundKeeperGas()</code> is open</span></li>
-          <li><span class="k">Who benefits</span><span class="v">Keepers calling <code>rebalance()</code> against the policy</span></li>
-          <li><span class="k">Bootstrap</span><span class="v">Vault registers &amp; owns its own policy ID</span></li>
-        </ul>
-      </div>
+      <ul class="spec-list">
+        <li><span class="k">Fee source</span><span class="v">0.50%/yr on TVL</span></li>
+        <li><span class="k">Fee routing</span><span class="v">100% → policy</span></li>
+        <li><span class="k">Who can sweep</span><span class="v">Anyone</span></li>
+        <li><span class="k">Who benefits</span><span class="v">Keepers</span></li>
+        <li><span class="k">Bootstrap</span><span class="v">Self-owned policy</span></li>
+      </ul>
     </div>
-
-    <details class="code-block">
-      <summary>DynamoVault.sol — accrueAndFundKeeperGas()</summary>
-      <pre><span class="kw">function</span> accrueAndFundKeeperGas(<span class="ty">uint256</span> minEthOut)
-    <span class="kw">external</span> nonReentrant <span class="kw">returns</span> (<span class="ty">uint256</span> ethFunded)
-{
-    <span class="kw">require</span>(address(gasSponsor) != address(0), <span class="st">"gas sponsor not configured"</span>);
-
-    <span class="ty">uint256</span> elapsed = block.timestamp - lastFeeAccrual;
-    lastFeeAccrual = block.timestamp;
-    <span class="kw">if</span> (elapsed == 0) <span class="kw">return</span> 0;
-
-    <span class="cm">// 0.50%/yr on TVL, pro-rated by elapsed time since the last sweep</span>
-    <span class="ty">uint256</span> feeUsdg = (totalAssetsValueUsd() * managementFeeBps * elapsed)
-        / (<span class="ty">uint256</span>(BPS_DENOMINATOR) * 365 days);
-    <span class="kw">if</span> (feeUsdg == 0) <span class="kw">return</span> 0;
-
-    <span class="cm">// deposit() sweeps 100% of inflows into the basket, so idle USDG is
-    // normally zero — sell a pro-rata slice of the basket first</span>
-    <span class="ty">uint256</span> available = depositAsset.balanceOf(address(<span class="kw">this</span>));
-    <span class="kw">if</span> (available &lt; feeUsdg) {
-        _raiseUsdg(feeUsdg - available);
-        available = depositAsset.balanceOf(address(<span class="kw">this</span>));
-    }
-    <span class="kw">if</span> (feeUsdg > available) feeUsdg = available;
-    <span class="kw">if</span> (feeUsdg == 0) <span class="kw">return</span> 0;
-
-    depositAsset.forceApprove(address(swapRouter), feeUsdg);
-    <span class="ty">uint256</span> wethOut = swapRouter.swapExactInput(
-        address(depositAsset), address(weth), feeUsdg, minEthOut, address(<span class="kw">this</span>)
-    );
-
-    weth.withdraw(wethOut);
-    gasSponsor.fundPolicy{value: wethOut}(keeperPolicyId);
-
-    emit KeeperGasFunded(feeUsdg, wethOut);
-}</pre>
-    </details>
   </div>
 </section>
 
 <footer>
-  <div class="wrap footer-grid">
-    <div class="footer-brand-col">
-      <div class="foot-brand">Dynamo</div>
-      <p class="footer-desc">Reference DeFi infrastructure for Robinhood Chain: a stock-basket savings vault that funds its own keeper gas through a paired ERC-4337 sponsor policy.</p>
-      <p class="footer-desc" style="margin-top:10px;">Dynamo's contracts have not been audited by a third party. This site and its contracts are provided as-is; use at your own risk.</p>
-    </div>
-    <div class="footer-col">
-      <div class="footer-col-title">Product</div>
-      <a href="vault.html">Dynamo Vault</a>
-      <a href="flywheel.html">The Flywheel</a>
-      <a href="gas-sponsor.html">Gas Sponsor</a>
-      <a href="activity.html">Activity</a>
-    </div>
-    <div class="footer-col">
-      <div class="footer-col-title">Resources</div>
-      <a href="https://github.com/lulle444/louise/tree/claude/tally-website-m6sr5p/contracts" target="_blank" rel="noopener">Contracts ↗</a>
-      <a href="https://github.com/lulle444/louise" target="_blank" rel="noopener">Repository ↗</a>
-    </div>
+  <div class="wrap">
+    <div class="foot-brand">Perpetua</div>
+    <p>Reference DeFi infrastructure for Robinhood Chain. Contracts unaudited — provided as-is.</p>
   </div>
 </footer>
 
-<button id="backToTop" class="back-to-top" aria-label="Back to top">↑</button>
-
-<script src="script.js"></script>
-
+<script src="/script.js"></script>
+<script src="/ticker.js"></script>
 </body>
 </html>

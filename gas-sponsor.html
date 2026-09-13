@@ -3,185 +3,95 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dynamo Gas Sponsor — a shared ERC-4337 paymaster | Dynamo</title>
-<meta name="description" content="One shared gas budget instead of every project building its own paymaster. How DynamoGasSponsor's policies, caps, and allow-lists work on Robinhood Chain.">
-<script>
-  try {
-    if (localStorage.getItem('dynamo-theme') === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'dark');
-    }
-  } catch (e) {}
-</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<link rel="icon" type="image/png" href="favicon.png">
-<meta property="og:title" content="Dynamo Gas Sponsor — a shared ERC-4337 paymaster">
-<meta property="og:description" content="One shared gas budget instead of every project building its own paymaster.">
-<meta property="og:image" content="https://dynamo-lulle.vercel.app/og-image.png">
-<meta property="og:url" content="https://dynamo-lulle.vercel.app/gas-sponsor.html">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@use_dynamo">
-<meta name="twitter:title" content="Dynamo Gas Sponsor — a shared ERC-4337 paymaster">
-<meta name="twitter:description" content="One shared gas budget instead of every project building its own paymaster.">
-<meta name="twitter:image" content="https://dynamo-lulle.vercel.app/og-image.png">
+<title>Gas Sponsor — Perpetua</title>
+<meta name="description" content="One shared gas budget, instead of every project building its own.">
+<link rel="icon" type="image/svg+xml" href="/logo.svg">
+<link rel="stylesheet" href="/style.css">
 </head>
-<body id="top" data-page="gas">
+<body>
 
-<div class="ticker-bar">
-  <div class="wrap ticker-inner">
-    <span class="live-dot" aria-hidden="true"></span>
-    <span class="live-label">ROBINHOOD CHAIN · 4663</span>
-    <div class="ticker-scroll">
-      <div class="ticker-track" id="ticker">
-        <span>DEX VOLUME <span class="up">$34.6B</span></span>
-        <span>PROTOCOL TVL <span class="up">$1.27B</span></span>
-        <span>ADDRESSES <span class="flat">12.3M</span></span>
-        <span>STOCK TOKENS LIVE <span class="flat">190+</span></span>
-        <span>RWA SHARE OF VOLUME <span class="up">~4%</span></span>
-        <span>KEEPER GAS <span class="up">SELF-FUNDED</span></span>
-        <span>GAS SUBSIDY ENDS <span class="flat">SEP 29, 2026</span></span>
-        <span>DEX VOLUME <span class="up">$34.6B</span></span>
-        <span>PROTOCOL TVL <span class="up">$1.27B</span></span>
-        <span>ADDRESSES <span class="flat">12.3M</span></span>
-        <span>STOCK TOKENS LIVE <span class="flat">190+</span></span>
-        <span>RWA SHARE OF VOLUME <span class="up">~4%</span></span>
-        <span>KEEPER GAS <span class="up">SELF-FUNDED</span></span>
-        <span>GAS SUBSIDY ENDS <span class="flat">SEP 29, 2026</span></span>
-      </div>
-    </div>
-  </div>
+<div class="ticker-bar" aria-hidden="true">
+  <div class="ticker-track" id="tickerTrack"></div>
 </div>
 
 <header class="top">
   <div class="wrap nav-wrap">
-    <a class="brand" href="index.html"><img src="logo.png" alt="" class="brand-mark" width="30" height="30">Dynamo <em>/ Robinhood Chain</em></a>
-
-    <div class="nav-panel" id="navPanel">
-      <nav class="nav">
-        <a href="vault.html" class="nav-link" data-page="vault">Vault</a>
-        <a href="flywheel.html" class="nav-link" data-page="flywheel">Flywheel</a>
-        <a href="gas-sponsor.html" class="nav-link" data-page="gas">Gas Sponsor</a>
-        <a href="activity.html" class="nav-link" data-page="activity">Activity</a>
-        <a href="https://x.com/use_dynamo" target="_blank" rel="noopener">X</a>
-      </nav>
-      <a class="nav-cta" href="https://github.com/lulle444/louise/tree/claude/tally-website-m6sr5p/contracts" target="_blank" rel="noopener">View contracts ↗</a>
-    </div>
-
-    <div class="nav-actions">
-      <button class="icon-btn" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navPanel">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
+    <a class="brand" href="/">
+      <img class="brand-mark" src="/logo.svg" alt="" width="32" height="32">
+      Perpetua
+    </a>
+    <nav class="pill-nav">
+      <div class="nav-item"><a href="/vault">Vault</a>
+        <div class="dropdown">
+          <a href="/vault#vault-allocation">Basket allocation</a>
+          <a href="/vault#vault-deposit">Deposit</a>
+        </div>
+      </div>
+      <div class="nav-item"><a href="/flywheel">Flywheel</a>
+        <div class="dropdown">
+          <a href="/flywheel#flywheel-loop">How the loop works</a>
+          <a href="/flywheel#flywheel-sweep">Accrued fee</a>
+        </div>
+      </div>
+      <div class="nav-item"><a href="/gas-sponsor" aria-current="page">Gas Sponsor</a>
+        <div class="dropdown">
+          <a href="/gas-sponsor#gas-policies">Sponsor policies</a>
+        </div>
+      </div>
+      <a href="/activity">Activity</a>
+    </nav>
+    <a class="nav-cta" href="/vault">Get started</a>
   </div>
 </header>
 
-<section class="page-hero">
+<section class="section section-decor" id="gas">
   <div class="wrap">
-    <a class="page-crumb" href="index.html">← Back to overview</a>
-    <span class="tag">03 — DYNAMO GAS SPONSOR</span>
-    <h1>One shared gas budget, instead of every project building its own.</h1>
-    <p class="lede">Robinhood's own gas subsidy ends September 29. This is the paymaster contract the vault funds itself against: a project registers a policy with a daily cap, funds it in ETH, and lets users and keepers transact without holding gas themselves. DynamoVault is simply its first, self-funding tenant — any other project can register a policy the same way and fund it manually instead.</p>
-    <div class="subnav">
-      <a href="vault.html">Vault</a>
-      <a href="flywheel.html">Flywheel</a>
-      <a href="gas-sponsor.html" class="current">Gas Sponsor</a>
-      <a href="activity.html">Activity</a>
+    <svg class="orbit-decor" viewBox="0 0 200 200" aria-hidden="true">
+        <defs>
+          <radialGradient id="orbG1" cx="35%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#8CF0C4"/>
+            <stop offset="55%" stop-color="#1FAE6B"/>
+            <stop offset="100%" stop-color="#0F7A49"/>
+          </radialGradient>
+        </defs>
+        <circle cx="140" cy="70" r="52" fill="url(#orbG1)" opacity="0.4"/>
+        <circle cx="90" cy="120" r="30" fill="url(#orbG1)" opacity="0.3"/>
+        <circle cx="165" cy="140" r="18" fill="url(#orbG1)" opacity="0.45"/>
+      </svg>
+    <div class="section-head reveal">
+      <span class="eyebrow">03 — Perpetua Gas Sponsor</span>
+      <h2>One shared gas budget.</h2>
+      <p>Robinhood's own gas subsidy ends September 29 — this paymaster is what the vault funds itself against.</p>
     </div>
-  </div>
-</section>
-
-<section class="product" id="gas">
-  <div class="wrap">
-    <div class="product-head">
-      <div>
-        <ul class="spec-list">
-          <li><span class="k">Standard</span><span class="v">ERC-4337, EntryPoint v0.7</span></li>
-          <li><span class="k">Isolation</span><span class="v">One contract, many independent policy IDs</span></li>
-          <li><span class="k">Limits</span><span class="v">Daily cap + per-UserOperation cap</span></li>
-          <li><span class="k">Allow-list</span><span class="v">Per policy, which contracts get sponsored</span></li>
-          <li><span class="k">Funding</span><span class="v">ETH, deposited directly to the EntryPoint</span></li>
-        </ul>
-      </div>
-
-      <div class="panel">
-        <div class="panel-title"><span>SPONSOR POLICIES</span><span>LIVE</span></div>
-
-        <div class="filter-pills" id="policyFilters">
-          <button class="pill active" data-filter="all">ALL</button>
-          <button class="pill" data-filter="active">ACTIVE</button>
-          <button class="pill" data-filter="inactive">INACTIVE</button>
-        </div>
-
-        <div class="policy-card" data-status="active">
-          <div class="row-top"><span class="name">dynamo-basket-app <span class="badge">self-funded</span></span><span class="status">active</span></div>
-          <div class="slider-row">
-            <label><span>Daily gas cap</span><span id="capLabel">0.40 ETH</span></label>
-            <input type="range" id="capSlider" min="0.05" max="1" step="0.05" value="0.4" oninput="updateCap(this.value)">
-          </div>
-          <div class="bar-track" style="margin-top:10px;"><div class="bar-fill" id="spentBar" data-target="55"></div></div>
-          <div class="yield-note">Spent today: <span class="num" id="spentLabel">0.22 ETH</span> of <span id="capLabel2">0.40 ETH</span></div>
-        </div>
-
-        <div class="policy-card" data-status="inactive">
-          <div class="row-top"><span class="name">dynamo-rebalance-keeper</span><span class="status off">inactive</span></div>
-          <div class="yield-note">Paused — waiting on new funding for the pool.</div>
+    <div class="card card-grid reveal">
+      <ul class="spec-list">
+        <li><span class="k">Standard</span><span class="v">ERC-4337</span></li>
+        <li><span class="k">Isolation</span><span class="v">Per-policy</span></li>
+        <li><span class="k">Limits</span><span class="v">Daily + per-op cap</span></li>
+        <li><span class="k">Allow-list</span><span class="v">Per policy</span></li>
+        <li><span class="k">Funding</span><span class="v">ETH → EntryPoint</span></li>
+      </ul>
+      <div id="gas-policies">
+        <div class="panel-title"><span>Sponsor policies</span><span style="color:var(--violet);"><span class="pulse-dot"></span>live</span></div>
+        <div class="basket-row">
+          <div class="row-top"><span>perpetua-basket-app</span><span style="color:var(--violet);">active</span></div>
+          <div class="slider-row"><label><span>Daily gas cap</span><span id="capLabel">0.40 ETH</span></label><input type="range" id="capSlider" min="0.05" max="1" step="0.05" value="0.4" oninput="updateCap(this.value)"></div>
+          <div class="bar-track" style="margin-top:12px;"><div class="bar-fill" id="spentBar" style="width:55%"></div></div>
+          <div class="note">Spent today: <strong id="spentLabel" style="color:var(--violet);">0.22 ETH</strong> of <span id="capLabel2">0.40 ETH</span></div>
         </div>
       </div>
     </div>
-
-    <details class="code-block">
-      <summary>DynamoGasSponsor.sol — validatePaymasterUserOp()</summary>
-      <pre><span class="kw">function</span> validatePaymasterUserOp(
-    PackedUserOperation calldata userOp,
-    <span class="ty">bytes32</span> userOpHash,
-    <span class="ty">uint256</span> maxCost
-) <span class="kw">external</span> <span class="kw">override</span> onlyEntryPoint <span class="kw">returns</span> (<span class="ty">bytes</span> memory context, <span class="ty">uint256</span> validationData) {
-    <span class="ty">bytes32</span> policyId = _extractPolicyId(userOp.paymasterAndData);
-    Policy storage policy = policies[policyId];
-
-    <span class="kw">require</span>(policy.active, <span class="st">"policy inactive"</span>);
-    <span class="kw">require</span>(policy.perOpCapWei == 0 || maxCost <= policy.perOpCapWei, <span class="st">"exceeds per-op cap"</span>);
-
-    <span class="ty">uint256</span> spendable = _spendableThisWindow(policy);
-    <span class="kw">require</span>(maxCost <= spendable, <span class="st">"exceeds daily cap"</span>);
-    <span class="kw">require</span>(policy.balance >= maxCost, <span class="st">"policy underfunded"</span>);
-
-    context = abi.encode(policyId, userOp.sender);
-    validationData = 0;
-}</pre>
-    </details>
   </div>
 </section>
 
 <footer>
-  <div class="wrap footer-grid">
-    <div class="footer-brand-col">
-      <div class="foot-brand">Dynamo</div>
-      <p class="footer-desc">Reference DeFi infrastructure for Robinhood Chain: a stock-basket savings vault that funds its own keeper gas through a paired ERC-4337 sponsor policy.</p>
-      <p class="footer-desc" style="margin-top:10px;">Dynamo's contracts have not been audited by a third party. This site and its contracts are provided as-is; use at your own risk.</p>
-    </div>
-    <div class="footer-col">
-      <div class="footer-col-title">Product</div>
-      <a href="vault.html">Dynamo Vault</a>
-      <a href="flywheel.html">The Flywheel</a>
-      <a href="gas-sponsor.html">Gas Sponsor</a>
-      <a href="activity.html">Activity</a>
-    </div>
-    <div class="footer-col">
-      <div class="footer-col-title">Resources</div>
-      <a href="https://github.com/lulle444/louise/tree/claude/tally-website-m6sr5p/contracts" target="_blank" rel="noopener">Contracts ↗</a>
-      <a href="https://github.com/lulle444/louise" target="_blank" rel="noopener">Repository ↗</a>
-    </div>
+  <div class="wrap">
+    <div class="foot-brand">Perpetua</div>
+    <p>Reference DeFi infrastructure for Robinhood Chain. Contracts unaudited — provided as-is.</p>
   </div>
 </footer>
 
-<button id="backToTop" class="back-to-top" aria-label="Back to top">↑</button>
-
-<script src="script.js"></script>
-
+<script src="/script.js"></script>
+<script src="/ticker.js"></script>
 </body>
 </html>
