@@ -40,7 +40,12 @@
       </div>
       <a href="/activity">Activity</a>
     </nav>
-    <a class="nav-cta" href="/vault">Get started</a>
+    <div class="nav-actions">
+      <a class="nav-social" href="https://x.com/useperpetua" target="_blank" rel="noopener" aria-label="Perpetua on X">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+      <a class="nav-cta" href="/vault">Get started</a>
+    </div>
   </div>
 </header>
 
@@ -63,18 +68,53 @@
         </div>
       </div>
       <div class="hero-visual reveal" style="transition-delay:.12s;">
-        <canvas id="flywheelCanvas" class="hero-canvas" aria-hidden="true"></canvas>
-        <div class="terminal" id="terminal">
-          <div class="terminal-bar">
-            <span class="term-dot red"></span><span class="term-dot yellow"></span><span class="term-dot green"></span>
-            <span class="terminal-title">perpetua — zsh</span>
+        <div class="index-board">
+          <div class="ib-head">
+            <div class="ib-filters">
+              <button type="button" class="ib-pill active" data-filter="all">ALL</button>
+              <button type="button" class="ib-pill" data-filter="vault">VAULT</button>
+              <button type="button" class="ib-pill" data-filter="watch">WATCHLIST</button>
+            </div>
+            <div class="ib-sort">
+              <span class="ib-sort-label">SORT</span>
+              <button type="button" class="ib-pill active" data-sort="level">LEVEL</button>
+              <button type="button" class="ib-pill" data-sort="az">A-Z</button>
+            </div>
           </div>
-          <div class="terminal-body" id="termBody">
-            <div class="term-line">Perpetua CLI v1.0 — type <span class="term-cmd">help</span> to get started.</div>
+          <div class="ib-cols">
+            <span>Index</span><span>Comp</span><span>Level</span><span>24h</span>
           </div>
-          <div class="terminal-input-row">
-            <span class="term-prompt">$</span>
-            <input type="text" id="termInput" class="term-input" autocomplete="off" spellcheck="false" aria-label="Terminal command input">
+          <div class="ib-rows" id="ibRows">
+            <div class="ib-row" data-cat="vault" data-ticker="AAPL" data-chg="2.1">
+              <div class="ib-name"><strong>AAPL</strong><span>vault basket · 40%</span></div>
+              <div class="ib-comp"><span data-target="40"></span></div>
+              <div class="ib-level">$231.42</div>
+              <div class="ib-chg up">+2.1%</div>
+            </div>
+            <div class="ib-row" data-cat="vault" data-ticker="NVDA" data-chg="5.6">
+              <div class="ib-name"><strong>NVDA</strong><span>vault basket · 35%</span></div>
+              <div class="ib-comp"><span data-target="35"></span></div>
+              <div class="ib-level">$142.87</div>
+              <div class="ib-chg up">+5.6%</div>
+            </div>
+            <div class="ib-row" data-cat="vault" data-ticker="TSLA" data-chg="-1.3">
+              <div class="ib-name"><strong>TSLA</strong><span>vault basket · 25%</span></div>
+              <div class="ib-comp"><span data-target="25"></span></div>
+              <div class="ib-level">$248.05</div>
+              <div class="ib-chg down">-1.3%</div>
+            </div>
+            <div class="ib-row" data-cat="watch" data-ticker="MSFT" data-chg="0.8">
+              <div class="ib-name"><strong>MSFT</strong><span>watchlist · pipeline</span></div>
+              <div class="ib-comp"><span data-target="12"></span></div>
+              <div class="ib-level">$421.19</div>
+              <div class="ib-chg up">+0.8%</div>
+            </div>
+            <div class="ib-row" data-cat="watch" data-ticker="GOOGL" data-chg="-0.4">
+              <div class="ib-name"><strong>GOOGL</strong><span>watchlist · pipeline</span></div>
+              <div class="ib-comp"><span data-target="8"></span></div>
+              <div class="ib-level">$176.33</div>
+              <div class="ib-chg down">-0.4%</div>
+            </div>
           </div>
         </div>
       </div>
@@ -134,11 +174,16 @@
   <div class="wrap">
     <div class="foot-brand">Perpetua</div>
     <p>Reference DeFi infrastructure for Robinhood Chain. Contracts unaudited — provided as-is.</p>
+    <div class="foot-social">
+      <a href="https://x.com/useperpetua" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        @useperpetua
+      </a>
+    </div>
   </div>
 </footer>
 
 <script src="/script.js"></script>
 <script src="/ticker.js"></script>
-<script src="/terminal.js"></script>
 </body>
 </html>
