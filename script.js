@@ -173,3 +173,81 @@ function updateCap(val){
     requestAnimationFrame(function(){ el.style.width = t + '%'; });
   });
 })();
+
+/* vault "try a deposit": stock picker + amount + simulated live quote */
+(function(){
+  var grid = document.getElementById('tryStockGrid');
+  if (!grid) return;
+  var search = document.getElementById('tryStockSearch');
+  var nameEl = document.getElementById('tryStockName');
+  var amtPrefix = document.getElementById('tryAmtPrefix');
+  var amtDisplay = document.getElementById('tryAmtDisplay');
+  var pills = document.querySelectorAll('.try-amt-pills button');
+  var unitBtns = document.querySelectorAll('.try-unit-toggle button');
+  var quoteShares = document.getElementById('tryQuoteShares');
+  var quoteUsd = document.getElementById('tryQuoteUsd');
+
+  var stocks = Array.prototype.slice.call(grid.querySelectorAll('.try-stock'));
+  var active = stocks[0];
+  var unit = 'usd';
+  var amount = 10;
+
+  function price(){ return parseFloat(active.getAttribute('data-price')); }
+
+  function render(){
+    var p = price();
+    var usdAmt, shareAmt;
+    if (unit === 'usd') { usdAmt = amount; shareAmt = usdAmt / p; }
+    else { shareAmt = amount; usdAmt = shareAmt * p; }
+    amtPrefix.textContent = unit === 'usd' ? '$' : '';
+    amtDisplay.textContent = (unit === 'usd' ? usdAmt : shareAmt).toLocaleString(undefined, { maximumFractionDigits: unit === 'usd' ? 2 : 4 });
+    quoteShares.textContent = shareAmt.toLocaleString(undefined, { maximumFractionDigits: 4 }) + ' ' + active.getAttribute('data-ticker');
+    quoteUsd.textContent = '≈ $' + usdAmt.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    nameEl.textContent = active.getAttribute('data-name');
+  }
+
+  stocks.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      stocks.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      active = btn;
+      render();
+    });
+  });
+
+  if (search) {
+    search.addEventListener('input', function(){
+      var q = search.value.trim().toLowerCase();
+      stocks.forEach(function(btn){
+        var hay = (btn.getAttribute('data-ticker') + ' ' + btn.getAttribute('data-name')).toLowerCase();
+        btn.classList.toggle('try-hide', q.length > 0 && hay.indexOf(q) === -1);
+      });
+    });
+  }
+
+  pills.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      pills.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      amount = parseFloat(btn.getAttribute('data-amt'));
+      if (unit === 'shares') { amount = amount / price(); }
+      render();
+    });
+  });
+
+  unitBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var newUnit = btn.getAttribute('data-unit');
+      if (newUnit === unit) return;
+      unitBtns.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      var p = price();
+      amount = newUnit === 'shares' ? amount / p : amount * p;
+      unit = newUnit;
+      pills.forEach(function(b){ b.classList.remove('active'); });
+      render();
+    });
+  });
+
+  render();
+})();

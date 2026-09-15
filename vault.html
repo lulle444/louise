@@ -89,19 +89,58 @@
         <div class="basket-row"><div class="row-top"><span>AAPL</span><span>40%</span></div><div class="bar-track"><div class="bar-fill" data-target="40"></div></div></div>
         <div class="basket-row"><div class="row-top"><span>NVDA</span><span>35%</span></div><div class="bar-track"><div class="bar-fill" data-target="35"></div></div></div>
         <div class="basket-row"><div class="row-top"><span>TSLA</span><span>25%</span></div><div class="bar-track"><div class="bar-fill alt" data-target="25"></div></div></div>
-        <form class="deposit-box" id="vault-deposit" action="https://formsubmit.co/waitlist@perpetua.org" method="POST">
-          <label>Join the waitlist</label>
-          <div class="deposit-row">
-            <input type="email" name="email" placeholder="you@email.com" required>
-            <button class="btn-primary" type="submit">Notify me</button>
-          </div>
-          <input type="hidden" name="_subject" value="New Perpetua waitlist signup">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_next" value="https://perpetua-lulle.vercel.app/vault">
-          <div class="note">Deposits open at launch — join the waitlist to get notified first. No spam, one email when it's live.</div>
-        </form>
       </div>
     </div>
+
+    <div class="card reveal" id="vault-try" style="margin-top:24px;">
+      <div class="panel-title"><span>Try a deposit</span><span style="color:var(--muted);font-weight:700;text-transform:none;">simulated · no wallet needed</span></div>
+      <label class="try-label">1 · Choose a stock</label>
+      <input type="text" class="try-search" id="tryStockSearch" placeholder="Search vault basket or watchlist…">
+      <div class="try-stock-grid" id="tryStockGrid">
+        <button type="button" class="try-stock active" data-ticker="AAPL" data-name="Apple Inc." data-price="231.42">AAPL</button>
+        <button type="button" class="try-stock" data-ticker="NVDA" data-name="NVIDIA Corp." data-price="142.87">NVDA</button>
+        <button type="button" class="try-stock" data-ticker="TSLA" data-name="Tesla Inc." data-price="248.05">TSLA</button>
+        <button type="button" class="try-stock" data-ticker="MSFT" data-name="Microsoft Corp." data-price="421.19">MSFT</button>
+        <button type="button" class="try-stock" data-ticker="GOOGL" data-name="Alphabet Inc." data-price="176.33">GOOGL</button>
+        <button type="button" class="try-stock" data-ticker="AMZN" data-name="Amazon.com Inc." data-price="198.61">AMZN</button>
+      </div>
+      <div class="try-stock-name" id="tryStockName">Apple Inc.</div>
+
+      <div class="try-amt-head">
+        <label class="try-label" style="margin-bottom:0;">2 · Set an amount</label>
+        <div class="try-unit-toggle">
+          <button type="button" class="active" data-unit="usd">USD</button>
+          <button type="button" data-unit="shares">Shares</button>
+        </div>
+      </div>
+      <div class="try-amt-display"><span id="tryAmtPrefix">$</span><span id="tryAmtDisplay">10</span></div>
+      <div class="try-amt-pills">
+        <button type="button" data-amt="5">$5</button>
+        <button type="button" class="active" data-amt="10">$10</button>
+        <button type="button" data-amt="25">$25</button>
+        <button type="button" data-amt="50">$50</button>
+        <button type="button" data-amt="100">$100</button>
+      </div>
+
+      <div class="try-quote">
+        <div class="try-quote-head"><span>Live quote · simulated</span><span>via Uniswap v4</span></div>
+        <div class="try-quote-main"><span class="tq-shares" id="tryQuoteShares">0.0432 AAPL</span><span class="tq-usd" id="tryQuoteUsd">≈ $10.00</span></div>
+        <div class="try-quote-sub">Est. gas: <strong>$0.00</strong> — sponsored by Perpetua's own <a href="/gas-sponsor">gas policy</a></div>
+      </div>
+
+      <form class="deposit-box" id="vault-deposit" action="https://formsubmit.co/waitlist@perpetua.org" method="POST">
+        <label>Like what you see?</label>
+        <div class="deposit-row">
+          <input type="email" name="email" placeholder="you@email.com" required>
+          <button class="btn-primary" type="submit">Notify me</button>
+        </div>
+        <input type="hidden" name="_subject" value="New Perpetua waitlist signup">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://perpetua-lulle.vercel.app/vault">
+        <div class="note">This is a simulated quote — deposits aren't live yet. Join the waitlist to get notified first. No spam, one email when it's live.</div>
+      </form>
+    </div>
+
     <div class="card reveal" id="vault-score" style="margin-top:24px;">
       <div class="panel-title"><span>Market score</span><span style="color:var(--green);">+4.2 today</span></div>
       <div class="badge-row">
