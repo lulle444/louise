@@ -54,6 +54,51 @@
 </section>
 
 <section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Try it</span>
+      <h2>See a deposit before you make one.</h2>
+      <p>Simulated quote — no wallet connection or network call required.</p>
+    </div>
+    <div class="card try-card reveal">
+      <label class="try-label">1 · Choose a stock</label>
+      <input type="text" class="try-search" id="tryStockSearch" placeholder="Search vault basket or watchlist…">
+      <div class="try-stock-grid" id="tryStockGrid">
+        <button type="button" class="try-stock active" data-ticker="AAPL" data-name="Apple Inc." data-price="231.42">AAPL</button>
+        <button type="button" class="try-stock" data-ticker="NVDA" data-name="NVIDIA Corp." data-price="142.87">NVDA</button>
+        <button type="button" class="try-stock" data-ticker="TSLA" data-name="Tesla Inc." data-price="248.05">TSLA</button>
+        <button type="button" class="try-stock" data-ticker="MSFT" data-name="Microsoft Corp." data-price="421.19">MSFT</button>
+        <button type="button" class="try-stock" data-ticker="GOOGL" data-name="Alphabet Inc." data-price="176.33">GOOGL</button>
+        <button type="button" class="try-stock" data-ticker="AMZN" data-name="Amazon.com Inc." data-price="198.61">AMZN</button>
+      </div>
+      <div class="try-stock-name" id="tryStockName">Apple Inc.</div>
+
+      <div class="try-amt-head">
+        <label class="try-label" style="margin-bottom:0;">2 · Set an amount</label>
+        <div class="try-unit-toggle">
+          <button type="button" class="active" data-unit="usd">USD</button>
+          <button type="button" data-unit="shares">Shares</button>
+        </div>
+      </div>
+      <div class="try-amt-display"><span id="tryAmtPrefix">$</span><span id="tryAmtDisplay">10</span></div>
+      <div class="try-amt-pills">
+        <button type="button" data-amt="5">$5</button>
+        <button type="button" class="active" data-amt="10">$10</button>
+        <button type="button" data-amt="25">$25</button>
+        <button type="button" data-amt="50">$50</button>
+        <button type="button" data-amt="100">$100</button>
+      </div>
+
+      <div class="try-quote">
+        <div class="try-quote-head"><span>Live quote · simulated</span><span>via Uniswap v4</span></div>
+        <div class="try-quote-main"><span class="tq-shares" id="tryQuoteShares">0.0432 AAPL</span><span class="tq-usd" id="tryQuoteUsd">≈ $10.00</span></div>
+        <div class="try-quote-sub">Est. gas: <strong>$0.00</strong> — sponsored by Perpetua's own <a href="/gas-sponsor">gas policy</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
   <div class="wrap wrap-wide">
     <div class="section-head reveal">
       <span class="eyebrow">How it works</span>
