@@ -70,7 +70,7 @@ function updateCap(val){
         io.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.15 });
+  }, { threshold: 0, rootMargin: '0px 0px 150px 0px' });
   els.forEach(function(el){ io.observe(el); });
 })();
 
