@@ -136,6 +136,10 @@ input[type=range]{width:100%;accent-color:var(--violet);}
 footer{background:#fff;border-top:1px solid var(--border);color:var(--muted);padding:44px 0 36px;text-align:center;}
 footer .foot-brand{font-weight:700;font-size:15px;color:var(--ink);margin-bottom:10px;}
 footer p{font-size:13px;max-width:50ch;margin:0 auto;}
+.foot-social{margin-top:16px;}
+.foot-social a{display:inline-flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;font-size:13px;font-weight:600;}
+.foot-social a:hover{color:var(--violet);}
+.foot-social svg{width:14px;height:14px;fill:currentColor;}
 
 /* reveal */
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s cubic-bezier(.2,.8,.2,1),transform .6s cubic-bezier(.2,.8,.2,1);}
