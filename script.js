@@ -10,15 +10,30 @@ setInterval(function(){
   var el = document.getElementById('feeAccrued');
   if (el) el.textContent = '$' + feeAccrued.toFixed(2);
 }, 400);
-function sweepFee(){
+async function sweepFee(){
+  var s = document.getElementById('loopStatus');
+  if (window.PERPETUA_DEPLOYMENT && window.perpetuaLiveSweep) {
+    if (s) { s.textContent = 'sweeping onchain…'; s.style.color = 'var(--violet)'; }
+    try {
+      var ok = await window.perpetuaLiveSweep();
+      if (ok) {
+        if (s) { s.textContent = 'funded ✓ onchain'; s.style.color = 'var(--green)'; }
+        setTimeout(function(){ if (s) { s.textContent = 'idle'; s.style.color = 'var(--violet)'; } }, 1600);
+        return;
+      }
+    } catch (e) {
+      console.warn('Perpetua: live sweep failed, falling back to illustrative math', e);
+    }
+  }
   poolBalanceEth += feeAccrued / 3200;
   feeAccrued = 0;
   document.getElementById('feeAccrued').textContent = '$0.00';
   document.getElementById('poolBalance').textContent = poolBalanceEth.toFixed(4) + ' ETH';
-  var s = document.getElementById('loopStatus');
-  s.textContent = 'funded ✓';
-  s.style.color = 'var(--green)';
-  setTimeout(function(){ s.textContent = 'idle'; s.style.color = 'var(--violet)'; }, 1200);
+  if (s) {
+    s.textContent = 'funded ✓';
+    s.style.color = 'var(--green)';
+    setTimeout(function(){ s.textContent = 'idle'; s.style.color = 'var(--violet)'; }, 1200);
+  }
 }
 
 var spentEth = 0.22;
