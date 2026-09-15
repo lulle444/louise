@@ -1,1 +1,118 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Perpetua</title><link rel="icon" type="image/svg+xml" href="/logo.svg"><link rel="stylesheet" href="/style.css"></head><body><header class="top"><div class="wrap nav-wrap"><a class="brand" href="/"><img class="brand-mark" src="/logo.svg" alt="" width="32" height="32">Perpetua</a><nav class="pill-nav"><a href="/vault">Vault</a><a href="/flywheel">Flywheel</a><a href="/gas-sponsor">Gas Sponsor</a><a href="/activity">Activity</a></nav><div class="nav-actions"><button type="button" class="btn-wallet" id="walletBtn">Connect</button><a class="nav-cta" href="/vault">Get started</a></div></div></header><section class="hero"><div class="wrap wrap-wide"><h1>An engine for self-funding DeFi</h1><p>Perpetua is a savings vault for tokenized stocks whose own management fee funds the gas its keepers need.</p><a class="btn-primary" href="/vault">Explore the vault</a></div></section><footer><div class="wrap"><div class="foot-brand">Perpetua</div></div></footer><script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script><script src="/web3.js"></script><script src="/script.js"></script><script src="/ticker.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perpetua — self-funding DeFi infrastructure</title>
+<meta name="description" content="Perpetua: a savings vault for tokenized stocks whose own management fee funds the gas its keepers need — a self-sustaining loop on Robinhood Chain.">
+<link rel="icon" type="image/png" href="/logo-mark.png">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="ticker-bar" aria-hidden="true"><div class="ticker-track" id="tickerTrack"></div></div>
+
+<header class="top">
+  <div class="wrap nav-wrap">
+    <a class="brand" href="/"><img class="brand-mark" src="/logo-mark.png" alt="">Perpetua</a>
+    <nav class="pill-nav">
+      <a href="/vault">Vault</a>
+      <a href="/flywheel">Flywheel</a>
+      <a href="/gas-sponsor">Gas Sponsor</a>
+      <a href="/activity">Activity</a>
+    </nav>
+    <div class="nav-actions">
+      <button type="button" class="btn-wallet" id="walletBtn">Connect</button>
+      <a class="nav-cta" href="/vault">Get started</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap wrap-wide">
+    <div class="hero-grid">
+      <div class="hero-copy reveal">
+        <span class="hero-badge"><span style="width:6px;height:6px;border-radius:50%;background:#1FAE6B;display:inline-block;"></span>Live on Robinhood Chain</span>
+        <h1>An engine for <span class="grad">self-funding</span> DeFi</h1>
+        <p class="lede">Perpetua is a savings vault for tokenized stocks whose own management fee funds the gas its keepers need — a loop that doesn't stop when the subsidies do.</p>
+        <div class="hero-ctas">
+          <a class="btn-primary" href="/vault">Explore the vault</a>
+          <a class="btn-secondary" href="https://github.com/lulle444/louise/tree/claude/tally-website-m6sr5p/contracts" target="_blank" rel="noopener">View contracts</a>
+        </div>
+        <div class="stat-row">
+          <div class="stat-item"><span class="num">100%</span><span class="lbl">fee → keeper gas</span></div>
+          <div class="stat-item"><span class="num">$18.4K</span><span class="lbl">vault TVL</span></div>
+          <div class="stat-item"><span class="num">95</span><span class="lbl">stocks with a feed</span></div>
+        </div>
+      </div>
+      <div class="hero-banner reveal" style="transition-delay:.1s;">
+        <img src="/banner-hero.jpg" alt="Perpetua is live — self-funding DeFi infrastructure" width="1600" height="900" loading="eager">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap wrap-wide">
+    <div class="section-head reveal">
+      <span class="eyebrow">How it works</span>
+      <h2>Three parts. One loop.</h2>
+      <p>Each piece funds the next — deposit, sweep, sponsor, repeat.</p>
+    </div>
+    <div class="banner-card reveal">
+      <img src="/banner-loop.jpg" alt="Deposit, swap, sponsor, rebalance — the Perpetua loop" width="1200" height="675" loading="lazy">
+    </div>
+    <div class="feature-grid">
+      <a class="feature-card reveal" href="/vault">
+        <span class="feature-num">1</span>
+        <h3>Vault</h3>
+        <p>Deposit USDG into a fixed basket of tokenized stocks — rebalanced on-chain.</p>
+        <span class="feature-arrow">Explore the vault →</span>
+      </a>
+      <a class="feature-card reveal" style="transition-delay:.06s;" href="/flywheel">
+        <span class="feature-num">2</span>
+        <h3>Flywheel</h3>
+        <p>The vault's own management fee is swept and swapped into keeper gas.</p>
+        <span class="feature-arrow">See the loop →</span>
+      </a>
+      <a class="feature-card reveal" style="transition-delay:.12s;" href="/gas-sponsor">
+        <span class="feature-num">3</span>
+        <h3>Gas Sponsor</h3>
+        <p>A shared ERC-4337 paymaster keeps rebalances free, funded by the loop.</p>
+        <span class="feature-arrow">View policies →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="manifesto">
+  <div class="wrap wrap-wide reveal">
+    <p>The next generation of onchain finance won't be judged by how fast it launches — but by whether it keeps running once the incentives disappear.</p>
+    <blockquote>That's the difference between an experiment and an economy.</blockquote>
+  </div>
+</div>
+
+<div class="cta-wrap">
+  <div class="cta-band reveal">
+    <h2>Deposit once. Let the loop run.</h2>
+    <p>Perpetua funds its own upkeep — no separate gas budget required.</p>
+    <div class="hero-ctas" style="margin-bottom:0;justify-content:center;">
+      <a class="btn-primary" href="/vault">Explore the vault</a>
+      <a class="btn-secondary" href="https://github.com/lulle444/louise/tree/claude/tally-website-m6sr5p/contracts" target="_blank" rel="noopener">View contracts</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-brand">Perpetua</div>
+    <p>Reference DeFi infrastructure for Robinhood Chain. Contracts unaudited — provided as-is.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script>
+<script src="/web3.js"></script>
+<script src="/script.js"></script>
+<script src="/ticker.js"></script>
+</body>
+</html>

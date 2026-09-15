@@ -1,1 +1,80 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Vault — Perpetua</title><link rel="icon" type="image/svg+xml" href="/logo.svg"><link rel="stylesheet" href="/style.css"></head><body><header class="top"><div class="wrap nav-wrap"><a class="brand" href="/"><img class="brand-mark" src="/logo.svg" alt="" width="32" height="32">Perpetua</a><nav class="pill-nav"><a href="/vault" aria-current="page">Vault</a><a href="/flywheel">Flywheel</a><a href="/gas-sponsor">Gas Sponsor</a><a href="/activity">Activity</a></nav><div class="nav-actions"><button type="button" class="btn-wallet" id="walletBtn">Connect</button><a class="nav-cta" href="/vault">Get started</a></div></div></header><section class="section" id="vault"><div class="wrap"><h2>One deposit. A fixed basket of stocks.</h2><div class="card"><div id="vault-allocation"><div class="basket-row"><div class="row-top"><span>AAPL</span><span>40%</span></div><div class="bar-track"><div class="bar-fill" data-target="40"></div></div></div><div class="basket-row"><div class="row-top"><span>NVDA</span><span>35%</span></div><div class="bar-track"><div class="bar-fill" data-target="35"></div></div></div><div class="basket-row"><div class="row-top"><span>TSLA</span><span>25%</span></div><div class="bar-track"><div class="bar-fill alt" data-target="25"></div></div></div></div></div></div></section><footer><div class="wrap"><div class="foot-brand">Perpetua</div></div></footer><script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script><script src="/web3.js"></script><script src="/script.js"></script><script src="/ticker.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vault — Perpetua</title>
+<meta name="description" content="One deposit. A fixed basket of tokenized stocks.">
+<link rel="icon" type="image/png" href="/logo-mark.png">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="ticker-bar" aria-hidden="true"><div class="ticker-track" id="tickerTrack"></div></div>
+
+<header class="top">
+  <div class="wrap nav-wrap">
+    <a class="brand" href="/"><img class="brand-mark" src="/logo-mark.png" alt="">Perpetua</a>
+    <nav class="pill-nav">
+      <a href="/vault" aria-current="page">Vault</a>
+      <a href="/flywheel">Flywheel</a>
+      <a href="/gas-sponsor">Gas Sponsor</a>
+      <a href="/activity">Activity</a>
+    </nav>
+    <div class="nav-actions">
+      <button type="button" class="btn-wallet" id="walletBtn">Connect</button>
+      <a class="nav-cta" href="/vault">Get started</a>
+    </div>
+  </div>
+</header>
+
+<section class="section" id="vault">
+  <div class="wrap">
+    <div class="page-head reveal">
+      <span class="eyebrow">01 — Perpetua Vault</span>
+      <h2>One deposit. A fixed basket of stocks.</h2>
+      <p class="lede">Deposit USDG and the contract splits it across Stock Tokens at fixed weights — anyone can trigger a rebalance once the basket drifts.</p>
+    </div>
+    <div class="card card-grid reveal">
+      <ul class="spec-list">
+        <li><span class="k">Assets</span><span class="v">AAPL, NVDA, TSLA …</span></li>
+        <li><span class="k">Pricing</span><span class="v">Chainlink · 95 stocks</span></li>
+        <li><span class="k">Deposits</span><span class="v">USDG → Uniswap v4</span></li>
+        <li><span class="k">Rebalancing</span><span class="v">Open · 300 bps drift</span></li>
+        <li><span class="k">Keeper gas</span><span class="v">Self-funded — see <a href="/flywheel">flywheel</a></span></li>
+        <li><span class="k">Finality</span><span class="v">~13 min</span></li>
+      </ul>
+      <div>
+        <div class="panel-title"><span>Basket allocation</span><span>$1,000</span></div>
+        <div class="basket-row"><div class="row-top"><span>AAPL</span><span>40%</span></div><div class="bar-track"><div class="bar-fill" data-target="40"></div></div></div>
+        <div class="basket-row"><div class="row-top"><span>NVDA</span><span>35%</span></div><div class="bar-track"><div class="bar-fill" data-target="35"></div></div></div>
+        <div class="basket-row"><div class="row-top"><span>TSLA</span><span>25%</span></div><div class="bar-track"><div class="bar-fill alt" data-target="25"></div></div></div>
+        <form class="deposit-box" action="https://formsubmit.co/waitlist@perpetua.org" method="POST">
+          <label>Like what you see?</label>
+          <div style="display:flex;gap:10px;">
+            <input type="email" name="email" placeholder="you@email.com" required style="flex:1;min-width:0;background:var(--bg-soft);border:1px solid var(--border);color:var(--ink);font-size:14px;padding:12px 14px;border-radius:10px;font-family:var(--sans);">
+            <button class="btn-primary" type="submit">Notify me</button>
+          </div>
+          <input type="hidden" name="_subject" value="New Perpetua waitlist signup">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_next" value="https://perpetua-lulle.vercel.app/vault">
+          <div class="note">Deposits aren't live yet. Join the waitlist to get notified first.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-brand">Perpetua</div>
+    <p>Reference DeFi infrastructure for Robinhood Chain. Contracts unaudited — provided as-is.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script>
+<script src="/web3.js"></script>
+<script src="/script.js"></script>
+<script src="/ticker.js"></script>
+</body>
+</html>

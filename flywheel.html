@@ -1,1 +1,82 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Flywheel — Perpetua</title><link rel="icon" type="image/svg+xml" href="/logo.svg"><link rel="stylesheet" href="/style.css"></head><body><header class="top"><div class="wrap nav-wrap"><a class="brand" href="/"><img class="brand-mark" src="/logo.svg" alt="" width="32" height="32">Perpetua</a><nav class="pill-nav"><a href="/vault">Vault</a><a href="/flywheel" aria-current="page">Flywheel</a><a href="/gas-sponsor">Gas Sponsor</a><a href="/activity">Activity</a></nav><div class="nav-actions"><button type="button" class="btn-wallet" id="walletBtn">Connect</button><a class="nav-cta" href="/vault">Get started</a></div></div></header><section class="section" id="flywheel"><div class="wrap"><h2>The vault pays for its own upkeep.</h2><div class="card"><div id="flywheel-loop"><div class="panel-title"><span>Keeper gas flywheel</span><span id="loopStatus">idle</span></div><div class="deposit-box" id="flywheel-sweep"><div class="fee-readout"><span id="feeAccrued">$0.42</span></div><button class="btn-primary" onclick="sweepFee()">Sweep</button><div class="note">Keeper policy balance: <span id="poolBalance">0.2200 ETH</span></div></div></div></div></div></section><footer><div class="wrap"><div class="foot-brand">Perpetua</div></div></footer><script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script><script src="/web3.js"></script><script src="/script.js"></script><script src="/ticker.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flywheel — Perpetua</title>
+<meta name="description" content="The vault pays for its own upkeep.">
+<link rel="icon" type="image/png" href="/logo-mark.png">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="ticker-bar" aria-hidden="true"><div class="ticker-track" id="tickerTrack"></div></div>
+
+<header class="top">
+  <div class="wrap nav-wrap">
+    <a class="brand" href="/"><img class="brand-mark" src="/logo-mark.png" alt="">Perpetua</a>
+    <nav class="pill-nav">
+      <a href="/vault">Vault</a>
+      <a href="/flywheel" aria-current="page">Flywheel</a>
+      <a href="/gas-sponsor">Gas Sponsor</a>
+      <a href="/activity">Activity</a>
+    </nav>
+    <div class="nav-actions">
+      <button type="button" class="btn-wallet" id="walletBtn">Connect</button>
+      <a class="nav-cta" href="/vault">Get started</a>
+    </div>
+  </div>
+</header>
+
+<section class="section" id="flywheel">
+  <div class="wrap">
+    <div class="page-head reveal">
+      <span class="eyebrow">02 — The Flywheel</span>
+      <h2>The vault pays for its own upkeep.</h2>
+      <p class="lede">Every deposit accrues a fee. It's swept, swapped to ETH, and dropped into the vault's own gas sponsor policy.</p>
+    </div>
+    <div class="banner-card reveal">
+      <img src="/banner-ring.jpg" alt="Fee accrues, swaps to ETH, funds the keeper policy, sponsors free rebalances" width="1200" height="675" loading="lazy">
+    </div>
+    <div class="card card-grid reveal">
+      <div>
+        <div class="panel-title"><span>Keeper gas flywheel</span><span id="loopStatus" style="color:var(--violet);">idle</span></div>
+        <ul class="activity-list" style="margin-bottom:8px;">
+          <li><span class="a-icon">1</span><div class="a-body"><span class="a-title">Fee accrues</span><span class="a-sub">0.50%/yr on TVL</span></div></li>
+          <li><span class="a-icon green">2</span><div class="a-body"><span class="a-title">Swapped to ETH</span><span class="a-sub">via Uniswap v4</span></div></li>
+          <li><span class="a-icon">3</span><div class="a-body"><span class="a-title">Funds keeper policy</span><span class="a-sub">GasSponsor</span></div></li>
+          <li><span class="a-icon green">4</span><div class="a-body"><span class="a-title">Free rebalances</span><span class="a-sub">basket stays on target</span></div></li>
+        </ul>
+        <div class="deposit-box">
+          <label>Accrued fee</label>
+          <div style="display:flex;gap:10px;align-items:center;">
+            <div class="fee-readout"><span id="feeAccrued">$0.42</span></div>
+            <button class="btn-primary" onclick="sweepFee()">Sweep</button>
+          </div>
+          <div class="note">Keeper policy balance: <span id="poolBalance" style="color:var(--violet);font-weight:700;">0.2200 ETH</span></div>
+        </div>
+      </div>
+      <ul class="spec-list">
+        <li><span class="k">Fee source</span><span class="v">0.50%/yr on TVL</span></li>
+        <li><span class="k">Fee routing</span><span class="v">100% → policy</span></li>
+        <li><span class="k">Who can sweep</span><span class="v">Anyone</span></li>
+        <li><span class="k">Who benefits</span><span class="v">Keepers</span></li>
+        <li><span class="k">Bootstrap</span><span class="v">Self-owned policy</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-brand">Perpetua</div>
+    <p>Reference DeFi infrastructure for Robinhood Chain. Contracts unaudited — provided as-is.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script>
+<script src="/web3.js"></script>
+<script src="/script.js"></script>
+<script src="/ticker.js"></script>
+</body>
+</html>

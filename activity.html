@@ -1,1 +1,69 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Activity — Perpetua</title><link rel="icon" type="image/svg+xml" href="/logo.svg"><link rel="stylesheet" href="/style.css"></head><body><header class="top"><div class="wrap nav-wrap"><a class="brand" href="/"><img class="brand-mark" src="/logo.svg" alt="" width="32" height="32">Perpetua</a><nav class="pill-nav"><a href="/vault">Vault</a><a href="/flywheel">Flywheel</a><a href="/gas-sponsor">Gas Sponsor</a><a href="/activity" aria-current="page">Activity</a></nav><div class="nav-actions"><button type="button" class="btn-wallet" id="walletBtn">Connect</button><a class="nav-cta" href="/vault">Get started</a></div></div></header><section class="section" id="activity"><div class="wrap"><h2>What the loop looks like, running.</h2><div class="card"><ul class="activity-list"><li><span class="a-title">Deposit</span><span class="a-amt">+$1,000</span></li><li><span class="a-title">Fee swept</span><span class="a-amt">+0.00013 ETH</span></li></ul></div></div></section><footer><div class="wrap"><div class="foot-brand">Perpetua</div></div></footer><script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script><script src="/web3.js"></script><script src="/script.js"></script><script src="/ticker.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activity — Perpetua</title>
+<meta name="description" content="What the loop looks like, running.">
+<link rel="icon" type="image/png" href="/logo-mark.png">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="ticker-bar" aria-hidden="true"><div class="ticker-track" id="tickerTrack"></div></div>
+
+<header class="top">
+  <div class="wrap nav-wrap">
+    <a class="brand" href="/"><img class="brand-mark" src="/logo-mark.png" alt="">Perpetua</a>
+    <nav class="pill-nav">
+      <a href="/vault">Vault</a>
+      <a href="/flywheel">Flywheel</a>
+      <a href="/gas-sponsor">Gas Sponsor</a>
+      <a href="/activity" aria-current="page">Activity</a>
+    </nav>
+    <div class="nav-actions">
+      <button type="button" class="btn-wallet" id="walletBtn">Connect</button>
+      <a class="nav-cta" href="/vault">Get started</a>
+    </div>
+  </div>
+</header>
+
+<section class="section" id="activity">
+  <div class="wrap">
+    <div class="page-head reveal">
+      <span class="eyebrow">04 — Recent activity</span>
+      <h2>What the loop looks like, running.</h2>
+      <p class="lede">Deposits, fee sweeps, and the sponsored rebalances they pay for.</p>
+    </div>
+    <div class="stat-row reveal" style="margin-bottom:28px;">
+      <div class="stat-item"><span class="num">$18,400</span><span class="lbl">total deposits</span></div>
+      <div class="stat-item"><span class="num">2.14 USDG</span><span class="lbl">fees swept</span></div>
+      <div class="stat-item"><span class="num">0.067 ETH</span><span class="lbl">gas sponsored</span></div>
+    </div>
+    <div class="card reveal">
+      <div class="panel-title"><span>Recent activity</span><span style="color:var(--violet);">live</span></div>
+      <ul class="activity-list">
+        <li><span class="a-icon">↓</span><div class="a-body"><span class="a-title">Deposit</span><span class="a-sub">USDG → Vault basket</span></div><span class="a-amt">+$1,000</span></li>
+        <li><span class="a-icon green">⟳</span><div class="a-body"><span class="a-title">Fee swept</span><span class="a-sub">0.42 USDG → 0.00013 ETH</span></div><span class="a-amt">+0.00013 ETH</span></li>
+        <li><span class="a-icon">⇄</span><div class="a-body"><span class="a-title">Rebalance</span><span class="a-sub">AAPL drift corrected · 40.0% → 38.7%</span></div><span class="a-amt">—</span></li>
+        <li><span class="a-icon green">⛽</span><div class="a-body"><span class="a-title">Gas sponsored</span><span class="a-sub">perpetua-basket-app · daily cap 0.40 ETH</span></div><span class="a-amt">-0.014 ETH</span></li>
+        <li><span class="a-icon">↓</span><div class="a-body"><span class="a-title">Deposit</span><span class="a-sub">USDG → Vault basket</span></div><span class="a-amt">+$2,500</span></li>
+        <li><span class="a-icon green">⟳</span><div class="a-body"><span class="a-title">Fee swept</span><span class="a-sub">0.38 USDG → 0.00012 ETH</span></div><span class="a-amt">+0.00012 ETH</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-brand">Perpetua</div>
+    <p>Reference DeFi infrastructure for Robinhood Chain. Contracts unaudited — provided as-is.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script>
+<script src="/web3.js"></script>
+<script src="/script.js"></script>
+<script src="/ticker.js"></script>
+</body>
+</html>
