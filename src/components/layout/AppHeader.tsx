@@ -1,6 +1,5 @@
 import Link from "next/link";
 import type { Viewer } from "@/lib/domain/types";
-import { DemoModeBadge } from "@/components/ui/DemoModeBadge";
 import { TallyMark, Wordmark } from "@/components/ui/TallyMark";
 import { XIcon } from "@/components/ui/XIcon";
 import { getXHandle, getXUrl } from "@/lib/config";
@@ -25,7 +24,6 @@ export function AppHeader({ viewer, demo }: { viewer: Viewer | null; demo: boole
           <TallyMark size={30} />
           <Wordmark />
         </Link>
-        {demo ? <span className="hidden lg:block"><DemoModeBadge short /></span> : null}
         <nav className="ml-6 hidden items-center gap-1 md:flex" aria-label="Primary">
           <NavLinks items={NAV_ITEMS} />
         </nav>

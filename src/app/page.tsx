@@ -63,7 +63,7 @@ export default async function HomePage() {
       {/* Scoreboard ticker */}
       <div className="border-b border-border bg-surface">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-6 gap-y-1 px-4 py-2 font-mono text-[11px] uppercase tracking-wider text-muted sm:px-6">
-          <span className="inline-flex items-center gap-1.5"><Trophy className="size-3.5 text-cyan" aria-hidden /> {getSeason().name}</span>
+          <span className="inline-flex items-center gap-1.5"><Trophy className="size-3.5 text-cyan" aria-hidden /> {demo ? "Preview" : getSeason().name}</span>
           <span>Humans <span className="font-semibold text-cyan">{formatAccuracy(hva.humanAccuracy.accuracy)}</span></span>
           <span>AI <span className="font-semibold text-violet">{formatAccuracy(hva.aiAccuracy.accuracy)}</span></span>
           <span>{hva.battleWins.humans + hva.battleWins.ai + hva.battleWins.ties} rounds settled</span>
