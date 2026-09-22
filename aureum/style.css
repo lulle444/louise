@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
 :root{
   --bg:#0A0906;--bg-soft:#131109;--panel:#131109;--border:#2A2517;--ink:#F3EDE0;--muted:#9C9384;
-  --gold:#C9A24B;--gold-bright:#E4C878;--gold-dim:#8A6F32;--gold-tint:rgba(201,162,75,0.10);
+  --gold:#B8825A;--gold-bright:#D2A279;--gold-dim:#8A6041;--gold-tint:rgba(184,130,90,0.10);
   --sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;--serif:'Playfair Display',Georgia,serif;--mono:'IBM Plex Mono',monospace;
   --radius:8px;--radius-lg:12px;
 }
@@ -41,7 +41,7 @@ header.top{position:sticky;top:0;z-index:50;padding:20px 0;background:rgba(10,9,
 /* hero */
 .hero{position:relative;padding:76px 0 64px;overflow:hidden;}
 .hero::before{content:'';position:absolute;top:-320px;left:50%;width:1200px;height:720px;transform:translateX(-50%);
-  background:radial-gradient(circle at 32% 30%,rgba(201,162,75,0.14),transparent 62%),radial-gradient(circle at 68% 55%,rgba(201,162,75,0.06),transparent 60%);
+  background:radial-gradient(circle at 32% 30%,rgba(184,130,90,0.14),transparent 62%),radial-gradient(circle at 68% 55%,rgba(184,130,90,0.06),transparent 60%);
   filter:blur(50px);z-index:0;pointer-events:none;}
 .hero .wrap{position:relative;z-index:1;}
 .hero-grid{display:grid;grid-template-columns:1fr 0.95fr;align-items:center;gap:56px;}
