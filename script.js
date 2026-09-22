@@ -61,9 +61,9 @@ function updateCap(val){
     if (unit === 'usd') { usdAmt = amount; shareAmt = usdAmt / p; }
     else { shareAmt = amount; usdAmt = shareAmt * p; }
     amtPrefix.textContent = unit === 'usd' ? '$' : '';
-    amtDisplay.textContent = (unit === 'usd' ? usdAmt : shareAmt).toLocaleString(undefined, { maximumFractionDigits: unit === 'usd' ? 2 : 4 });
-    quoteShares.textContent = shareAmt.toLocaleString(undefined, { maximumFractionDigits: 4 }) + ' ' + active.getAttribute('data-ticker');
-    quoteUsd.textContent = '≈ $' + usdAmt.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    amtDisplay.textContent = (unit === 'usd' ? usdAmt : shareAmt).toLocaleString('en-US', { maximumFractionDigits: unit === 'usd' ? 2 : 4 });
+    quoteShares.textContent = shareAmt.toLocaleString('en-US', { maximumFractionDigits: 4 }) + ' ' + active.getAttribute('data-ticker');
+    quoteUsd.textContent = '≈ $' + usdAmt.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     nameEl.textContent = active.getAttribute('data-name');
   }
 
