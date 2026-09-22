@@ -2,10 +2,10 @@
 -- Ids and slugs are unchanged so existing forecasts keep their references.
 update public.ai_profiles set name = 'ATLAS', tagline = 'Weighs trend, momentum and volume',
   description = 'Patient and systematic. ATLAS only commits when the multi-day trend, short-term momentum and volume agree, and sits Neutral when they don''t.',
-  strategy_version = 'atlas-v1.0.0', accent_color = '#C2410C' where id = 'ai-oracle';
+  strategy_version = 'atlas-v1.0.0', accent_color = '#B45309' where id = 'ai-oracle';
 update public.ai_profiles set name = 'PULSE', tagline = 'Rides short-term momentum',
   description = 'Quick and decisive. PULSE follows the last one to three days of price action and is rarely Neutral.',
-  strategy_version = 'pulse-v1.0.0', accent_color = '#B45309' where id = 'ai-vector';
+  strategy_version = 'pulse-v1.0.0', accent_color = '#92400E' where id = 'ai-vector';
 update public.ai_profiles set name = 'DRIFT', tagline = 'Reads sentiment, fades crowded moves',
   description = 'Contrarian by temperament. DRIFT follows the narrative until price runs too far from its weekly mean, then calls the reversal.',
   strategy_version = 'drift-v1.0.0', accent_color = '#BE185D' where id = 'ai-echo';

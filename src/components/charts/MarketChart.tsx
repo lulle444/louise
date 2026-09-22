@@ -35,7 +35,7 @@ export function MarketChart({ series, startPrice, decimals, simulated, height = 
             />
             {startPrice ? <ReferenceLine y={startPrice} stroke="#5B6B7F" strokeDasharray="4 4" /> : null}
             {opensAt ? <ReferenceLine x={Date.parse(opensAt)} stroke="#4F46E5" strokeOpacity={0.6} strokeDasharray="3 3" /> : null}
-            {endsAt && Date.parse(endsAt) <= data[data.length - 1].t ? <ReferenceLine x={Date.parse(endsAt)} stroke="#C2410C" strokeOpacity={0.6} strokeDasharray="3 3" /> : null}
+            {endsAt && Date.parse(endsAt) <= data[data.length - 1].t ? <ReferenceLine x={Date.parse(endsAt)} stroke="#B45309" strokeOpacity={0.6} strokeDasharray="3 3" /> : null}
             <Area type="monotone" dataKey="price" stroke={stroke} strokeWidth={2} fill="url(#chartFill)" isAnimationActive={false} />
           </AreaChart>
         </ResponsiveContainer>

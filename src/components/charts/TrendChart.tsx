@@ -14,7 +14,7 @@ export function TrendChart({ data }: { data: Array<{ label: string; human: numbe
           <Tooltip contentStyle={{ background: "#FFFFFF", border: "1px solid #D8DFE8", color: "#0F1A2B", borderRadius: 8, fontSize: 12 }} formatter={(v) => [`${v}%`]} />
           <Legend wrapperStyle={{ fontSize: 12 }} />
           <Line type="monotone" dataKey="human" name="Humans" stroke="#4F46E5" strokeWidth={2} dot={{ r: 2 }} connectNulls isAnimationActive={false} />
-          <Line type="monotone" dataKey="ai" name="AI analysts" stroke="#C2410C" strokeWidth={2} dot={{ r: 2 }} strokeDasharray="5 3" connectNulls isAnimationActive={false} />
+          <Line type="monotone" dataKey="ai" name="AI analysts" stroke="#B45309" strokeWidth={2} dot={{ r: 2 }} strokeDasharray="5 3" connectNulls isAnimationActive={false} />
         </LineChart>
       </ResponsiveContainer>
     </div>
