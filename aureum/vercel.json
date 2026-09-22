@@ -1,0 +1,9 @@
+{
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/vault", "destination": "/vault.html" },
+    { "source": "/flywheel", "destination": "/flywheel.html" },
+    { "source": "/gas-sponsor", "destination": "/gas-sponsor.html" },
+    { "source": "/activity", "destination": "/activity.html" }
+  ]
+}
