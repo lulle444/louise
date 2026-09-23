@@ -88,7 +88,7 @@ export function isDemoMode(): boolean {
 /** X (Twitter) handle without the @; override with NEXT_PUBLIC_X_HANDLE. */
 export function getXHandle(): string {
   const v = (process.env.NEXT_PUBLIC_X_HANDLE ?? "").trim().replace(/^@/, "");
-  return v || "alphr";
+  return v || "usealphr";
 }
 
 export function getXUrl(): string {
