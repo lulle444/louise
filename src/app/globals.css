@@ -188,6 +188,53 @@ body {
 }
 .btn-secondary:hover { transform: translateY(-1px); border-color: var(--color-border-strong); }
 
+/* Dark navy CTA panel: the one dark moment on the light site */
+.cta-dark {
+  background: linear-gradient(160deg, #0b1f44 0%, #0a1a3a 55%, #071330 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 30px 70px -40px rgba(10, 31, 68, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.cta-dark-glow {
+  background:
+    radial-gradient(60% 80% at 15% 10%, rgba(42, 95, 232, 0.45), transparent 65%),
+    radial-gradient(50% 70% at 90% 100%, rgba(95, 141, 255, 0.35), transparent 65%),
+    radial-gradient(40% 50% at 60% 40%, rgba(21, 128, 61, 0.12), transparent 70%);
+}
+.cta-dark-waves {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='220' viewBox='0 0 1600 220'%3E%3Cpath d='M0 110 C 200 40, 400 180, 600 110 S 1000 40, 1200 110 S 1500 180, 1600 110' fill='none' stroke='%23ffffff' stroke-opacity='0.09' stroke-width='1.2'/%3E%3C/svg%3E");
+  background-size: 1600px 220px;
+  background-repeat: repeat;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 40%, black 70%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 40%, black 70%, transparent 100%);
+}
+.btn-light {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  background: #fff;
+  color: #0a1f44;
+  padding: 0.8rem 1.35rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  box-shadow: 0 14px 30px -14px rgba(255, 255, 255, 0.5);
+  transition: transform 160ms ease, filter 160ms ease;
+}
+.btn-light:hover { transform: translateY(-1px); filter: brightness(0.97); }
+.btn-ghost-light {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  padding: 0.8rem 1.35rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  transition: background 160ms ease, border-color 160ms ease;
+}
+.btn-ghost-light:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.45); }
+
 /* Floating header */
 .header-pill {
   background: rgba(255, 255, 255, 0.72);

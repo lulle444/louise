@@ -386,18 +386,28 @@ export default async function HomePage() {
         </div>
       </Section>
 
-      {/* Final CTA */}
+      {/* Final CTA: the one dark moment on the page */}
       <section className="mx-auto max-w-7xl px-4 pb-6 sm:px-6">
-        <div className="glass relative overflow-hidden rounded-[28px] p-8 text-center sm:p-12">
-          <SignalField opacity={0.35} />
+        <div className="cta-dark relative overflow-hidden rounded-[28px] p-8 text-center text-white sm:p-14">
+          <div className="cta-dark-glow pointer-events-none absolute inset-0" aria-hidden />
+          <div className="cta-dark-waves pointer-events-none absolute inset-0" aria-hidden />
           <div className="relative">
-            <p className="eyebrow">Ready?</p>
-            <h2 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">Make the call. Beat the machines. Keep the score.</h2>
-            <p className="mx-auto mt-2 max-w-xl text-sm text-muted">The market has millions of opinions. Alphr keeps the score.</p>
-            <Link href={live ? `/rounds/${live.battle.id}` : "/rounds"} className="btn-primary mt-6">
-              <Lock className="size-4" aria-hidden /> Make today’s call
-            </Link>
-            <div className="mx-auto mt-8 max-w-2xl"><Disclaimer compact /></div>
+            <p className="font-mono text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-[#8fb2ff]">Ready?</p>
+            <h2 className="mt-3 text-2xl font-bold tracking-tight text-white sm:text-4xl">Make the call. Beat the machines. <span className="text-[#5f8dff]">Keep the score.</span></h2>
+            <p className="mx-auto mt-3 max-w-xl text-sm text-white/70 sm:text-base">The market has millions of opinions. Alphr keeps the score.</p>
+            <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+              <Link href={live ? `/rounds/${live.battle.id}` : "/rounds"} className="btn-light">
+                <Lock className="size-4" aria-hidden /> Make today’s call
+              </Link>
+              <Link href="/humans-vs-ai" className="btn-ghost-light">See the scoreboard</Link>
+            </div>
+            <div className="mx-auto mt-8 flex max-w-2xl flex-wrap items-center justify-center gap-x-6 gap-y-2 font-mono text-[11px] uppercase tracking-wider text-white/55">
+              <span>Humans <span className="text-white">{formatAccuracy(hva.humanAccuracy.accuracy)}</span></span>
+              <span>AI <span className="text-white">{formatAccuracy(hva.aiAccuracy.accuracy)}</span></span>
+              <span>{ctx.predictions.length} calls locked</span>
+              <span>Virtual points only</span>
+            </div>
+            <div className="mx-auto mt-6 max-w-2xl text-white/45"><Disclaimer compact tone="inherit" /></div>
           </div>
         </div>
       </section>
