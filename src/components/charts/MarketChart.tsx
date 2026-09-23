@@ -14,7 +14,7 @@ export function MarketChart({ series, startPrice, decimals, simulated, height = 
   const pad = (max - min) * 0.15 || max * 0.01;
   const last = data[data.length - 1].price;
   const up = startPrice ? last >= startPrice : true;
-  const stroke = up ? "#4F46E5" : "#0F1A2B";
+  const stroke = up ? "#2A5FE8" : "#0A1F44";
   return (
     <figure>
       <div style={{ height }} role="img" aria-label={`Price series from $${formatPrice(data[0].price, decimals)} to $${formatPrice(last, decimals)}${startPrice ? `, Battle start price $${formatPrice(startPrice, decimals)}` : ""}.`}>
@@ -29,12 +29,12 @@ export function MarketChart({ series, startPrice, decimals, simulated, height = 
             <XAxis dataKey="t" type="number" domain={["dataMin", "dataMax"]} hide />
             <YAxis domain={[min - pad, max + pad]} hide />
             <Tooltip
-              contentStyle={{ background: "#FFFFFF", border: "1px solid #D8DFE8", color: "#0F1A2B", borderRadius: 8, fontSize: 12, fontFamily: "var(--font-mono)" }}
+              contentStyle={{ background: "#FFFFFF", border: "1px solid #D8DFE8", color: "#0A1F44", borderRadius: 8, fontSize: 12, fontFamily: "var(--font-mono)" }}
               labelFormatter={(v) => new Date(Number(v)).toUTCString().replace(" GMT", " UTC")}
               formatter={(v) => [`$${formatPrice(Number(v), decimals)}`, "Price"]}
             />
             {startPrice ? <ReferenceLine y={startPrice} stroke="#5B6B7F" strokeDasharray="4 4" /> : null}
-            {opensAt ? <ReferenceLine x={Date.parse(opensAt)} stroke="#4F46E5" strokeOpacity={0.6} strokeDasharray="3 3" /> : null}
+            {opensAt ? <ReferenceLine x={Date.parse(opensAt)} stroke="#2A5FE8" strokeOpacity={0.6} strokeDasharray="3 3" /> : null}
             {endsAt && Date.parse(endsAt) <= data[data.length - 1].t ? <ReferenceLine x={Date.parse(endsAt)} stroke="#B45309" strokeOpacity={0.6} strokeDasharray="3 3" /> : null}
             <Area type="monotone" dataKey="price" stroke={stroke} strokeWidth={2} fill="url(#chartFill)" isAnimationActive={false} />
           </AreaChart>

@@ -106,8 +106,8 @@ export default async function HomePage() {
               <div className="hero-art pointer-events-none absolute inset-0" aria-hidden>
                 <svg viewBox="0 0 600 420" className="h-full w-full" preserveAspectRatio="xMidYMid slice">
                   <defs>
-                    <linearGradient id="hero-wave" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#4433e6" stopOpacity="0" /><stop offset="0.5" stopColor="#4433e6" stopOpacity="0.35" /><stop offset="1" stopColor="#4433e6" stopOpacity="0" /></linearGradient>
-                    <linearGradient id="hero-bar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#6a5cff" stopOpacity="0.9" /><stop offset="1" stopColor="#4433e6" stopOpacity="0.25" /></linearGradient>
+                    <linearGradient id="hero-wave" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#2a5fe8" stopOpacity="0" /><stop offset="0.5" stopColor="#2a5fe8" stopOpacity="0.35" /><stop offset="1" stopColor="#2a5fe8" stopOpacity="0" /></linearGradient>
+                    <linearGradient id="hero-bar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#4f86ff" stopOpacity="0.9" /><stop offset="1" stopColor="#2a5fe8" stopOpacity="0.25" /></linearGradient>
                   </defs>
                   <path d="M-20 300 C 120 250, 200 360, 330 300 S 520 220, 640 280" fill="none" stroke="url(#hero-wave)" strokeWidth="2" />
                   <path d="M-20 330 C 120 280, 200 390, 330 330 S 520 250, 640 310" fill="none" stroke="url(#hero-wave)" strokeWidth="1.2" />
@@ -227,7 +227,7 @@ export default async function HomePage() {
               <div className="absolute left-6 top-6 flex flex-col gap-2.5">
                 {[
                   { name: "Market Trend", color: "#15803D" },
-                  { name: "Momentum", color: "#4F46E5" },
+                  { name: "Momentum", color: "#2A5FE8" },
                   { name: "Volume", color: "#2563EB" },
                 ].map((sig, i) => (
                   <span key={sig.name} className="chip px-3 py-2 text-xs font-semibold" style={{ marginLeft: i * 14 }}>

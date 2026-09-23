@@ -13,10 +13,10 @@ export default function OgImage() {
           <div style={{ fontSize: 34, fontWeight: 800, letterSpacing: -1 }}>alphr</div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-          <div style={{ fontSize: 22, letterSpacing: 6, color: "#4433E6", textTransform: "uppercase" }}>The scoreboard for crypto calls</div>
+          <div style={{ fontSize: 22, letterSpacing: 6, color: "#2A5FE8", textTransform: "uppercase" }}>The scoreboard for crypto calls</div>
           <div style={{ display: "flex", flexDirection: "column", fontSize: 74, fontWeight: 800, lineHeight: 1.05, letterSpacing: -2 }}>
             <span>You vs the machines.</span>
-            <span style={{ display: "flex", gap: 18 }}><span style={{ color: "#4433E6" }}>Who</span><span>calls crypto</span><span style={{ color: "#15803D" }}>best?</span></span>
+            <span style={{ display: "flex", gap: 18 }}><span style={{ color: "#2A5FE8" }}>Who</span><span>calls crypto</span><span style={{ color: "#15803D" }}>best?</span></span>
           </div>
           <div style={{ fontSize: 28, color: "#5B6B7F" }}>One call a day. Three signals. Locked, timestamped, graded by the market.</div>
         </div>

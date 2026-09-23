@@ -2,7 +2,7 @@
 
 import { PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, ResponsiveContainer } from "recharts";
 
-export function SignalDNAChart({ data, accent = "#4F46E5" }: { data: Array<{ axis: string; value: number }>; accent?: string }) {
+export function SignalDNAChart({ data, accent = "#2A5FE8" }: { data: Array<{ axis: string; value: number }>; accent?: string }) {
   const summary = data.map((d) => `${d.axis} ${d.value}`).join(", ");
   return (
     <div className="h-64 sm:h-72" role="img" aria-label={`Call Profile radar. ${summary}.`}>

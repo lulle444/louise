@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image" },
 };
 
-export const viewport: Viewport = { themeColor: "#F4F6F9", width: "device-width", initialScale: 1 };
+export const viewport: Viewport = { themeColor: "#EEF3F9", width: "device-width", initialScale: 1 };
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
   const viewer = await getViewer();

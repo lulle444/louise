@@ -18,7 +18,7 @@ export function SignalField({ className = "", opacity = 1 }: { className?: strin
     if (!ctx) return;
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const colors = ["#4F46E5", "#0F1A2B", "#4F46E5", "#5B6B7F"];
+    const colors = ["#2A5FE8", "#0A1F44", "#2A5FE8", "#5B6B7F"];
     const traces = Array.from({ length: 3 }, (_, i) => ({
       color: colors[i % colors.length],
       seed: Math.random() * 1000,
@@ -78,12 +78,12 @@ export function SignalField({ className = "", opacity = 1 }: { className?: strin
         const a = (1 - k) * 0.35;
         ctx.beginPath();
         ctx.arc(p.x * width, p.y * height, r, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(79, 70, 229, ${a.toFixed(3)})`;
+        ctx.strokeStyle = `rgba(42, 95, 232, ${a.toFixed(3)})`;
         ctx.lineWidth = 1;
         ctx.stroke();
         ctx.beginPath();
         ctx.arc(p.x * width, p.y * height, 1.6, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(79, 70, 229, ${(0.5 * (1 - k)).toFixed(3)})`;
+        ctx.fillStyle = `rgba(42, 95, 232, ${(0.5 * (1 - k)).toFixed(3)})`;
         ctx.fill();
       }
     };
