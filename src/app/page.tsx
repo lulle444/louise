@@ -73,9 +73,6 @@ export default async function HomePage() {
 
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-border">
-        <div className="grid-bg pointer-events-none absolute inset-0" aria-hidden />
-        <SignalField opacity={0.5} />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-bg" aria-hidden />
         <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:py-24">
           <div>
             <p className="eyebrow">The scoreboard for crypto calls</p>

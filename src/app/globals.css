@@ -52,10 +52,8 @@ html {
 }
 
 body {
-  background:
-    radial-gradient(1200px 600px at 15% -10%, rgba(79, 70, 229, 0.10), transparent 60%),
-    radial-gradient(900px 500px at 90% 0%, rgba(180, 83, 9, 0.06), transparent 60%),
-    var(--color-bg);
+  /* The base colour lives on <html>; the animated SiteBackdrop paints on top of it. */
+  background: transparent;
   color: var(--color-text);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -70,6 +68,55 @@ body {
   outline: 2px solid var(--color-cyan);
   outline-offset: 2px;
   border-radius: 6px;
+}
+
+/* Site-wide dynamic backdrop (see components/ui/SiteBackdrop) */
+.backdrop-blob {
+  position: absolute;
+  width: 58vmax;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  will-change: transform;
+}
+.backdrop-blob-a {
+  top: -28vmax;
+  left: -14vmax;
+  background: radial-gradient(closest-side, rgba(68, 51, 230, 0.16), rgba(68, 51, 230, 0.05) 55%, transparent 72%);
+  animation: drift-a 34s ease-in-out infinite;
+}
+.backdrop-blob-b {
+  top: -22vmax;
+  right: -20vmax;
+  background: radial-gradient(closest-side, rgba(180, 83, 9, 0.11), rgba(180, 83, 9, 0.03) 55%, transparent 72%);
+  animation: drift-b 42s ease-in-out infinite;
+}
+.backdrop-blob-c {
+  bottom: -30vmax;
+  left: 22vw;
+  background: radial-gradient(closest-side, rgba(21, 128, 61, 0.10), rgba(21, 128, 61, 0.03) 55%, transparent 72%);
+  animation: drift-c 48s ease-in-out infinite;
+}
+.backdrop-grid {
+  opacity: 0.55;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, black 30%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, black 30%, transparent 100%);
+}
+@keyframes drift-a {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  33% { transform: translate3d(9vw, 6vh, 0) scale(1.08); }
+  66% { transform: translate3d(-5vw, 12vh, 0) scale(0.95); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+@keyframes drift-b {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  33% { transform: translate3d(-8vw, 10vh, 0) scale(0.94); }
+  66% { transform: translate3d(4vw, 18vh, 0) scale(1.06); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+@keyframes drift-c {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(12vw, -10vh, 0) scale(1.1); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
 }
 
 .grid-bg {

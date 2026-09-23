@@ -3,6 +3,7 @@ import { IBM_Plex_Mono, Manrope } from "next/font/google";
 import "./globals.css";
 import { AppHeader } from "@/components/layout/AppHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { SiteBackdrop } from "@/components/ui/SiteBackdrop";
 import { APP_NAME, getAppUrl, isDemoMode, SUPPORTING_MESSAGE } from "@/lib/config";
 import { getViewer } from "@/lib/auth/session";
 
@@ -25,6 +26,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${sans.variable} ${mono.variable} h-full`}>
       <body className="flex min-h-full flex-col">
+        <SiteBackdrop />
         <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[100] focus:rounded-md focus:bg-cyan focus:px-3 focus:py-2 focus:text-white">
           Skip to content
         </a>
