@@ -128,10 +128,91 @@ body {
 }
 
 .card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 14px;
-  box-shadow: var(--shadow-card);
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(216, 223, 232, 0.9);
+  border-radius: 20px;
+  box-shadow: var(--shadow-card), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* Frosted panel for hero visuals and feature art */
+.glass {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.55));
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 24px 60px -30px rgba(15, 26, 43, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+/* Small glass chip used in feature art and floating labels */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 10px 24px -14px rgba(15, 26, 43, 0.4), inset 0 1px 0 rgba(255, 255, 255, 1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #4f3ff0, var(--color-cyan-deep));
+  color: #fff;
+  padding: 0.8rem 1.35rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.35) inset, 0 14px 28px -14px rgba(68, 51, 230, 0.7);
+  transition: transform 160ms ease, box-shadow 160ms ease, filter 160ms ease;
+}
+.btn-primary:hover { transform: translateY(-1px); filter: brightness(1.06); }
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(216, 223, 232, 0.95);
+  color: var(--color-text);
+  padding: 0.8rem 1.35rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  box-shadow: 0 10px 24px -18px rgba(15, 26, 43, 0.4);
+  transition: transform 160ms ease, border-color 160ms ease;
+}
+.btn-secondary:hover { transform: translateY(-1px); border-color: var(--color-border-strong); }
+
+/* Floating header */
+.header-pill {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 12px 34px -20px rgba(15, 26, 43, 0.35), inset 0 1px 0 rgba(255, 255, 255, 1);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+/* Gentle vertical bob for floating badges */
+.float-y { animation: float-y 6s ease-in-out infinite; }
+.float-y-slow { animation: float-y 8s ease-in-out infinite; animation-delay: -3s; }
+@keyframes float-y {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -8px, 0); }
+}
+
+/* Wavy contour lines behind the page */
+.backdrop-waves {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='220' viewBox='0 0 1600 220'%3E%3Cpath d='M0 110 C 200 40, 400 180, 600 110 S 1000 40, 1200 110 S 1500 180, 1600 110' fill='none' stroke='%230f1a2b' stroke-opacity='0.07' stroke-width='1.2'/%3E%3C/svg%3E");
+  background-size: 1600px 220px;
+  background-repeat: repeat;
+  opacity: 0.9;
+  mask-image: linear-gradient(to bottom, black 0%, black 60%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 60%, transparent 100%);
 }
 
 .card-hover {

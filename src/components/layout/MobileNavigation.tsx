@@ -36,7 +36,7 @@ export function MobileNavigation({ items, viewer, demo, xUrl, xHandle }: { items
         {open ? <X className="size-5" aria-hidden /> : <Menu className="size-5" aria-hidden />}
       </button>
       {open ? (
-        <div id={id} className="fixed inset-x-0 bottom-0 top-16 z-50 overflow-y-auto border-b border-border bg-bg p-4">
+        <div id={id} className="fixed inset-x-0 bottom-0 top-[4.5rem] z-50 overflow-y-auto border-b border-border bg-bg p-4">
           <nav className="flex flex-col gap-1" aria-label="Mobile">
             <NavLinks items={items} vertical onNavigate={() => setOpen(false)} />
             <NavLinks items={[{ href: "/about", label: "About" }, { href: "/token", label: "Token (planned)" }]} vertical onNavigate={() => setOpen(false)} />

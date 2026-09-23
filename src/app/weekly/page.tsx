@@ -54,7 +54,7 @@ export default async function SeasonPage() {
               </p>
             </div>
           </div>
-          {foundingOpen ? <Link href="/rounds" className="rounded-md bg-cyan px-4 py-2 text-sm font-semibold text-white hover:brightness-110">Make today’s call</Link> : null}
+          {foundingOpen ? <Link href="/rounds" className="rounded-full bg-cyan px-4 py-2 text-sm font-semibold text-white hover:brightness-110">Make today’s call</Link> : null}
         </section>
 
         {/* Week numbers */}
@@ -147,7 +147,7 @@ export default async function SeasonPage() {
             <p className="inline-flex items-center gap-2 font-semibold"><Share2 className="size-4 text-cyan" aria-hidden /> Post your receipts</p>
             <p className="mt-1 text-sm text-muted">Lock it or it didn’t happen. Share a locked Call Card before settlement and tag @{getXHandle()}.</p>
           </div>
-          <Link href="/rounds" className="rounded-md bg-cyan px-4 py-2 text-sm font-semibold text-white hover:brightness-110">Make today’s call</Link>
+          <Link href="/rounds" className="rounded-full bg-cyan px-4 py-2 text-sm font-semibold text-white hover:brightness-110">Make today’s call</Link>
         </section>
         <p className="text-xs text-muted">Educational forecasting game using virtual points. Track records are forecasting-game history, not investment performance.</p>
       </div>

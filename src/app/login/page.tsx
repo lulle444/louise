@@ -35,7 +35,7 @@ export default async function LoginPage(props: PageProps<"/login">) {
             <form action={demoSignIn}>
               <input type="hidden" name="kind" value="guest" />
               <input type="hidden" name="next" value={next} />
-              <button type="submit" className="w-full rounded-md bg-cyan px-4 py-2.5 text-sm font-semibold text-white hover:brightness-110" data-testid="demo-guest">Continue as guest</button>
+              <button type="submit" className="w-full rounded-full bg-cyan px-4 py-2.5 text-sm font-semibold text-white hover:brightness-110" data-testid="demo-guest">Continue as guest</button>
               <p className="mt-1 text-[11px] text-muted">Fresh account. Lock a forecast in today’s Round and watch the crowd reveal.</p>
             </form>
             <form action={demoSignIn}>

@@ -18,8 +18,8 @@ export const NAV_ITEMS = [
 
 export function AppHeader({ viewer, demo }: { viewer: Viewer | null; demo: boolean }) {
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-surface/85 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 sm:px-6">
+    <header className="sticky top-0 z-40 px-3 pt-3 sm:px-6">
+      <div className="header-pill mx-auto flex h-14 max-w-7xl items-center gap-4 rounded-full px-3 sm:px-5">
         <Link href="/" className="flex items-center gap-2.5" aria-label="Alphr home">
           <TallyMark size={30} />
           <Wordmark />
@@ -28,7 +28,7 @@ export function AppHeader({ viewer, demo }: { viewer: Viewer | null; demo: boole
           <NavLinks items={NAV_ITEMS} />
         </nav>
         <div className="ml-auto hidden items-center gap-2 md:flex">
-          <a href={getXUrl()} target="_blank" rel="noopener noreferrer" className="grid size-9 place-items-center rounded-md text-muted transition hover:bg-surface-2 hover:text-text" aria-label={`ALPHR on X (@${getXHandle()})`} title={`@${getXHandle()} on X`}>
+          <a href={getXUrl()} target="_blank" rel="noopener noreferrer" className="grid size-9 place-items-center rounded-full text-muted transition hover:bg-surface-2 hover:text-text" aria-label={`ALPHR on X (@${getXHandle()})`} title={`@${getXHandle()} on X`}>
             <XIcon className="size-4" />
           </a>
           <UserMenu viewer={viewer} />

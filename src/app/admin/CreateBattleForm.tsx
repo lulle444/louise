@@ -53,7 +53,7 @@ export function CreateBattleForm({ assets, aiProfiles, defaultOpensAt }: { asset
       </fieldset>
       <div className="sm:col-span-2 lg:col-span-4 flex flex-wrap items-center justify-between gap-3">
         <p className={`text-sm ${state.ok ? "text-bull" : "text-bear"}`} role={state.message ? "status" : undefined}>{state.message}</p>
-        <button type="submit" disabled={pending} className="rounded-md bg-cyan px-4 py-2 text-sm font-semibold text-white hover:brightness-110 disabled:opacity-60">{pending ? "Creating…" : "Create Round"}</button>
+        <button type="submit" disabled={pending} className="rounded-full bg-cyan px-4 py-2 text-sm font-semibold text-white hover:brightness-110 disabled:opacity-60">{pending ? "Creating…" : "Create Round"}</button>
       </div>
       <p className="sm:col-span-2 lg:col-span-4 text-[11px] text-muted">Times entered here are interpreted as UTC (a “Z” suffix is applied server-side).</p>
     </form>

@@ -23,7 +23,7 @@ export function Section({ eyebrow, title, description, action, children, classNa
 
 export function PageHeader({ eyebrow, title, description, children }: { eyebrow?: string; title: string; description?: ReactNode; children?: ReactNode }) {
   return (
-    <div className="border-b border-border bg-surface/30">
+    <div className="border-b border-border/60">
       <div className="mx-auto flex max-w-7xl flex-wrap items-end justify-between gap-4 px-4 py-8 sm:px-6 sm:py-10">
         <div className="max-w-2xl">
           {eyebrow ? <p className="eyebrow mb-2">{eyebrow}</p> : null}

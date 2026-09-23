@@ -194,7 +194,7 @@ export function PredictionComposer({ battle, asset, signals, viewerProfile, sign
       <div className="card p-5">
         <h2 className="text-base font-semibold">Make your call</h2>
         <p className="mt-1 text-sm text-muted">Sign in to lock a forecast for this Round. Calls are timestamped, immutable and scored when the Round settles.</p>
-        <a href={`/login?next=/rounds/${battle.id}`} className="mt-4 inline-flex rounded-md bg-cyan px-4 py-2 text-sm font-semibold text-white hover:brightness-110">Sign in to enter</a>
+        <a href={`/login?next=/rounds/${battle.id}`} className="mt-4 inline-flex rounded-full bg-cyan px-4 py-2 text-sm font-semibold text-white hover:brightness-110">Sign in to enter</a>
       </div>
     );
   }
@@ -229,7 +229,7 @@ export function PredictionComposer({ battle, asset, signals, viewerProfile, sign
           type="button"
           disabled={!valid || pending}
           onClick={() => setConfirming(true)}
-          className="inline-flex items-center justify-center gap-2 rounded-md bg-cyan px-5 py-2.5 text-sm font-semibold text-white shadow-glow-cyan transition enabled:hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none"
+          className="inline-flex items-center justify-center gap-2 rounded-full bg-cyan px-5 py-2.5 text-sm font-semibold text-white shadow-glow-cyan transition enabled:hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none"
           data-testid="lock-button"
         >
           <Lock className="size-4" aria-hidden /> Lock your call
@@ -253,7 +253,7 @@ export function PredictionComposer({ battle, asset, signals, viewerProfile, sign
             </div>
             <div className="mt-5 flex justify-end gap-2">
               <button type="button" onClick={() => setConfirming(false)} disabled={pending} className="rounded-md border border-border px-4 py-2 text-sm hover:bg-surface-2">Go back</button>
-              <button type="button" data-primary onClick={submit} disabled={pending} className="inline-flex items-center gap-2 rounded-md bg-cyan px-4 py-2 text-sm font-semibold text-white hover:brightness-110 disabled:opacity-60" data-testid="confirm-lock">
+              <button type="button" data-primary onClick={submit} disabled={pending} className="inline-flex items-center gap-2 rounded-full bg-cyan px-4 py-2 text-sm font-semibold text-white hover:brightness-110 disabled:opacity-60" data-testid="confirm-lock">
                 <Lock className="size-4" aria-hidden /> {pending ? "Locking…" : "Lock it"}
               </button>
             </div>
