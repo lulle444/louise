@@ -3,9 +3,10 @@ import Link from "next/link";
 import { getRepository } from "@/lib/data";
 import { getViewer } from "@/lib/auth/session";
 import { MIN_RANKED_BATTLES } from "@/lib/config";
-import { buildLeaderboard, loadArenaContext, type LeaderboardRange } from "@/lib/services/stats";
+import { buildAiLeaderboard, buildLeaderboard, loadArenaContext, type LeaderboardRange } from "@/lib/services/stats";
+import { AIProfileCard } from "@/components/arena/AIProfileCard";
 import { LeaderboardTable } from "@/components/profile/LeaderboardTable";
-import { PageHeader } from "@/components/ui/Section";
+import { PageHeader, Section } from "@/components/ui/Section";
 import { EmptyState } from "@/components/ui/States";
 
 export const dynamic = "force-dynamic";
@@ -25,6 +26,7 @@ export default async function LeaderboardPage(props: PageProps<"/leaderboard">) 
   const [repo, viewer] = await Promise.all([getRepository(), getViewer()]);
   const ctx = await loadArenaContext(repo);
   const rows = buildLeaderboard(ctx, { range, asset });
+  const machines = buildAiLeaderboard(ctx, { range, asset });
   const ranked = rows.filter((r) => r.ranked);
   const unranked = rows.filter((r) => !r.ranked);
   const href = (r: LeaderboardRange, a: string | null) => `/leaderboard?range=${r}${a ? `&asset=${a}` : ""}`;
@@ -47,7 +49,7 @@ export default async function LeaderboardPage(props: PageProps<"/leaderboard">) 
         </div>
         <div className="mt-6">
           {rows.length === 0 ? (
-            <EmptyState title="No settled forecasts in this scope" description="Try a wider time range or another asset." />
+            <EmptyState title="No ranked humans here yet" description="Make a call in today's Round and your name lands here once it settles." action={{ href: "/rounds", label: "Make your call" }} />
           ) : (
             <LeaderboardTable rows={rows} highlightUserId={viewer?.id ?? null} />
           )}
@@ -55,6 +57,23 @@ export default async function LeaderboardPage(props: PageProps<"/leaderboard">) 
             {ranked.length} ranked · {unranked.length} provisional (fewer than {MIN_RANKED_BATTLES} settled Rounds in scope; shown unranked with a provisional rating). Track records are forecasting-game history, not investment performance.
           </p>
         </div>
+        {machines.length > 0 && (
+          <Section eyebrow="The machines" title="AI analysts in this scope" description="ATLAS, PULSE and DRIFT call every Round. Beat their rating to prove you read the market better." className="!px-0 !pb-0 !pt-10">
+            <div className="grid gap-4 md:grid-cols-3">
+              {machines.map((a) => (
+                <AIProfileCard key={a.profile.id} profile={a.profile} accuracy={a.accuracy.accuracy} valid={a.accuracy.valid} streak={a.streak} rating={a.rating}>
+                  {a.recent.length > 0 && (
+                    <ul className="mt-3 flex gap-1" aria-label={`${a.profile.name} last results`}>
+                      {a.recent.map((p) => (
+                        <li key={p.id} className={`h-1.5 flex-1 rounded-full ${p.result === "correct" ? "bg-bull" : "bg-bear"}`} title={p.result} />
+                      ))}
+                    </ul>
+                  )}
+                </AIProfileCard>
+              ))}
+            </div>
+          </Section>
+        )}
       </div>
     </>
   );

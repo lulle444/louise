@@ -148,6 +148,45 @@ export function buildLeaderboard(ctx: ArenaContext, opts: { range: LeaderboardRa
   return [...ranked, ...unranked];
 }
 
+export interface AiLeaderboardRow {
+  profile: AIProfile;
+  accuracy: AccuracyStats;
+  streak: number;
+  rating: number;
+  recent: AIPrediction[];
+}
+
+/** The three AI profiles scored over the same scope as the human leaderboard, best rating first. */
+export function buildAiLeaderboard(ctx: ArenaContext, opts: { range: LeaderboardRange; asset?: string | null; now?: Date }): AiLeaderboardRow[] {
+  const now = opts.now ?? new Date();
+  const cutoff = opts.range === "week" ? now.getTime() - 7 * 86_400_000 : opts.range === "month" ? now.getTime() - 30 * 86_400_000 : null;
+  const battleById = new Map(ctx.battles.map((b) => [b.id, b]));
+  const assetId = opts.asset ? ctx.assets.find((a) => a.symbol === opts.asset)?.id ?? null : null;
+  const inScope = (p: AIPrediction) => {
+    const b = battleById.get(p.battleId);
+    if (!b) return false;
+    if (assetId && b.assetId !== assetId) return false;
+    if (cutoff !== null && Date.parse(b.endsAt) < cutoff) return false;
+    return true;
+  };
+  return ctx.aiProfiles
+    .filter((profile) => profile.active)
+    .map((profile) => {
+      const preds = ctx.aiPredictions.filter((p) => p.aiProfileId === profile.id && inScope(p));
+      const acc = computeAccuracy(preds);
+      const ordered = preds
+        .filter((p) => p.result === "correct" || p.result === "incorrect")
+        .sort((a, b) => Date.parse(battleById.get(b.battleId)!.endsAt) - Date.parse(battleById.get(a.battleId)!.endsAt));
+      let streak = 0;
+      for (const p of ordered) {
+        if (p.result === "correct") streak++;
+        else break;
+      }
+      return { profile, accuracy: acc, streak, rating: arenaRating(acc.accuracy, acc.valid, streak), recent: ordered.slice(0, 5) };
+    })
+    .sort((a, b) => b.rating - a.rating || (b.accuracy.accuracy ?? 0) - (a.accuracy.accuracy ?? 0));
+}
+
 export interface HumansVsAiSummary {
   humanAccuracy: AccuracyStats;
   aiAccuracy: AccuracyStats;
