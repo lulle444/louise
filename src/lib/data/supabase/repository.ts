@@ -78,7 +78,7 @@ function battleToRow(b: Partial<Omit<Battle, "id" | "createdAt">>): Row {
   if (b.settlementSource !== undefined) row.settlement_source = b.settlementSource;
   if (b.settlementError !== undefined) row.settlement_error = b.settlementError;
   if (b.aiProfileIds !== undefined) row.ai_profile_ids = b.aiProfileIds;
-  if (b.createdBy !== undefined) row.created_by = b.createdBy;
+  if (b.createdBy !== undefined) row.created_by = b.createdBy && isUuid(b.createdBy) ? b.createdBy : null;
   row.updated_at = new Date().toISOString();
   return row;
 }
