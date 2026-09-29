@@ -37,6 +37,8 @@ export default async function HomePage() {
   const live = summaries.find((s) => s.status === "open") ?? summaries.find((s) => s.status === "locked") ?? summaries.find((s) => s.status === "upcoming") ?? null;
   const settled = summaries.filter((s) => s.status === "settled").slice(0, 6);
   const hva = buildHumansVsAi(ctx);
+  const humansScored = hva.humanAccuracy.accuracy !== null;
+  const settledRounds = ctx.battles.filter((b) => b.status === "settled").length;
   const leaderboard = buildLeaderboard(ctx, { range: "all" }).filter((r) => r.ranked).slice(0, 5);
 
   let livePrice: { price: number } | null = null;
@@ -64,9 +66,9 @@ export default async function HomePage() {
       <div>
         <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-6 gap-y-1 px-4 pt-5 font-mono text-[11px] uppercase tracking-wider text-muted sm:px-6">
           <span className="inline-flex items-center gap-1.5"><Trophy className="size-3.5 text-cyan" aria-hidden /> {demo ? "Preview" : getSeason().name}</span>
-          <span>Humans <span className="font-semibold text-cyan">{formatAccuracy(hva.humanAccuracy.accuracy)}</span></span>
+          <span>Humans <span className="font-semibold text-cyan">{humansScored ? formatAccuracy(hva.humanAccuracy.accuracy) : "Your move"}</span></span>
           <span>AI <span className="font-semibold text-violet">{formatAccuracy(hva.aiAccuracy.accuracy)}</span></span>
-          <span>{hva.battleWins.humans + hva.battleWins.ai + hva.battleWins.ties} rounds settled</span>
+          <span>{settledRounds} rounds settled</span>
           {live ? <span className="ml-auto inline-flex items-center gap-1.5"><span className={`size-1.5 rounded-full ${live.status === "open" ? "bg-cyan signal-pulse" : "bg-neutral"}`} aria-hidden /> {live.asset.symbol} round {live.status === "open" ? "open" : live.status} · {live.status === "open" ? "locks in" : live.status === "upcoming" ? "opens in" : "settles in"} <BattleCountdown target={live.status === "open" ? live.battle.locksAt : live.status === "upcoming" ? live.battle.opensAt : live.battle.endsAt} className="text-text" /></span> : null}
         </div>
       </div>
@@ -175,8 +177,8 @@ export default async function HomePage() {
             {/* Floating stat card */}
             <div className="card float-y absolute left-0 top-0 hidden w-60 p-4 shadow-glow-cyan lg:block" aria-label="Humans vs AI so far">
               <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">Humans vs AI</p>
-              <p className="num mt-2 text-3xl font-semibold leading-none"><span className="text-cyan">{formatAccuracy(hva.humanAccuracy.accuracy)}</span> <span className="text-base text-muted">vs</span> <span className="text-violet">{formatAccuracy(hva.aiAccuracy.accuracy)}</span></p>
-              <p className="mt-2 text-xs text-muted">Accuracy across {hva.battleWins.humans + hva.battleWins.ai + hva.battleWins.ties} settled Rounds</p>
+              <p className="num mt-2 text-3xl font-semibold leading-none"><span className="text-cyan">{humansScored ? formatAccuracy(hva.humanAccuracy.accuracy) : "You?"}</span> <span className="text-base text-muted">vs</span> <span className="text-violet">{formatAccuracy(hva.aiAccuracy.accuracy)}</span></p>
+              <p className="mt-2 text-xs text-muted">{humansScored ? `Accuracy across ${settledRounds} settled Rounds` : "The machines have a head start. Make a call and put humans on the board."}</p>
             </div>
           </div>
         </div>
