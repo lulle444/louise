@@ -21,7 +21,7 @@ export function AIProfileCard({ profile, accuracy, valid, streak, rating, childr
       <p className="mt-2 font-mono text-[10px] uppercase tracking-wider text-dim">Rule-based simulation · {profile.strategyVersion}</p>
       {accuracy !== undefined ? (
         <dl className="mt-4 grid grid-cols-3 gap-2 border-t border-border pt-4 text-center">
-          <div><dt className="text-[10px] uppercase tracking-wider text-muted">Accuracy</dt><dd className="num mt-1 text-lg font-semibold">{formatAccuracy(accuracy)}</dd></div>
+          <div><dt className="text-[10px] uppercase tracking-wider text-muted">Accuracy</dt><dd className="num mt-1 text-lg font-semibold">{formatAccuracy(accuracy, "Pending")}</dd></div>
           <div><dt className="text-[10px] uppercase tracking-wider text-muted">Settled</dt><dd className="num mt-1 text-lg font-semibold">{valid ?? 0}</dd></div>
           <div><dt className="text-[10px] uppercase tracking-wider text-muted">Rating</dt><dd className="num mt-1 text-lg font-semibold">{rating?.toFixed(1) ?? "—"}</dd></div>
         </dl>

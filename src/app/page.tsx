@@ -67,7 +67,7 @@ export default async function HomePage() {
         <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-6 gap-y-1 px-4 pt-5 font-mono text-[11px] uppercase tracking-wider text-muted sm:px-6">
           <span className="inline-flex items-center gap-1.5"><Trophy className="size-3.5 text-cyan" aria-hidden /> {demo ? "Preview" : getSeason().name}</span>
           <span>Humans <span className="font-semibold text-cyan">{humansScored ? formatAccuracy(hva.humanAccuracy.accuracy) : "Your move"}</span></span>
-          <span>AI <span className="font-semibold text-violet">{formatAccuracy(hva.aiAccuracy.accuracy)}</span></span>
+          <span>AI <span className="font-semibold text-violet">{formatAccuracy(hva.aiAccuracy.accuracy, "Pending")}</span></span>
           <span>{settledRounds} rounds settled</span>
           {live ? <span className="ml-auto inline-flex items-center gap-1.5"><span className={`size-1.5 rounded-full ${live.status === "open" ? "bg-cyan signal-pulse" : "bg-neutral"}`} aria-hidden /> {live.asset.symbol} round {live.status === "open" ? "open" : live.status} · {live.status === "open" ? "locks in" : live.status === "upcoming" ? "opens in" : "settles in"} <BattleCountdown target={live.status === "open" ? live.battle.locksAt : live.status === "upcoming" ? live.battle.opensAt : live.battle.endsAt} className="text-text" /></span> : null}
         </div>
@@ -167,7 +167,7 @@ export default async function HomePage() {
                   <span key={a.profile.id} className="chip px-2.5 py-1.5 text-[11px] font-semibold">
                     <span className="size-2 rounded-full" style={{ background: a.profile.accentColor }} aria-hidden />
                     {a.profile.name}
-                    <span className="num font-normal text-muted">{formatAccuracy(a.accuracy.accuracy)}</span>
+                    <span className="num font-normal text-muted">{formatAccuracy(a.accuracy.accuracy, "new")}</span>
                   </span>
                 ))}
                 <span className="ml-auto font-mono text-[10px] uppercase tracking-wider text-muted">Rule-based AI · same clock</span>
@@ -188,9 +188,9 @@ export default async function HomePage() {
       <section className="mx-auto max-w-7xl px-4 sm:px-6" aria-label="Key numbers">
         <div className="card grid divide-y divide-border sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-4 lg:divide-x">
           {[
-            { label: "Rounds settled", value: String(hva.battleWins.humans + hva.battleWins.ai + hva.battleWins.ties), hint: `Humans ${hva.battleWins.humans} · AI ${hva.battleWins.ai} · Ties ${hva.battleWins.ties}` },
-            { label: "Human accuracy", value: formatAccuracy(hva.humanAccuracy.accuracy), hint: `${hva.humanAccuracy.correct}/${hva.humanAccuracy.valid} calls correct`, accent: "text-cyan" },
-            { label: "AI accuracy", value: formatAccuracy(hva.aiAccuracy.accuracy), hint: `${hva.aiAccuracy.correct}/${hva.aiAccuracy.valid} calls correct`, accent: "text-violet" },
+            { label: "Rounds settled", value: String(settledRounds), hint: humansScored ? `Humans ${hva.battleWins.humans} · AI ${hva.battleWins.ai} · Ties ${hva.battleWins.ties}` : "Humans join from the next settled Round" },
+            { label: "Human accuracy", value: formatAccuracy(hva.humanAccuracy.accuracy, "Your move"), hint: humansScored ? `${hva.humanAccuracy.correct}/${hva.humanAccuracy.valid} calls correct` : "Make a call and set the first human score", accent: "text-cyan" },
+            { label: "AI accuracy", value: formatAccuracy(hva.aiAccuracy.accuracy, "Pending"), hint: `${hva.aiAccuracy.correct}/${hva.aiAccuracy.valid} calls correct`, accent: "text-violet" },
             { label: "Calls locked", value: String(ctx.predictions.length), hint: `${ctx.profiles.length} analysts on the board` },
           ].map((k) => (
             <div key={k.label} className="px-6 py-5">
@@ -255,7 +255,7 @@ export default async function HomePage() {
               <div className="absolute inset-x-6 top-1/2 flex -translate-y-1/2 items-center justify-between">
                 <div className="chip flex-col items-start gap-0.5 px-4 py-3">
                   <span className="font-mono text-[10px] uppercase tracking-wider text-muted">You</span>
-                  <span className="num text-xl font-semibold text-cyan">{formatAccuracy(hva.humanAccuracy.accuracy)}</span>
+                  <span className="num text-xl font-semibold text-cyan">{formatAccuracy(hva.humanAccuracy.accuracy, "You?")}</span>
                 </div>
                 <span className="font-mono text-xs tracking-[0.3em] text-muted">VS</span>
                 <div className="flex flex-col gap-1.5">
@@ -404,8 +404,8 @@ export default async function HomePage() {
               <Link href="/humans-vs-ai" className="btn-ghost-light">See the scoreboard</Link>
             </div>
             <div className="mx-auto mt-8 flex max-w-2xl flex-wrap items-center justify-center gap-x-6 gap-y-2 font-mono text-[11px] uppercase tracking-wider text-white/55">
-              <span>Humans <span className="text-white">{formatAccuracy(hva.humanAccuracy.accuracy)}</span></span>
-              <span>AI <span className="text-white">{formatAccuracy(hva.aiAccuracy.accuracy)}</span></span>
+              <span>Humans <span className="text-white">{formatAccuracy(hva.humanAccuracy.accuracy, "Your move")}</span></span>
+              <span>AI <span className="text-white">{formatAccuracy(hva.aiAccuracy.accuracy, "Pending")}</span></span>
               <span>{ctx.predictions.length} calls locked</span>
               <span>Virtual points only</span>
             </div>

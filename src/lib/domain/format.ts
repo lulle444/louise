@@ -14,8 +14,9 @@ export function formatPercent(value: number | null | undefined, decimals = 2, si
   return `${sign}${value.toFixed(decimals)}%`;
 }
 
-export function formatAccuracy(accuracy: number | null | undefined): string {
-  if (accuracy === null || accuracy === undefined) return "—";
+/** `empty` is shown when nothing has settled yet (defaults to a dash). */
+export function formatAccuracy(accuracy: number | null | undefined, empty = "—"): string {
+  if (accuracy === null || accuracy === undefined) return empty;
   return `${Math.round(accuracy * 100)}%`;
 }
 

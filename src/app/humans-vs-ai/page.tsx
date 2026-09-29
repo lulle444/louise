@@ -20,6 +20,8 @@ export default async function HumansVsAiPage() {
   const repo = await getRepository();
   const ctx = await loadArenaContext(repo);
   const s = buildHumansVsAi(ctx);
+  const humansScored = s.humanAccuracy.accuracy !== null;
+  const settledRounds = ctx.battles.filter((b) => b.status === "settled").length;
   return (
     <>
       <PageHeader eyebrow="Humans vs AI" title="Who reads crypto markets best?" description={<>Human analysts, three simulated AI profiles and the crowd forecast the same Rounds. Everything below is derived from settled results. <Link href="/methodology" className="text-cyan hover:underline">How scoring works →</Link></>} />
@@ -27,9 +29,9 @@ export default async function HumansVsAiPage() {
         <Scoreboard summary={s} />
 
         <div className="grid gap-4 sm:grid-cols-3">
-          <StatCard label="Rounds decided" value={s.battleWins.humans + s.battleWins.ai + s.battleWins.ties} hint={`Humans ${s.battleWins.humans} · AI ${s.battleWins.ai} · Ties ${s.battleWins.ties}`} />
-          <StatCard label="Best-performing signal" value={s.bestSignal?.name ?? "—"} hint={s.bestSignal ? `${formatAccuracy(s.bestSignal.accuracy)} accurate across ${s.bestSignal.uses} settled human forecasts` : "Needs at least five settled uses"} accent="text-cyan" />
-          <StatCard label="Human vs AI gap (30d)" value={s.human30d.accuracy !== null && s.ai30d.accuracy !== null ? formatPercent((s.human30d.accuracy - s.ai30d.accuracy) * 100, 0) : "—"} hint="Positive favours humans" accent={s.human30d.accuracy !== null && s.ai30d.accuracy !== null && s.human30d.accuracy >= s.ai30d.accuracy ? "text-cyan" : "text-violet"} />
+          <StatCard label="Rounds settled" value={settledRounds} hint={humansScored ? `Humans ${s.battleWins.humans} · AI ${s.battleWins.ai} · Ties ${s.battleWins.ties}` : "Humans join from the next settled Round"} />
+          <StatCard label="Best-performing signal" value={s.bestSignal?.name ?? "Not yet"} hint={s.bestSignal ? `${formatAccuracy(s.bestSignal.accuracy)} accurate across ${s.bestSignal.uses} settled human forecasts` : "Needs at least five settled uses"} accent="text-cyan" />
+          <StatCard label="Human vs AI gap (30d)" value={s.human30d.accuracy !== null && s.ai30d.accuracy !== null ? formatPercent((s.human30d.accuracy - s.ai30d.accuracy) * 100, 0) : "Your move"} hint={humansScored ? "Positive favours humans" : "Appears once a human call settles"} accent={s.human30d.accuracy !== null && s.ai30d.accuracy !== null && s.human30d.accuracy >= s.ai30d.accuracy ? "text-cyan" : "text-violet"} />
         </div>
 
         <section className="card p-5" aria-labelledby="trend-heading">
@@ -66,8 +68,8 @@ export default async function HumansVsAiPage() {
                     </Link>
                     <DirectionPill direction={r.battle.outcome} size="sm" />
                     <span className={`num text-xs ${r.change !== null && r.change > 0 ? "text-bull" : r.change !== null && r.change < 0 ? "text-bear" : "text-neutral"}`}>{formatPercent(r.change)}</span>
-                    <span className="num w-24 text-right text-xs text-muted">H {formatAccuracy(r.humanCorrectShare)} · AI {formatAccuracy(r.aiCorrectShare)}</span>
-                    <span className={`rounded-full px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider ${r.winner === "humans" ? "bg-cyan/15 text-cyan" : r.winner === "ai" ? "bg-violet/15 text-violet" : "bg-surface-2 text-muted"}`}>{r.winner === "humans" ? "Humans" : r.winner === "ai" ? "AI" : r.winner}</span>
+                    <span className="num w-24 text-right text-xs text-muted">H {formatAccuracy(r.humanCorrectShare, "no calls")} · AI {formatAccuracy(r.aiCorrectShare, "n/a")}</span>
+                    <span className={`rounded-full px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider ${r.winner === "humans" ? "bg-cyan/15 text-cyan" : r.winner === "ai" ? "bg-violet/15 text-violet" : "bg-surface-2 text-muted"}`}>{r.winner === "humans" ? "Humans" : r.winner === "ai" ? "AI" : r.winner === "void" && r.humanCorrectShare === null ? "AI only" : r.winner}</span>
                   </li>
                 ))}
               </ul>

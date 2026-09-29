@@ -59,11 +59,11 @@ export default async function SeasonPage() {
 
         {/* Week numbers */}
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-5">
-          <StatCard label="Humans · this week" value={formatAccuracy(recap.humanAccuracy)} accent="text-cyan" hint={`${recap.weekWins.humans} Rounds won`} />
-          <StatCard label="AI · this week" value={formatAccuracy(recap.aiAccuracy)} accent="text-violet" hint={`${recap.weekWins.ai} Rounds won · ${recap.weekWins.ties} ties`} />
+          <StatCard label="Humans · this week" value={formatAccuracy(recap.humanAccuracy, "Your move")} accent="text-cyan" hint={`${recap.weekWins.humans} Rounds won`} />
+          <StatCard label="AI · this week" value={formatAccuracy(recap.aiAccuracy, "Pending")} accent="text-violet" hint={`${recap.weekWins.ai} Rounds won · ${recap.weekWins.ties} ties`} />
           <StatCard label="Rounds settled" value={recap.battlesSettled} hint={<>since <LocalTime iso={recap.weekStart} /></>} />
           <StatCard label="Forecasts locked" value={recap.forecastsLocked} hint={`${recap.activeAnalysts} active analysts`} />
-          <StatCard label="Season score" value={`${formatAccuracy(s.humanAccuracy.accuracy)} · ${formatAccuracy(s.aiAccuracy.accuracy)}`} hint="Humans · AI, all settled Rounds" />
+          <StatCard label="Season score" value={`${formatAccuracy(s.humanAccuracy.accuracy, "You?")} · ${formatAccuracy(s.aiAccuracy.accuracy, "Pending")}`} hint="Humans · AI, all settled Rounds" />
         </div>
 
         <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr]">

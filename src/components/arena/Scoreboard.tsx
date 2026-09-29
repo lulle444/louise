@@ -12,27 +12,31 @@ export function Scoreboard({ summary, compact = false }: { summary: HumansVsAiSu
       <div className="grid grid-cols-[1fr_auto_1fr] items-stretch">
         <div className={`p-5 ${lead === "humans" ? "bg-cyan/5" : ""}`}>
           <p className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider text-muted"><Users className="size-3.5 text-cyan" aria-hidden /> Humans</p>
-          <p className="num mt-2 text-4xl font-semibold text-text sm:text-5xl">{formatAccuracy(h.accuracy)}</p>
-          <p className="num mt-1 text-xs text-muted">{h.correct}/{h.valid} correct · {summary.battleWins.humans} Rounds won</p>
+          <p className="num mt-2 text-4xl font-semibold text-text sm:text-5xl">{formatAccuracy(h.accuracy, "You?")}</p>
+          {h.valid > 0 ? (
+            <p className="num mt-1 text-xs text-muted">{h.correct}/{h.valid} correct · {summary.battleWins.humans} Rounds won</p>
+          ) : (
+            <p className="mt-1 text-xs text-muted">No settled human calls yet. <Link href="/rounds" className="text-cyan hover:underline">Make the first →</Link></p>
+          )}
         </div>
         <div className="grid place-items-center border-x border-border px-3 font-mono text-xs uppercase tracking-[0.2em] text-dim sm:px-5">vs</div>
         <div className={`p-5 text-right ${lead === "ai" ? "bg-violet/5" : ""}`}>
           <p className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider text-muted">AI analysts <Bot className="size-3.5 text-violet" aria-hidden /></p>
-          <p className="num mt-2 text-4xl font-semibold text-violet sm:text-5xl">{formatAccuracy(a.accuracy)}</p>
+          <p className="num mt-2 text-4xl font-semibold text-violet sm:text-5xl">{formatAccuracy(a.accuracy, "Pending")}</p>
           <p className="num mt-1 text-xs text-muted">{a.correct}/{a.valid} correct · {summary.battleWins.ai} Rounds won</p>
         </div>
       </div>
       {!compact ? (
         <div className="grid grid-cols-2 gap-px border-t border-border bg-border sm:grid-cols-4">
           {[
-            { label: "Humans · 7d", v: summary.human7d, c: "text-cyan" },
-            { label: "AI · 7d", v: summary.ai7d, c: "text-violet" },
-            { label: "Humans · 30d", v: summary.human30d, c: "text-cyan" },
-            { label: "AI · 30d", v: summary.ai30d, c: "text-violet" },
+            { label: "Humans · 7d", v: summary.human7d, c: "text-cyan", empty: "Your move" },
+            { label: "AI · 7d", v: summary.ai7d, c: "text-violet", empty: "Pending" },
+            { label: "Humans · 30d", v: summary.human30d, c: "text-cyan", empty: "Your move" },
+            { label: "AI · 30d", v: summary.ai30d, c: "text-violet", empty: "Pending" },
           ].map((x) => (
             <div key={x.label} className="bg-surface p-3">
               <p className="text-[10px] uppercase tracking-wider text-muted">{x.label}</p>
-              <p className={`num mt-1 text-lg font-semibold ${x.c}`}>{formatAccuracy(x.v.accuracy)} <span className="text-xs font-normal text-muted">({x.v.valid})</span></p>
+              <p className={`num mt-1 text-lg font-semibold ${x.c}`}>{formatAccuracy(x.v.accuracy, x.empty)} <span className="text-xs font-normal text-muted">({x.v.valid})</span></p>
             </div>
           ))}
         </div>
