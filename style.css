@@ -196,6 +196,27 @@ a { color: inherit; }
 }
 .service-box:hover .read-more { color: var(--gold); }
 
+.phone-link {
+  display: inline-flex;
+  flex-direction: column;
+  margin-top: 12px;
+  padding: 14px 24px;
+  border-radius: var(--radius);
+  background: var(--navy);
+  color: #fff;
+  text-decoration: none;
+  box-shadow: var(--shadow);
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+.phone-link:hover { background: var(--navy-deep); transform: translateY(-1px); }
+.phone-label { font-size: 0.82rem; color: var(--gold-soft); }
+.phone-number {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
 /* ---------- subpages ---------- */
 .page-head {
   padding: 64px 0 36px;
@@ -270,6 +291,8 @@ a { color: inherit; }
   padding: 26px 0;
   font-size: 0.85rem;
 }
+.site-footer a { color: #fff; text-decoration: none; }
+.site-footer a:hover { text-decoration: underline; }
 .footer-inner {
   display: flex;
   justify-content: space-between;
